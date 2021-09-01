@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkingHoursTypesTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateWorkingHoursTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('working_hours_types', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('province_id');
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by');
+            $table->string('name');
+            $table->char('status', 1);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
@@ -26,6 +32,6 @@ class CreateWorkingHoursTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('working_hours_types');
+        Schema::dropIfExists('cities');
     }
 }

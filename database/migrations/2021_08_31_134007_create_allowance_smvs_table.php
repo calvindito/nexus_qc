@@ -15,7 +15,12 @@ class CreateAllowanceSmvsTable extends Migration
     {
         Schema::create('allowance_smvs', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

@@ -15,7 +15,13 @@ class CreateSizesTable extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by');
+            $table->string('name');
+            $table->char('type', 1);
+            $table->char('status', 1);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

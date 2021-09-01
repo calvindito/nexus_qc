@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductTypeDetailsTable extends Migration
+class CreateProvincesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateProductTypeDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_type_details', function (Blueprint $table) {
+        Schema::create('provinces', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('country_id');
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by');
+            $table->string('name');
+            $table->char('status', 1);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
@@ -26,6 +32,6 @@ class CreateProductTypeDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_type_details');
+        Schema::dropIfExists('provinces');
     }
 }

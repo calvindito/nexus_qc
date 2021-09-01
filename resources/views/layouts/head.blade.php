@@ -13,4 +13,5 @@
 	<script src="{{ asset('template/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
+	<script src="{{ asset('template/plugins/custom.js') }}"></script>
 </head>

@@ -1,26 +1,13 @@
-<!-- Main content -->
 <div class="content-wrapper">
-
-	<!-- Main navbar -->
-	<div class="navbar navbar-expand-lg navbar-light">
+	<div class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding:4.7px;">
 		<div class="d-flex flex-1 d-lg-none">
 			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
 				<i class="icon-paragraph-justify3"></i>
 			</button>
-
-			<button data-target="#navbar-search" type="button" class="navbar-toggler" data-toggle="collapse">
-				<i class="icon-search4"></i>
-			</button>
 		</div>
-
 		<div class="navbar-collapse collapse flex-lg-1 order-2 order-lg-1" id="navbar-search">
 			<div class="navbar-search d-flex align-items-center py-2 py-lg-0">
-				<div class="form-group-feedback form-group-feedback-left flex-grow-1">
-					<input type="text" class="form-control" placeholder="Search">
-					<div class="form-control-feedback">
-						<i class="icon-search4 opacity-50"></i>
-					</div>
-				</div>
+				<div class="ml-3">{{ date('Y-m-d, H:i A') }}</div>
 			</div>
 		</div>
 

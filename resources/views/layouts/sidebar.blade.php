@@ -22,7 +22,7 @@
 			<div class="sidebar-content">
 				<div class="sidebar-section sidebar-section-body user-menu-vertical text-center">
 					<div class="card-img-actions d-inline-block">
-						<img class="img-fluid rounded-circle" src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" width="80" height="80" alt="">
+						<img class="img-fluid rounded-circle" src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" width="50" height="50" alt="">
 						<div class="card-img-actions-overlay card-img rounded-circle">
 							<a href="#" class="btn btn-white btn-icon btn-sm rounded-pill">
 								<i class="icon-pencil"></i>
@@ -69,77 +69,77 @@
 							<i class="icon-menu" title="Main Menu"></i>
 						</li>
 						<li class="nav-item">
-							<a href="{{ url('dashboard') }}" class="nav-link">
+							<a href="{{ url('dashboard') }}" class="nav-link {{ Request::segment(1) == 'dashboard' ? 'active' : '' }}">
 								<i class="icon-home4"></i>
 								<span>Dashboard</span>
 							</a>
 						</li>
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' ? 'nav-item-expanded nav-item-open' : '' }}">
 							<a href="#" class="nav-link">
 								<i class="icon-archive"></i> 
 								<span>Master Data</span>
 							</a>
 							<ul class="nav nav-group-sub" data-submenu-title="General pages">
-								<li class="nav-item nav-item-submenu">
+								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' ? 'nav-item-expanded nav-item-open' : '' }}">
 									<a href="#" class="nav-link">Global</a>
 									<ul class="nav nav-group-sub">
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Company</a>
+											<a href="{{ url('master_data/global/company') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'company' ? 'active' : '' }}">Company</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Allowance SMV</a>
+											<a href="{{ url('master_data/global/allowance_smv') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'allowance_smv' ? 'active' : '' }}">Allowance SMV</a>
 										</li>
 									</ul>
 								</li>
-								<li class="nav-item nav-item-submenu">
+								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' ? 'nav-item-expanded nav-item-open' : '' }}">
 									<a href="#" class="nav-link">General</a>
 									<ul class="nav nav-group-sub">
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Group Defect</a>
+											<a href="{{ url('master_data/general/group_defect') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'group_defect' ? 'active' : '' }}">Group Defect</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Class Product</a>
+											<a href="{{ url('master_data/general/class_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'class_product' ? 'active' : '' }}">Class Product</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Gender</a>
+											<a href="{{ url('master_data/general/group_defect') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'gender' ? 'active' : '' }}">Gender</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Group Size</a>
+											<a href="{{ url('master_data/general/group_size') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'group_size' ? 'active' : '' }}">Group Size</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Type Product</a>
+											<a href="{{ url('master_data/general/type_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'type_product' ? 'active' : '' }}">Type Product</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Type Product Detail</a>
+											<a href="{{ url('master_data/general/type_product_detail') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'type_product_detail' ? 'active' : '' }}">Type Product Detail</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Buyer</a>
+											<a href="{{ url('master_data/general/buyer') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'buyer' ? 'active' : '' }}">Buyer</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Brand</a>
+											<a href="{{ url('master_data/general/brand') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'brand' ? 'active' : '' }}">Brand</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Fabric</a>
+											<a href="{{ url('master_data/general/fabric') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'fabric' ? 'active' : '' }}">Fabric</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Color</a>
+											<a href="{{ url('master_data/general/color') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'color' ? 'active' : '' }}">Color</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Style</a>
+											<a href="{{ url('master_data/general/style') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'style' ? 'active' : '' }}">Style</a>
 										</li>
 									</ul>
 								</li>
-								<li class="nav-item nav-item-submenu">
+								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' ? 'nav-item-expanded nav-item-open' : '' }}">
 									<a href="#" class="nav-link">Working Hours</a>
 									<ul class="nav nav-group-sub">
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Type</a>
+											<a href="{{ url('master_data/working_hours/type') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'type' ? 'active' : '' }}">Type</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Chart</a>
+											<a href="{{ url('master_data/working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'chart' ? 'active' : '' }}">Chart</a>
 										</li>
 										<li class="nav-item">
-											<a href="blog_classic_v.html" class="nav-link">Schedule</a>
+											<a href="{{ url('master_data/working_hours/schedule') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'schedule' ? 'active' : '' }}">Schedule</a>
 										</li>
 									</ul>
 								</li>
@@ -157,11 +157,6 @@
 							</ul>
 						</li> --}}
 					</ul>
-				</div>
-			</div>
-			<div class="sidebar-section sidebar-section-body sidebar-resize-hide bg-dark-100">				
-				<div class="d-flex">
-					<a href="#" class="btn btn-danger btn-sm col-12">Logout</a>
 				</div>
 			</div>
 		</div>
