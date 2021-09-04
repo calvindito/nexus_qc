@@ -5,7 +5,7 @@
 				<div class="navbar-brand flex-fill wmin-0">
 					<a href="index.html" class="d-inline-block">
 						<img src="{{ asset('website/logo.png') }}" class="img-thumbnail sidebar-resize-hide" alt="">
-						<img src="{{ asset('website/logo.png') }}" class="img-thumbnail sidebar-resize-show" alt="">
+						<img src="{{ asset('website/icon.png') }}" class="ml-2 sidebar-resize-show" alt="">
 					</a>
 				</div>
 				<ul class="navbar-nav align-self-center ml-auto sidebar-resize-hide">

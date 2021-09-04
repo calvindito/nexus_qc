@@ -35,11 +35,58 @@
    </div>
    <div class="content">
       <div class="card">
-         <div class="card-header">
-            <h5 class="card-title">List Data</h5>
-         </div>
          <div class="card-body">
-
+            <table class="table table-bordered table-striped table-hover display nowrap w-100" id="datatable_serverside">
+               <thead class="bg-primary text-white">
+                  <tr class="text-center">
+                     <th>No</th>
+                     <th>Code</th>
+                     <th>Major Defect List</th>
+                     <th>Status</th>
+                     <th>Modified By</th>
+                     <th>Date Created</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+            </table>
          </div>
       </div>
    </div>
+
+<script>
+   $(function() {
+      loadDataTable();
+   });
+
+   function loadDataTable() {
+      $('#datatable_serverside').DataTable({
+         serverSide: true,
+         processing: true,
+         deferRender: true,
+         destroy: true,
+         scrollX: true,
+         iDisplayInLength: 10,
+         order: [[0, 'asc']],
+         ajax: {
+            url: '{{ url("master_data/general/group_defect/datatable") }}',
+            type: 'GET',
+            error: function() {
+               swalInit.fire({
+                  title: 'Server Error',
+                  text: 'Please contact developer',
+                  icon: 'error'
+               });
+            }
+         },
+         columns: [
+            { name: 'id', searchable: false, className: 'text-center align-middle' },
+            { name: 'code', className: 'text-center align-middle' },
+            { name: 'name', className: 'text-center align-middle' },
+            { name: 'status', orderable: false, searchable: false, className: 'text-center align-middle' },
+            { name: 'updated_by', className: 'text-center align-middle' },
+            { name: 'created_at', searchable: false, className: 'text-center align-middle' },
+            { name: 'action', searchable: false, orderable: false, className: 'text-center align-middle' }
+         ]
+      });
+   }
+</script>

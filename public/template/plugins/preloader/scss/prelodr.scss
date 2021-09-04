@@ -1,0 +1,174 @@
+// Prelodr settings
+// -> You can customize styles on demand here.
+
+$prelodr: '.prelodr';
+$prelodr-timing: 2.5s;
+$prelodr-color-green: #0f9d58;
+$prelodr-color-red: #da4733;
+$prelodr-color-blue: #1d6fee;
+$prelodr-color-yellow: #fdba2c;
+$prelodr-overlay-color: rgba(225, 225, 225, 0.75);
+$prelodr-zindex: 100;
+
+#{$prelodr} {
+  position: fixed;
+  display: table;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: $prelodr-overlay-color;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  overflow: hidden;
+  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  z-index: $prelodr-zindex;
+
+  // Box wrapper
+  > span {
+    position: relative;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  // Box content
+  > span > span {
+    position: relative;
+    display: inline-block;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 0.7em;
+    padding-bottom: 0.9em;
+    background-color: #fff;
+    color: #545454;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    min-width: 150px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16), 0px 2px 5px 0px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    transform: scale(0.95);
+    transition-delay: .2s;
+    border-radius: 3px;
+  }
+
+  // In effect
+  &#{$prelodr}-in {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // Out effect
+  &#{$prelodr}-out {
+    opacity: 0;
+  }
+
+  & > span > span#{$prelodr}-in {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  // Progressbar
+  #{$prelodr}-progressbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-top: 3px;
+    width: 100%;
+    background-color: $prelodr-color-green;
+    animation: prelodr-background linear #{$prelodr-timing} infinite;
+  }
+
+  #{$prelodr}-progressbar:before,
+  #{$prelodr}-progressbar:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    width: 0;
+    background-color: $prelodr-color-green;
+    height: 3px;
+    content: '';
+    animation: prelodr-front linear #{$prelodr-timing} infinite;
+  }
+
+  #{$prelodr}-progressbar:before {
+    right: 50%;
+  }
+
+  #{$prelodr}-progressbar:after {
+    left: 50%;
+  }
+}
+
+@keyframes prelodr-background {
+  0%,
+  24.9% {
+    background-color: $prelodr-color-green;
+  }
+
+  25%,
+  49.9% {
+    background-color: $prelodr-color-red;
+  }
+
+  50%,
+  74.9% {
+    background-color: $prelodr-color-blue;
+  }
+
+  75%,
+  100% {
+    background-color: $prelodr-color-yellow;
+  }
+}
+
+@keyframes prelodr-front {
+  0% {
+    width: 0;
+    background-color: $prelodr-color-red;
+  }
+
+  24.9% {
+    width: 50%;
+    background-color: $prelodr-color-red;
+  }
+
+  25% {
+    width: 0;
+    background-color: $prelodr-color-blue;
+  }
+
+  49.9% {
+    width: 50%;
+    background-color: $prelodr-color-blue;
+  }
+
+  50% {
+    width: 0;
+    background-color: $prelodr-color-yellow;
+  }
+
+  74.9% {
+    width: 50%;
+    background-color: $prelodr-color-yellow;
+  }
+
+  75% {
+    width: 0;
+    background-color: $prelodr-color-green;
+  }
+
+  100% {
+    width: 50%;
+    background-color: $prelodr-color-green;
+  }
+}

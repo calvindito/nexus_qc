@@ -12,6 +12,7 @@ Route::prefix('master_data')->group(function() {
     Route::prefix('general')->group(function() {
         Route::prefix('group_defect')->group(function() {
             Route::get('/', 'GroupDefectController@index');
+            Route::get('datatable', 'GroupDefectController@datatable');
         });
     });
 });

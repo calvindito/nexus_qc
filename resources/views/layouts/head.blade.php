@@ -9,9 +9,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet">
 	<link href="{{ asset('template/global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('template/assets/css/all.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('template/plugins/preloader/dist/prelodr.min.css') }}" rel="stylesheet">
 	<script src="{{ asset('template/global_assets/js/main/jquery.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/notifications/sweet_alert.min.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
+	<script src="{{ asset('template/plugins/preloader/dist/prelodr.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>
 </head>
