@@ -54,6 +54,12 @@ $genders = array(
 
 /* `mynexus`.`group_defects` */
 $group_defects = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','code' => 'G-1','name' => 'Group 1','parent_id' => '0','type' => '1','status' => '1','created_at' => '2021-09-13 16:49:42','updated_at' => '2021-09-13 16:49:42','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','code' => 'SG-1','name' => 'Sub Group 1','parent_id' => '1','type' => '2','status' => '1','created_at' => '2021-09-13 16:50:07','updated_at' => '2021-09-13 16:51:01','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','code' => 'D-1','name' => 'Defect 1','parent_id' => '2','type' => '3','status' => '1','created_at' => '2021-09-13 16:58:18','updated_at' => '2021-09-13 16:58:24','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','code' => 'R-1','name' => 'Reject 1','parent_id' => '3','type' => '4','status' => '1','created_at' => '2021-09-13 17:02:00','updated_at' => '2021-09-13 17:02:06','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','code' => 'MD-1','name' => 'Major Defect 1','parent_id' => '4','type' => '5','status' => '1','created_at' => '2021-09-13 17:06:02','updated_at' => '2021-09-13 17:06:02','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-13 17:10:45','deleted_at' => NULL)
 );
 
 /* `mynexus`.`migrations` */

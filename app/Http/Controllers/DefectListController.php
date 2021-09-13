@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class GroupController extends Controller {
+class DefectListController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Group',
-            'content' => 'group_defect.group'
+            'title'   => 'Group Defect - Defect List',
+            'parent'  => GroupDefect::where('type', 2)->get(),
+            'content' => 'group_defect.defect_list'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -23,6 +24,7 @@ class GroupController extends Controller {
     {
         $column = [
             'id',
+            'parent_id',
             'code',
             'name',
             'status',
@@ -36,10 +38,10 @@ class GroupController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 1)
+        $total_data = GroupDefect::where('type', 3)
             ->count();
 
-        $query_data = GroupDefect::where('type', 1)
+        $query_data = GroupDefect::where('type', 3)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -56,7 +58,7 @@ class GroupController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 1)
+        $total_filtered = GroupDefect::where('type', 3)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -76,6 +78,7 @@ class GroupController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
+                    $val->parent()->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -116,14 +119,16 @@ class GroupController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'   => 'required|unique:group_defects,code',
-            'name'   => 'required',
-            'status' => 'required'
+            'code'      => 'required|unique:group_defects,code',
+            'name'      => 'required',
+            'parent_id' => 'required',
+            'status'    => 'required'
         ], [
-            'code.required'   => 'Code cannot be empty.',
-            'code.unique'     => 'Code exists.',
-            'name.required'   => 'Group cannot be empty.',
-            'status.required' => 'Please select a status.'
+            'code.required'      => 'Code cannot be empty.',
+            'code.unique'        => 'Code exists.',
+            'name.required'      => 'Defect cannot be empty.',
+            'parent_id.required' => 'Please select a sub group.',
+            'status.required'    => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -137,8 +142,8 @@ class GroupController extends Controller {
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => 0,
-                'type'       => 1,
+                'parent_id'  => $request->parent_id,
+                'type'       => 3,
                 'status'     => $request->status
             ]);
 

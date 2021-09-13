@@ -33,6 +33,11 @@ class GroupDefect extends Model {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 
+    public function parent()
+    {
+        return GroupDefect::find($this->parent_id);
+    }
+
     public function type()
     {
         switch($this->type) {

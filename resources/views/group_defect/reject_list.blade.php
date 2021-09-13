@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Group</span>
+                    <span class="font-weight-semibold">Reject</span>
                 </h4>
                 <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
@@ -30,7 +30,7 @@
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item"><i class="icon-home4"></i></a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
-                    <span class="breadcrumb-item active">Group</span>
+                    <span class="breadcrumb-item active">Reject</span>
                 </div>
             </div>
         </div>
@@ -42,8 +42,9 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>No</th>
+                            <th>Defect</th>
                             <th>Code</th>
-                            <th>Group</th>
+                            <th>Reject</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -70,7 +71,16 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Group :<span class="text-danger">*</span></label>
+                        <label>Defect :<span class="text-danger">*</span></label>
+                        <select name="parent_id" id="parent_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($parent as $p)
+                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reject :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group">
@@ -110,6 +120,7 @@
 
     function reset() {
         $('#form_data').trigger('reset');
+        $('#parent_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -131,7 +142,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("group_defect/group/datatable") }}',
+                url: '{{ url("group_defect/reject_list/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -143,6 +154,7 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
+                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
@@ -155,7 +167,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("group_defect/group/create") }}',
+            url: '{{ url("group_defect/reject_list/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -202,7 +214,7 @@
 
     function update(id, value) {
         $.ajax({
-            url: '{{ url("group_defect/group/update") }}',
+            url: '{{ url("group_defect/reject_list/update") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

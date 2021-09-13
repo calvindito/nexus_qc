@@ -30,5 +30,40 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'GroupController@create');
             Route::post('update', 'GroupController@update');
         });
+
+        Route::prefix('sub_group')->group(function() {
+            Route::get('/', 'SubGroupController@index');
+            Route::get('datatable', 'SubGroupController@datatable');
+            Route::post('create', 'SubGroupController@create');
+            Route::post('update', 'SubGroupController@update');
+        });
+
+        Route::prefix('defect_list')->group(function() {
+            Route::get('/', 'DefectListController@index');
+            Route::get('datatable', 'DefectListController@datatable');
+            Route::post('create', 'DefectListController@create');
+            Route::post('update', 'DefectListController@update');
+        });
+
+        Route::prefix('reject_list')->group(function() {
+            Route::get('/', 'RejectListController@index');
+            Route::get('datatable', 'RejectListController@datatable');
+            Route::post('create', 'RejectListController@create');
+            Route::post('update', 'RejectListController@update');
+        });
+
+        Route::prefix('major_defect_list')->group(function() {
+            Route::get('/', 'MajorDefectListController@index');
+            Route::get('datatable', 'MajorDefectListController@datatable');
+            Route::post('create', 'MajorDefectListController@create');
+            Route::post('update', 'MajorDefectListController@update');
+        });
+
+        Route::prefix('critical_defect_list')->group(function() {
+            Route::get('/', 'CriticalDefectListController@index');
+            Route::get('datatable', 'CriticalDefectListController@datatable');
+            Route::post('create', 'CriticalDefectListController@create');
+            Route::post('update', 'CriticalDefectListController@update');
+        });
     });
 });

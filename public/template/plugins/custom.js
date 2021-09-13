@@ -1,5 +1,7 @@
 $(function() {
-
+    $('.select2').select2({
+        dropdownParent: $('.modal')
+    });
 });
 
 var swalInit = swal.mixin({
@@ -18,7 +20,7 @@ function notif(type, bg, text) {
         theme: ' alert ' + bg + ' text-white alert-styled-left p-0',
         text: text,
         type: type,
-        timeout: 1000
+        timeout: 200
     }).show();
 }
 
