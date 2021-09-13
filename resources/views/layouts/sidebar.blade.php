@@ -58,11 +58,11 @@
 								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' ? 'nav-item-expanded nav-item-open' : '' }}">
 									<a href="#" class="nav-link">General</a>
 									<ul class="nav nav-group-sub">
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/class_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'class_product' ? 'active' : '' }}">Class Product</a>
+                                        <li class="nav-item">
+											<a href="{{ url('master_data/general/gender') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'gender' ? 'active' : '' }}">Gender</a>
 										</li>
 										<li class="nav-item">
-											<a href="{{ url('master_data/general/group_defect') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'gender' ? 'active' : '' }}">Gender</a>
+											<a href="{{ url('master_data/general/class_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'class_product' ? 'active' : '' }}">Class Product</a>
 										</li>
 										<li class="nav-item">
 											<a href="{{ url('master_data/general/group_size') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'group_size' ? 'active' : '' }}">Group Size</a>

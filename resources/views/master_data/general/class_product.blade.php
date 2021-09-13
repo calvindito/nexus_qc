@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Defect</span>
+                    <span class="font-weight-semibold">Class Product</span>
                 </h4>
                 <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
@@ -29,8 +29,9 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
-                    <span class="breadcrumb-item active">Defect</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Class Product</span>
                 </div>
             </div>
         </div>
@@ -42,9 +43,8 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>No</th>
-                            <th>Sub Group</th>
-                            <th>Code</th>
-                            <th>Defect</th>
+                            <th>Class Product</th>
+                            <th>Gender</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -71,21 +71,16 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Sub Group :<span class="text-danger">*</span></label>
-                        <select name="parent_id" id="parent_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($parent as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Defect :<span class="text-danger">*</span></label>
+                        <label>Class Product :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
+                        <label>Gender :<span class="text-danger">*</span></label>
+                        <select name="gender[]" id="gender" class="select2" multiple>
+                            @foreach($gender as $g)
+                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -120,7 +115,7 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#parent_id').val(null).change();
+        $('#gender').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -141,7 +136,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("group_defect/defect_list/datatable") }}',
+                url: '{{ url("master_data/general/class_product/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -153,9 +148,8 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
+                { name: 'gender', orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -166,7 +160,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("group_defect/defect_list/create") }}',
+            url: '{{ url("master_data/general/class_product/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -213,7 +207,7 @@
 
     function update(id, value) {
         $.ajax({
-            url: '{{ url("group_defect/defect_list/update") }}',
+            url: '{{ url("master_data/general/class_product/update") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

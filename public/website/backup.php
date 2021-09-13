@@ -1,7 +1,7 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 5.1.1
+ * @version 5.1.0
  */
 
 /**
@@ -50,6 +50,10 @@ $failed_jobs = array(
 
 /* `mynexus`.`genders` */
 $genders = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-09-13 23:40:08','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Mens','status' => '1','created_at' => '2021-09-13 22:53:07','updated_at' => '2021-09-13 22:53:07','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Ladies','status' => '1','created_at' => '2021-09-13 22:53:15','updated_at' => '2021-09-13 22:53:15','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Girls','status' => '1','created_at' => '2021-09-13 22:53:20','updated_at' => '2021-09-13 22:53:20','deleted_at' => NULL)
 );
 
 /* `mynexus`.`group_defects` */
@@ -91,10 +95,15 @@ $personal_access_tokens = array(
 
 /* `mynexus`.`product_classes` */
 $product_classes = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Clothing','status' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:58','deleted_at' => NULL)
 );
 
 /* `mynexus`.`product_class_details` */
 $product_class_details = array(
+  array('id' => '1','product_class_id' => '1','gender_id' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
+  array('id' => '2','product_class_id' => '1','gender_id' => '2','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
+  array('id' => '3','product_class_id' => '1','gender_id' => '3','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
+  array('id' => '4','product_class_id' => '1','gender_id' => '4','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09')
 );
 
 /* `mynexus`.`product_types` */

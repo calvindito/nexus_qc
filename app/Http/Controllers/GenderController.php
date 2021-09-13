@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class DefectListController extends Controller {
+class GenderController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 2)->get(),
-            'content' => 'group_defect.defect_list'
+            'title'   => 'Master Data - General - Gender',
+            'content' => 'master_data.general.gender'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -24,7 +23,6 @@ class DefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
             'name',
             'status',
@@ -38,15 +36,12 @@ class DefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 3)
-            ->count();
+        $total_data = Gender::count();
 
-        $query_data = GroupDefect::where('type', 3)
-            ->where(function($query) use ($search, $request) {
+        $query_data = Gender::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -58,12 +53,10 @@ class DefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 3)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = Gender::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -78,8 +71,6 @@ class DefectListController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->parent()->name,
-                    $val->code,
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -119,16 +110,11 @@ class DefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Defect cannot be empty.',
-            'parent_id.required' => 'Please select a sub group.',
-            'status.required'    => 'Please select a status.'
+            'name.required'   => 'Gender cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -137,13 +123,10 @@ class DefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
+            $query = Gender::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 3,
                 'status'     => $request->status
             ]);
 
@@ -165,7 +148,7 @@ class DefectListController extends Controller {
 
     public function update(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update([
+        $query = Gender::find($request->id)->update([
             'updated_by' => session('id'),
             'status'     => $request->status
         ]);

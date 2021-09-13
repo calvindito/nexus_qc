@@ -13,7 +13,7 @@ class RejectListController extends Controller {
     {
         $data = [
             'title'   => 'Group Defect - Reject List',
-            'parent'  => GroupDefect::where('type', 3)->get(),
+            'parent'  => GroupDefect::where('status', 1)->where('type', 3)->get(),
             'content' => 'group_defect.reject_list'
         ];
 

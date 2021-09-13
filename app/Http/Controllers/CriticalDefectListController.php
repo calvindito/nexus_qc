@@ -13,7 +13,7 @@ class CriticalDefectListController extends Controller {
     {
         $data = [
             'title'   => 'Group Defect - Critical Defect List',
-            'parent'  => GroupDefect::where('type', 5)->get(),
+            'parent'  => GroupDefect::where('status', 1)->where('type', 5)->get(),
             'content' => 'group_defect.critical_defect_list'
         ];
 

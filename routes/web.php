@@ -11,17 +11,23 @@ Route::middleware('auth.login')->group(function() {
         Route::get('logout', 'AuthController@logout');
     });
 
-    // Route::prefix('master_data')->group(function() {
-    //     Route::prefix('general')->group(function() {
-    //         Route::prefix('group_defect')->group(function() {
-    //             Route::get('/', 'GroupDefectController@index');
-    //             Route::get('datatable', 'GroupDefectController@datatable');
-    //             Route::post('create', 'GroupDefectController@create');
-    //             Route::get('show', 'GroupDefectController@show');
-    //             Route::post('update/{id}', 'GroupDefectController@update');
-    //         });
-    //     });
-    // });
+    Route::prefix('master_data')->group(function() {
+        Route::prefix('general')->group(function() {
+            Route::prefix('gender')->group(function() {
+                Route::get('/', 'GenderController@index');
+                Route::get('datatable', 'GenderController@datatable');
+                Route::post('create', 'GenderController@create');
+                Route::post('update', 'GenderController@update');
+            });
+
+            Route::prefix('class_product')->group(function() {
+                Route::get('/', 'ClassProductController@index');
+                Route::get('datatable', 'ClassProductController@datatable');
+                Route::post('create', 'ClassProductController@create');
+                Route::post('update', 'ClassProductController@update');
+            });
+        });
+    });
 
     Route::prefix('group_defect')->group(function() {
         Route::prefix('group')->group(function() {

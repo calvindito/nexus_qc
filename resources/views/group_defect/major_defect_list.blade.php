@@ -28,7 +28,7 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-lg-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a href="{{ url('dashboard') }}" class="breadcrumb-item"><i class="icon-home4"></i></a>
+                    <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
                     <span class="breadcrumb-item active">Major Defect</span>
                 </div>
@@ -134,7 +134,6 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
-            dom: 'Blfrtip',
             serverSide: true,
             processing: true,
             deferRender: true,

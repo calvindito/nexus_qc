@@ -13,7 +13,7 @@ class SubGroupController extends Controller {
     {
         $data = [
             'title'   => 'Group Defect - Sub Group',
-            'parent'  => GroupDefect::where('type', 1)->get(),
+            'parent'  => GroupDefect::where('status', 1)->where('type', 1)->get(),
             'content' => 'group_defect.sub_group'
         ];
 

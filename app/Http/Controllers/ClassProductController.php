@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Gender;
+use App\Models\ProductClass;
 use Illuminate\Http\Request;
+use App\Models\ProductClassDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class DefectListController extends Controller {
+class ClassProductController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 2)->get(),
-            'content' => 'group_defect.defect_list'
+            'title'   => 'Master Data - General - Class Product',
+            'gender'  => Gender::where('status', 1)->get(),
+            'content' => 'master_data.general.class_product'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -24,9 +26,8 @@ class DefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
-            'code',
             'name',
+            'gender',
             'status',
             'updated_by',
             'created_at'
@@ -38,17 +39,19 @@ class DefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 3)
-            ->count();
+        $total_data = ProductClass::count();
 
-        $query_data = GroupDefect::where('type', 3)
-            ->where(function($query) use ($search, $request) {
+        $query_data = ProductClass::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('productClassDetail', function($query) use ($search) {
+                                $query->whereHas('gender', function($query) use ($search) {
+                                    $query->where('name', 'like', "%$search%");
+                                });
                             });
                     });
                 }
@@ -58,14 +61,17 @@ class DefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 3)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = ProductClass::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('productClassDetail', function($query) use ($search) {
+                                $query->whereHas('gender', function($query) use ($search) {
+                                    $query->where('name', 'like', "%$search%");
+                                });
                             });
                     });
                 }
@@ -76,11 +82,19 @@ class DefectListController extends Controller {
         if($query_data <> FALSE) {
             $nomor = $start + 1;
             foreach($query_data as $val) {
+                $gender = '';
+                if($val->productClassDetail) {
+                    foreach($val->productClassDetail as $pcd) {
+                        $gender .= '<span class="badge badge-flat border-primary text-primary mb-2 mr-2">' . $pcd->gender->name . '</span>';
+                    }
+                } else {
+                    $gender .= 'Gender not selected';
+                }
+
                 $response['data'][] = [
                     $nomor,
-                    $val->parent()->name,
-                    $val->code,
                     $val->name,
+                    $gender,
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -119,16 +133,13 @@ class DefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name'   => 'required',
+            'gender' => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Defect cannot be empty.',
-            'parent_id.required' => 'Please select a sub group.',
-            'status.required'    => 'Please select a status.'
+            'name.required'   => 'Class product cannot be empty.',
+            'gender.required' => 'Please select a gender.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -137,17 +148,23 @@ class DefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
+            $query = ProductClass::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 3,
                 'status'     => $request->status
             ]);
 
             if($query) {
+                if($request->gender) {
+                    foreach($request->gender as $g) {
+                        ProductClassDetail::create([
+                            'product_class_id' => $query->id,
+                            'gender_id'        => $g
+                        ]);
+                    }
+                }
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -165,7 +182,7 @@ class DefectListController extends Controller {
 
     public function update(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update([
+        $query = ProductClass::find($request->id)->update([
             'updated_by' => session('id'),
             'status'     => $request->status
         ]);
