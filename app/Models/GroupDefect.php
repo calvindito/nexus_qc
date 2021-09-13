@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Defect extends Model {
+class GroupDefect extends Model {
 
     use HasFactory, SoftDeletes;
 
-    protected $table      = 'defects';
+    protected $table      = 'group_defects';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
@@ -18,6 +18,8 @@ class Defect extends Model {
         'updated_by',
         'code',
         'name',
+        'parent_id',
+        'type',
         'status'
     ];
 
@@ -31,7 +33,36 @@ class Defect extends Model {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
 
-    public function status() 
+    public function type()
+    {
+        switch($this->type) {
+            case '1':
+                $type = 'Parent';
+                break;
+            case '2':
+                $type = 'Sub Group';
+                break;
+            case '3':
+                $type = 'Defect List';
+                break;
+            case '4':
+                $type = 'Reject List';
+                break;
+            case '5':
+                $type = 'Major Defect List';
+                break;
+            case '6':
+                $type = 'Critical Defect List';
+                break;
+            default:
+                $type = 'Invalid';
+                break;
+        }
+
+        return $type;
+    }
+
+    public function status()
     {
         switch($this->status) {
             case '1':

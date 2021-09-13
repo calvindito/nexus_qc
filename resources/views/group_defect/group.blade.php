@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Group Defect</span>
+                    <span class="font-weight-semibold">Group</span>
                 </h4>
                 <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
@@ -29,9 +29,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item"><i class="icon-home4"></i></a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Group Defect</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
+                    <span class="breadcrumb-item active">Group</span>
                 </div>
             </div>
         </div>
@@ -39,12 +38,12 @@
     <div class="content">
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered table-striped table-hover display nowrap w-100" id="datatable_serverside">
-                    <thead class="bg-primary text-white">
+                <table class="table table-striped display nowrap w-100" id="datatable_serverside">
+                    <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>No</th>
                             <th>Code</th>
-                            <th>Major Defect List</th>
+                            <th>Group</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -71,7 +70,7 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Major :<span class="text-danger">*</span></label>
+                        <label>Group :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control offable" placeholder="Enter name">
                     </div>
                     <div class="form-group">
@@ -97,8 +96,6 @@
             <div class="modal-footer bg-light">
                 <div class="form-group">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon-switch2"></i> Close</button>
-                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="cancel()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
-                    <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
                     <button type="button" class="btn btn-indigo" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
             </div>
@@ -110,24 +107,6 @@
     $(function() {
         loadDataTable();
     });
-
-    function cancel() {
-        reset();
-        $('#modal_form').modal('hide');
-        $('#btn_create').show();
-        $('#btn_update').hide();
-        $('#btn_cancel').hide();
-    }
-
-    function toShow() {
-        $('#modal_form').modal('show');
-        $('#validation_alert').hide();
-        $('#validation_content').html('');
-        $('.offable').attr('disabled', true);
-        $('#btn_create').hide();
-        $('#btn_update').show();
-        $('#btn_cancel').show();
-    }
 
     function reset() {
         $('#form_data').trigger('reset');
@@ -145,15 +124,15 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
+            dom: 'Blfrtip',
             serverSide: true,
             processing: true,
             deferRender: true,
             destroy: true,
-            scrollX: true,
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/group_defect/datatable") }}',
+                url: '{{ url("group_defect/group/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -167,7 +146,7 @@
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'status', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
                 { name: 'action', searchable: false, orderable: false, className: 'text-center align-middle' }
@@ -177,7 +156,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/group_defect/create") }}',
+            url: '{{ url("group_defect/group/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -222,75 +201,32 @@
         });
     }
 
-    function show(id) {
-        toShow();
+    function update(id, value) {
         $.ajax({
-            url: '{{ url("master_data/general/group_defect/show") }}',
-            type: 'GET',
-            dataType: 'JSON',
-            data: {
-                id: id
-            },
-            beforeSend: function() {
-                loadingOpen('.modal-content');
-            },
-            success: function(response) {
-                loadingClose('.modal-content');
-                $('#code').val(response.code);
-                $('#name').val(response.name);
-                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
-                $('#btn_update').attr('onclick', 'update(' + id + ')');
-            },
-            error: function() {
-                cancel();
-                loadingClose('.modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    icon: 'error'
-                });
-            }
-        });
-    }
-
-    function update(id) {
-        $.ajax({
-            url: '{{ url("master_data/general/group_defect/update") }}' + '/' + id,
+            url: '{{ url("group_defect/group/update") }}',
             type: 'POST',
             dataType: 'JSON',
-            data: $('#form_data').serialize(),
+            data: {
+                id: id,
+                status: value
+            },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#validation_alert').hide();
-                $('#validation_content').html('');
-                loadingOpen('.modal-content');
+                loadingOpen('#datatable_serverside');
             },
             success: function(response) {
-                loadingClose('.modal-content');
+                loadingClose('#datatable_serverside');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
-                } else if(response.status == 422) {
-                    $('#validation_alert').show();
-                    $('.modal-body').scrollTop(0);
-                    notif('warning', 'bg-warning', 'Validation');
-
-                    $.each(response.error, function(i, val) {
-                        $.each(val, function(i, val) {
-                            $('#validation_content').append(`
-                                <li>` + val + `</li>
-                            `);
-                        });
-                    });
                 } else {
                     notif('error', 'bg-danger', response.message);
                 }
             },
             error: function() {
-                $('.modal-body').scrollTop(0);
-                loadingClose('.modal-content');
+                loadingClose('#datatable_serverside');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',

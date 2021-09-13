@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDefectsTable extends Migration
+class CreateGroupDefectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateDefectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('defects', function (Blueprint $table) {
+        Schema::create('group_defects', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
             $table->string('code')->unique();
             $table->string('name');
+            $table->bigInteger('parent_id');
+            $table->char('type', 1);
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');
