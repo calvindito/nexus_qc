@@ -1,11 +1,11 @@
 <body>
 	<div class="page-content">
 		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
-			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0">
-				<div class="navbar-brand flex-fill wmin-0">
+			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0" style="height:55px;">
+				<div class="navbar-brand flex-fill wmin-0 text-center">
 					<a href="{{ url('dashboard') }}" class="d-inline-block">
-						<img src="{{ asset('website/logo.png') }}" class="img-thumbnail sidebar-resize-hide" alt="">
-						<img src="{{ asset('website/icon.png') }}" class="ml-2 sidebar-resize-show" alt="">
+                        <h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">My Nexus QC</h5>
+                        <h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">QC</h5>
 					</a>
 				</div>
 				<ul class="navbar-nav align-self-center ml-auto sidebar-resize-hide">
@@ -19,11 +19,13 @@
 			<div class="sidebar-content">
 				<div class="sidebar-section sidebar-section-body user-menu-vertical text-center">
 					<div class="card-img-actions d-inline-block">
-						<img class="img-fluid rounded-circle" src="{{ session('image') }}" width="50" height="50" alt="">
+						<img class="img-fluid rounded-circle" src="{{ session('image') }}" width="80" height="80" alt="">
 					</div>
 					<div class="sidebar-resize-hide position-relative mt-2">
-                        <h6 class="font-weight-semibold mb-0">{{ session('name') }}</h6>
-                        <span class="d-block text-muted ">{{ session('username') }}</span>
+                        <div class="cursor-pointer">
+                            <h6 class="font-weight-semibold mb-0">{{ session('name') }}</h6>
+                            <span class="d-block text-muted">{{ session('email') }}</span>
+                        </div>
 			    	</div>
 				</div>
 				<div class="sidebar-section">
@@ -104,6 +106,23 @@
 										</li>
 									</ul>
 								</li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'location' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-map4"></i>
+                                <span>Location</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Location">
+								<li class="nav-item">
+                                    <a href="{{ url('location/country') }}" class="nav-link {{ Request::segment(1) == 'location' && Request::segment(2) == 'country' ? 'active' : '' }}">Country</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('location/province') }}" class="nav-link {{ Request::segment(1) == 'location' && Request::segment(2) == 'province' ? 'active' : '' }}">Province</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('location/city') }}" class="nav-link {{ Request::segment(1) == 'location' && Request::segment(2) == 'city' ? 'active' : '' }}">City</a>
+                                </li>
 							</ul>
 						</li>
                         <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'group_defect' ? 'nav-item-expanded nav-item-open' : '' }}">

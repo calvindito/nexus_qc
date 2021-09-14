@@ -48,7 +48,6 @@
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -133,6 +132,7 @@
             processing: true,
             deferRender: true,
             destroy: true,
+            scrollX: true,
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
@@ -152,8 +152,7 @@
                 { name: 'gender', orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
-                { name: 'created_at', searchable: false, className: 'text-center align-middle' },
-                { name: 'action', searchable: false, orderable: false, className: 'text-center align-middle' }
+                { name: 'created_at', searchable: false, className: 'text-center align-middle' }
             ]
         });
     }

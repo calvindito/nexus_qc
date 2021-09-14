@@ -16,12 +16,12 @@ class CreateProductTypesTable extends Migration
         Schema::create('product_types', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_class_id');
-            $table->bigInteger('allowance_smv_id');
             $table->bigInteger('size_id');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
-            $table->text('description');
-            $table->char('type', 1);
+            $table->string('name');
+            $table->string('smv_global');
+            $table->text('description')->nullable();
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

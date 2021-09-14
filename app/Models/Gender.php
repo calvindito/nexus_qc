@@ -34,10 +34,10 @@ class Gender extends Model {
     {
         switch($this->status) {
             case '1':
-                $status = '<span class="badge badge-success">Active</span>';
+                $status = '<a href="javascript:void(0)" onclick="update(' . $this->id . ', 2)" class="badge badge-success">Active</a>';
                 break;
             case '2':
-                $status = '<span class="badge badge-danger">Not Active</span>';
+                $status = '<a href="javascript:void(0)" onclick="update(' . $this->id . ', 1)" class="badge badge-danger">Not Active</a>';
                 break;
             default:
                 $status = '<span class="badge badge-warning">Invalid</span>';

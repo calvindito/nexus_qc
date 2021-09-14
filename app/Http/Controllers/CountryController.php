@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class CriticalDefectListController extends Controller {
+class CountryController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Critical Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 5)->get(),
-            'content' => 'group_defect.critical_defect_list'
+            'title'   => 'Location - Country',
+            'content' => 'location.country'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -24,12 +24,8 @@ class CriticalDefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
-            'name',
-            'status',
-            'updated_by',
-            'created_at'
+            'name'
         ];
 
         $start  = $request->start;
@@ -38,18 +34,13 @@ class CriticalDefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 6)
-            ->count();
+        $total_data = Country::count();
 
-        $query_data = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $query_data = Country::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                            ->orWhere('name', 'like', "%$search%");
                     });
                 }
             })
@@ -58,15 +49,11 @@ class CriticalDefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = Country::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                            ->orWhere('name', 'like', "%$search%");
                     });
                 }
             })
@@ -78,12 +65,12 @@ class CriticalDefectListController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->parent()->name,
                     $val->code,
                     $val->name,
-                    $val->status(),
-                    $val->updatedBy->name,
-                    $val->created_at->format('d F Y')
+                    '
+                        <button type="button" class="btn btn-warning btn-sm" onclick="show(' . $val->id . ')"><i class="icon-pencil7"></i> Edit</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="destroy(' . $val->id . ')"><i class="icon-trash-alt"></i> Delete</button>
+                    '
                 ];
 
                 $nomor++;
@@ -106,16 +93,12 @@ class CriticalDefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'code' => 'required|unique:countries,code',
+            'name' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
-            'status.required'    => 'Please select a status.'
+            'code.required' => 'Code cannot be empty.',
+            'code.unique'   => 'Code exists.',
+            'name.required' => 'Country cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -124,14 +107,9 @@ class CriticalDefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
-                'created_by' => session('id'),
-                'updated_by' => session('id'),
-                'code'       => $request->code,
-                'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 6,
-                'status'     => $request->status
+            $query = Country::create([
+                'code' => $request->code,
+                'name' => $request->name
             ]);
 
             if($query) {
@@ -150,22 +128,62 @@ class CriticalDefectListController extends Controller {
         return response()->json($response);
     }
 
-    public function update(Request $request)
+    public function show(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update([
-            'updated_by' => session('id'),
-            'status'     => $request->status
+        $data = Country::find($request->id);
+        return response()->json($data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'code' => ['required', Rule::unique('countries', 'code')->ignore($id)],
+            'name' => 'required'
+        ], [
+            'code.required' => 'Code cannot be empty.',
+            'code.unique'   => 'Code already exists.',
+            'name.required' => 'Country cannot be empty.'
         ]);
 
+        if($validation->fails()) {
+            $response = [
+                'status' => 422,
+                'error'  => $validation->errors()
+            ];
+        } else {
+            $query = Country::find($id)->update([
+                'code' => $request->code,
+                'name' => $request->name
+            ]);
+
+            if($query) {
+                $response = [
+                    'status'  => 200,
+                    'message' => 'Data updated successfully.'
+                ];
+            } else {
+                $response = [
+                    'status'  => 500,
+                    'message' => 'Data failed to update.'
+                ];
+            }
+        }
+
+        return response()->json($response);
+    }
+
+    public function destroy(Request $request)
+    {
+        $query = Country::destroy($request->id);
         if($query) {
             $response = [
                 'status'  => 200,
-                'message' => 'Data updated successfully.'
+                'message' => 'Data deleted successfully.'
             ];
         } else {
             $response = [
                 'status'  => 500,
-                'message' => 'Data failed to update.'
+                'message' => 'Data failed to delete.'
             ];
         }
 

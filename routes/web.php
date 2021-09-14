@@ -26,6 +26,27 @@ Route::middleware('auth.login')->group(function() {
                 Route::post('create', 'ClassProductController@create');
                 Route::post('update', 'ClassProductController@update');
             });
+
+            Route::prefix('group_size')->group(function() {
+                Route::get('/', 'GroupSizeController@index');
+                Route::get('datatable', 'GroupSizeController@datatable');
+                Route::post('create', 'GroupSizeController@create');
+                Route::post('update', 'GroupSizeController@update');
+            });
+
+            Route::prefix('type_product')->group(function() {
+                Route::get('/', 'TypeProductController@index');
+                Route::get('datatable', 'TypeProductController@datatable');
+                Route::post('create', 'TypeProductController@create');
+                Route::post('update', 'TypeProductController@update');
+            });
+
+            Route::prefix('buyer')->group(function() {
+                Route::get('/', 'BuyerController@index');
+                Route::get('datatable', 'BuyerController@datatable');
+                Route::post('create', 'BuyerController@create');
+                Route::post('update', 'BuyerController@update');
+            });
         });
     });
 
@@ -70,6 +91,35 @@ Route::middleware('auth.login')->group(function() {
             Route::get('datatable', 'CriticalDefectListController@datatable');
             Route::post('create', 'CriticalDefectListController@create');
             Route::post('update', 'CriticalDefectListController@update');
+        });
+    });
+
+    Route::prefix('location')->group(function() {
+        Route::prefix('country')->group(function() {
+            Route::get('/', 'CountryController@index');
+            Route::get('datatable', 'CountryController@datatable');
+            Route::post('create', 'CountryController@create');
+            Route::get('show', 'CountryController@show');
+            Route::post('update/{id}', 'CountryController@update');
+            Route::post('destroy', 'CountryController@destroy');
+        });
+
+        Route::prefix('province')->group(function() {
+            Route::get('/', 'ProvinceController@index');
+            Route::get('datatable', 'ProvinceController@datatable');
+            Route::post('create', 'ProvinceController@create');
+            Route::get('show', 'ProvinceController@show');
+            Route::post('update/{id}', 'ProvinceController@update');
+            Route::post('destroy', 'ProvinceController@destroy');
+        });
+
+        Route::prefix('city')->group(function() {
+            Route::get('/', 'CityController@index');
+            Route::get('datatable', 'CityController@datatable');
+            Route::post('create', 'CityController@create');
+            Route::get('show', 'CityController@show');
+            Route::post('update/{id}', 'CityController@update');
+            Route::post('destroy', 'CityController@destroy');
         });
     });
 });

@@ -85,7 +85,7 @@ class ClassProductController extends Controller {
                 $gender = '';
                 if($val->productClassDetail) {
                     foreach($val->productClassDetail as $pcd) {
-                        $gender .= '<span class="badge badge-flat border-primary text-primary mb-2 mr-2">' . $pcd->gender->name . '</span>';
+                        $gender .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $pcd->gender->name . '</span>';
                     }
                 } else {
                     $gender .= 'Gender not selected';
@@ -97,20 +97,7 @@ class ClassProductController extends Controller {
                     $gender,
                     $val->status(),
                     $val->updatedBy->name,
-                    $val->created_at->format('d F Y'),
-                    '
-                        <div class="list-icons">
-                            <div class="dropdown">
-                                <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                    <i class="icon-menu9"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="javascript:void(0);" class="dropdown-item" onclick="update(' . $val->id . ', 1)">Activate</a>
-                                    <a href="javascript:void(0);" class="dropdown-item" onclick="update(' . $val->id . ', 2)">Deactivate</a>
-                                </div>
-                            </div>
-                        </div>
-                    '
+                    $val->created_at->format('d F Y')
                 ];
 
                 $nomor++;

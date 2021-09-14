@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'image'      => $u['image'],
                 'username'   => $u['username'],
                 'name'       => $u['name'],
+                'email'      => $u['email'],
                 'gender'     => $u['gender'],
                 'password'   => $u['password'],
                 'status'     => $u['status'],

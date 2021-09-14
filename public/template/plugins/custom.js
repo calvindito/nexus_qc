@@ -1,6 +1,26 @@
 $(function() {
+    $('body').tooltip({selector: '[data-popup="tooltip"]'});
+
     $('.select2').select2({
         dropdownParent: $('.modal')
+    });
+
+    $('.select2-tag').select2({
+        dropdownParent: $('.modal'),
+        tags: true,
+        cache: true,
+        createTag: function(params) {
+            var term = $.trim(params.term);
+            if(term === '') {
+                return null;
+            } else {
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true
+                }
+            }
+        }
     });
 });
 

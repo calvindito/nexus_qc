@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Size;
+use App\Models\SizeDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class CriticalDefectListController extends Controller {
+class GroupSizeController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Critical Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 5)->get(),
-            'content' => 'group_defect.critical_defect_list'
+            'title'   => 'Master Data - General - Group Size',
+            'content' => 'master_data.general.group_size'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -24,9 +24,8 @@ class CriticalDefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
-            'code',
-            'name',
+            'type',
+            'value',
             'status',
             'updated_by',
             'created_at'
@@ -38,17 +37,16 @@ class CriticalDefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 6)
-            ->count();
+        $total_data = Size::count();
 
-        $query_data = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $query_data = Size::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
+                        $query->whereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('sizeDetail', function($query) use ($search) {
+                                $query->where('value', 'like', "%$search%");
                             });
                     });
                 }
@@ -58,14 +56,14 @@ class CriticalDefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = Size::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
+                        $query->whereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('sizeDetail', function($query) use ($search) {
+                                $query->where('value', 'like', "%$search%");
                             });
                     });
                 }
@@ -76,11 +74,19 @@ class CriticalDefectListController extends Controller {
         if($query_data <> FALSE) {
             $nomor = $start + 1;
             foreach($query_data as $val) {
+                $value = '';
+                if($val->sizeDetail) {
+                    foreach($val->sizeDetail as $sd) {
+                        $value .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $sd->value . '</span>';
+                    }
+                } else {
+                    $value .= 'Value not selected';
+                }
+
                 $response['data'][] = [
                     $nomor,
-                    $val->parent()->name,
-                    $val->code,
-                    $val->name,
+                    $val->type(),
+                    $value,
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y')
@@ -106,16 +112,13 @@ class CriticalDefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'type'   => 'required',
+            'value'  => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
-            'status.required'    => 'Please select a status.'
+            'type.required'   => 'Please select a type.',
+            'value.required'  => 'Size chart cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -124,17 +127,23 @@ class CriticalDefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
+            $query = Size::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
-                'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 6,
+                'type'       => $request->type,
                 'status'     => $request->status
             ]);
 
             if($query) {
+                if($request->value) {
+                    foreach($request->value as $v) {
+                        SizeDetail::create([
+                            'size_id' => $query->id,
+                            'value'   => $v
+                        ]);
+                    }
+                }
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -152,7 +161,7 @@ class CriticalDefectListController extends Controller {
 
     public function update(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update([
+        $query = Size::find($request->id)->update([
             'updated_by' => session('id'),
             'status'     => $request->status
         ]);

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ProductClass;
 use Illuminate\Database\Seeder;
+use App\Models\ProductClassDetail;
 
 class ProductClassSeeder extends Seeder
 {
@@ -30,12 +31,12 @@ class ProductClassSeeder extends Seeder
         }
 
         foreach($product_class_details as $pcd) {
-            ProductClass::insert([
-                'id'               => $pc['id'],
-                'product_class_id' => $pc['created_by'],
-                'gender_id'        => $pc['created_by'],
-                'created_at'       => $pc['created_at'],
-                'updated_at'       => $pc['updated_at']
+            ProductClassDetail::insert([
+                'id'               => $pcd['id'],
+                'product_class_id' => $pcd['product_class_id'],
+                'gender_id'        => $pcd['gender_id'],
+                'created_at'       => $pcd['created_at'],
+                'updated_at'       => $pcd['updated_at']
             ]);
         }
     }
