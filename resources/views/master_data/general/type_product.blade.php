@@ -55,6 +55,7 @@
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -124,8 +125,9 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="form-group">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon-switch2"></i> Close</button>
-                    <button type="button" class="btn btn-indigo" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
+                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="cancel()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
+                    <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
+                    <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
             </div>
         </div>
@@ -136,6 +138,23 @@
     $(function() {
         loadDataTable();
     });
+
+    function cancel() {
+        reset();
+        $('#modal_form').modal('hide');
+        $('#btn_create').show();
+        $('#btn_update').hide();
+        $('#btn_cancel').hide();
+    }
+
+    function toShow() {
+        $('#modal_form').modal('show');
+        $('#validation_alert').hide();
+        $('#validation_content').html('');
+        $('#btn_create').hide();
+        $('#btn_update').show();
+        $('#btn_cancel').show();
+    }
 
     function reset() {
         $('#form_data').trigger('reset');
@@ -159,6 +178,7 @@
             deferRender: true,
             destroy: true,
             scrollX: true,
+            lengthChange: false,
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
@@ -182,7 +202,8 @@
                 { name: 'smv_global', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
-                { name: 'created_at', searchable: false, className: 'text-center align-middle' }
+                { name: 'created_at', searchable: false, className: 'text-center align-middle' },
+                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
             ]
         });
     }
@@ -234,9 +255,93 @@
         });
     }
 
-    function update(id, value) {
+    function show(id) {
+        toShow();
         $.ajax({
-            url: '{{ url("master_data/general/type_product/update") }}',
+            url: '{{ url("master_data/general/type_product/show") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                id: id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                $('#product_class_id').val(response.product_class_id).change();
+                $('#size_id').val(response.size_id).change();
+                $('#name').val(response.name);
+                $('#smv_global').val(response.smv_global);
+                $('#description').val(response.description);
+                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
+                $('#btn_update').attr('onclick', 'update(' + id + ')');
+            },
+            error: function() {
+                cancel();
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    type: 'error'
+                });
+            }
+        });
+    }
+
+    function update(id) {
+        $.ajax({
+            url: '{{ url("master_data/general/type_product/update") }}' + '/' + id,
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#form_data').serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                $('#validation_alert').hide();
+                $('#validation_content').html('');
+                loadingOpen('.modal-content');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                if(response.status == 200) {
+                    success();
+                    notif('success', 'bg-success', response.message);
+                } else if(response.status == 422) {
+                    $('#validation_alert').show();
+                    $('.modal-body').scrollTop(0);
+                    notif('warning', 'bg-warning', 'Please check the form');
+
+                    $.each(response.error, function(i, val) {
+                        $.each(val, function(i, val) {
+                            $('#validation_content').append(`
+                                <li>` + val + `</li>
+                            `);
+                        });
+                    });
+                } else {
+                    notif('error', 'bg-danger', response.message);
+                }
+            },
+            error: function() {
+                $('.modal-body').scrollTop(0);
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+    function changeStatus(id, value) {
+        $.ajax({
+            url: '{{ url("master_data/general/type_product/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -247,10 +352,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                loadingOpen('#datatable_serverside');
+                loadingOpen('.modal-content');
             },
             success: function(response) {
-                loadingClose('#datatable_serverside');
+                loadingClose('.modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
@@ -259,7 +364,7 @@
                 }
             },
             error: function() {
-                loadingClose('#datatable_serverside');
+                loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',

@@ -72,7 +72,6 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="form-group">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="icon-switch2"></i> Close</button>
                     <button type="button" class="btn btn-danger" id="btn_cancel" onclick="cancel()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
                     <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
                     <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
@@ -123,6 +122,7 @@
             deferRender: true,
             destroy: true,
             scrollX: true,
+            lengthChange: false,
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
@@ -264,50 +264,6 @@
                     title: 'Server Error',
                     text: 'Please contact developer',
                     icon: 'error'
-                });
-            }
-        });
-    }
-
-    function destroy(id) {
-        swalInit.fire({
-            title: 'Delete data?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it',
-            cancelButtonText: 'No, cancel',
-            buttonsStyling: false,
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            }
-        }).then(function(result) {
-            if(result.value) {
-                $.ajax({
-                    url: '{{ url("location/country/destroy") }}',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        id: id
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if(response.status == 200) {
-                            $('#datatable_serverside').DataTable().ajax.reload(null, false);
-                            notif('success', 'bg-success', response.message);
-                        } else {
-                            notif('error', 'bg-danger', response.message);
-                        }
-                    },
-                    error: function() {
-                        swalInit.fire({
-                            title: 'Server Error',
-                            text: 'Please contact developer',
-                            icon: 'error'
-                        });
-                    }
                 });
             }
         });

@@ -89,7 +89,21 @@ class GroupSizeController extends Controller {
                     $value,
                     $val->status(),
                     $val->updatedBy->name,
-                    $val->created_at->format('d F Y')
+                    $val->created_at->format('d F Y'),
+                    '
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Deactivate</a>
+                                </div>
+                            </div>
+                        </div>
+                    '
                 ];
 
                 $nomor++;
@@ -159,22 +173,78 @@ class GroupSizeController extends Controller {
         return response()->json($response);
     }
 
-    public function update(Request $request)
+    public function show(Request $request)
     {
-        $query = Size::find($request->id)->update([
-            'updated_by' => session('id'),
-            'status'     => $request->status
+        $data = Size::find($request->id);
+        return response()->json([
+            'type'        => $data->type,
+            'status'      => $data->status,
+            'size_detail' => $data->sizeDetail
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'type'   => 'required',
+            'value'  => 'required',
+            'status' => 'required'
+        ], [
+            'type.required'   => 'Please select a type.',
+            'value.required'  => 'Size chart cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
+        if($validation->fails()) {
+            $response = [
+                'status' => 422,
+                'error'  => $validation->errors()
+            ];
+        } else {
+            $query = Size::find($id)->update([
+                'updated_by' => session('id'),
+                'type'       => $request->type,
+                'status'     => $request->status
+            ]);
+
+            if($query) {
+                SizeDetail::where('size_id', $id)->delete();
+                if($request->value) {
+                    foreach($request->value as $v) {
+                        SizeDetail::create([
+                            'size_id' => $id,
+                            'value'   => $v
+                        ]);
+                    }
+                }
+
+                $response = [
+                    'status'  => 200,
+                    'message' => 'Data updated successfully.'
+                ];
+            } else {
+                $response = [
+                    'status'  => 500,
+                    'message' => 'Data failed to update.'
+                ];
+            }
+        }
+
+        return response()->json($response);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $query = Size::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,
-                'message' => 'Data updated successfully.'
+                'message' => 'Status has been changed.'
             ];
         } else {
             $response = [
                 'status'  => 500,
-                'message' => 'Data failed to update.'
+                'message' => 'Failed to change status.'
             ];
         }
 

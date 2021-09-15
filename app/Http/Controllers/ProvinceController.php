@@ -81,8 +81,16 @@ class ProvinceController extends Controller {
                     $val->latitude,
                     $val->longitude,
                     '
-                        <button type="button" class="btn btn-warning btn-sm" onclick="show(' . $val->id . ')"><i class="icon-pencil7"></i> Edit</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="destroy(' . $val->id . ')"><i class="icon-trash-alt"></i> Delete</button>
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                </div>
+                            </div>
+                        </div>
                     '
                 ];
 
@@ -182,24 +190,6 @@ class ProvinceController extends Controller {
                     'message' => 'Data failed to update.'
                 ];
             }
-        }
-
-        return response()->json($response);
-    }
-
-    public function destroy(Request $request)
-    {
-        $query = Province::destroy($request->id);
-        if($query) {
-            $response = [
-                'status'  => 200,
-                'message' => 'Data deleted successfully.'
-            ];
-        } else {
-            $response = [
-                'status'  => 500,
-                'message' => 'Data failed to delete.'
-            ];
         }
 
         return response()->json($response);

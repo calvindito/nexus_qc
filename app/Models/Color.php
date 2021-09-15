@@ -2,10 +2,62 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Color extends Model
-{
-    use HasFactory;
+class Color extends Model {
+
+    use HasFactory, SoftDeletes;
+
+    protected $table      = 'colors';
+    protected $primaryKey = 'id';
+    protected $dates      = ['deleted_at'];
+    protected $fillable   = [
+        'brand_id',
+        'fabric_id',
+        'created_by',
+        'updated_by',
+        'code',
+        'name',
+        'status'
+    ];
+
+    public function brand()
+    {
+        return $this->belongsTo('App\Models\Brand');
+    }
+
+    public function fabric()
+    {
+        return $this->belongsTo('App\Models\Fabric');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+    public function status()
+    {
+        switch($this->status) {
+            case '1':
+                $status = '<span class="badge badge-success">Active</span>';
+                break;
+            case '2':
+                $status = '<span class="badge badge-danger">Not Active</span>';
+                break;
+            default:
+                $status = '<span class="badge badge-warning">Invalid</span>';
+                break;
+        }
+
+        return $status;
+    }
+
 }

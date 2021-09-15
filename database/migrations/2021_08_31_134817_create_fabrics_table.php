@@ -18,7 +18,7 @@ class CreateFabricsTable extends Migration
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

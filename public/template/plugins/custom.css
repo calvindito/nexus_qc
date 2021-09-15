@@ -1,0 +1,4 @@
+.dataTables_scrollBody {
+    position: static !important;
+    margin-bottom: 15px;
+}

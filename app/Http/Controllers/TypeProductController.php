@@ -135,7 +135,21 @@ class TypeProductController extends Controller {
                     $val->smv_global,
                     $val->status(),
                     $val->updatedBy->name,
-                    $val->created_at->format('d F Y')
+                    $val->created_at->format('d F Y'),
+                    '
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Deactivate</a>
+                                </div>
+                            </div>
+                        </div>
+                    '
                 ];
 
                 $nomor++;
@@ -204,22 +218,72 @@ class TypeProductController extends Controller {
         return response()->json($response);
     }
 
-    public function update(Request $request)
+    public function show(Request $request)
     {
-        $query = ProductType::find($request->id)->update([
-            'updated_by' => session('id'),
-            'status'     => $request->status
+        $data = ProductType::find($request->id);
+        return response()->json($data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'product_class_id' => 'required',
+            'size_id'          => 'required',
+            'name'             => 'required',
+            'smv_global'       => 'required',
+            'status'           => 'required'
+        ], [
+            'product_class_id.required' => 'Please select a class product.',
+            'size_id.required'          => 'Please select a group size.',
+            'name.required'             => 'Type product cannot be empty.',
+            'smv_global.required'       => 'Smv global cannot be empty.',
+            'status.required'           => 'Please select a status.'
         ]);
 
+        if($validation->fails()) {
+            $response = [
+                'status' => 422,
+                'error'  => $validation->errors()
+            ];
+        } else {
+            $query = ProductType::find($id)->update([
+                'product_class_id' => $request->product_class_id,
+                'size_id'          => $request->size_id,
+                'updated_by'       => session('id'),
+                'name'             => $request->name,
+                'smv_global'       => $request->smv_global,
+                'description'      => $request->description,
+                'status'           => $request->status
+            ]);
+
+            if($query) {
+                $response = [
+                    'status'  => 200,
+                    'message' => 'Data updated successfully.'
+                ];
+            } else {
+                $response = [
+                    'status'  => 500,
+                    'message' => 'Data failed to update.'
+                ];
+            }
+        }
+
+        return response()->json($response);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $query = ProductType::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,
-                'message' => 'Data updated successfully.'
+                'message' => 'Status has been changed.'
             ];
         } else {
             $response = [
                 'status'  => 500,
-                'message' => 'Data failed to update.'
+                'message' => 'Failed to change status.'
             ];
         }
 

@@ -97,7 +97,21 @@ class ClassProductController extends Controller {
                     $gender,
                     $val->status(),
                     $val->updatedBy->name,
-                    $val->created_at->format('d F Y')
+                    $val->created_at->format('d F Y'),
+                    '
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Deactivate</a>
+                                </div>
+                            </div>
+                        </div>
+                    '
                 ];
 
                 $nomor++;
@@ -167,22 +181,78 @@ class ClassProductController extends Controller {
         return response()->json($response);
     }
 
-    public function update(Request $request)
+    public function show(Request $request)
     {
-        $query = ProductClass::find($request->id)->update([
-            'updated_by' => session('id'),
-            'status'     => $request->status
+        $data = ProductClass::find($request->id);
+        return response()->json([
+            'name'   => $data->name,
+            'status' => $data->status,
+            'gender' => $data->productClassDetail
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'name'   => 'required',
+            'gender' => 'required',
+            'status' => 'required'
+        ], [
+            'name.required'   => 'Class product cannot be empty.',
+            'gender.required' => 'Please select a gender.',
+            'status.required' => 'Please select a status.'
         ]);
 
+        if($validation->fails()) {
+            $response = [
+                'status' => 422,
+                'error'  => $validation->errors()
+            ];
+        } else {
+            $query = ProductClass::find($id)->update([
+                'updated_by' => session('id'),
+                'name'       => $request->name,
+                'status'     => $request->status
+            ]);
+
+            if($query) {
+                ProductClassDetail::where('product_class_id', $id)->delete();
+                if($request->gender) {
+                    foreach($request->gender as $g) {
+                        ProductClassDetail::create([
+                            'product_class_id' => $id,
+                            'gender_id'        => $g
+                        ]);
+                    }
+                }
+
+                $response = [
+                    'status'  => 200,
+                    'message' => 'Data updated successfully.'
+                ];
+            } else {
+                $response = [
+                    'status'  => 500,
+                    'message' => 'Data failed to update.'
+                ];
+            }
+        }
+
+        return response()->json($response);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $query = ProductClass::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,
-                'message' => 'Data updated successfully.'
+                'message' => 'Status has been changed.'
             ];
         } else {
             $response = [
                 'status'  => 500,
-                'message' => 'Data failed to update.'
+                'message' => 'Failed to change status.'
             ];
         }
 

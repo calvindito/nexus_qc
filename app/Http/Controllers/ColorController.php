@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Brand;
+use App\Models\Color;
+use App\Models\Fabric;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\ProductClassDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class CriticalDefectListController extends Controller {
+class ColorController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Critical Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 5)->get(),
-            'content' => 'group_defect.critical_defect_list'
+            'title'   => 'Master Data - General - Color',
+            'brand'   => Brand::where('status', 1)->get(),
+            'fabric'  => Fabric::where('status', 1)->get(),
+            'content' => 'master_data.general.color'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -26,7 +28,8 @@ class CriticalDefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
+            'brand_id',
+            'fabric_id',
             'code',
             'name',
             'status',
@@ -40,15 +43,19 @@ class CriticalDefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 6)
-            ->count();
+        $total_data = Color::count();
 
-        $query_data = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $query_data = Color::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
                             ->orWhere('name', 'like', "%$search%")
+                            ->orWhereHas('brand', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('fabric', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -60,12 +67,17 @@ class CriticalDefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 6)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = Color::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
                             ->orWhere('name', 'like', "%$search%")
+                            ->orWhereHas('brand', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('fabric', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -80,7 +92,8 @@ class CriticalDefectListController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->parent()->name,
+                    $val->brand->name,
+                    $val->fabric->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -122,15 +135,17 @@ class CriticalDefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
+            'brand_id'  => 'required',
+            'fabric_id' => 'required',
+            'code'      => 'required|unique:colors,code',
             'name'      => 'required',
-            'parent_id' => 'required',
             'status'    => 'required'
         ], [
+            'brand_id.required'  => 'Please select a brand.',
+            'fabric_id.required' => 'Please select a fabric.',
             'code.required'      => 'Code cannot be empty.',
             'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
+            'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
 
@@ -140,13 +155,13 @@ class CriticalDefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
+            $query = Color::create([
+                'brand_id'   => $request->brand_id,
+                'fabric_id'  => $request->fabric_id,
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 6,
                 'status'     => $request->status
             ]);
 
@@ -168,22 +183,24 @@ class CriticalDefectListController extends Controller {
 
     public function show(Request $request)
     {
-        $data = GroupDefect::find($request->id);
+        $data = Color::find($request->id);
         return response()->json($data);
     }
 
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('group_defects', 'code')->ignore($id)],
+            'brand_id'  => 'required',
+            'fabric_id' => 'required',
+            'code'      => ['required', Rule::unique('countries', 'code')->ignore($id)],
             'name'      => 'required',
-            'parent_id' => 'required',
             'status'    => 'required'
         ], [
+            'brand_id.required'  => 'Please select a brand.',
+            'fabric_id.required' => 'Please select a fabric.',
             'code.required'      => 'Code cannot be empty.',
             'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
+            'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
 
@@ -193,11 +210,12 @@ class CriticalDefectListController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::find($id)->update([
+            $query = Color::find($id)->update([
+                'brand_id'   => $request->brand_id,
+                'fabric_id'  => $request->fabric_id,
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'status'     => $request->status
             ]);
 
@@ -219,7 +237,7 @@ class CriticalDefectListController extends Controller {
 
     public function changeStatus(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update(['status' => $request->status]);
+        $query = Color::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,

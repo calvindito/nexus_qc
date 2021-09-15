@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,7 +84,21 @@ class SubGroupController extends Controller {
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
-                    $val->created_at->format('d F Y')
+                    $val->created_at->format('d F Y'),
+                    '
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Deactivate</a>
+                                </div>
+                            </div>
+                        </div>
+                    '
                 ];
 
                 $nomor++;
@@ -150,22 +165,69 @@ class SubGroupController extends Controller {
         return response()->json($response);
     }
 
-    public function update(Request $request)
+    public function show(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update([
-            'updated_by' => session('id'),
-            'status'     => $request->status
+        $data = GroupDefect::find($request->id);
+        return response()->json($data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'code'      => ['required', Rule::unique('group_defects', 'code')->ignore($id)],
+            'name'      => 'required',
+            'parent_id' => 'required',
+            'status'    => 'required'
+        ], [
+            'code.required'      => 'Code cannot be empty.',
+            'code.unique'        => 'Code exists.',
+            'name.required'      => 'Sub group cannot be empty.',
+            'parent_id.required' => 'Please select a group.',
+            'status.required'    => 'Please select a status.'
         ]);
 
+        if($validation->fails()) {
+            $response = [
+                'status' => 422,
+                'error'  => $validation->errors()
+            ];
+        } else {
+            $query = GroupDefect::find($id)->update([
+                'updated_by' => session('id'),
+                'code'       => $request->code,
+                'name'       => $request->name,
+                'parent_id'  => $request->parent_id,
+                'status'     => $request->status
+            ]);
+
+            if($query) {
+                $response = [
+                    'status'  => 200,
+                    'message' => 'Data updated successfully.'
+                ];
+            } else {
+                $response = [
+                    'status'  => 500,
+                    'message' => 'Data failed to update.'
+                ];
+            }
+        }
+
+        return response()->json($response);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $query = GroupDefect::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,
-                'message' => 'Data updated successfully.'
+                'message' => 'Status has been changed.'
             ];
         } else {
             $response = [
                 'status'  => 500,
-                'message' => 'Data failed to update.'
+                'message' => 'Failed to change status.'
             ];
         }
 

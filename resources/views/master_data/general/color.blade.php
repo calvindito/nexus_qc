@@ -4,12 +4,18 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">City</span>
+                    <span class="font-weight-semibold">Color</span>
                 </h4>
                 <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
             <div class="header-elements d-none">
                 <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-success btn-labeled btn-labeled-left mr-1">
+                        <b><i class="icon-printer"></i></b> Print
+                    </button>
+                    <button type="button" class="btn btn-danger btn-labeled btn-labeled-left mr-1">
+                        <b><i class="icon-file-excel"></i></b> Export Excel
+                    </button>
                     <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
                         <b><i class="icon-sync"></i></b> Refresh
                     </button>
@@ -23,8 +29,9 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Location</a>
-                    <span class="breadcrumb-item active">City</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Color</span>
                 </div>
             </div>
         </div>
@@ -36,10 +43,13 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>No</th>
-                            <th>Province</th>
-                            <th>City</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
+                            <th>Brand</th>
+                            <th>Fabric</th>
+                            <th>Code</th>
+                            <th>Color</th>
+                            <th>Status</th>
+                            <th>Modified By</th>
+                            <th>Date Created</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -63,25 +73,44 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Province :<span class="text-danger">*</span></label>
-                        <select name="province_id" id="province_id" class="select2">
+                        <label>Brand :<span class="text-danger">*</span></label>
+                        <select name="brand_id" id="brand_id" class="select2">
                             <option value="">-- Choose --</option>
-                            @foreach($province as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                            @foreach($brand as $b)
+                                <option value="{{ $b->id }}">{{ $b->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>City :<span class="text-danger">*</span></label>
+                        <label>Fabric :<span class="text-danger">*</span></label>
+                        <select name="fabric_id" id="fabric_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($fabric as $f)
+                                <option value="{{ $f->id }}">{{ $f->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Code :<span class="text-danger">*</span></label>
+                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
+                    </div>
+                    <div class="form-group">
+                        <label>Color :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
-                    <div class="form-group">
-                        <label>Latitude :</label>
-                        <input type="text" name="latitude" id="latitude" class="form-control" placeholder="Enter latitude">
-                    </div>
-                    <div class="form-group">
-                        <label>Longitude :</label>
-                        <input type="text" name="longitude" id="longitude" class="form-control" placeholder="Enter longitude">
+                    <div class="form-group text-center mt-4">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="status" value="2">
+                                Not Active
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="status" value="1" checked>
+                                Active
+                            </label>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -120,7 +149,9 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#province_id').val(null).change();
+        $('#brand_id').val(null).change();
+        $('#fabric_id').val(null).change();
+        $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -142,7 +173,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("location/city/datatable") }}',
+                url: '{{ url("master_data/general/color/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -154,18 +185,21 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'province_id', className: 'text-center align-middle' },
+                { name: 'brand_id', className: 'text-center align-middle' },
+                { name: 'color_id', className: 'text-center align-middle' },
+                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'latitude', className: 'text-center align-middle' },
-                { name: 'longitude', className: 'text-center align-middle' },
-                { name: 'action', searchable: false, orderable: false, className: 'text-center nowrap align-middle' }
+                { name: 'status', searchable: false, className: 'text-center align-middle' },
+                { name: 'updated_by', className: 'text-center align-middle' },
+                { name: 'created_at', searchable: false, className: 'text-center align-middle' },
+                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
             ]
         });
     }
 
     function create() {
         $.ajax({
-            url: '{{ url("location/city/create") }}',
+            url: '{{ url("master_data/general/color/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -213,21 +247,25 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("location/city/show") }}',
-            type: 'GET',
+            url: '{{ url("master_data/general/color/show") }}',
+            type: 'POST',
             dataType: 'JSON',
             data: {
                 id: id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
                 loadingOpen('.modal-content');
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#province_id').val(response.province_id).change();
+                $('#brand_id').val(response.brand_id).change();
+                $('#fabric_id').val(response.fabric_id).change();
+                $('#code').val(response.code);
                 $('#name').val(response.name);
-                $('#latitude').val(response.latitude);
-                $('#longitude').val(response.longitude);
+                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
@@ -244,7 +282,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("location/city/update") }}' + '/' + id,
+            url: '{{ url("master_data/general/color/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -279,6 +317,41 @@
             },
             error: function() {
                 $('.modal-body').scrollTop(0);
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+    function changeStatus(id, value) {
+        $.ajax({
+            url: '{{ url("master_data/general/color/change_status") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                id: id,
+                status: value
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                if(response.status == 200) {
+                    success();
+                    notif('success', 'bg-success', response.message);
+                } else {
+                    notif('error', 'bg-danger', response.message);
+                }
+            },
+            error: function() {
                 loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
