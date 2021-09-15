@@ -44,4 +44,10 @@ class AuthController extends Controller {
         }
     }
 
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/')->with(['success' => 'You have logged out']);
+    }
+
 }
