@@ -1,6 +1,10 @@
 $(function() {
     $('body').tooltip({selector: '[data-popup="tooltip"]'});
 
+    $('.sidebar-control').on('click', function() {
+        $('#datatable_serverside').DataTable().columns.adjust().draw();
+    });
+
     $('.select2').select2({
         dropdownParent: $('.modal')
     });
