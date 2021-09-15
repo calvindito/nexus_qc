@@ -1,7 +1,7 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 5.1.0
+ * @version 5.1.1
  */
 
 /**
@@ -14,6 +14,7 @@ $allowance_smvs = array(
 
 /* `mynexus`.`brands` */
 $brands = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Brand 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 14:48:03','updated_at' => '2021-09-15 15:08:55','deleted_at' => NULL)
 );
 
 /* `mynexus`.`buyers` */
@@ -544,6 +545,7 @@ $cities = array(
 
 /* `mynexus`.`colors` */
 $colors = array(
+  array('id' => '1','brand_id' => '1','fabric_id' => '1','created_by' => '1','updated_by' => '1','code' => 'C1','name' => 'Color 1','status' => '1','created_at' => '2021-09-15 15:47:53','updated_at' => '2021-09-15 15:48:34','deleted_at' => NULL)
 );
 
 /* `mynexus`.`countries` */
@@ -805,6 +807,7 @@ $departements = array(
 
 /* `mynexus`.`fabrics` */
 $fabrics = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Fabric 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 15:35:18','updated_at' => '2021-09-15 15:35:36','deleted_at' => NULL)
 );
 
 /* `mynexus`.`failed_jobs` */
@@ -813,7 +816,7 @@ $failed_jobs = array(
 
 /* `mynexus`.`genders` */
 $genders = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-09-13 23:40:08','deleted_at' => NULL),
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-09-15 13:42:02','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Mens','status' => '1','created_at' => '2021-09-13 22:53:07','updated_at' => '2021-09-13 22:53:07','deleted_at' => NULL),
   array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Ladies','status' => '1','created_at' => '2021-09-13 22:53:15','updated_at' => '2021-09-13 22:53:15','deleted_at' => NULL),
   array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Girls','status' => '1','created_at' => '2021-09-13 22:53:20','updated_at' => '2021-09-13 22:53:20','deleted_at' => NULL)
@@ -826,7 +829,7 @@ $group_defects = array(
   array('id' => '3','created_by' => '1','updated_by' => '1','code' => 'D-1','name' => 'Defect 1','parent_id' => '2','type' => '3','status' => '1','created_at' => '2021-09-13 16:58:18','updated_at' => '2021-09-13 16:58:24','deleted_at' => NULL),
   array('id' => '4','created_by' => '1','updated_by' => '1','code' => 'R-1','name' => 'Reject 1','parent_id' => '3','type' => '4','status' => '1','created_at' => '2021-09-13 17:02:00','updated_at' => '2021-09-13 17:02:06','deleted_at' => NULL),
   array('id' => '5','created_by' => '1','updated_by' => '1','code' => 'MD-1','name' => 'Major Defect 1','parent_id' => '4','type' => '5','status' => '1','created_at' => '2021-09-13 17:06:02','updated_at' => '2021-09-13 17:06:02','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-13 17:10:45','deleted_at' => NULL)
+  array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-15 13:01:34','deleted_at' => NULL)
 );
 
 /* `mynexus`.`migrations` */
@@ -859,7 +862,7 @@ $personal_access_tokens = array(
 
 /* `mynexus`.`product_classes` */
 $product_classes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Clothing','status' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:58','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Clothing','status' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-15 13:39:47','deleted_at' => NULL)
 );
 
 /* `mynexus`.`product_class_details` */
@@ -872,7 +875,7 @@ $product_class_details = array(
 
 /* `mynexus`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => 'Tes','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-14 19:47:24','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => 'Tes','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
 );
 
 /* `mynexus`.`provinces` */
@@ -916,7 +919,7 @@ $provinces = array(
 /* `mynexus`.`sizes` */
 $sizes = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','type' => '1','status' => '1','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 18:43:22','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','type' => '2','status' => '1','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-14 18:43:32','deleted_at' => NULL)
+  array('id' => '2','created_by' => '1','updated_by' => '1','type' => '2','status' => '1','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-15 13:50:22','deleted_at' => NULL)
 );
 
 /* `mynexus`.`size_details` */
