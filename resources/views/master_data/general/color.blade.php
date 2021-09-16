@@ -6,22 +6,24 @@
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
                     <span class="font-weight-semibold">Color</span>
                 </h4>
-                <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
-            <div class="header-elements d-none">
+            <div class="header-elements">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-success btn-labeled btn-labeled-left mr-1">
-                        <b><i class="icon-printer"></i></b> Print
-                    </button>
-                    <button type="button" class="btn btn-danger btn-labeled btn-labeled-left mr-1">
-                        <b><i class="icon-file-excel"></i></b> Export Excel
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
-                        <b><i class="icon-sync"></i></b> Refresh
-                    </button>
-                    <button type="button" class="btn btn-indigo btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
-                        <b><i class="icon-plus-circle2"></i></b> Add
-                    </button>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                            <b><i class="icon-sync"></i></b> Refresh
+                        </button>
+                        <button type="button" class="btn btn-indigo btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                            <b><i class="icon-plus-circle2"></i></b> Add
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary" data-toggle="dropdown"><i class="icon-menu"></i></button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

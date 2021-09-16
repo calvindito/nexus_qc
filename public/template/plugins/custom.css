@@ -2,3 +2,7 @@
     position: static !important;
     margin-bottom: 15px;
 }
+
+.btn {
+    border-radius: 3px !important;
+}

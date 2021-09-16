@@ -8,7 +8,7 @@
                 </h4>
                 <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
-            <div class="header-elements d-none">
+            <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
                         <b><i class="icon-sync"></i></b> Refresh
