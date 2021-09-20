@@ -13,7 +13,7 @@ class CreateColorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::connection('mysql')->create('colors', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('brand_id');
             $table->bigInteger('fabric_id');

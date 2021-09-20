@@ -10,14 +10,14 @@
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-indigo btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-toggle="dropdown"><i class="icon-menu"></i></button>
+                            <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="#" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
@@ -79,12 +79,16 @@
                     </div>
                     <div class="form-group">
                         <label>Class Product :<span class="text-danger">*</span></label>
-                        <select name="product_class_id" id="product_class_id" class="select2">
+                        <select name="product_class_id" id="product_class_id" class="select2" onchange="getGender()">
                             <option value="">-- Choose --</option>
                             @foreach($class_product as $cp)
                                 <option value="{{ $cp->id }}">{{ $cp->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender :<span class="text-danger">*</span></label>
+                        <select name="gender_id" id="gender_id" class="select2"></select>
                     </div>
                     <div class="form-group">
                         <label>Group Size :<span class="text-danger">*</span></label>
@@ -111,7 +115,7 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="status" value="2">
-                                Not Active
+                                Inactive
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -160,6 +164,7 @@
         $('#form_data').trigger('reset');
         $('#product_class_id').val(null).change();
         $('#size_id').val(null).change();
+        $('#gender_id').html('<option value="">-- Choose --</option>');
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -169,6 +174,44 @@
         reset();
         $('#modal_form').modal('hide');
         $('#datatable_serverside').DataTable().ajax.reload(null, false);
+    }
+
+    function getGender(param = null) {
+        $.ajax({
+            url: '{{ url("master_data/general/type_product/get_gender") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                product_class_id: $('#product_class_id').val()
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+                $('#gender_id').html('<option value="">-- Choose --</option>');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                $.each(response, function(i, val) {
+                    $('#gender_id').append(`
+                        <option value="` + val.gender_id + `">` + val.gender_name + `</option>
+                    `);
+                });
+
+                if(param) {
+                    $('#gender_id').val(param).change();
+                }
+            },
+            error: function() {
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    type: 'error'
+                });
+            }
+        });
     }
 
     function loadDataTable() {
@@ -195,7 +238,7 @@
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'product_class_id', className: 'text-center align-middle' },
-                { name: 'gender', orderable: false, className: 'text-center align-middle' },
+                { name: 'gender_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
                 { name: 'size_id', className: 'text-center align-middle' },
@@ -272,6 +315,7 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
+                getGender(response.gender_id);
                 $('#product_class_id').val(response.product_class_id).change();
                 $('#size_id').val(response.size_id).change();
                 $('#name').val(response.name);

@@ -43,6 +43,7 @@ Route::middleware('auth.login')->group(function() {
             Route::prefix('type_product')->group(function() {
                 Route::get('/', 'TypeProductController@index');
                 Route::get('datatable', 'TypeProductController@datatable');
+                Route::post('get_gender', 'TypeProductController@getGender');
                 Route::post('create', 'TypeProductController@create');
                 Route::post('show', 'TypeProductController@show');
                 Route::post('update/{id}', 'TypeProductController@update');

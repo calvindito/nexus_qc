@@ -13,7 +13,7 @@ class CreateDepartementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departements', function (Blueprint $table) {
+        Schema::connection('mysql')->create('departements', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

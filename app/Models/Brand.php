@@ -10,6 +10,7 @@ class Brand extends Model {
 
     use HasFactory, SoftDeletes;
 
+    protected $connection = 'mysql';
     protected $table      = 'brands';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
@@ -38,7 +39,7 @@ class Brand extends Model {
                 $status = '<span class="badge badge-success">Active</span>';
                 break;
             case '2':
-                $status = '<span class="badge badge-danger">Not Active</span>';
+                $status = '<span class="badge badge-danger">Inactive</span>';
                 break;
             default:
                 $status = '<span class="badge badge-warning">Invalid</span>';

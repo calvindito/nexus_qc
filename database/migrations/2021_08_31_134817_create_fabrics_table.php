@@ -13,7 +13,7 @@ class CreateFabricsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fabrics', function (Blueprint $table) {
+        Schema::connection('mysql')->create('fabrics', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

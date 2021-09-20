@@ -10,6 +10,7 @@ class City extends Model {
 
     use HasFactory, SoftDeletes;
 
+    protected $connection = 'mysql';
     protected $table      = 'cities';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];

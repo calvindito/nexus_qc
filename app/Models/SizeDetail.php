@@ -9,6 +9,7 @@ class SizeDetail extends Model {
 
     use HasFactory;
 
+    protected $connection = 'mysql';
     protected $table      = 'size_details';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];

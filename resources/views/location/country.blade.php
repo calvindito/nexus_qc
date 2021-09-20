@@ -10,10 +10,10 @@
             </div>
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
+                    <button type="button" class="btn btn-teal btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
                         <b><i class="icon-sync"></i></b> Refresh
                     </button>
-                    <button type="button" class="btn btn-indigo btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                    <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
                         <b><i class="icon-plus-circle2"></i></b> Add
                     </button>
                 </div>

@@ -28,7 +28,7 @@ class TypeProductController extends Controller {
         $column = [
             'id',
             'product_class_id',
-            'gender',
+            'gender_id',
             'name',
             'description',
             'size_id',
@@ -53,12 +53,10 @@ class TypeProductController extends Controller {
                             ->orWhere('description', 'like', "%$search%")
                             ->orWhere('smv_global', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%")
-                                    ->orWhereHas('productClassDetail', function($query) use ($search) {
-                                        $query->whereHas('gender', function($query) use ($search) {
-                                            $query->where('name', 'like', "%$search%");
-                                        });
-                                    });
+                                $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('gender', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('size', function($query) use ($search) {
                                 $query->whereHas('sizeDetail', function($query) use ($search) {
@@ -83,12 +81,10 @@ class TypeProductController extends Controller {
                             ->orWhere('description', 'like', "%$search%")
                             ->orWhere('smv_global', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%")
-                                    ->orWhereHas('productClassDetail', function($query) use ($search) {
-                                        $query->whereHas('gender', function($query) use ($search) {
-                                            $query->where('name', 'like', "%$search%");
-                                        });
-                                    });
+                                $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('gender', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('size', function($query) use ($search) {
                                 $query->whereHas('sizeDetail', function($query) use ($search) {
@@ -107,15 +103,6 @@ class TypeProductController extends Controller {
         if($query_data <> FALSE) {
             $nomor = $start + 1;
             foreach($query_data as $val) {
-                $gender = '';
-                if($val->productClass->productClassDetail) {
-                    foreach($val->productClass->productClassDetail as $pcd) {
-                        $gender .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $pcd->gender->name . '</span>';
-                    }
-                } else {
-                    $gender .= 'Gender not selected';
-                }
-
                 $value = '';
                 if($val->size->sizeDetail) {
                     foreach($val->size->sizeDetail as $sd) {
@@ -128,7 +115,7 @@ class TypeProductController extends Controller {
                 $response['data'][] = [
                     $nomor,
                     $val->productClass->name,
-                    $gender,
+                    $val->gender->name,
                     $val->name,
                     $val->description,
                     $value,
@@ -145,7 +132,7 @@ class TypeProductController extends Controller {
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Deactivate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
                                 </div>
                             </div>
                         </div>
@@ -169,16 +156,37 @@ class TypeProductController extends Controller {
         return response()->json($response);
     }
 
+    public function getGender(Request $request)
+    {
+        $gender        = [];
+        $product_class = ProductClass::find($request->product_class_id);
+
+        if($product_class) {
+            if($product_class->productClassDetail) {
+                foreach($product_class->productClassDetail as $pcd) {
+                    $gender[] = [
+                        'gender_id'   => $pcd->gender_id,
+                        'gender_name' => $pcd->gender->name
+                    ];
+                }
+            }
+        }
+
+        return response()->json($gender);
+    }
+
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
+            'gender_id'        => 'required',
             'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
+            'gender_id.required'        => 'Please select a gender.',
             'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
@@ -193,6 +201,7 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::create([
                 'product_class_id' => $request->product_class_id,
+                'gender_id'        => $request->gender_id,
                 'size_id'          => $request->size_id,
                 'created_by'       => session('id'),
                 'updated_by'       => session('id'),
@@ -228,12 +237,14 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
+            'gender_id'        => 'required',
             'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
+            'gender_id.required'        => 'Please select a gender.',
             'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
@@ -248,6 +259,7 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::find($id)->update([
                 'product_class_id' => $request->product_class_id,
+                'gender_id'        => $request->gender_id,
                 'size_id'          => $request->size_id,
                 'updated_by'       => session('id'),
                 'name'             => $request->name,

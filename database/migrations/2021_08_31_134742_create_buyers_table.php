@@ -13,7 +13,7 @@ class CreateBuyersTable extends Migration
      */
     public function up()
     {
-        Schema::create('buyers', function (Blueprint $table) {
+        Schema::connection('mysql')->create('buyers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('company_id');
             $table->bigInteger('country_id');

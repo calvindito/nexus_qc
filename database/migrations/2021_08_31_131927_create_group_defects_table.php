@@ -13,7 +13,7 @@ class CreateGroupDefectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_defects', function (Blueprint $table) {
+        Schema::connection('mysql')->create('group_defects', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

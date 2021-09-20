@@ -13,7 +13,7 @@ class CreateProductClassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_classes', function (Blueprint $table) {
+        Schema::connection('mysql')->create('product_classes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

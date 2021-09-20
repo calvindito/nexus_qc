@@ -9,6 +9,7 @@ class ProductClassDetail extends Model {
 
     use HasFactory;
 
+    protected $connection = 'mysql';
     protected $table      = 'product_class_details';
     protected $primaryKey = 'id';
     protected $fillable   = [

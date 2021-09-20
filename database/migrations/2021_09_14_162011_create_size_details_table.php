@@ -13,7 +13,7 @@ class CreateSizeDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('size_details', function (Blueprint $table) {
+        Schema::connection('mysql')->create('size_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('size_id');
             $table->string('value');

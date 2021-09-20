@@ -10,6 +10,7 @@ class GroupDefect extends Model {
 
     use HasFactory, SoftDeletes;
 
+    protected $connection = 'mysql';
     protected $table      = 'group_defects';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
@@ -74,7 +75,7 @@ class GroupDefect extends Model {
                 $status = '<span class="badge badge-success">Active</span>';
                 break;
             case '2':
-                $status = '<span class="badge badge-danger">Not Active</span>';
+                $status = '<span class="badge badge-danger">Inactive</span>';
                 break;
             default:
                 $status = '<span class="badge badge-warning">Invalid</span>';

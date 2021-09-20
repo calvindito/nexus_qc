@@ -10,6 +10,7 @@ class Province extends Model {
 
     use HasFactory, SoftDeletes;
 
+    protected $connection = 'mysql';
     protected $table      = 'provinces';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];

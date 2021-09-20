@@ -13,7 +13,7 @@ class CreateProvincesTable extends Migration
      */
     public function up()
     {
-        Schema::create('provinces', function (Blueprint $table) {
+        Schema::connection('mysql')->create('provinces', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('country_id');
             $table->string('name');

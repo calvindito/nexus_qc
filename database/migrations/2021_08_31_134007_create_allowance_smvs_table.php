@@ -13,7 +13,7 @@ class CreateAllowanceSmvsTable extends Migration
      */
     public function up()
     {
-        Schema::create('allowance_smvs', function (Blueprint $table) {
+        Schema::connection('mysql')->create('allowance_smvs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

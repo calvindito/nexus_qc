@@ -13,7 +13,7 @@ class CreateProductClassDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_class_details', function (Blueprint $table) {
+        Schema::connection('mysql')->create('product_class_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_class_id');
             $table->bigInteger('gender_id');

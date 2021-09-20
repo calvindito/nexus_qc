@@ -10,6 +10,7 @@ class Country extends Model {
 
     use HasFactory, SoftDeletes;
 
+    protected $connection = 'mysql';
     protected $table      = 'countries';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];

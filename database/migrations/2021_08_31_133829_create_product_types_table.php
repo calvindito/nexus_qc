@@ -13,9 +13,10 @@ class CreateProductTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_types', function (Blueprint $table) {
+        Schema::connection('mysql')->create('product_types', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('product_class_id');
+            $table->bigInteger('gender_id');
             $table->bigInteger('size_id');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');

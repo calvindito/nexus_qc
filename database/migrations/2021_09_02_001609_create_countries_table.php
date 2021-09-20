@@ -13,7 +13,7 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::connection('mysql')->create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
             $table->string('name');

@@ -24,7 +24,7 @@
 							<div class="card-body">
                                 <div class="text-center mb-3">
                                     <img src="{{ asset('website/icon.png') }}" width="200" class="img-fluid mb-1 mt-1">
-									<h5 class="mb-0">Login to your account</h5>
+									<h5 class="mb-0">Nexus QC Management</h5>
 									<span class="d-block text-muted">Enter your username and password here</span>
 								</div>
                                 @if(session('success'))

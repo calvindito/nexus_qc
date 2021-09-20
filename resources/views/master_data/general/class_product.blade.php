@@ -10,14 +10,14 @@
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-indigo btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-toggle="dropdown"><i class="icon-menu"></i></button>
+                            <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
@@ -88,7 +88,7 @@
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="status" value="2">
-                                Not Active
+                                Inactive
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
