@@ -18,7 +18,7 @@ class CreateAllowanceSmvsTable extends Migration
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });

@@ -12,6 +12,16 @@ Route::middleware('auth.login')->group(function() {
     });
 
     Route::prefix('master_data')->group(function() {
+        Route::prefix('global')->group(function() {
+            Route::prefix('allowance_smv')->group(function() {
+                Route::get('/', 'AllowanceSmvController@index');
+                Route::get('datatable', 'AllowanceSmvController@datatable');
+                Route::post('create', 'AllowanceSmvController@create');
+                Route::post('show', 'AllowanceSmvController@show');
+                Route::post('update/{id}', 'AllowanceSmvController@update');
+            });
+        });
+
         Route::prefix('general')->group(function() {
             Route::prefix('gender')->group(function() {
                 Route::get('/', 'GenderController@index');
