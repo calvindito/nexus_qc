@@ -1,31 +1,33 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 5.1.1
+ * @version 5.1.0
  */
 
 /**
- * Database `mynexus`
+ * Database `nexus_qc`
  */
 
-/* `mynexus`.`allowance_smvs` */
+/* `nexus_qc`.`allowance_smvs` */
 $allowance_smvs = array(
 );
 
-/* `mynexus`.`brands` */
+/* `nexus_qc`.`brands` */
 $brands = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Brand 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 14:48:03','updated_at' => '2021-09-15 15:08:55','deleted_at' => NULL)
 );
 
-/* `mynexus`.`buyers` */
+/* `nexus_qc`.`buyers` */
 $buyers = array(
+  array('id' => '1','country_id' => '103','province_id' => '35','city_id' => '3578','departement_id' => '2','rank_id' => '4','created_by' => '1','updated_by' => '1','company' => 'Karya Digital Solusindo','description' => 'Software House','remark' => 'Good','address' => 'Dharmahusada indah','status' => '1','created_at' => '2021-09-23 11:13:21','updated_at' => '2021-09-23 11:13:36','deleted_at' => NULL)
 );
 
-/* `mynexus`.`buyer_contacts` */
+/* `nexus_qc`.`buyer_contacts` */
 $buyer_contacts = array(
+  array('id' => '1','buyer_id' => '1','type' => '2','value' => '088999157717','created_at' => '2021-09-23 11:13:21','updated_at' => '2021-09-23 11:13:21')
 );
 
-/* `mynexus`.`cities` */
+/* `nexus_qc`.`cities` */
 $cities = array(
   array('id' => '1101','province_id' => '11','name' => 'Kabupaten Simeulue','latitude' => '2.583333','longitude' => '96.083333','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
   array('id' => '1102','province_id' => '11','name' => 'Kabupaten Aceh Singkil','latitude' => '2.3589459','longitude' => '97.87216','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
@@ -543,12 +545,12 @@ $cities = array(
   array('id' => '9471','province_id' => '94','name' => 'Kota Jayapura','latitude' => '-2.533','longitude' => '140.717','created_at' => '2021-03-10 16:18:08','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL)
 );
 
-/* `mynexus`.`colors` */
+/* `nexus_qc`.`colors` */
 $colors = array(
   array('id' => '1','brand_id' => '1','fabric_id' => '1','created_by' => '1','updated_by' => '1','code' => 'C1','name' => 'Color 1','status' => '1','created_at' => '2021-09-15 15:47:53','updated_at' => '2021-09-15 15:48:34','deleted_at' => NULL)
 );
 
-/* `mynexus`.`countries` */
+/* `nexus_qc`.`countries` */
 $countries = array(
   array('id' => '1','code' => 'AW','name' => 'Aruba','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-08-09 10:41:20','deleted_at' => '2021-08-09 10:41:20'),
   array('id' => '2','code' => 'AF','name' => 'Afghanistan','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL),
@@ -801,20 +803,20 @@ $countries = array(
   array('id' => '249','code' => 'ZW','name' => 'Zimbabwe','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL)
 );
 
-/* `mynexus`.`departements` */
+/* `nexus_qc`.`departements` */
 $departements = array(
 );
 
-/* `mynexus`.`fabrics` */
+/* `nexus_qc`.`fabrics` */
 $fabrics = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Fabric 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 15:35:18','updated_at' => '2021-09-15 15:35:36','deleted_at' => NULL)
 );
 
-/* `mynexus`.`failed_jobs` */
+/* `nexus_qc`.`failed_jobs` */
 $failed_jobs = array(
 );
 
-/* `mynexus`.`genders` */
+/* `nexus_qc`.`genders` */
 $genders = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-09-15 13:42:02','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Mens','status' => '1','created_at' => '2021-09-13 22:53:07','updated_at' => '2021-09-13 22:53:07','deleted_at' => NULL),
@@ -822,7 +824,7 @@ $genders = array(
   array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Girls','status' => '1','created_at' => '2021-09-13 22:53:20','updated_at' => '2021-09-13 22:53:20','deleted_at' => NULL)
 );
 
-/* `mynexus`.`group_defects` */
+/* `nexus_qc`.`group_defects` */
 $group_defects = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','code' => 'G-1','name' => 'Group 1','parent_id' => '0','type' => '1','status' => '1','created_at' => '2021-09-13 16:49:42','updated_at' => '2021-09-13 16:49:42','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','code' => 'SG-1','name' => 'Sub Group 1','parent_id' => '1','type' => '2','status' => '1','created_at' => '2021-09-13 16:50:07','updated_at' => '2021-09-13 16:51:01','deleted_at' => NULL),
@@ -832,7 +834,7 @@ $group_defects = array(
   array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-15 13:01:34','deleted_at' => NULL)
 );
 
-/* `mynexus`.`migrations` */
+/* `nexus_qc`.`migrations` */
 $migrations = array(
   array('id' => '1','migration' => '2019_08_19_000000_create_failed_jobs_table','batch' => '1'),
   array('id' => '2','migration' => '2019_12_14_000001_create_personal_access_tokens_table','batch' => '1'),
@@ -856,16 +858,16 @@ $migrations = array(
   array('id' => '20','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1')
 );
 
-/* `mynexus`.`personal_access_tokens` */
+/* `nexus_qc`.`personal_access_tokens` */
 $personal_access_tokens = array(
 );
 
-/* `mynexus`.`product_classes` */
+/* `nexus_qc`.`product_classes` */
 $product_classes = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Clothing','status' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-15 13:39:47','deleted_at' => NULL)
 );
 
-/* `mynexus`.`product_class_details` */
+/* `nexus_qc`.`product_class_details` */
 $product_class_details = array(
   array('id' => '1','product_class_id' => '1','gender_id' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
   array('id' => '2','product_class_id' => '1','gender_id' => '2','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
@@ -873,12 +875,12 @@ $product_class_details = array(
   array('id' => '4','product_class_id' => '1','gender_id' => '4','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09')
 );
 
-/* `mynexus`.`product_types` */
+/* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => 'Tes','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','gender_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => 'Tes','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
 );
 
-/* `mynexus`.`provinces` */
+/* `nexus_qc`.`provinces` */
 $provinces = array(
   array('id' => '11','country_id' => '103','name' => 'Aceh','latitude' => '4.695135','longitude' => '96.7493993','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
   array('id' => '12','country_id' => '103','name' => 'Sumatera Utara','latitude' => '2.1153547','longitude' => '99.5450974','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
@@ -916,31 +918,31 @@ $provinces = array(
   array('id' => '94','country_id' => '103','name' => 'Papua','latitude' => '-4.269928','longitude' => '138.0803529','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL)
 );
 
-/* `mynexus`.`sizes` */
+/* `nexus_qc`.`sizes` */
 $sizes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','type' => '1','status' => '1','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 18:43:22','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','type' => '2','status' => '1','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-15 13:50:22','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Numeric','status' => '1','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-23 14:29:13','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','group' => 'Alpha','status' => '1','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-23 14:30:06','deleted_at' => NULL)
 );
 
-/* `mynexus`.`size_details` */
+/* `nexus_qc`.`size_details` */
 $size_details = array(
-  array('id' => '1','size_id' => '1','value' => '27','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '2','size_id' => '1','value' => '28','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '3','size_id' => '1','value' => '29','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '4','size_id' => '1','value' => '30','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '5','size_id' => '1','value' => '31','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '6','size_id' => '1','value' => '32','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '7','size_id' => '1','value' => '33','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '8','size_id' => '1','value' => '34','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '9','size_id' => '1','value' => '36','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '10','size_id' => '1','value' => '38','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-14 16:44:00'),
-  array('id' => '11','size_id' => '2','value' => 'M','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-14 16:44:59'),
-  array('id' => '12','size_id' => '2','value' => 'L','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-14 16:44:59'),
-  array('id' => '13','size_id' => '2','value' => 'XL','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-14 16:44:59'),
-  array('id' => '14','size_id' => '2','value' => 'XXL','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-14 16:44:59')
+  array('id' => '15','size_id' => '1','value' => '27','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '16','size_id' => '1','value' => '28','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '17','size_id' => '1','value' => '29','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '18','size_id' => '1','value' => '30','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '19','size_id' => '1','value' => '31','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '20','size_id' => '1','value' => '32','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '21','size_id' => '1','value' => '33','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '22','size_id' => '1','value' => '34','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '23','size_id' => '1','value' => '36','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '24','size_id' => '1','value' => '38','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
+  array('id' => '25','size_id' => '2','value' => 'M','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
+  array('id' => '26','size_id' => '2','value' => 'L','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
+  array('id' => '27','size_id' => '2','value' => 'XL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
+  array('id' => '28','size_id' => '2','value' => 'XXL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06')
 );
 
-/* `mynexus`.`users` */
+/* `nexus_qc`.`users` */
 $users = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$i8wP19z.btF5ywh7sfMqjO/QSc7wyaQT9eAHKsSURPIHW.P9WxGYu','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-09-13 14:09:27','deleted_at' => NULL)
 );

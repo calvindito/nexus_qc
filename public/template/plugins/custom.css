@@ -6,3 +6,7 @@
 .btn {
     border-radius: 3px !important;
 }
+
+.select2 {
+    width: 100%!important;
+}

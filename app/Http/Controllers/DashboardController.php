@@ -9,8 +9,6 @@ class DashboardController extends Controller {
 
     public function index()
     {
-        dd(DB::connection('asset')->table('city')->count());
-
         $data = [
             'title'   => 'Dashboard',
             'content' => 'dashboard'

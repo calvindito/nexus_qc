@@ -11,8 +11,28 @@ Route::middleware('auth.login')->group(function() {
         Route::get('logout', 'AuthController@logout');
     });
 
+    Route::prefix('load_data')->group(function() {
+        Route::post('country', 'LoadDataController@country');
+        Route::post('province', 'LoadDataController@province');
+        Route::post('city', 'LoadDataController@city');
+    });
+
+    Route::prefix('pdf')->group(function() {
+        Route::get('{param}', 'PdfController@index');
+    });
+
     Route::prefix('master_data')->group(function() {
         Route::prefix('global')->group(function() {
+            Route::prefix('rank')->group(function() {
+                Route::get('/', 'RankController@index');
+                Route::get('datatable', 'RankController@datatable');
+            });
+
+            Route::prefix('departement')->group(function() {
+                Route::get('/', 'DepartementController@index');
+                Route::get('datatable', 'DepartementController@datatable');
+            });
+
             Route::prefix('allowance_smv')->group(function() {
                 Route::get('/', 'AllowanceSmvController@index');
                 Route::get('datatable', 'AllowanceSmvController@datatable');
@@ -58,6 +78,17 @@ Route::middleware('auth.login')->group(function() {
                 Route::post('show', 'TypeProductController@show');
                 Route::post('update/{id}', 'TypeProductController@update');
                 Route::post('change_status', 'TypeProductController@changeStatus');
+            });
+
+            Route::prefix('buyer')->group(function() {
+                Route::get('/', 'BuyerController@index');
+                Route::get('datatable', 'BuyerController@datatable');
+                Route::post('row_detail', 'BuyerController@rowDetail');
+                Route::post('get_gender', 'BuyerController@getGender');
+                Route::post('create', 'BuyerController@create');
+                Route::post('show', 'BuyerController@show');
+                Route::post('update/{id}', 'BuyerController@update');
+                Route::post('change_status', 'BuyerController@changeStatus');
             });
 
             Route::prefix('brand')->group(function() {

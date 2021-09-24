@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departement extends Model {
+class Rank extends Model {
 
     use HasFactory;
 
     protected $connection = 'asset';
-    protected $table      = 'department';
+    protected $table      = 'rank';
 
 }

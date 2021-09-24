@@ -13,7 +13,7 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                         <div class="btn-group">
@@ -45,7 +45,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>No</th>
-                            <th>Type</th>
+                            <th>Group</th>
                             <th>Chart</th>
                             <th>Status</th>
                             <th>Modified By</th>
@@ -59,7 +59,7 @@
     </div>
 
 <div class="modal fade" id="modal_form" data-backdrop="static" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-light">
                 <h5 class="modal-title" id="exampleModalLabel">Form</h5>
@@ -73,12 +73,8 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Type :<span class="text-danger">*</span></label>
-                        <select name="type" id="type" class="custom-select">
-                            <option value="">-- Choose --</option>
-                            <option value="1">Numeric</option>
-                            <option value="2">Alpha</option>
-                        </select>
+                        <label>Group :<span class="text-danger">*</span></label>
+                        <input type="text" name="group" id="group" class="form-control" placeholder="Enter group">
                     </div>
                     <div class="form-group">
                         <label>Chart :<span class="text-danger">*</span></label>
@@ -102,7 +98,7 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="cancel()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
+                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
                     <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
                     <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
@@ -116,6 +112,13 @@
         loadDataTable();
     });
 
+    function openModal() {
+        reset();
+        $('#btn_create').show();
+        $('#btn_update').hide();
+        $('#btn_cancel').hide();
+    }
+
     function cancel() {
         reset();
         $('#modal_form').modal('hide');
@@ -125,6 +128,7 @@
     }
 
     function toShow() {
+        reset();
         $('#modal_form').modal('show');
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -170,7 +174,7 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'type', searchable: false, className: 'text-center align-middle' },
+                { name: 'group', searchable: false, className: 'text-center align-middle' },
                 { name: 'value', orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
@@ -250,7 +254,7 @@
                     `);
                 });
 
-                $('#type').val(response.type);
+                $('#group').val(response.group);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -260,7 +264,7 @@
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
-                    type: 'error'
+                    icon: 'error'
                 });
             }
         });

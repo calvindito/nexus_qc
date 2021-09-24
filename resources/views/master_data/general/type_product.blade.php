@@ -13,7 +13,7 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="cancel()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                         <div class="btn-group">
@@ -64,7 +64,7 @@
     </div>
 
 <div class="modal fade" id="modal_form" data-backdrop="static" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-light">
                 <h5 class="modal-title" id="exampleModalLabel">Form</h5>
@@ -95,7 +95,7 @@
                         <select name="size_id" id="size_id" class="select2">
                             <option value="">-- Choose --</option>
                             @foreach($size as $s)
-                                <option value="{{ $s->id }}">{{ $s->type() }}</option>
+                                <option value="{{ $s->id }}">{{ $s->group }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -129,7 +129,7 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="cancel()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
+                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
                     <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
                     <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
@@ -143,6 +143,57 @@
         loadDataTable();
     });
 
+    function getGender(id = null) {
+        $.ajax({
+            url: '{{ url("master_data/general/type_product/get_gender") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                product_class_id: $('#product_class_id').val()
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+                $('#gender_id').html('<option value="">-- Choose --</option>');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                $.each(response, function(i, val) {
+                    if(id == val.gender_id) {
+                        var selected = 'selected';
+                    } else {
+                        var selected = '';
+                    }
+
+                    $('#gender_id').append(`
+                        <option value="` + val.gender_id + `" ` + selected + `>` + val.gender_name + `</option>
+                    `);
+                });
+
+                if(param) {
+                    $('#gender_id').val(param).change();
+                }
+            },
+            error: function() {
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+    function openModal() {
+        reset();
+        $('#btn_create').show();
+        $('#btn_update').hide();
+        $('#btn_cancel').hide();
+    }
+
     function cancel() {
         reset();
         $('#modal_form').modal('hide');
@@ -152,6 +203,7 @@
     }
 
     function toShow() {
+        reset();
         $('#modal_form').modal('show');
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -174,44 +226,6 @@
         reset();
         $('#modal_form').modal('hide');
         $('#datatable_serverside').DataTable().ajax.reload(null, false);
-    }
-
-    function getGender(param = null) {
-        $.ajax({
-            url: '{{ url("master_data/general/type_product/get_gender") }}',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                product_class_id: $('#product_class_id').val()
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function() {
-                loadingOpen('.modal-content');
-                $('#gender_id').html('<option value="">-- Choose --</option>');
-            },
-            success: function(response) {
-                loadingClose('.modal-content');
-                $.each(response, function(i, val) {
-                    $('#gender_id').append(`
-                        <option value="` + val.gender_id + `">` + val.gender_name + `</option>
-                    `);
-                });
-
-                if(param) {
-                    $('#gender_id').val(param).change();
-                }
-            },
-            error: function() {
-                loadingClose('.modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    type: 'error'
-                });
-            }
-        });
     }
 
     function loadDataTable() {
@@ -315,8 +329,8 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                getGender(response.gender_id);
                 $('#product_class_id').val(response.product_class_id).change();
+                getGender(response.gender_id);
                 $('#size_id').val(response.size_id).change();
                 $('#name').val(response.name);
                 $('#smv_global').val(response.smv_global);
@@ -330,7 +344,7 @@
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
-                    type: 'error'
+                    icon: 'error'
                 });
             }
         });

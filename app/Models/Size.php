@@ -17,7 +17,7 @@ class Size extends Model {
     protected $fillable   = [
         'created_by',
         'updated_by',
-        'type',
+        'group',
         'status'
     ];
 
@@ -29,23 +29,6 @@ class Size extends Model {
     public function updatedBy()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
-    }
-
-    public function type()
-    {
-        switch($this->type) {
-            case '1':
-                $type = 'Numeric';
-                break;
-            case '2':
-                $type = 'Alpha';
-                break;
-            default:
-                $type = 'Invalid';
-                break;
-        }
-
-        return $type;
     }
 
     public function status()

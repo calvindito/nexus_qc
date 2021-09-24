@@ -17,7 +17,7 @@ class CreateSizesTable extends Migration
             $table->id();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
-            $table->char('type', 1);
+            $table->string('group');
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

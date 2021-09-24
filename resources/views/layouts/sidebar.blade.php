@@ -4,8 +4,8 @@
 			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0" style="height:55px;">
 				<div class="navbar-brand flex-fill wmin-0 text-center">
 					<a href="{{ url('dashboard') }}" class="d-inline-block">
-                        <h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">Nexus QC</h5>
-                        <h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">QC</h5>
+						<h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">Nexus QC</h5>
+						<h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">QC</h5>
 					</a>
 				</div>
 				<ul class="navbar-nav align-self-center ml-auto sidebar-resize-hide">
@@ -50,7 +50,10 @@
 									<a href="#" class="nav-link">Global</a>
 									<ul class="nav nav-group-sub">
 										<li class="nav-item">
-											<a href="{{ url('master_data/global/company') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'company' ? 'active' : '' }}">Company</a>
+											<a href="{{ url('master_data/global/rank') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'rank' ? 'active' : '' }}">Rank</a>
+										</li>
+                                        <li class="nav-item">
+											<a href="{{ url('master_data/global/departement') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'departement' ? 'active' : '' }}">Departement</a>
 										</li>
 										<li class="nav-item">
 											<a href="{{ url('master_data/global/allowance_smv') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'allowance_smv' ? 'active' : '' }}">Allowance SMV</a>

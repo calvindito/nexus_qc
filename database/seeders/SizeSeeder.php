@@ -22,7 +22,7 @@ class SizeSeeder extends Seeder
                 'id'         => $s['id'],
                 'created_by' => $s['created_by'],
                 'updated_by' => $s['updated_by'],
-                'type'       => $s['type'],
+                'group'      => $s['group'],
                 'status'     => $s['status'],
                 'created_at' => $s['created_at'],
                 'updated_at' => $s['updated_at'],

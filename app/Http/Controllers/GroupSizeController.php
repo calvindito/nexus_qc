@@ -24,7 +24,7 @@ class GroupSizeController extends Controller {
     {
         $column = [
             'id',
-            'type',
+            'group',
             'value',
             'status',
             'updated_by',
@@ -42,7 +42,8 @@ class GroupSizeController extends Controller {
         $query_data = Size::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->whereHas('updatedBy', function($query) use ($search) {
+                        $query->where('group', 'like', "%$search%")
+                            ->whereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('sizeDetail', function($query) use ($search) {
@@ -59,7 +60,8 @@ class GroupSizeController extends Controller {
         $total_filtered = Size::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->whereHas('updatedBy', function($query) use ($search) {
+                        $query->where('group', 'like', "%$search%")
+                            ->whereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('sizeDetail', function($query) use ($search) {
@@ -85,7 +87,7 @@ class GroupSizeController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->type(),
+                    $val->group,
                     $value,
                     $val->status(),
                     $val->updatedBy->name,
@@ -98,7 +100,7 @@ class GroupSizeController extends Controller {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Activate</a>
+                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
                                 </div>
                             </div>
@@ -126,11 +128,11 @@ class GroupSizeController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'type'   => 'required',
+            'group'  => 'required',
             'value'  => 'required',
             'status' => 'required'
         ], [
-            'type.required'   => 'Please select a type.',
+            'group.required'  => 'Group cannot be empty.',
             'value.required'  => 'Size chart cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
@@ -144,7 +146,7 @@ class GroupSizeController extends Controller {
             $query = Size::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'type'       => $request->type,
+                'group'      => $request->group,
                 'status'     => $request->status
             ]);
 
@@ -177,7 +179,7 @@ class GroupSizeController extends Controller {
     {
         $data = Size::find($request->id);
         return response()->json([
-            'type'        => $data->type,
+            'group'       => $data->group,
             'status'      => $data->status,
             'size_detail' => $data->sizeDetail
         ]);
@@ -186,11 +188,11 @@ class GroupSizeController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'type'   => 'required',
+            'group'  => 'required',
             'value'  => 'required',
             'status' => 'required'
         ], [
-            'type.required'   => 'Please select a type.',
+            'group.required'  => 'Group cannot be empty.',
             'value.required'  => 'Size chart cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
@@ -203,7 +205,7 @@ class GroupSizeController extends Controller {
         } else {
             $query = Size::find($id)->update([
                 'updated_by' => session('id'),
-                'type'       => $request->type,
+                'group'      => $request->group,
                 'status'     => $request->status
             ]);
 

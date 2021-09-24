@@ -14,7 +14,7 @@ class ProvinceController extends Controller {
     {
         $data = [
             'title'   => 'Location - Province',
-            'country' => Country::all(),
+            'country' => Country::orderBy('name', 'asc')->get(),
             'content' => 'location.province'
         ];
 

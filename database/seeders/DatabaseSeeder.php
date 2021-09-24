@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ColorSeeder::class);
         $this->call(FabricSeeder::class);
         $this->call(AllowanceSmvSeeder::class);
+        $this->call(BuyerSeeder::class);
     }
 }
