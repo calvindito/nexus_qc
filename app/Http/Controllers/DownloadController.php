@@ -126,33 +126,33 @@ class DownloadController extends Controller {
             case 'defect_list':
                 $response = [
                     'view'     => 'defect_list',
-                    'title'    => 'Nexus - Data Defect List',
+                    'title'    => 'Nexus - Data Defect',
                     'data'     => GroupDefect::where('type', 3)->get(),
-                    'filename' => 'Data Defect List'
+                    'filename' => 'Data Defect'
                 ];
                 break;
             case 'reject_list':
                 $response = [
                     'view'     => 'reject_list',
-                    'title'    => 'Nexus - Data Reject List',
+                    'title'    => 'Nexus - Data Reject',
                     'data'     => GroupDefect::where('type', 4)->get(),
-                    'filename' => 'Data Reject List'
+                    'filename' => 'Data Reject'
                 ];
                 break;
             case 'major_defect_list':
                 $response = [
                     'view'     => 'major_defect_list',
-                    'title'    => 'Nexus - Data Major Defect List',
+                    'title'    => 'Nexus - Data Major Defect',
                     'data'     => GroupDefect::where('type', 5)->get(),
-                    'filename' => 'Data Major Defect List'
+                    'filename' => 'Data Major Defect'
                 ];
                 break;
             case 'critical_defect_list':
                 $response = [
                     'view'     => 'critical_defect_list',
-                    'title'    => 'Nexus - Data Critical Defect List',
+                    'title'    => 'Nexus - Data Critical Defect',
                     'data'     => GroupDefect::where('type', 6)->get(),
-                    'filename' => 'Data Critical Defect List'
+                    'filename' => 'Data Critical Defect'
                 ];
                 break;
             default:
@@ -201,16 +201,16 @@ class DownloadController extends Controller {
                 return (new GroupDefectExport(2))->download('QC - Data Sub Group Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'defect_list':
-                return (new GroupDefectExport(3))->download('QC - Data Defect List - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(3))->download('QC - Data Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'reject_list':
-                return (new GroupDefectExport(4))->download('QC - Data Reject List - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(4))->download('QC - Data Reject - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'major_defect_list':
-                return (new GroupDefectExport(5))->download('QC - Data Major Defect List - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(5))->download('QC - Data Major Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'critical_defect_list':
-                return (new GroupDefectExport(6))->download('QC - Data Critical Defect List - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(6))->download('QC - Data Critical Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();

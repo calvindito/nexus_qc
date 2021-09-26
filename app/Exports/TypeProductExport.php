@@ -19,7 +19,7 @@ class TypeProductExport implements FromView, ShouldAutoSize {
 
     public function view(): View
     {
-        return view('excel.product_type', ['data' => ProductType::all()]);
+        return view('excel.type_product', ['data' => ProductType::all()]);
     }
 
 }

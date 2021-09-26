@@ -44,7 +44,7 @@
 <body>
     <div style="text-align:center;">
         <h2 style="margin-top:35px;">NEXUS QUALITY CONTROL</h2>
-        <h4 style="color:gray;">DATA CRITICAL DEFECT LIST</h4>
+        <h4 style="color:gray;">DATA CRITICAL DEFECT</h4>
         <table>
             <thead>
                 <tr>

@@ -22,7 +22,31 @@ class GroupDefectExport implements FromView, ShouldAutoSize {
 
     public function view(): View
     {
-        return view('excel.color', ['data' => GroupDefect::where('type', $this->param)->get()]);
+        switch($this->param) {
+            case '1':
+                $view = 'group_defect';
+                break;
+            case '2':
+                $view = 'sub_group_defect';
+                break;
+            case '3':
+                $view = 'defect_list';
+                break;
+            case '4':
+                $view = 'reject_list';
+                break;
+            case '5':
+                $view = 'major_defect_list';
+                break;
+            case '6':
+                $view = 'critical_defect_list';
+                break;
+            default:
+                $view = '';
+                break;
+        }
+
+        return view('excel.' . $view, ['data' => GroupDefect::where('type', $this->param)->get()]);
     }
 
 }

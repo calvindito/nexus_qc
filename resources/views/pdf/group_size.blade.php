@@ -69,7 +69,7 @@
                                         {{ $sd->value . $delimeter }}
                                     @endforeach
                                 @else
-                                    No Gender
+                                    No Size
                                 @endif
                             </td>
                             <td>{!! $d->status() !!}</td>

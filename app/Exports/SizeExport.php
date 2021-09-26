@@ -19,7 +19,7 @@ class SizeExport implements FromView, ShouldAutoSize {
 
     public function view(): View
     {
-        return view('excel.size', ['data' => Size::all()]);
+        return view('excel.group_size', ['data' => Size::all()]);
     }
 
 }

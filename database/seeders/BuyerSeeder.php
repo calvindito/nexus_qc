@@ -24,7 +24,6 @@ class BuyerSeeder extends Seeder
                 'province_id'    => $b['province_id'],
                 'city_id'        => $b['city_id'],
                 'departement_id' => $b['departement_id'],
-                'rank_id'        => $b['rank_id'],
                 'created_by'     => $b['created_by'],
                 'updated_by'     => $b['updated_by'],
                 'company'        => $b['company'],

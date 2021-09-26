@@ -21,6 +21,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/defect_list') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/defect_list') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                            </div>
                         </div>
                     </div>
                 </div>
