@@ -16,8 +16,10 @@ class CreateBuyerContactsTable extends Migration
         Schema::connection('mysql')->create('buyer_contacts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('buyer_id');
-            $table->char('type', 1);
+            $table->bigInteger('rank_id');
+            $table->string('name');
             $table->string('value');
+            $table->char('type', 1);
             $table->timestamps();
         });
     }

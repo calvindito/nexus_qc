@@ -19,9 +19,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="#" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
-                                <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/buyer') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -119,15 +118,6 @@
                                 <select name="city_id" id="city_id" class="select2"></select>
                             </div>
                             <div class="form-group">
-                                <label>Rank :<span class="text-danger">*</span></label>
-                                <select name="rank_id" id="rank_id" class="select2">
-                                    <option value="">-- Choose --</option>
-                                    @foreach($rank as $r)
-                                        <option value="{{ $r->id }}">{{ $r->rank }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label>Departement :<span class="text-danger">*</span></label>
                                 <select name="departement_id" id="departement_id" class="select2">
                                     <option value="">-- Choose --</option>
@@ -142,26 +132,49 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tab_contact">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="form-group mb-0">
-                                        <select name="contact_type" id="contact_type" class="custom-select">
-                                            <option value="">-- Choose Type --</option>
-                                            <option value="1">Office</option>
-                                            <option value="2">HP</option>
-                                            <option value="3">Fax</option>
-                                            <option value="4">Email</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group mb-0">
-                                        <input type="text" name="contact_value" id="contact_value" class="form-control" placeholder="Enter value">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group mb-0">
-                                        <button type="button" onclick="addContact()" class="btn btn-success col-12"><i class="icon-plus2"></i> Add</button>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Rank :<span class="text-danger">*</span></label>
+                                                <select name="contact_rank" id="contact_rank" class="select2">
+                                                    <option value="">-- Choose --</option>
+                                                    @foreach($rank as $r)
+                                                        <option value="{{ $r->id }};{{ $r->rank }}">{{ $r->rank }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Name :<span class="text-danger">*</span></label>
+                                                <input type="text" name="contact_name" id="contact_name" class="form-control" placeholder="Enter name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Type :<span class="text-danger">*</span></label>
+                                                <select name="contact_type" id="contact_type" class="custom-select">
+                                                    <option value="">-- Choose --</option>
+                                                    <option value="1">Office</option>
+                                                    <option value="2">HP</option>
+                                                    <option value="3">Fax</option>
+                                                    <option value="4">Email</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Value :<span class="text-danger">*</span></label>
+                                                <input type="text" name="contact_value" id="contact_value" class="form-control" placeholder="Enter value">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group mb-0 text-right">
+                                                <button type="button" onclick="addContact()" class="btn btn-success btn-sm"><i class="icon-plus2"></i> Add</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -169,6 +182,8 @@
                             <table class="table table-bordered w-100" id="datatable_contact">
                                 <thead class="bg-light">
                                     <tr class="text-center">
+                                        <th>Name</th>
+                                        <th>Rank</th>
                                         <th>Type</th>
                                         <th>Value</th>
                                         <th>Delete</th>
@@ -363,10 +378,13 @@
     }
 
     function addContact() {
-        var contact_type  = $('#contact_type').val();
+        var contact_rank  = $('#contact_rank').val();
+        var contact_name  = $('#contact_name').val();
         var contact_value = $('#contact_value').val();
+        var contact_type  = $('#contact_type').val();
 
-        if(contact_type && contact_value) {
+        if(contact_rank && contact_name && contact_type && contact_value) {
+            var rankable = contact_rank.split(';');
             if(contact_type == 1) {
                 var type = 'Office';
             } else if(contact_type == 2) {
@@ -378,20 +396,26 @@
             }
 
             $('#datatable_contact').DataTable().row.add([
+                contact_name,
+                rankable[1],
                 type,
                 contact_value,
                 `
                     <button type="button" class="btn btn-danger btn-sm" id="delete_data_contact"><i class="icon-trash-alt"></i></button>
                     <input type="hidden" name="contact[]" value="` + true + `">
-                    <input type="hidden" name="contact_type[]" value="` + contact_type + `">
+                    <input type="hidden" name="contact_rank_id[]" value="` + rankable[0] + `">
+                    <input type="hidden" name="contact_name[]" value="` + contact_name + `">
                     <input type="hidden" name="contact_value[]" value="` + contact_value + `">
+                    <input type="hidden" name="contact_type[]" value="` + contact_type + `">
                 `
             ]).draw().node();
 
+            $('#contact_rank').val(null).change();
+            $('#contact_name').val(null);
             $('#contact_type').val(null);
             $('#contact_value').val(null);
         } else {
-            swalInit.fire('Ooppss', 'Type and value cannot be a empty', 'warning');
+            swalInit.fire('Ooppss', 'Please fill in all input', 'warning');
         }
     }
 
@@ -429,7 +453,6 @@
         $('#country_id').val(null).change();
         $('#province_id').html('<option value="">-- Choose --</option>');
         $('#city_id').html('<option value="">-- Choose --</option>');
-        $('#rank_id').val(null).change();
         $('#departement_id').val(null).change();
         $('#datatable_contact').DataTable().clear().draw();
         $('input[name="status"][value="1"]').prop('checked', true);
@@ -550,7 +573,6 @@
                 getProvince(response.province_id);
                 getCity(response.city_id);
                 $('#departement_id').val(response.departement_id).change();
-                $('#rank_id').val(response.rank_id).change();
                 $('#company').val(response.company);
                 $('#description').val(response.description);
                 $('#remark').val(response.remark);
@@ -560,13 +582,17 @@
 
                 $.each(response.contact, function(i, val) {
                     $('#datatable_contact').DataTable().row.add([
+                        val.name,
+                        val.rank_name,
                         val.type_name,
                         val.value,
                         `
                             <button type="button" class="btn btn-danger btn-sm" id="delete_data_contact"><i class="icon-trash-alt"></i></button>
                             <input type="hidden" name="contact[]" value="` + true + `">
-                            <input type="hidden" name="contact_type[]" value="` + val.type + `">
+                            <input type="hidden" name="contact_rank_id[]" value="` + val.rank_id + `">
+                            <input type="hidden" name="contact_name[]" value="` + val.name + `">
                             <input type="hidden" name="contact_value[]" value="` + val.value + `">
+                            <input type="hidden" name="contact_type[]" value="` + val.type + `">
                         `
                     ]).draw().node();
                 });

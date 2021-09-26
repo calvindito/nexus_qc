@@ -19,7 +19,6 @@ class Buyer extends Model {
         'province_id',
         'city_id',
         'departement_id',
-        'rank_id',
         'created_by',
         'updated_by',
         'company',
@@ -47,11 +46,6 @@ class Buyer extends Model {
     public function departement()
     {
         return $this->belongsTo('App\Models\Departement');
-    }
-
-    public function rank()
-    {
-        return $this->belongsTo('App\Models\Rank');
     }
 
     public function createdBy()

@@ -44,12 +44,14 @@
 <body>
     <div style="text-align:center;">
         <h2 style="margin-top:35px;">NEXUS QUALITY CONTROL</h2>
-        <h4 style="color:gray;">DATA GENDER</h4>
+        <h4 style="color:gray;">DATA MAJOR DEFECT LIST</h4>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Gender</th>
+                    <th>Reject</th>
+                    <th>Code</th>
+                    <th>Major Defect</th>
                     <th>Status</th>
                     <th>Modified By</th>
                     <th>Date Created</th>
@@ -60,6 +62,8 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
+                            <td>{{ $d->parent()->name }}</td>
+                            <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
@@ -68,7 +72,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Data not available</td>
+                        <td colspan="7">Data not available</td>
                     </tr>
                 @endif
             </tbody>

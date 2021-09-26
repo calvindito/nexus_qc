@@ -17,8 +17,9 @@ Route::middleware('auth.login')->group(function() {
         Route::post('city', 'LoadDataController@city');
     });
 
-    Route::prefix('pdf')->group(function() {
-        Route::get('{param}', 'PdfController@index');
+    Route::prefix('download')->group(function() {
+        Route::get('pdf/{param}', 'DownloadController@pdf');
+        Route::get('excel/{param}', 'DownloadController@excel');
     });
 
     Route::prefix('master_data')->group(function() {

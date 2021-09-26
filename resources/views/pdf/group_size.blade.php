@@ -44,12 +44,13 @@
 <body>
     <div style="text-align:center;">
         <h2 style="margin-top:35px;">NEXUS QUALITY CONTROL</h2>
-        <h4 style="color:gray;">DATA GENDER</h4>
+        <h4 style="color:gray;">DATA GROUP SIZE</h4>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Gender</th>
+                    <th>Group</th>
+                    <th>Chart</th>
                     <th>Status</th>
                     <th>Modified By</th>
                     <th>Date Created</th>
@@ -60,7 +61,17 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $d->name }}</td>
+                            <td>{{ $d->group }}</td>
+                            <td>
+                                @if($d->sizeDetail->count() > 0)
+                                    @foreach($d->sizeDetail as $key => $sd)
+                                        @php $delimeter = $d->sizeDetail->count() == $key + 1 ? '' : ','; @endphp
+                                        {{ $sd->value . $delimeter }}
+                                    @endforeach
+                                @else
+                                    No Gender
+                                @endif
+                            </td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
                             <td>{{ $d->created_at->format('d M Y') }}</td>

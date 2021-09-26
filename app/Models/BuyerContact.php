@@ -14,13 +14,20 @@ class BuyerContact extends Model {
     protected $primaryKey = 'id';
     protected $fillable   = [
         'buyer_id',
-        'type',
-        'value'
+        'rank_id',
+        'name',
+        'value',
+        'type'
     ];
 
     public function buyer()
     {
         return $this->belongsTo('App\Models\Buyer');
+    }
+
+    public function rank()
+    {
+        return $this->belongsTo('App\Models\Rank');
     }
 
     public function type()

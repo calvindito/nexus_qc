@@ -4,7 +4,7 @@
 			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0" style="height:55px;">
 				<div class="navbar-brand flex-fill wmin-0 text-center">
 					<a href="{{ url('dashboard') }}" class="d-inline-block">
-						<h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">Nexus QC</h5>
+						<h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">Nexus Quality Control</h5>
 						<h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">QC</h5>
 					</a>
 				</div>

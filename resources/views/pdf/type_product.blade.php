@@ -44,12 +44,17 @@
 <body>
     <div style="text-align:center;">
         <h2 style="margin-top:35px;">NEXUS QUALITY CONTROL</h2>
-        <h4 style="color:gray;">DATA GENDER</h4>
+        <h4 style="color:gray;">DATA TYPE PRODUCT</h4>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Class Product</th>
                     <th>Gender</th>
+                    <th>Type Product</th>
+                    <th>Description</th>
+                    <th>Group Size</th>
+                    <th>Smv Global</th>
                     <th>Status</th>
                     <th>Modified By</th>
                     <th>Date Created</th>
@@ -60,7 +65,21 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
+                            <td>{{ $d->productClass->name }}</td>
+                            <td>{{ $d->gender->name }}</td>
                             <td>{{ $d->name }}</td>
+                            <td>{{ $d->description }}</td>
+                            <td>
+                                @if($d->size->sizeDetail->count() > 0)
+                                    @foreach($d->size->sizeDetail as $key => $sd)
+                                        @php $delimeter = $d->size->sizeDetail->count() == $key + 1 ? '' : ','; @endphp
+                                        {{ $sd->value . $delimeter }}
+                                    @endforeach
+                                @else
+                                    No Gender
+                                @endif
+                            </td>
+                            <td>{{ $d->smv_global }}</td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
                             <td>{{ $d->created_at->format('d M Y') }}</td>
@@ -68,7 +87,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Data not available</td>
+                        <td colspan="10">Data not available</td>
                     </tr>
                 @endif
             </tbody>

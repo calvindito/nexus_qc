@@ -155,20 +155,25 @@ class BuyerController extends Controller {
     public function rowDetail(Request $request)
     {
         $data    = Buyer::find($request->id);
-        $contact = '';
+        $contact = '<div class="list-group d-inline-block"><div class="row">';
 
         for($i = 1; $i <= 4; $i++) {
             $buyer_contact = $data->buyerContact()->where('type', $i)->get();
-            foreach($buyer_contact as $key => $bc) {
-                $number   = $key + 1;
-                $contact .= '
-                    <div class="form-group row mb-0">
-                        <label class="col-form-label col-lg-1 font-weight-bold">' . $bc->type() . ' ' . $number . '</label>
-                        <div class="col-lg-11">
-                            <div class="form-control-plaintext">:&nbsp;&nbsp;' . $bc->value . '</div>
+            if($buyer_contact->count() > 0) {
+                foreach($buyer_contact as $bc) {
+                    $contact .= '
+                        <div class="col-md-6">
+                            <a href="javascript:void(0);" class="no-pointer list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <div class="font-weight-bold mb-1">' . $bc->name . '</div>
+                                    <small>' . $bc->type() . '</small>
+                                </div>
+                                <p><small class="mb-1">' . $bc->value . '</small></p>
+                                <small>' . $bc->rank->rank . '</small>
+                            </a>
                         </div>
-                    </div>
-                ';
+                    ';
+                }
             }
         }
 
@@ -179,15 +184,10 @@ class BuyerController extends Controller {
                     <div class="form-control-plaintext">:&nbsp;&nbsp;' . $data->departement->department . '</div>
                 </div>
             </div>
-            <div class="form-group row mb-0">
-                <label class="col-form-label col-lg-1 font-weight-bold">Rank</label>
-                <div class="col-lg-11">
-                    <div class="form-control-plaintext">:&nbsp;&nbsp;' . $data->rank->rank . '</div>
-                </div>
-            </div>
+            <div class="form-group mb-0"><hr></div>
         ';
 
-        return response()->json($content . $contact);
+        return response()->json($content . $contact . '</div></div>');
     }
 
     public function create(Request $request)
@@ -197,7 +197,6 @@ class BuyerController extends Controller {
             'province_id'    => 'required',
             'city_id'        => 'required',
             'departement_id' => 'required',
-            'rank_id'        => 'required',
             'company'        => 'required',
             'description'    => 'required',
             'remark'         => 'required',
@@ -208,7 +207,6 @@ class BuyerController extends Controller {
             'province_id.required'    => 'Please select a province.',
             'city_id.required'        => 'Please select a city.',
             'departement_id.required' => 'Please select a departement.',
-            'rank_id.required'        => 'Please select a rank.',
             'company.required'        => 'Company cannot be empty.',
             'description.required'    => 'Description cannot be empty.',
             'remark.required'         => 'Remark cannot be empty.',
@@ -227,7 +225,6 @@ class BuyerController extends Controller {
                 'province_id'    => $request->province_id,
                 'city_id'        => $request->city_id,
                 'departement_id' => $request->departement_id,
-                'rank_id'        => $request->rank_id,
                 'created_by'     => session('id'),
                 'updated_by'     => session('id'),
                 'company'        => $request->company,
@@ -242,8 +239,10 @@ class BuyerController extends Controller {
                     foreach($request->contact as $key => $c) {
                         BuyerContact::create([
                             'buyer_id' => $query->id,
-                            'type'     => $request->contact_type[$key],
-                            'value'    => $request->contact_value[$key]
+                            'rank_id'  => $request->contact_rank_id[$key],
+                            'name'     => $request->contact_name[$key],
+                            'value'    => $request->contact_value[$key],
+                            'type'     => $request->contact_type[$key]
                         ]);
                     }
                 }
@@ -271,9 +270,12 @@ class BuyerController extends Controller {
         if($data->buyerContact) {
             foreach($data->buyerContact as $bc) {
                 $contact[] = [
+                    'rank_id'   => $bc->rank_id,
+                    'rank_name' => $bc->rank->rank,
+                    'name'      => $bc->name,
+                    'value'     => $bc->value,
                     'type'      => $bc->type,
-                    'type_name' => $bc->type(),
-                    'value'     => $bc->value
+                    'type_name' => $bc->type()
                 ];
             }
         }
@@ -283,7 +285,6 @@ class BuyerController extends Controller {
             'province_id'    => $data->province_id,
             'city_id'        => $data->city_id,
             'departement_id' => $data->departement_id,
-            'rank_id'        => $data->rank_id,
             'company'        => $data->company,
             'description'    => $data->description,
             'remark'         => $data->remark,
@@ -300,7 +301,6 @@ class BuyerController extends Controller {
             'province_id'    => 'required',
             'city_id'        => 'required',
             'departement_id' => 'required',
-            'rank_id'        => 'required',
             'company'        => 'required',
             'description'    => 'required',
             'remark'         => 'required',
@@ -311,7 +311,6 @@ class BuyerController extends Controller {
             'province_id.required'    => 'Please select a province.',
             'city_id.required'        => 'Please select a city.',
             'departement_id.required' => 'Please select a departement.',
-            'rank_id.required'        => 'Please select a rank.',
             'company.required'        => 'Company cannot be empty.',
             'description.required'    => 'Description cannot be empty.',
             'remark.required'         => 'Remark cannot be empty.',
@@ -330,7 +329,6 @@ class BuyerController extends Controller {
                 'province_id'    => $request->province_id,
                 'city_id'        => $request->city_id,
                 'departement_id' => $request->departement_id,
-                'rank_id'        => $request->rank_id,
                 'updated_by'     => session('id'),
                 'company'        => $request->company,
                 'description'    => $request->description,
@@ -340,13 +338,15 @@ class BuyerController extends Controller {
             ]);
 
             if($query) {
-                BuyerDetail::where('buyer_id', $id)->delete();
+                BuyerContact::where('buyer_id', $id)->delete();
                 if($request->contact) {
                     foreach($request->contact as $key => $c) {
                         BuyerContact::create([
                             'buyer_id' => $id,
-                            'type'     => $request->contact_type[$key],
-                            'value'    => $request->contact_value[$key]
+                            'rank_id'  => $request->contact_rank_id[$key],
+                            'name'     => $request->contact_name[$key],
+                            'value'    => $request->contact_value[$key],
+                            'type'     => $request->contact_type[$key]
                         ]);
                     }
                 }

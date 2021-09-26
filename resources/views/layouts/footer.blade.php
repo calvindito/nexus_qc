@@ -7,7 +7,7 @@
 					</div>
 					<div class="navbar-collapse collapse" id="navbar-footer">
 						<span class="navbar-text mx-auto">
-							&copy; {{ date('Y') }}. <a href="javascript:void(0);">My Nexus</a> All Right Reserved
+							&copy; {{ date('Y') }}. <a href="javascript:void(0);">Nexus</a> All Right Reserved
 						</span>
 					</div>
 				</div>

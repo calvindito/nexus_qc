@@ -42,8 +42,10 @@ class BuyerSeeder extends Seeder
             BuyerContact::insert([
                 'id'         => $bc['id'],
                 'buyer_id'   => $bc['buyer_id'],
-                'type'       => $bc['type'],
+                'rank_id'    => $bc['rank_id'],
+                'name'       => $bc['name'],
                 'value'      => $bc['value'],
+                'type'       => $bc['type'],
                 'created_at' => $bc['created_at'],
                 'updated_at' => $bc['updated_at']
             ]);

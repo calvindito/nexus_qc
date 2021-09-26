@@ -19,7 +19,6 @@ class CreateBuyersTable extends Migration
             $table->bigInteger('province_id');
             $table->bigInteger('city_id');
             $table->bigInteger('departement_id');
-            $table->bigInteger('rank_id');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
             $table->string('company');

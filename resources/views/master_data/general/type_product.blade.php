@@ -19,9 +19,9 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/pdf/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="#" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
-                                <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/type_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,7 @@
+.no-pointer {
+    pointer-events: none;
+}
+
 .dataTables_scrollBody {
     position: static !important;
     margin-bottom: 15px;
