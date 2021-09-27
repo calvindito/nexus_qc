@@ -15,7 +15,7 @@ class AuthController extends Controller {
             return redirect()->back();
         }
 
-        if($request->has('_token') && session()->token() == $request->_token) {
+        if($request->has('_token') && csrf_token() == $request->_token) {
             $user = User::where([
                 ['username', '=', $request->username],
                 ['status', '=', 1]

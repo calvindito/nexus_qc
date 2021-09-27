@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Brand</th>
                     <th>Fabric</th>
                     <th>Code</th>

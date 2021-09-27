@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Sub Group</th>
                     <th>Code</th>
                     <th>Defect</th>

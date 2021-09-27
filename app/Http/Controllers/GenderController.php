@@ -67,10 +67,9 @@ class GenderController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -90,8 +89,6 @@ class GenderController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

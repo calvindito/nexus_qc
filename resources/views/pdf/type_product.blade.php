@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Class Product</th>
                     <th>Gender</th>
                     <th>Type Product</th>

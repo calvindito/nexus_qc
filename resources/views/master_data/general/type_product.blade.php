@@ -20,7 +20,7 @@
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="#" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="{{ url('master_data/general/type_product/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/type_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                 <table class="table table-striped display nowrap w-100" id="datatable_serverside">
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Class Product</th>
                             <th>Gender</th>
                             <th>Type Product</th>

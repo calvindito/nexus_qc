@@ -44,7 +44,7 @@
                 <table class="table table-striped display nowrap w-100" id="datatable_serverside">
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Brand</th>
                             <th>Fabric</th>
                             <th>Code</th>

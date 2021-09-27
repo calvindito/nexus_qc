@@ -68,10 +68,9 @@ class AllowanceSmvController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->name,
                     $val->description,
                     $val->updatedBy->name,
@@ -89,8 +88,6 @@ class AllowanceSmvController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

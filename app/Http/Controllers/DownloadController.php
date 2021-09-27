@@ -218,4 +218,16 @@ class DownloadController extends Controller {
         }
     }
 
+    public function excelTemplate($param)
+    {
+        switch($param) {
+            case 'type_product':
+                return response()->download(public_path('website/Template QC - Type Product.xlsx'));
+                break;
+            default:
+                return redirect()->back();
+                break;
+        }
+    }
+
 }

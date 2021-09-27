@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Group</th>
                     <th>Chart</th>
                     <th>Status</th>

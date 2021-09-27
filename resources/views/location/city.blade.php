@@ -35,7 +35,7 @@
                 <table class="table table-striped display nowrap w-100" id="datatable_serverside">
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Province</th>
                             <th>City</th>
                             <th>Latitude</th>

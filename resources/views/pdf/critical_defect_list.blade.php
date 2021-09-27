@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Major Defect</th>
                     <th>Code</th>
                     <th>Critical Defect</th>

@@ -104,11 +104,10 @@ class BuyerController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
                     '<span class="text-success" data-id="' . $val->id . '"><i class="icon-plus-circle2"></i></span>',
-                    $nomor,
+                    $val->id,
                     $val->company,
                     $val->description,
                     $val->address,
@@ -134,8 +133,6 @@ class BuyerController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

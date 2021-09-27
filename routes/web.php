@@ -20,6 +20,7 @@ Route::middleware('auth.login')->group(function() {
     Route::prefix('download')->group(function() {
         Route::get('pdf/{param}', 'DownloadController@pdf');
         Route::get('excel/{param}', 'DownloadController@excel');
+        Route::get('excel_template/{param}', 'DownloadController@excelTemplate');
     });
 
     Route::prefix('master_data')->group(function() {
@@ -75,6 +76,7 @@ Route::middleware('auth.login')->group(function() {
                 Route::get('/', 'TypeProductController@index');
                 Route::get('datatable', 'TypeProductController@datatable');
                 Route::post('get_gender', 'TypeProductController@getGender');
+                Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
                 Route::post('create', 'TypeProductController@create');
                 Route::post('show', 'TypeProductController@show');
                 Route::post('update/{id}', 'TypeProductController@update');

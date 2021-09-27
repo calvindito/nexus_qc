@@ -76,10 +76,9 @@ class CriticalDefectListController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->parent()->name,
                     $val->code,
                     $val->name,
@@ -101,8 +100,6 @@ class CriticalDefectListController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

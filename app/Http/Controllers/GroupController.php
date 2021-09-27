@@ -73,10 +73,9 @@ class GroupController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -97,8 +96,6 @@ class GroupController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

@@ -88,10 +88,9 @@ class ColorController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->brand->name,
                     $val->fabric->name,
                     $val->code,
@@ -114,8 +113,6 @@ class ColorController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

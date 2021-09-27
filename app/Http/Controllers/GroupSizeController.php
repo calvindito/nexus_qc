@@ -74,7 +74,6 @@ class GroupSizeController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $value = '';
                 if($val->sizeDetail) {
@@ -86,7 +85,7 @@ class GroupSizeController extends Controller {
                 }
 
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->group,
                     $value,
                     $val->status(),
@@ -107,8 +106,6 @@ class GroupSizeController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

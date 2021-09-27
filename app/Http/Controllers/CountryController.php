@@ -61,10 +61,9 @@ class CountryController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->code,
                     $val->name,
                     '
@@ -80,8 +79,6 @@ class CountryController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 

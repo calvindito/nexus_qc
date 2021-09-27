@@ -20,6 +20,8 @@
 	<script src="{{ asset('template/global_assets/js/plugins/notifications/sweet_alert.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>

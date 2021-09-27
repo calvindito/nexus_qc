@@ -45,7 +45,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>#</th>
-                            <th>No</th>
+                            <th>ID</th>
                             <th>Company</th>
                             <th>Description</th>
                             <th>Address</th>

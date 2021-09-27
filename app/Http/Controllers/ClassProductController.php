@@ -80,7 +80,6 @@ class ClassProductController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
-            $nomor = $start + 1;
             foreach($query_data as $val) {
                 $gender = '';
                 if($val->productClassDetail) {
@@ -92,7 +91,7 @@ class ClassProductController extends Controller {
                 }
 
                 $response['data'][] = [
-                    $nomor,
+                    $val->id,
                     $val->name,
                     $gender,
                     $val->status(),
@@ -113,8 +112,6 @@ class ClassProductController extends Controller {
                         </div>
                     '
                 ];
-
-                $nomor++;
             }
         }
 
