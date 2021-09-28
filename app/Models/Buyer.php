@@ -21,6 +21,7 @@ class Buyer extends Model {
         'departement_id',
         'created_by',
         'updated_by',
+        'excelable',
         'company',
         'description',
         'remark',

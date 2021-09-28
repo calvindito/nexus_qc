@@ -21,6 +21,7 @@ class CreateBuyersTable extends Migration
             $table->bigInteger('departement_id');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
+            $table->string('excelable')->nullable();
             $table->string('company');
             $table->text('description')->nullable();
             $table->string('remark');

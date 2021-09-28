@@ -26,6 +26,7 @@ class BuyerSeeder extends Seeder
                 'departement_id' => $b['departement_id'],
                 'created_by'     => $b['created_by'],
                 'updated_by'     => $b['updated_by'],
+                'excelable'      => $b['excelable'],
                 'company'        => $b['company'],
                 'description'    => $b['description'],
                 'remark'         => $b['remark'],

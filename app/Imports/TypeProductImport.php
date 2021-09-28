@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\ProductType;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -11,16 +12,32 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class TypeProductImport implements ToCollection, WithValidation, WithHeadingRow, WithBatchInserts, WithChunkReading, SkipsOnFailure, SkipsOnError {
+class TypeProductImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithChunkReading, SkipsOnFailure, SkipsOnError {
 
     use Importable, SkipsFailures, SkipsErrors;
 
     public function collection(Collection $rows)
     {
+        Validator::make($rows->toArray(), [
+            'class_product_id.*' => 'required|integer',
+            'gender_id.*'        => 'required|integer',
+            'group_size_id.*'    => 'required|integer',
+            'type_product.*'     => 'required|string',
+            'smv_global.*'       => 'required|string'
+        ], [
+            'class_product_id.*.required' => 'Class product ID cannot be empty',
+            'class_product_id.*.integer'  => 'Class product ID must be number',
+            'gender_id.*.required'        => 'Gender ID cannot be empty',
+            'gender_id.*.integer'         => 'Gender ID must be number',
+            'group_size_id.*.required'    => 'Group size ID cannot be empty',
+            'group_size_id.*.integer'     => 'Group size ID must be number',
+            'type_product.*.required'     => 'Type product cannot be empty',
+            'smv_global.*.required'       => 'Smv global cannot be empty'
+        ])->validate();
+
         foreach($rows as $r) {
             ProductType::create([
                 'product_class_id' => $r['class_product_id'],
@@ -34,17 +51,6 @@ class TypeProductImport implements ToCollection, WithValidation, WithHeadingRow,
                 'status'           => 1
             ]);
         }
-    }
-
-    public function rules(): array
-    {
-        return [
-            'class_product_id' => ['required', 'integer'],
-            'gender_id'        => ['required', 'integer'],
-            'group_size_id'    => ['required', 'integer'],
-            'type_product'     => ['required', 'string'],
-            'smv_global'       => ['required', 'string']
-        ];
     }
 
     public function batchSize(): int
