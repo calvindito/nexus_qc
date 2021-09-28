@@ -224,6 +224,9 @@ class DownloadController extends Controller {
             case 'type_product':
                 return response()->download(public_path('website/Template QC - Type Product.xlsx'));
                 break;
+            case 'buyer':
+                return response()->download(public_path('website/Template QC - Buyer.xlsx'));
+                break;
             default:
                 return redirect()->back();
                 break;

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use App\Models\Rank;
 use App\Models\Buyer;
 use App\Models\Country;
 use App\Models\Departement;
+use App\Imports\BuyerImport;
 use App\Models\BuyerContact;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -185,6 +187,38 @@ class BuyerController extends Controller {
         ';
 
         return response()->json($content . $contact . '</div></div>');
+    }
+
+    public function bulk(Request $request)
+    {
+        if($request->has('_token') && $request->_token == csrf_token()) {
+            $validation = Validator::make($request->all(), [
+                'file_excel' => 'required|max:5120|mimes:xlsx'
+            ], [
+                'file_excel.required' => 'File excel cannot be empty.',
+                'file_excel.max'      => 'File excel max size 5MB.',
+                'file_excel.mimes'    => 'Only files with xlsx extension are allowed.'
+            ]);
+
+            if($validation->fails()) {
+                return redirect()->back()->withErrors($validation);
+            } else {
+                $import = Excel::import(new BuyerImport, $request->file('file_excel'));
+                if($import) {
+                    return redirect()->back()->with(['success' => true]);
+                } else {
+                    return redirect()->back()->with(['failed' => true]);
+                }
+            }
+        } else {
+            $data = [
+                'title'   => 'Master Data - General - Buyer - Bulk Upload',
+                'content' => 'master_data.general.buyer_bulk'
+            ];
+
+            return view('layouts.index', ['data' => $data]);
+        }
+
     }
 
     public function create(Request $request)

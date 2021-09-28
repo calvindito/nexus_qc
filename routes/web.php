@@ -88,6 +88,7 @@ Route::middleware('auth.login')->group(function() {
                 Route::get('datatable', 'BuyerController@datatable');
                 Route::post('row_detail', 'BuyerController@rowDetail');
                 Route::post('get_gender', 'BuyerController@getGender');
+                Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
                 Route::post('create', 'BuyerController@create');
                 Route::post('show', 'BuyerController@show');
                 Route::post('update/{id}', 'BuyerController@update');

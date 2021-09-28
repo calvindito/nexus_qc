@@ -19,7 +19,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="{{ url('master_data/general/buyer/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/buyer') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
