@@ -22,6 +22,10 @@
 	<script src="{{ asset('template/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>
