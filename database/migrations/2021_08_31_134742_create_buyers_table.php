@@ -15,12 +15,12 @@ class CreateBuyersTable extends Migration
     {
         Schema::connection('mysql')->create('buyers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('country_id');
-            $table->bigInteger('province_id');
-            $table->bigInteger('city_id');
-            $table->bigInteger('departement_id');
-            $table->bigInteger('created_by');
-            $table->bigInteger('updated_by');
+            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('province_id');
+            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('departement_id');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->string('excelable')->nullable();
             $table->string('company');
             $table->text('description')->nullable();

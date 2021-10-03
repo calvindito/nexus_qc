@@ -138,7 +138,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rank :<span class="text-danger">*</span></label>
-                                                <select name="contact_rank" id="contact_rank" class="select2">
+                                                <select id="contact_rank" class="select2">
                                                     <option value="">-- Choose --</option>
                                                     @foreach($rank as $r)
                                                         <option value="{{ $r->id }};{{ $r->rank }}">{{ $r->rank }}</option>
@@ -149,13 +149,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Name :<span class="text-danger">*</span></label>
-                                                <input type="text" name="contact_name" id="contact_name" class="form-control" placeholder="Enter name">
+                                                <input type="text" id="contact_name" class="form-control" placeholder="Enter name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Type :<span class="text-danger">*</span></label>
-                                                <select name="contact_type" id="contact_type" class="custom-select">
+                                                <select id="contact_type" class="custom-select">
                                                     <option value="">-- Choose --</option>
                                                     <option value="1">Office</option>
                                                     <option value="2">HP</option>
@@ -167,7 +167,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Value :<span class="text-danger">*</span></label>
-                                                <input type="text" name="contact_value" id="contact_value" class="form-control" placeholder="Enter value">
+                                                <input type="text" id="contact_value" class="form-control" placeholder="Enter value">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -227,7 +227,7 @@
             columnDefs: [
                 {
                     targets: '_all',
-                    className: 'text-center'
+                    className: 'text-center align-middle'
                 }
             ]
 		});

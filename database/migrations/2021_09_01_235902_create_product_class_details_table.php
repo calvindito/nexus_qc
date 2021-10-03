@@ -15,8 +15,8 @@ class CreateProductClassDetailsTable extends Migration
     {
         Schema::connection('mysql')->create('product_class_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_class_id');
-            $table->bigInteger('gender_id');
+            $table->unsignedBigInteger('product_class_id');
+            $table->unsignedBigInteger('gender_id');
             $table->timestamps();
         });
     }

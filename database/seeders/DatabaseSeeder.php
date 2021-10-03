@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FabricSeeder::class);
         $this->call(AllowanceSmvSeeder::class);
         $this->call(BuyerSeeder::class);
+        $this->call(WorkingHoursTypeSeeder::class);
     }
 }

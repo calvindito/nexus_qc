@@ -15,8 +15,8 @@ class CreateDepartementsTable extends Migration
     {
         Schema::connection('mysql')->create('departements', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('created_by');
-            $table->bigInteger('updated_by');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->string('code')->unique();
             $table->string('name');
             $table->char('status', 1);

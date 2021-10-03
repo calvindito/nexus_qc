@@ -15,7 +15,7 @@ class CreateProvincesTable extends Migration
     {
         Schema::connection('mysql')->create('provinces', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('country_id');
+            $table->unsignedBigInteger('country_id');
             $table->string('name');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

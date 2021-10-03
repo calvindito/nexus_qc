@@ -15,7 +15,7 @@ class CreateSizeDetailsTable extends Migration
     {
         Schema::connection('mysql')->create('size_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('size_id');
+            $table->unsignedBigInteger('size_id');
             $table->string('value');
             $table->timestamps();
         });

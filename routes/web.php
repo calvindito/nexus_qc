@@ -122,6 +122,17 @@ Route::middleware('auth.login')->group(function() {
                 Route::post('change_status', 'ColorController@changeStatus');
             });
         });
+
+        Route::prefix('working_hours')->group(function() {
+            Route::prefix('type')->group(function() {
+                Route::get('/', 'WorkingHoursTypeController@index');
+                Route::get('datatable', 'WorkingHoursTypeController@datatable');
+                Route::post('detail', 'WorkingHoursTypeController@detail');
+                Route::match(['get', 'post'], 'create', 'WorkingHoursTypeController@create');
+                Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
+                Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
+            });
+        });
     });
 
     Route::prefix('group_defect')->group(function() {

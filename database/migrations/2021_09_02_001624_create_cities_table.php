@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::connection('mysql')->create('cities', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('province_id');
+            $table->unsignedBigInteger('province_id');
             $table->string('name');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

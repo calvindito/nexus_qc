@@ -866,7 +866,9 @@ $migrations = array(
   array('id' => '17','migration' => '2021_09_02_001624_create_cities_table','batch' => '1'),
   array('id' => '18','migration' => '2021_09_02_001653_create_departements_table','batch' => '1'),
   array('id' => '19','migration' => '2021_09_02_001915_create_buyer_contacts_table','batch' => '1'),
-  array('id' => '20','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1')
+  array('id' => '20','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1'),
+  array('id' => '21','migration' => '2021_10_02_230553_create_working_hours_types_table','batch' => '1'),
+  array('id' => '22','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -956,4 +958,14 @@ $size_details = array(
 /* `nexus_qc`.`users` */
 $users = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$i8wP19z.btF5ywh7sfMqjO/QSc7wyaQT9eAHKsSURPIHW.P9WxGYu','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-09-13 14:09:27','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`working_hours_types` */
+$working_hours_types = array(
+  array('id' => '1','departement_id' => '1','created_by' => '1','updated_by' => '1','name' => 'testerTest','status' => '1','created_at' => '2021-10-03 15:25:31','updated_at' => '2021-10-03 15:31:08','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`working_hours_type_details` */
+$working_hours_type_details = array(
+  array('id' => '1','working_hours_type_id' => '1','start_time' => '08:00:00','end_time' => '12:00:00','shift' => '1','duration' => '240','order_sequence' => '1','total_minutes' => '240','created_at' => '2021-10-03 15:25:31','updated_at' => '2021-10-03 15:25:31')
 );
