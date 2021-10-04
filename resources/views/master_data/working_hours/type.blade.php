@@ -40,7 +40,7 @@
                             <th><i class="icon-eye"></i></th>
                             <th>ID</th>
                             <th>Departement</th>
-                            <th>Name</th>
+                            <th>Type Working Hours</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>

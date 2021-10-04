@@ -127,7 +127,7 @@ class WorkingHoursTypeController extends Controller {
                     'start_time'     => date('H:i', strtotime($whtd->start_time)),
                     'end_time'       => date('H:i', strtotime($whtd->end_time)),
                     'shift'          => $whtd->shift(),
-                    'duration'       => $whtd->duration . ' Minutes',
+                    'duration'       => $whtd->duration,
                     'order_sequence' => $whtd->order_sequence,
                     'total_minutes'  => $whtd->total_minutes
                 ];
