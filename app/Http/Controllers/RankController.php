@@ -12,7 +12,7 @@ class RankController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - Global - Rank',
-            'content' => 'master_data.global.rank'
+            'content' => 'global.rank'
         ];
 
         return view('layouts.index', ['data' => $data]);

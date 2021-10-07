@@ -13,7 +13,7 @@ class AllowanceSmvController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - Global - Allowance SMV',
-            'content' => 'master_data.global.allowance_smv'
+            'content' => 'global.allowance_smv'
         ];
 
         return view('layouts.index', ['data' => $data]);

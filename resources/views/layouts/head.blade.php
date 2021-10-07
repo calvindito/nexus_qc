@@ -26,7 +26,19 @@
 	<script src="{{ asset('template/global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/forms/inputs/duallistbox/duallistbox.min.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
+    <script src="{{ asset('template/global_assets/js/demo_pages/dashboard.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/streamgraph.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/sparklines.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/lines.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/areas.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/donuts.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bars.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/progress.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/heatmaps.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/pies.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bullets.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>
 </head>

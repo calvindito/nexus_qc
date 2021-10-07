@@ -13,7 +13,7 @@ class FabricController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - General - Fabric',
-            'content' => 'master_data.general.fabric'
+            'content' => 'general.fabric'
         ];
 
         return view('layouts.index', ['data' => $data]);

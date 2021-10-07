@@ -13,7 +13,7 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <a href="{{ url('master_data/working_hours/type/create') }}" class="btn btn-teal btn-labeled btn-labeled-left">
+                        <a href="{{ url('working_hours/type/create') }}" class="btn btn-teal btn-labeled btn-labeled-left">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </a>
                     </div>
@@ -24,7 +24,6 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Working Hours</a>
                     <span class="breadcrumb-item active">Type</span>
                 </div>
@@ -151,7 +150,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("master_data/working_hours/type/datatable") }}',
+                url: '{{ url("working_hours/type/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -177,7 +176,7 @@
     function detail(id) {
         $('#modal_detail').modal('show');
         $.ajax({
-            url: '{{ url("master_data/working_hours/type/detail") }}',
+            url: '{{ url("working_hours/type/detail") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -224,7 +223,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("master_data/working_hours/type/change_status") }}',
+            url: '{{ url("working_hours/type/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

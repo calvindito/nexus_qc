@@ -12,7 +12,7 @@ class DepartementController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - Global - Departement',
-            'content' => 'master_data.global.departement'
+            'content' => 'global.departement'
         ];
 
         return view('layouts.index', ['data' => $data]);

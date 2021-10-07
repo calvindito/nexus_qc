@@ -1,14 +1,3 @@
-<script src="{{ asset('template/global_assets/js/demo_pages/dashboard.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/streamgraph.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/sparklines.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/lines.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/areas.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/donuts.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bars.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/progress.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/heatmaps.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/pies.js') }}"></script>
-<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bullets.js') }}"></script>
 <div class="content-inner">
     <div class="page-header page-header-light">
         <div class="page-header-content header-elements-lg-inline">
@@ -661,7 +650,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="mr-3">
                                                 <a href="#">
-                                                    <img src="{{ asset('template/global_assets/images/demo/users/face15.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
+                                                    <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
                                                 </a>
                                             </div>
                                             <div>
@@ -865,7 +854,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="mr-3">
                                                 <a href="#">
-                                                    <img src="{{ asset('template/global_assets/images/demo/users/face3.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
+                                                    <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
                                                 </a>
                                             </div>
                                             <div>
@@ -911,7 +900,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="mr-3">
                                                 <a href="#">
-                                                    <img src="{{ asset('template/global_assets/images/demo/users/face8.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
+                                                    <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="32" height="32" alt="">
                                                 </a>
                                             </div>
                                             <div>
@@ -1000,7 +989,7 @@
                                     <div class="mr-sm-3 mb-2 mb-sm-0">
                                         <div class="card-img-actions">
                                             <a href="#">
-                                                <img src="{{ asset('template/global_assets/images/demo/flat/1.png') }}" class="img-fluid img-preview rounded" alt="">
+                                                <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="img-fluid img-preview rounded" alt="">
                                                 <span class="card-img-actions-overlay card-img"><i class="icon-play3 icon-2x"></i></span>
                                             </a>
                                         </div>
@@ -1019,7 +1008,7 @@
                                     <div class="mr-sm-3 mb-2 mb-sm-0">
                                         <div class="card-img-actions">
                                             <a href="#">
-                                                <img src="{{ asset('template/global_assets/images/demo/flat/21.png') }}" class="img-fluid img-preview rounded" alt="">
+                                                <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="img-fluid img-preview rounded" alt="">
                                                 <span class="card-img-actions-overlay card-img"><i class="icon-play3 icon-2x"></i></span>
                                             </a>
                                         </div>
@@ -1040,7 +1029,7 @@
                                     <div class="mr-sm-3 mb-2 mb-sm-0">
                                         <div class="card-img-actions">
                                             <a href="#">
-                                                <img src="{{ asset('template/global_assets/images/demo/flat/12.png') }}" class="img-fluid img-preview rounded" alt="">
+                                                <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="img-fluid img-preview rounded" alt="">
                                                 <span class="card-img-actions-overlay card-img"><i class="icon-play3 icon-2x"></i></span>
                                             </a>
                                         </div>
@@ -1059,7 +1048,7 @@
                                     <div class="mr-sm-3 mb-2 mb-sm-0">
                                         <div class="card-img-actions">
                                             <a href="#">
-                                                <img src="{{ asset('template/global_assets/images/demo/flat/15.png') }}" class="img-fluid img-preview rounded" alt="">
+                                                <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="img-fluid img-preview rounded" alt="">
                                                 <span class="card-img-actions-overlay card-img"><i class="icon-play3 icon-2x"></i></span>
                                             </a>
                                         </div>
@@ -1352,7 +1341,7 @@
                             <ul class="media-list">
                                 <li class="media">
                                     <div class="mr-3 position-relative">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face10.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                         <span class="badge badge-danger badge-pill badge-float border-2 border-white">8</span>
                                     </div>
 
@@ -1368,7 +1357,7 @@
 
                                 <li class="media">
                                     <div class="mr-3 position-relative">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face3.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                         <span class="badge badge-danger badge-pill badge-float border-2 border-white">6</span>
                                     </div>
 
@@ -1384,7 +1373,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face24.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1399,7 +1388,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face4.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1414,7 +1403,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face25.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1433,7 +1422,7 @@
                             <ul class="media-list">
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face2.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1448,7 +1437,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face7.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1463,7 +1452,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face18.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1478,7 +1467,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face14.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1493,7 +1482,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face8.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1512,7 +1501,7 @@
                             <ul class="media-list">
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face15.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1527,7 +1516,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face12.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1542,7 +1531,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face22.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1557,7 +1546,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face24.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">
@@ -1572,7 +1561,7 @@
 
                                 <li class="media">
                                     <div class="mr-3">
-                                        <img src="{{ asset('template/global_assets/images/demo/users/face17.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
+                                        <img src="{{ asset('template/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" width="36" height="36" alt="">
                                     </div>
 
                                     <div class="media-body">

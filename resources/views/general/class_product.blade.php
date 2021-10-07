@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Color</span>
+                    <span class="font-weight-semibold">Class Product</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/color') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/color') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/class_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/class_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,9 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Color</span>
+                    <span class="breadcrumb-item active">Class Product</span>
                 </div>
             </div>
         </div>
@@ -45,10 +44,8 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Brand</th>
-                            <th>Fabric</th>
-                            <th>Code</th>
-                            <th>Color</th>
+                            <th>Class Product</th>
+                            <th>Gender</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -75,30 +72,16 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Brand :<span class="text-danger">*</span></label>
-                        <select name="brand_id" id="brand_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($brand as $b)
-                                <option value="{{ $b->id }}">{{ $b->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Fabric :<span class="text-danger">*</span></label>
-                        <select name="fabric_id" id="fabric_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($fabric as $f)
-                                <option value="{{ $f->id }}">{{ $f->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
-                    </div>
-                    <div class="form-group">
-                        <label>Color :<span class="text-danger">*</span></label>
+                        <label>Class Product :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender :<span class="text-danger">*</span></label>
+                        <select name="gender[]" id="gender" class="select2" multiple>
+                            @foreach($gender as $g)
+                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -159,8 +142,7 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#brand_id').val(null).change();
-        $('#fabric_id').val(null).change();
+        $('#gender').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -183,7 +165,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/color/datatable") }}',
+                url: '{{ url("general/class_product/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -195,21 +177,19 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'brand_id', className: 'text-center align-middle' },
-                { name: 'color_id', className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
+                { name: 'gender', orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
-                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
+                { name: 'action', searchable: false, orderable: false, className: 'text-center nowrap align-middle' }
             ]
         });
     }
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/color/create") }}',
+            url: '{{ url("general/class_product/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -257,7 +237,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("master_data/general/color/show") }}',
+            url: '{{ url("general/class_product/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -271,10 +251,13 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#brand_id').val(response.brand_id).change();
-                $('#fabric_id').val(response.fabric_id).change();
-                $('#code').val(response.code);
+                var gender = new Array();
+                $.each(response.gender, function(i, val) {
+                    gender[i] = val.gender_id;
+                });
+
                 $('#name').val(response.name);
+                $('#gender').val(gender).change();
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -292,7 +275,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("master_data/general/color/update") }}' + '/' + id,
+            url: '{{ url("general/class_product/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -339,7 +322,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("master_data/general/color/change_status") }}',
+            url: '{{ url("general/class_product/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

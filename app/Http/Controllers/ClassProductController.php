@@ -16,7 +16,7 @@ class ClassProductController extends Controller {
         $data = [
             'title'   => 'Master Data - General - Class Product',
             'gender'  => Gender::where('status', 1)->get(),
-            'content' => 'master_data.general.class_product'
+            'content' => 'general.class_product'
         ];
 
         return view('layouts.index', ['data' => $data]);

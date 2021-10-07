@@ -4,13 +4,13 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Bulk Upload Type Product</span>
+                    <span class="font-weight-semibold">Bulk Upload Buyer</span>
                 </h4>
             </div>
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <a href="{{ url('master_data/general/type_product') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
+                        <a href="{{ url('general/buyer') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
                             <b><i class="icon-arrow-left5"></i></b> Back To List
                         </a>
                     </div>
@@ -21,9 +21,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <a href="{{ url('master_data/general/type_product') }}" class="breadcrumb-item">Type Product</a>
+                    <a href="{{ url('general/buyer') }}" class="breadcrumb-item">Buyer</a>
                     <span class="breadcrumb-item active">Bulk Upload</span>
                 </div>
             </div>
@@ -57,7 +56,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Upload the excel file below :</label>
-                        <a href="{{ url('download/excel_template/type_product') }}" class="float-right text-primary font-weight-bold">Download Template</a>
+                        <a href="{{ url('download/excel_template/buyer') }}" class="float-right text-primary font-weight-bold">Download Template</a>
                         <input type="file" class="file-input  form-control-lg" name="file_excel" data-main-class="input-group-lg" data-fouc>
                     </div>
                 </form>

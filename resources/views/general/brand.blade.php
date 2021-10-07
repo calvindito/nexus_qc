@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Gender</span>
+                    <span class="font-weight-semibold">Brand</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/gender') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/gender') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/brand') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/brand') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,9 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Gender</span>
+                    <span class="breadcrumb-item active">Brand</span>
                 </div>
             </div>
         </div>
@@ -45,7 +44,8 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Gender</th>
+                            <th>Brand</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -72,8 +72,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Gender :<span class="text-danger">*</span></label>
+                        <label>Brand :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -156,7 +160,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/gender/datatable") }}',
+                url: '{{ url("general/brand/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -169,6 +173,7 @@
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -179,7 +184,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/gender/create") }}',
+            url: '{{ url("general/brand/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -227,7 +232,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("master_data/general/gender/show") }}',
+            url: '{{ url("general/brand/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -242,6 +247,7 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#name').val(response.name);
+                $('#description').val(response.description);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -259,7 +265,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("master_data/general/gender/update") }}' + '/' + id,
+            url: '{{ url("general/brand/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -306,7 +312,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("master_data/general/gender/change_status") }}',
+            url: '{{ url("general/brand/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

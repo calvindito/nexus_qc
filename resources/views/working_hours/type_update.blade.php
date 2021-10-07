@@ -4,13 +4,13 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Create Working Hours Type</span>
+                    <span class="font-weight-semibold">Edit Working Hours Type</span>
                 </h4>
             </div>
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <a href="{{ url('master_data/working_hours/type') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
+                        <a href="{{ url('working_hours/type') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
                             <b><i class="icon-arrow-left5"></i></b> Back To List
                         </a>
                     </div>
@@ -21,10 +21,9 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Working Hours</a>
-                    <a href="{{ url('master_data/working_hours/type') }}" class="breadcrumb-item">Type</a>
-                    <span class="breadcrumb-item active">Create</span>
+                    <a href="{{ url('working_hours/type') }}" class="breadcrumb-item">Type</a>
+                    <span class="breadcrumb-item active">Edit</span>
                 </div>
             </div>
         </div>
@@ -43,7 +42,7 @@
                                 <select name="departement_id" id="departement_id" class="custom-select">
                                     <option value="">-- Choose --</option>
                                     @foreach($departement as $d)
-                                        <option value="{{ $d->id }}">{{ $d->department }}</option>
+                                        <option value="{{ $d->id }}" {{ $wht->departement_id == $d->id ? 'selected' : '' }}>{{ $d->department }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type Working Hours :<span class="text-danger">*</span></label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                                <input type="text" name="name" id="name" class="form-control" value="{{ $wht->name }}" placeholder="Enter name">
                             </div>
                         </div>
                     </div>
@@ -74,19 +73,43 @@
                                     <th>Delete</th>
                                 </tr>
                             </thead>
+                            @if($wht->workingHoursTypeDetail->count() > 0)
+                                <tbody>
+                                    @foreach($wht->workingHoursTypeDetail as $whtd)
+                                        <tr>
+                                            <td>{{ date('H:i', strtotime($whtd->start_time)) }}</td>
+                                            <td>{{ date('H:i', strtotime($whtd->end_time)) }}</td>
+                                            <td>{{ $whtd->shift() }}</td>
+                                            <td>{{ $whtd->duration }} Minutes</td>
+                                            <td>{{ $whtd->order_sequence }}</td>
+                                            <td>{{ $whtd->total_minutes }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-sm" id="delete_data_detail"><i class="icon-trash-alt"></i></button>
+                                                <input type="hidden" name="wht_detail[]" value="{{ true }}">
+                                                <input type="hidden" name="wht_start_time[]" value="{{ date('H:i', strtotime($whtd->start_time)) }}">
+                                                <input type="hidden" name="wht_end_time[]" value="{{ date('H:i', strtotime($whtd->end_time)) }}">
+                                                <input type="hidden" name="wht_duration[]" value="{{ $whtd->duration }}">
+                                                <input type="hidden" name="wht_total_minutes[]" value="{{ $whtd->total_minutes }}">
+                                                <input type="hidden" name="wht_shift[]" value="{{ $whtd->shift }}">
+                                                <input type="hidden" name="wht_order_sequence[]" value="{{ $whtd->order_sequence }}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            @endif
                         </table>
                     </div>
                     <div class="form-group mb-0"><hr></div>
                     <div class="form-group text-center">
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="2">
+                                <input type="radio" class="form-check-input" name="status" value="2" {{ $wht->status == 2 ? 'checked' : '' }}>
                                 Inactive
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="1" checked>
+                                <input type="radio" class="form-check-input" name="status" value="1" {{ $wht->status == 1 ? 'checked' : '' }}>
                                 Active
                             </label>
                         </div>
@@ -94,7 +117,7 @@
                     <div class="form-group mb-0"><hr></div>
                     <div class="form-group">
                         <div class="text-right">
-                            <button type="button" class="btn btn-primary" onclick="create()"><i class="icon-plus3"></i> Save</button>
+                            <button type="button" class="btn btn-warning" onclick="update()"><i class="icon-pen"></i> Save</button>
                         </div>
                     </div>
                 </form>
@@ -228,9 +251,9 @@
         }
     }
 
-    function create() {
+    function update() {
         $.ajax({
-            url: '{{ url("master_data/working_hours/type/create") }}',
+            url: '{{ url("working_hours/type/update") }}' + '/' + {{ $wht->id }},
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),

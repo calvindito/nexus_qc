@@ -244,9 +244,9 @@ var DashboardBullets = function() {
                             sidebarToggle && sidebarToggle.addEventListener('click', resizeBulletsCore);
 
                             // Resize function
-                            // 
+                            //
                             // Since D3 doesn't support SVG resize by default,
-                            // we need to manually specify parts of the graph that need to 
+                            // we need to manually specify parts of the graph that need to
                             // be updated on window resize
                             function resizeBulletsCore() {
 
@@ -403,7 +403,7 @@ var DashboardBullets = function() {
             // Load data
             // ------------------------------
 
-            d3.json('../../../../global_assets/demo_data/dashboard/bullets.json', function(error, data) {
+            d3.json('template/global_assets/demo_data/dashboard/bullets.json', function(error, data) {
 
                 // Show what's wrong if error
                 if (error) return console.error(error);
@@ -508,9 +508,9 @@ var DashboardBullets = function() {
                 }
 
                 // Resize function
-                // 
+                //
                 // Since D3 doesn't support SVG resize by default,
-                // we need to manually specify parts of the graph that need to 
+                // we need to manually specify parts of the graph that need to
                 // be updated on window resize
                 function bulletResize() {
 

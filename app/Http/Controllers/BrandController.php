@@ -13,7 +13,7 @@ class BrandController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - General - Brand',
-            'content' => 'master_data.general.brand'
+            'content' => 'general.brand'
         ];
 
         return view('layouts.index', ['data' => $data]);

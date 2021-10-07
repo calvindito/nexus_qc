@@ -95,7 +95,7 @@ var DashboardAreas = function() {
             // Load data
             // ------------------------------
 
-            d3.json('../../../../global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
+            d3.json('template/global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
 
                 // Show what's wrong if error
                 if (error) return console.error(error);
@@ -237,12 +237,12 @@ var DashboardAreas = function() {
                     .attr('width', width)
                     .attr('height', height)
                         .on('mouseover', function() {
-                            focusPointer.style('display', null);        
+                            focusPointer.style('display', null);
                             focusLine.style('display', null)
                             focusText.style('display', null);
                         })
                         .on('mouseout', function() {
-                            focusPointer.style('display', 'none'); 
+                            focusPointer.style('display', 'none');
                             focusLine.style('display', 'none');
                             focusText.style('display', 'none');
                         })
@@ -301,9 +301,9 @@ var DashboardAreas = function() {
 
 
                 // Resize function
-                // 
+                //
                 // Since D3 doesn't support SVG resize by default,
-                // we need to manually specify parts of the graph that need to 
+                // we need to manually specify parts of the graph that need to
                 // be updated on window resize
                 function monthlySalesAreaResize() {
 
@@ -409,7 +409,7 @@ var DashboardAreas = function() {
             // Load data
             // ------------------------------
 
-            d3.json('../../../../global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
+            d3.json('template/global_assets/demo_data/dashboard/monthly_sales.json', function (error, data) {
 
                 // Show what's wrong if error
                 if (error) return console.error(error);
@@ -484,9 +484,9 @@ var DashboardAreas = function() {
                 }
 
                 // Resize function
-                // 
+                //
                 // Since D3 doesn't support SVG resize by default,
-                // we need to manually specify parts of the graph that need to 
+                // we need to manually specify parts of the graph that need to
                 // be updated on window resize
                 function messagesAreaResize() {
 

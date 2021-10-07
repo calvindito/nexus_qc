@@ -18,7 +18,7 @@ class ColorController extends Controller {
             'title'   => 'Master Data - General - Color',
             'brand'   => Brand::where('status', 1)->get(),
             'fabric'  => Fabric::where('status', 1)->get(),
-            'content' => 'master_data.general.color'
+            'content' => 'general.color'
         ];
 
         return view('layouts.index', ['data' => $data]);

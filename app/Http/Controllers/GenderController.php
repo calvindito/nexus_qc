@@ -13,7 +13,7 @@ class GenderController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - General - Gender',
-            'content' => 'master_data.general.gender'
+            'content' => 'general.gender'
         ];
 
         return view('layouts.index', ['data' => $data]);

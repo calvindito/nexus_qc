@@ -15,14 +15,8 @@
 		</div>
 		<div class="d-flex justify-content-end align-items-center flex-1 flex-lg-0 order-1 order-lg-2">
 			<ul class="navbar-nav flex-row">
-                <li class="nav-item">
-                    <a href="{{ url('auth/profile') }}" data-popup="tooltip" title="Profile" class="navbar-nav-link"><i class="icon-user"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('auth/change_password') }}" data-popup="tooltip" title="Change Password" class="navbar-nav-link"><i class="icon-lock"></i></a>
-                </li>
 				<li class="nav-item">
-                    <a href="{{ url('auth/logout') }}" data-popup="tooltip" title="Logout" class="navbar-nav-link"><i class="icon-switch"></i></a>
+                    <a href="{{ url('auth/logout') }}" class="navbar-nav-link font-weight-bold"><i class="icon-switch"></i> Logout</a>
                 </li>
 			</ul>
 		</div>

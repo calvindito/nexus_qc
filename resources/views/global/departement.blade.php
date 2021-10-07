@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Rank</span>
+                    <span class="font-weight-semibold">Departement</span>
                 </h4>
             </div>
         </div>
@@ -12,9 +12,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Rank</span>
+                    <span class="breadcrumb-item active">Departement</span>
                 </div>
             </div>
         </div>
@@ -26,7 +25,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Rank</th>
+                            <th>Departement</th>
                             <th>Description</th>
                             <th>Status</th>
                         </tr>
@@ -52,7 +51,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/global/rank/datatable") }}',
+                url: '{{ url("global/departement/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -64,7 +63,7 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'rank', className: 'text-center align-middle' },
+                { name: 'department', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' }
             ]

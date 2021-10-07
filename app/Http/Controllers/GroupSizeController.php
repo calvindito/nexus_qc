@@ -14,7 +14,7 @@ class GroupSizeController extends Controller {
     {
         $data = [
             'title'   => 'Master Data - General - Group Size',
-            'content' => 'master_data.general.group_size'
+            'content' => 'general.group_size'
         ];
 
         return view('layouts.index', ['data' => $data]);

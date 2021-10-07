@@ -146,7 +146,7 @@ var D3Streamgraph = function() {
             // Load data
             // ------------------------------
 
-            d3.csv("../../../../global_assets/demo_data/dashboard/traffic_sources.csv", function (error, data) {
+            d3.csv("template/global_assets/demo_data/dashboard/traffic_sources.csv", function (error, data) {
 
                 // Pull out values
                 data.forEach(function (d) {
@@ -197,7 +197,7 @@ var D3Streamgraph = function() {
                     .enter()
                         .append("path")
                         .attr("class", "streamgraph-layer d3-slice-border")
-                        .attr("d", function(d) { return area(d.values); })                    
+                        .attr("d", function(d) { return area(d.values); })
                         .style('stroke-width', 1)
                         .style('box-shadow', '0 4px 8px rgba(0,0,0,0.5)')
                         .style("fill", function(d, i) { return z(i); });
@@ -342,7 +342,7 @@ var D3Streamgraph = function() {
                                 '<ul class="list-unstyled mb-1 p-0">' +
                                     '<li>' + '<div class="font-size-base my-1"><i class="icon-circle-left2"></i><span class="d-inline-block ml-2"></span>' + d.key + '</div>' + '</li>' +
                                     '<li>' + 'Visits: &nbsp;' + "<span class='font-weight-semibold float-right'>" + pro + '</span>' + '</li>' +
-                                    '<li>' + 'Time: &nbsp; ' + '<span class="font-weight-semibold float-right">' + formatDate(d.values[mousedate].date) + '</span>' + '</li>' + 
+                                    '<li>' + 'Time: &nbsp; ' + '<span class="font-weight-semibold float-right">' + formatDate(d.values[mousedate].date) + '</span>' + '</li>' +
                                 '</ul>'
                             )
                             .style("display", "block");
@@ -420,9 +420,9 @@ var D3Streamgraph = function() {
             }
 
             // Resize function
-            // 
+            //
             // Since D3 doesn't support SVG resize by default,
-            // we need to manually specify parts of the graph that need to 
+            // we need to manually specify parts of the graph that need to
             // be updated on window resize
             function resizeStream() {
 

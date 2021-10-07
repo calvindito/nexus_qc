@@ -40,75 +40,73 @@
 								<span>Dashboard</span>
 							</a>
 						</li>
-						<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' ? 'nav-item-expanded nav-item-open' : '' }}">
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'global' ? 'nav-item-expanded nav-item-open' : '' }}">
 							<a href="#" class="nav-link">
-								<i class="icon-archive"></i>
-								<span>Master Data</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="General pages">
-								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' ? 'nav-item-expanded nav-item-open' : '' }}">
-									<a href="#" class="nav-link">Global</a>
-									<ul class="nav nav-group-sub">
-										<li class="nav-item">
-											<a href="{{ url('master_data/global/rank') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'rank' ? 'active' : '' }}">Rank</a>
-										</li>
-                                        <li class="nav-item">
-											<a href="{{ url('master_data/global/departement') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'departement' ? 'active' : '' }}">Departement</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/global/allowance_smv') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'global' && Request::segment(3) == 'allowance_smv' ? 'active' : '' }}">Allowance SMV</a>
-										</li>
-									</ul>
-								</li>
-								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' ? 'nav-item-expanded nav-item-open' : '' }}">
-									<a href="#" class="nav-link">General</a>
-									<ul class="nav nav-group-sub">
-                                        <li class="nav-item">
-											<a href="{{ url('master_data/general/gender') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'gender' ? 'active' : '' }}">Gender</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/class_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'class_product' ? 'active' : '' }}">Class Product</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/group_size') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'group_size' ? 'active' : '' }}">Group Size</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/type_product') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'type_product' ? 'active' : '' }}">Type Product</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/type_product_detail') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'type_product_detail' ? 'active' : '' }}">Type Product Detail</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/buyer') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'buyer' ? 'active' : '' }}">Buyer</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/brand') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'brand' ? 'active' : '' }}">Brand</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/fabric') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'fabric' ? 'active' : '' }}">Fabric</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/color') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'color' ? 'active' : '' }}">Color</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/general/style') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'general' && Request::segment(3) == 'style' ? 'active' : '' }}">Style</a>
-										</li>
-									</ul>
-								</li>
-								<li class="nav-item nav-item-submenu {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' ? 'nav-item-expanded nav-item-open' : '' }}">
-									<a href="#" class="nav-link">Working Hours</a>
-									<ul class="nav nav-group-sub">
-										<li class="nav-item">
-											<a href="{{ url('master_data/working_hours/type') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'type' ? 'active' : '' }}">Type</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'chart' ? 'active' : '' }}">Chart</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ url('master_data/working_hours/schedule') }}" class="nav-link {{ Request::segment(1) == 'master_data' && Request::segment(2) == 'working_hours' && Request::segment(3) == 'schedule' ? 'active' : '' }}">Schedule</a>
-										</li>
-									</ul>
-								</li>
+                                <i class="icon-sphere3"></i>
+                                <span>Global</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Global">
+								<li class="nav-item">
+                                    <a href="{{ url('global/rank') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'rank' ? 'active' : '' }}">Rank</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('global/departement') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'departement' ? 'active' : '' }}">Departement</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('global/allowance_smv') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'allowance_smv' ? 'active' : '' }}">Allowance SMV</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'general' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-grid6"></i>
+                                <span>General</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="General">
+								<li class="nav-item">
+                                    <a href="{{ url('general/gender') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'gender' ? 'active' : '' }}">Gender</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/class_product') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'class_product' ? 'active' : '' }}">Class Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/group_size') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'group_size' ? 'active' : '' }}">Group Size</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/type_product') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'type_product' ? 'active' : '' }}">Type Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/buyer') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'buyer' ? 'active' : '' }}">Buyer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/brand') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'brand' ? 'active' : '' }}">Brand</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/fabric') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'fabric' ? 'active' : '' }}">Fabric</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/color') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'color' ? 'active' : '' }}">Color</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/style') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'style' ? 'active' : '' }}">Style</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'working_hours' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-briefcase"></i>
+                                <span>Working Hours</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Working Hours">
+								<li class="nav-item">
+                                    <a href="{{ url('working_hours/type') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'chart' ? 'active' : '' }}">Chart</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('working_hours/schedule') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'schedule' ? 'active' : '' }}">Schedule</a>
+                                </li>
 							</ul>
 						</li>
                         <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'location' ? 'nav-item-expanded nav-item-open' : '' }}">
@@ -151,6 +149,23 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('group_defect/critical_defect_list') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'critical_defect_list' ? 'active' : '' }}">Critical Defect List</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'setting' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-cog"></i>
+                                <span>Setting</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Setting">
+								<li class="nav-item">
+                                    <a href="{{ url('setting/profile') }}" class="nav-link {{ Request::segment(1) == 'setting' && Request::segment(2) == 'profile' ? 'active' : '' }}">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('setting/change_password') }}" class="nav-link {{ Request::segment(1) == 'setting' && Request::segment(2) == 'change_password' ? 'active' : '' }}">Change Password</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('setting/activity') }}" class="nav-link {{ Request::segment(1) == 'setting' && Request::segment(2) == 'activity' ? 'active' : '' }}">Activity</a>
                                 </li>
 							</ul>
 						</li>

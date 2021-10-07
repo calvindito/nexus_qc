@@ -23,115 +23,114 @@ Route::middleware('auth.login')->group(function() {
         Route::get('excel_template/{param}', 'DownloadController@excelTemplate');
     });
 
-    Route::prefix('master_data')->group(function() {
-        Route::prefix('global')->group(function() {
-            Route::prefix('rank')->group(function() {
-                Route::get('/', 'RankController@index');
-                Route::get('datatable', 'RankController@datatable');
-            });
-
-            Route::prefix('departement')->group(function() {
-                Route::get('/', 'DepartementController@index');
-                Route::get('datatable', 'DepartementController@datatable');
-            });
-
-            Route::prefix('allowance_smv')->group(function() {
-                Route::get('/', 'AllowanceSmvController@index');
-                Route::get('datatable', 'AllowanceSmvController@datatable');
-                Route::post('create', 'AllowanceSmvController@create');
-                Route::post('show', 'AllowanceSmvController@show');
-                Route::post('update/{id}', 'AllowanceSmvController@update');
-            });
+    Route::prefix('global')->group(function() {
+        Route::prefix('rank')->group(function() {
+            Route::get('/', 'RankController@index');
+            Route::get('datatable', 'RankController@datatable');
         });
 
-        Route::prefix('general')->group(function() {
-            Route::prefix('gender')->group(function() {
-                Route::get('/', 'GenderController@index');
-                Route::get('datatable', 'GenderController@datatable');
-                Route::post('create', 'GenderController@create');
-                Route::post('show', 'GenderController@show');
-                Route::post('update/{id}', 'GenderController@update');
-                Route::post('change_status', 'GenderController@changeStatus');
-            });
-
-            Route::prefix('class_product')->group(function() {
-                Route::get('/', 'ClassProductController@index');
-                Route::get('datatable', 'ClassProductController@datatable');
-                Route::post('create', 'ClassProductController@create');
-                Route::post('show', 'ClassProductController@show');
-                Route::post('update/{id}', 'ClassProductController@update');
-                Route::post('change_status', 'ClassProductController@changeStatus');
-            });
-
-            Route::prefix('group_size')->group(function() {
-                Route::get('/', 'GroupSizeController@index');
-                Route::get('datatable', 'GroupSizeController@datatable');
-                Route::post('create', 'GroupSizeController@create');
-                Route::post('show', 'GroupSizeController@show');
-                Route::post('update/{id}', 'GroupSizeController@update');
-                Route::post('change_status', 'GroupSizeController@changeStatus');
-            });
-
-            Route::prefix('type_product')->group(function() {
-                Route::get('/', 'TypeProductController@index');
-                Route::get('datatable', 'TypeProductController@datatable');
-                Route::post('get_gender', 'TypeProductController@getGender');
-                Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
-                Route::post('create', 'TypeProductController@create');
-                Route::post('show', 'TypeProductController@show');
-                Route::post('update/{id}', 'TypeProductController@update');
-                Route::post('change_status', 'TypeProductController@changeStatus');
-            });
-
-            Route::prefix('buyer')->group(function() {
-                Route::get('/', 'BuyerController@index');
-                Route::get('datatable', 'BuyerController@datatable');
-                Route::post('row_detail', 'BuyerController@rowDetail');
-                Route::post('get_gender', 'BuyerController@getGender');
-                Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
-                Route::post('create', 'BuyerController@create');
-                Route::post('show', 'BuyerController@show');
-                Route::post('update/{id}', 'BuyerController@update');
-                Route::post('change_status', 'BuyerController@changeStatus');
-            });
-
-            Route::prefix('brand')->group(function() {
-                Route::get('/', 'BrandController@index');
-                Route::get('datatable', 'BrandController@datatable');
-                Route::post('create', 'BrandController@create');
-                Route::post('show', 'BrandController@show');
-                Route::post('update/{id}', 'BrandController@update');
-                Route::post('change_status', 'BrandController@changeStatus');
-            });
-
-            Route::prefix('fabric')->group(function() {
-                Route::get('/', 'FabricController@index');
-                Route::get('datatable', 'FabricController@datatable');
-                Route::post('create', 'FabricController@create');
-                Route::post('show', 'FabricController@show');
-                Route::post('update/{id}', 'FabricController@update');
-                Route::post('change_status', 'FabricController@changeStatus');
-            });
-
-            Route::prefix('color')->group(function() {
-                Route::get('/', 'ColorController@index');
-                Route::get('datatable', 'ColorController@datatable');
-                Route::post('create', 'ColorController@create');
-                Route::post('show', 'ColorController@show');
-                Route::post('update/{id}', 'ColorController@update');
-                Route::post('change_status', 'ColorController@changeStatus');
-            });
+        Route::prefix('departement')->group(function() {
+            Route::get('/', 'DepartementController@index');
+            Route::get('datatable', 'DepartementController@datatable');
         });
 
-        Route::prefix('working_hours')->group(function() {
-            Route::prefix('type')->group(function() {
-                Route::get('/', 'WorkingHoursTypeController@index');
-                Route::get('datatable', 'WorkingHoursTypeController@datatable');
-                Route::post('detail', 'WorkingHoursTypeController@detail');
-                Route::match(['get', 'post'], 'create', 'WorkingHoursTypeController@create');
-                Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
-                Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
-            });
+        Route::prefix('allowance_smv')->group(function() {
+            Route::get('/', 'AllowanceSmvController@index');
+            Route::get('datatable', 'AllowanceSmvController@datatable');
+            Route::post('create', 'AllowanceSmvController@create');
+            Route::post('show', 'AllowanceSmvController@show');
+            Route::post('update/{id}', 'AllowanceSmvController@update');
+        });
+    });
+
+    Route::prefix('general')->group(function() {
+        Route::prefix('gender')->group(function() {
+            Route::get('/', 'GenderController@index');
+            Route::get('datatable', 'GenderController@datatable');
+            Route::post('create', 'GenderController@create');
+            Route::post('show', 'GenderController@show');
+            Route::post('update/{id}', 'GenderController@update');
+            Route::post('change_status', 'GenderController@changeStatus');
+        });
+
+        Route::prefix('class_product')->group(function() {
+            Route::get('/', 'ClassProductController@index');
+            Route::get('datatable', 'ClassProductController@datatable');
+            Route::post('create', 'ClassProductController@create');
+            Route::post('show', 'ClassProductController@show');
+            Route::post('update/{id}', 'ClassProductController@update');
+            Route::post('change_status', 'ClassProductController@changeStatus');
+        });
+
+        Route::prefix('group_size')->group(function() {
+            Route::get('/', 'GroupSizeController@index');
+            Route::get('datatable', 'GroupSizeController@datatable');
+            Route::post('create', 'GroupSizeController@create');
+            Route::post('show', 'GroupSizeController@show');
+            Route::post('update/{id}', 'GroupSizeController@update');
+            Route::post('change_status', 'GroupSizeController@changeStatus');
+        });
+
+        Route::prefix('type_product')->group(function() {
+            Route::get('/', 'TypeProductController@index');
+            Route::get('datatable', 'TypeProductController@datatable');
+            Route::post('get_gender', 'TypeProductController@getGender');
+            Route::get('detail/{id}', 'TypeProductController@detail');
+            Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
+            Route::post('create', 'TypeProductController@create');
+            Route::post('show', 'TypeProductController@show');
+            Route::post('update/{id}', 'TypeProductController@update');
+            Route::post('change_status', 'TypeProductController@changeStatus');
+        });
+
+        Route::prefix('buyer')->group(function() {
+            Route::get('/', 'BuyerController@index');
+            Route::get('datatable', 'BuyerController@datatable');
+            Route::post('row_detail', 'BuyerController@rowDetail');
+            Route::post('get_gender', 'BuyerController@getGender');
+            Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
+            Route::post('create', 'BuyerController@create');
+            Route::post('show', 'BuyerController@show');
+            Route::post('update/{id}', 'BuyerController@update');
+            Route::post('change_status', 'BuyerController@changeStatus');
+        });
+
+        Route::prefix('brand')->group(function() {
+            Route::get('/', 'BrandController@index');
+            Route::get('datatable', 'BrandController@datatable');
+            Route::post('create', 'BrandController@create');
+            Route::post('show', 'BrandController@show');
+            Route::post('update/{id}', 'BrandController@update');
+            Route::post('change_status', 'BrandController@changeStatus');
+        });
+
+        Route::prefix('fabric')->group(function() {
+            Route::get('/', 'FabricController@index');
+            Route::get('datatable', 'FabricController@datatable');
+            Route::post('create', 'FabricController@create');
+            Route::post('show', 'FabricController@show');
+            Route::post('update/{id}', 'FabricController@update');
+            Route::post('change_status', 'FabricController@changeStatus');
+        });
+
+        Route::prefix('color')->group(function() {
+            Route::get('/', 'ColorController@index');
+            Route::get('datatable', 'ColorController@datatable');
+            Route::post('create', 'ColorController@create');
+            Route::post('show', 'ColorController@show');
+            Route::post('update/{id}', 'ColorController@update');
+            Route::post('change_status', 'ColorController@changeStatus');
+        });
+    });
+
+    Route::prefix('working_hours')->group(function() {
+        Route::prefix('type')->group(function() {
+            Route::get('/', 'WorkingHoursTypeController@index');
+            Route::get('datatable', 'WorkingHoursTypeController@datatable');
+            Route::post('detail', 'WorkingHoursTypeController@detail');
+            Route::match(['get', 'post'], 'create', 'WorkingHoursTypeController@create');
+            Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
+            Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
         });
     });
 

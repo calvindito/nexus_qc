@@ -19,7 +19,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('master_data/general/buyer/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="{{ url('general/buyer/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/buyer') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
@@ -31,7 +31,6 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">General</a>
                     <span class="breadcrumb-item active">Buyer</span>
                 </div>
@@ -268,7 +267,7 @@
 		var content = '';
 
 		$.ajax({
-			url: '{{ url("master_data/general/buyer/row_detail") }}',
+			url: '{{ url("general/buyer/row_detail") }}',
 			type: 'POST',
 			async: false,
 			data: {
@@ -477,7 +476,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/buyer/datatable") }}',
+                url: '{{ url("general/buyer/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -507,7 +506,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/buyer/create") }}',
+            url: '{{ url("general/buyer/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -555,7 +554,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("master_data/general/buyer/show") }}',
+            url: '{{ url("general/buyer/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -611,7 +610,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("master_data/general/buyer/update") }}' + '/' + id,
+            url: '{{ url("general/buyer/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -658,7 +657,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("master_data/general/buyer/change_status") }}',
+            url: '{{ url("general/buyer/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

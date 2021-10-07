@@ -22,7 +22,7 @@ class BuyerController extends Controller {
             'country'     => Country::orderBy('name', 'asc')->get(),
             'departement' => Departement::where('status', 'Active')->get(),
             'rank'        => Rank::where('status', 'Active')->get(),
-            'content'     => 'master_data.general.buyer'
+            'content'     => 'general.buyer'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -213,7 +213,7 @@ class BuyerController extends Controller {
         } else {
             $data = [
                 'title'   => 'Master Data - General - Buyer - Bulk Upload',
-                'content' => 'master_data.general.buyer_bulk'
+                'content' => 'general.buyer_bulk'
             ];
 
             return view('layouts.index', ['data' => $data]);

@@ -28,7 +28,7 @@ var DashboardHeatmaps = function() {
         if(element) {
 
             // Load data
-            d3.csv('../../../../global_assets/demo_data/dashboard/app_sales_heatmap.csv', function(error, data) {
+            d3.csv('template/global_assets/demo_data/dashboard/app_sales_heatmap.csv', function(error, data) {
 
 
                 // Bind data
@@ -43,7 +43,7 @@ var DashboardHeatmaps = function() {
                     formatTime = d3.time.format('%H:%M');
 
                 // Pull out values
-                data.forEach(function(d, i) { 
+                data.forEach(function(d, i) {
                     d.date = format.parse(d.date),
                     d.value = +d.value
                 });
@@ -156,7 +156,7 @@ var DashboardHeatmaps = function() {
                         .attr('height', gridSize)
                         .style('cursor', 'pointer');
 
-                // Add loading transition    
+                // Add loading transition
                 heatMap.transition()
                     .duration(250)
                     .delay(function(d, i) { return i * 20; })
@@ -182,7 +182,7 @@ var DashboardHeatmaps = function() {
 
                 // Get min and max values
                 var minValue, maxValue;
-                data.forEach(function(d, i) { 
+                data.forEach(function(d, i) {
                     maxValue = d3.max(data, function (d) { return d.value; });
                     minValue = d3.min(data, function (d) { return d.value; });
                 });
@@ -250,9 +250,9 @@ var DashboardHeatmaps = function() {
                 }
 
                 // Resize function
-                // 
+                //
                 // Since D3 doesn't support SVG resize by default,
-                // we need to manually specify parts of the graph that need to 
+                // we need to manually specify parts of the graph that need to
                 // be updated on window resize
                 function resizeHeatmap() {
 

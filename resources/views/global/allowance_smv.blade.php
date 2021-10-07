@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Group Size</span>
+                    <span class="font-weight-semibold">Allowance SMV</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -16,13 +16,6 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/group_size') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/group_size') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -31,9 +24,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Group Size</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
+                    <span class="breadcrumb-item active">Allowance SMV</span>
                 </div>
             </div>
         </div>
@@ -45,9 +37,8 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Group</th>
-                            <th>Chart</th>
-                            <th>Status</th>
+                            <th>Allowance SMV</th>
+                            <th>Description</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
                             <th>Action</th>
@@ -73,26 +64,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Group :<span class="text-danger">*</span></label>
-                        <input type="text" name="group" id="group" class="form-control" placeholder="Enter group">
+                        <label>Allowance SMV :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group">
-                        <label>Chart :<span class="text-danger">*</span></label>
-                        <select name="value[]" id="value" class="select2-tag" multiple></select>
-                    </div>
-                    <div class="form-group text-center mt-4">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="2">
-                                Inactive
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="1" checked>
-                                Active
-                            </label>
-                        </div>
+                        <label>Description :</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
                     </div>
                 </form>
             </div>
@@ -139,8 +116,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#value').val(null).change();
-        $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -162,7 +137,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/group_size/datatable") }}',
+                url: '{{ url("global/allowance_smv/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -174,9 +149,8 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'group', searchable: false, className: 'text-center align-middle' },
-                { name: 'value', orderable: false, className: 'text-center align-middle' },
-                { name: 'status', searchable: false, className: 'text-center align-middle' },
+                { name: 'name', className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
@@ -186,7 +160,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/group_size/create") }}',
+            url: '{{ url("global/allowance_smv/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -234,7 +208,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("master_data/general/group_size/show") }}',
+            url: '{{ url("global/allowance_smv/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -248,14 +222,8 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $.each(response.size_detail, function(i, val) {
-                    $('#value').append(`
-                        <option value="` + val.value + `" selected>` + val.value + `</option>
-                    `);
-                });
-
-                $('#group').val(response.group);
-                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
+                $('#name').val(response.name);
+                $('#description').val(response.description);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
@@ -272,7 +240,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("master_data/general/group_size/update") }}' + '/' + id,
+            url: '{{ url("global/allowance_smv/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -307,41 +275,6 @@
             },
             error: function() {
                 $('.modal-body').scrollTop(0);
-                loadingClose('.modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    icon: 'error'
-                });
-            }
-        });
-    }
-
-    function changeStatus(id, value) {
-        $.ajax({
-            url: '{{ url("master_data/general/group_size/change_status") }}',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                id: id,
-                status: value
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function() {
-                loadingOpen('.modal-content');
-            },
-            success: function(response) {
-                loadingClose('.modal-content');
-                if(response.status == 200) {
-                    success();
-                    notif('success', 'bg-success', response.message);
-                } else {
-                    notif('error', 'bg-danger', response.message);
-                }
-            },
-            error: function() {
                 loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',

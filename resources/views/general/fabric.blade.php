@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Brand</span>
+                    <span class="font-weight-semibold">Fabric</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/brand') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/brand') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/fabric') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/fabric') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,9 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Master Data</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Brand</span>
+                    <span class="breadcrumb-item active">Fabric</span>
                 </div>
             </div>
         </div>
@@ -45,7 +44,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Brand</th>
+                            <th>Fabric</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Modified By</th>
@@ -73,7 +72,7 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Brand :<span class="text-danger">*</span></label>
+                        <label>Fabric :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group">
@@ -161,7 +160,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("master_data/general/brand/datatable") }}',
+                url: '{{ url("general/fabric/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -185,7 +184,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("master_data/general/brand/create") }}',
+            url: '{{ url("general/fabric/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -233,7 +232,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("master_data/general/brand/show") }}',
+            url: '{{ url("general/fabric/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -266,7 +265,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("master_data/general/brand/update") }}' + '/' + id,
+            url: '{{ url("general/fabric/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -313,7 +312,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("master_data/general/brand/change_status") }}',
+            url: '{{ url("general/fabric/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

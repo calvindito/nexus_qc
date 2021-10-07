@@ -44,7 +44,7 @@ var DashboardLines = function() {
                     return '<ul class="list-unstyled mb-1">' +
                         '<li>' + '<div class="font-size-base my-1"><i class="icon-circle-left2 mr-2"></i>' + d.name + ' app' + '</div>' + '</li>' +
                         '<li>' + 'Sales: &nbsp;' + '<span class="font-weight-semibold float-right">' + d.value + '</span>' + '</li>' +
-                        '<li>' + 'Revenue: &nbsp; ' + '<span class="font-weight-semibold float-right">' + '$' + (d.value * 25).toFixed(2) + '</span>' + '</li>' + 
+                        '<li>' + 'Revenue: &nbsp; ' + '<span class="font-weight-semibold float-right">' + '$' + (d.value * 25).toFixed(2) + '</span>' + '</li>' +
                     '</ul>';
                 });
 
@@ -82,7 +82,7 @@ var DashboardLines = function() {
             // Load data
             // ------------------------------
 
-            d3.csv('../../../../global_assets/demo_data/dashboard/app_sales.csv', function(error, data) {
+            d3.csv('template/global_assets/demo_data/dashboard/app_sales.csv', function(error, data) {
                 formatted = data;
                 redraw();
             });
@@ -96,8 +96,8 @@ var DashboardLines = function() {
             d3.select(window)
                 .on('keydown', function() { altKey = d3.event.altKey; })
                 .on('keyup', function() { altKey = false; });
-        
-            // Set terms of transition on date change   
+
+            // Set terms of transition on date change
             function change() {
               d3.transition()
                   .duration(altKey ? 7500 : 500)
@@ -118,15 +118,15 @@ var DashboardLines = function() {
                 var nested = d3.nest()
                     .key(function(d) { return d.type; })
                     .map(formatted)
-                
+
                 // Get value from menu selection
                 // the option values correspond
-                //to the [type] value we used to nest the data  
+                //to the [type] value we used to nest the data
                 var series = menu.value;
-                
+
                 // Only retrieve data from the selected series using nest
                 var data = nested[series];
-                
+
                 // For object constancy we will need to set 'keys', one for each type of data (column name) exclude all others.
                 color.domain(d3.keys(data[0]).filter(function(key) { return (key !== 'date' && key !== 'type'); }));
 
@@ -188,7 +188,7 @@ var DashboardLines = function() {
                     .ticks(6)
                     .tickSize(0 -width)
                     .tickPadding(8);
-                
+
 
 
                 //
@@ -215,7 +215,7 @@ var DashboardLines = function() {
                 // Bind the data
                 var lines = svg.selectAll('.app-sales-lines')
                     .data(linedata)
-             
+
                 // Append a group tag for each line
                 var lineGroup = lines
                     .enter()
@@ -233,7 +233,7 @@ var DashboardLines = function() {
                         .duration(500)
                         .delay(function(d, i) { return i * 200; })
                         .style('opacity', 1);
-              
+
 
 
                 // Append circles
@@ -279,7 +279,7 @@ var DashboardLines = function() {
 
                 // Change tooltip direction of first point
                 // to always keep it inside chart, useful on mobiles
-                lines.each(function (d) { 
+                lines.each(function (d) {
                     d3.select(d3.select(this).selectAll('circle')[0][0])
                         .on('mouseover', function (d) {
                             tooltip.offset([0, 15]).direction('e').show(d);
@@ -297,7 +297,7 @@ var DashboardLines = function() {
 
                 // Change tooltip direction of last point
                 // to always keep it inside chart, useful on mobiles
-                lines.each(function (d) { 
+                lines.each(function (d) {
                     d3.select(d3.select(this).selectAll('circle')[0][d3.select(this).selectAll('circle').size() - 1])
                         .on('mouseover', function (d) {
                             tooltip.offset([0, -15]).direction('w').show(d);
@@ -320,7 +320,7 @@ var DashboardLines = function() {
 
                 // Set variable for updating visualization
                 var lineUpdate = d3.transition(lines);
-                
+
                 // Update lines
                 lineUpdate.select('path')
                     .attr('d', function(d, i) { return line(d.values); });
@@ -333,7 +333,7 @@ var DashboardLines = function() {
                 // Update vertical axes
                 d3.transition(svg)
                     .select('.d3-axis-vertical')
-                    .call(yAxis);   
+                    .call(yAxis);
 
                 // Update horizontal axes
                 d3.transition(svg)
@@ -364,9 +364,9 @@ var DashboardLines = function() {
                 }
 
                 // Resize function
-                // 
+                //
                 // Since D3 doesn't support SVG resize by default,
-                // we need to manually specify parts of the graph that need to 
+                // we need to manually specify parts of the graph that need to
                 // be updated on window resize
                 function appSalesResize() {
 
@@ -474,7 +474,7 @@ var DashboardLines = function() {
                     return '<ul class="list-unstyled mb-1">' +
                         '<li>' + '<div class="font-size-base my-1"><i class="icon-check2 mr-2"></i>' + formatDate(d.date) + '</div>' + '</li>' +
                         '<li>' + 'Sales: &nbsp;' + '<span class="font-weight-semibold float-right">' + d.alpha + '</span>' + '</li>' +
-                        '<li>' + 'Revenue: &nbsp; ' + '<span class="font-weight-semibold float-right">' + '$' + (d.alpha * 25).toFixed(2) + '</span>' + '</li>' + 
+                        '<li>' + 'Revenue: &nbsp; ' + '<span class="font-weight-semibold float-right">' + '$' + (d.alpha * 25).toFixed(2) + '</span>' + '</li>' +
                     '</ul>';
                 });
 
@@ -733,9 +733,9 @@ var DashboardLines = function() {
             }
 
             // Resize function
-            // 
+            //
             // Since D3 doesn't support SVG resize by default,
-            // we need to manually specify parts of the graph that need to 
+            // we need to manually specify parts of the graph that need to
             // be updated on window resize
             function revenueResize() {
 
