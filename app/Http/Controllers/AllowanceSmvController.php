@@ -12,7 +12,7 @@ class AllowanceSmvController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - Global - Allowance SMV',
+            'title'   => 'Global - Allowance SMV',
             'content' => 'global.allowance_smv'
         ];
 

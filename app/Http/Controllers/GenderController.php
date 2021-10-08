@@ -12,7 +12,7 @@ class GenderController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - General - Gender',
+            'title'   => 'General - Gender',
             'content' => 'general.gender'
         ];
 

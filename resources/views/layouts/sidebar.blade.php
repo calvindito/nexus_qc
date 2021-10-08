@@ -67,13 +67,7 @@
                                     <a href="{{ url('general/gender') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'gender' ? 'active' : '' }}">Gender</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('general/class_product') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'class_product' ? 'active' : '' }}">Class Product</a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('general/group_size') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'group_size' ? 'active' : '' }}">Group Size</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('general/type_product') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'type_product' ? 'active' : '' }}">Type Product</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('general/buyer') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'buyer' ? 'active' : '' }}">Buyer</a>
@@ -89,6 +83,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('general/style') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'style' ? 'active' : '' }}">Style</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('general/check_point') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'check_point' ? 'active' : '' }}">Check Point</a>
                                 </li>
 							</ul>
 						</li>
@@ -149,6 +146,20 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('group_defect/critical_defect_list') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'critical_defect_list' ? 'active' : '' }}">Critical Defect List</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'product' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-archive"></i>
+                                <span>Product</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Product">
+								<li class="nav-item">
+                                    <a href="{{ url('product/class') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'class' ? 'active' : '' }}">Class</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('product/type') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
                                 </li>
 							</ul>
 						</li>

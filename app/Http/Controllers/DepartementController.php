@@ -11,7 +11,7 @@ class DepartementController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - Global - Departement',
+            'title'   => 'Global - Departement',
             'content' => 'global.departement'
         ];
 

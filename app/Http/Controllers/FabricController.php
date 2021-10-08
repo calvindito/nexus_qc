@@ -12,7 +12,7 @@ class FabricController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - General - Fabric',
+            'title'   => 'General - Fabric',
             'content' => 'general.fabric'
         ];
 

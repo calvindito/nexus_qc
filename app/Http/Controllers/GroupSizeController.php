@@ -13,7 +13,7 @@ class GroupSizeController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - General - Group Size',
+            'title'   => 'General - Group Size',
             'content' => 'general.group_size'
         ];
 

@@ -14,7 +14,7 @@ class WorkingHoursTypeController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - Working Hours - Type',
+            'title'   => 'Working Hours - Type',
             'content' => 'working_hours.type'
         ];
 
@@ -204,7 +204,7 @@ class WorkingHoursTypeController extends Controller {
             return response()->json($response);
         } else {
             $data = [
-                'title'       => 'Master Data - Working Hours - Type - Create',
+                'title'       => 'Working Hours - Type - Create',
                 'departement' => Departement::where('status', 'Active')->get(),
                 'content'     => 'working_hours.type_create'
             ];
@@ -272,7 +272,7 @@ class WorkingHoursTypeController extends Controller {
             return response()->json($response);
         } else {
             $data = [
-                'title'       => 'Master Data - Working Hours - Type - Edit',
+                'title'       => 'Working Hours - Type - Edit',
                 'departement' => Departement::where('status', 'Active')->get(),
                 'wht'         => WorkingHoursType::find($id),
                 'content'     => 'working_hours.type_update'

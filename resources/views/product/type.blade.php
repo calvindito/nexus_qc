@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Class Product</span>
+                    <span class="font-weight-semibold">Type Product</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,9 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/class_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/class_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('product/type/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/type_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,8 +32,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <span class="breadcrumb-item active">Class Product</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
+                    <span class="breadcrumb-item active">Type</span>
                 </div>
             </div>
         </div>
@@ -46,6 +47,10 @@
                             <th>ID</th>
                             <th>Class Product</th>
                             <th>Gender</th>
+                            <th>Type Product</th>
+                            <th>Description</th>
+                            <th>Group Size</th>
+                            <th>Smv Global</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -73,15 +78,37 @@
                     </div>
                     <div class="form-group">
                         <label>Class Product :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <select name="product_class_id" id="product_class_id" class="select2" onchange="getGender()">
+                            <option value="">-- Choose --</option>
+                            @foreach($class_product as $cp)
+                                <option value="{{ $cp->id }}">{{ $cp->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Gender :<span class="text-danger">*</span></label>
-                        <select name="gender[]" id="gender" class="select2" multiple>
-                            @foreach($gender as $g)
-                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                        <select name="gender_id" id="gender_id" class="select2"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Group Size :<span class="text-danger">*</span></label>
+                        <select name="size_id" id="size_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($size as $s)
+                                <option value="{{ $s->id }}">{{ $s->group }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type Product :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label>Smv Global :<span class="text-danger">*</span></label>
+                        <input type="text" name="smv_global" id="smv_global" class="form-control" placeholder="Enter smv global">
+                    </div>
+                    <div class="form-group">
+                        <label>Description :</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -115,6 +142,50 @@
         loadDataTable();
     });
 
+    function getGender(id = null) {
+        $.ajax({
+            url: '{{ url("product/type/get_gender") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                product_class_id: $('#product_class_id').val()
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+                $('#gender_id').html('<option value="">-- Choose --</option>');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                $.each(response, function(i, val) {
+                    if(id == val.gender_id) {
+                        var selected = 'selected';
+                    } else {
+                        var selected = '';
+                    }
+
+                    $('#gender_id').append(`
+                        <option value="` + val.gender_id + `" ` + selected + `>` + val.gender_name + `</option>
+                    `);
+                });
+
+                if(param) {
+                    $('#gender_id').val(param).change();
+                }
+            },
+            error: function() {
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
     function openModal() {
         reset();
         $('#btn_create').show();
@@ -142,7 +213,9 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#gender').val(null).change();
+        $('#product_class_id').val(null).change();
+        $('#size_id').val(null).change();
+        $('#gender_id').html('<option value="">-- Choose --</option>');
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -165,7 +238,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("general/class_product/datatable") }}',
+                url: '{{ url("product/type/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -177,19 +250,23 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
+                { name: 'product_class_id', className: 'text-center align-middle' },
+                { name: 'gender_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'gender', orderable: false, className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
+                { name: 'size_id', className: 'text-center align-middle' },
+                { name: 'smv_global', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
-                { name: 'action', searchable: false, orderable: false, className: 'text-center nowrap align-middle' }
+                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
             ]
         });
     }
 
     function create() {
         $.ajax({
-            url: '{{ url("general/class_product/create") }}',
+            url: '{{ url("product/type/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -237,7 +314,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("general/class_product/show") }}',
+            url: '{{ url("product/type/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -251,13 +328,12 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                var gender = new Array();
-                $.each(response.gender, function(i, val) {
-                    gender[i] = val.gender_id;
-                });
-
+                $('#product_class_id').val(response.product_class_id).change();
+                getGender(response.gender_id);
+                $('#size_id').val(response.size_id).change();
                 $('#name').val(response.name);
-                $('#gender').val(gender).change();
+                $('#smv_global').val(response.smv_global);
+                $('#description').val(response.description);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -275,7 +351,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("general/class_product/update") }}' + '/' + id,
+            url: '{{ url("product/type/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -322,7 +398,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("general/class_product/change_status") }}',
+            url: '{{ url("product/type/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {

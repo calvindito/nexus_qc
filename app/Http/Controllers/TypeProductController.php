@@ -16,10 +16,10 @@ class TypeProductController extends Controller {
     public function index()
     {
         $data = [
-            'title'         => 'Master Data - General - Type Product',
+            'title'         => 'Product - Type',
             'class_product' => ProductClass::where('status', 1)->get(),
             'size'          => Size::where('status', 1)->get(),
-            'content'       => 'general.type_product'
+            'content'       => 'product.type'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -134,7 +134,7 @@ class TypeProductController extends Controller {
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
-                                    <a href="' . url('general/type_product/detail/' . $val->id) . '" class="dropdown-item"><i class="icon-info3"></i> Detail</a>
+                                    <a href="' . url('product/type/detail/' . $val->id) . '" class="dropdown-item"><i class="icon-info3"></i> Detail</a>
                                 </div>
                             </div>
                         </div>
@@ -178,9 +178,9 @@ class TypeProductController extends Controller {
     public function detail($id)
     {
         $data = [
-            'title'        => 'Master Data - General - Type Product - Detail',
+            'title'        => 'Product - Type - Detail',
             'type_product' => ProductType::find($id),
-            'content'      => 'general.type_product_detail'
+            'content'      => 'product.type_detail'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -209,8 +209,8 @@ class TypeProductController extends Controller {
             }
         } else {
             $data = [
-                'title'   => 'Master Data - General - Type Product - Bulk Upload',
-                'content' => 'general.type_product_bulk'
+                'title'   => 'Product - Type - Bulk Upload',
+                'content' => 'product.type_bulk'
             ];
 
             return view('layouts.index', ['data' => $data]);

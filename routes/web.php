@@ -53,15 +53,6 @@ Route::middleware('auth.login')->group(function() {
             Route::post('change_status', 'GenderController@changeStatus');
         });
 
-        Route::prefix('class_product')->group(function() {
-            Route::get('/', 'ClassProductController@index');
-            Route::get('datatable', 'ClassProductController@datatable');
-            Route::post('create', 'ClassProductController@create');
-            Route::post('show', 'ClassProductController@show');
-            Route::post('update/{id}', 'ClassProductController@update');
-            Route::post('change_status', 'ClassProductController@changeStatus');
-        });
-
         Route::prefix('group_size')->group(function() {
             Route::get('/', 'GroupSizeController@index');
             Route::get('datatable', 'GroupSizeController@datatable');
@@ -69,18 +60,6 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'GroupSizeController@show');
             Route::post('update/{id}', 'GroupSizeController@update');
             Route::post('change_status', 'GroupSizeController@changeStatus');
-        });
-
-        Route::prefix('type_product')->group(function() {
-            Route::get('/', 'TypeProductController@index');
-            Route::get('datatable', 'TypeProductController@datatable');
-            Route::post('get_gender', 'TypeProductController@getGender');
-            Route::get('detail/{id}', 'TypeProductController@detail');
-            Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
-            Route::post('create', 'TypeProductController@create');
-            Route::post('show', 'TypeProductController@show');
-            Route::post('update/{id}', 'TypeProductController@update');
-            Route::post('change_status', 'TypeProductController@changeStatus');
         });
 
         Route::prefix('buyer')->group(function() {
@@ -213,6 +192,29 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'CityController@create');
             Route::get('show', 'CityController@show');
             Route::post('update/{id}', 'CityController@update');
+        });
+    });
+
+    Route::prefix('product')->group(function() {
+        Route::prefix('class')->group(function() {
+            Route::get('/', 'ClassProductController@index');
+            Route::get('datatable', 'ClassProductController@datatable');
+            Route::post('create', 'ClassProductController@create');
+            Route::post('show', 'ClassProductController@show');
+            Route::post('update/{id}', 'ClassProductController@update');
+            Route::post('change_status', 'ClassProductController@changeStatus');
+        });
+
+        Route::prefix('type')->group(function() {
+            Route::get('/', 'TypeProductController@index');
+            Route::get('datatable', 'TypeProductController@datatable');
+            Route::post('get_gender', 'TypeProductController@getGender');
+            Route::get('detail/{id}', 'TypeProductController@detail');
+            Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
+            Route::post('create', 'TypeProductController@create');
+            Route::post('show', 'TypeProductController@show');
+            Route::post('update/{id}', 'TypeProductController@update');
+            Route::post('change_status', 'TypeProductController@changeStatus');
         });
     });
 });

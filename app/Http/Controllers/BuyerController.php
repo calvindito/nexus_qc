@@ -18,7 +18,7 @@ class BuyerController extends Controller {
     public function index()
     {
         $data = [
-            'title'       => 'Master Data - General - Buyer',
+            'title'       => 'General - Buyer',
             'country'     => Country::orderBy('name', 'asc')->get(),
             'departement' => Departement::where('status', 'Active')->get(),
             'rank'        => Rank::where('status', 'Active')->get(),
@@ -212,7 +212,7 @@ class BuyerController extends Controller {
             }
         } else {
             $data = [
-                'title'   => 'Master Data - General - Buyer - Bulk Upload',
+                'title'   => 'General - Buyer - Bulk Upload',
                 'content' => 'general.buyer_bulk'
             ];
 

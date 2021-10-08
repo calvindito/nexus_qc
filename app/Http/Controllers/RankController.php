@@ -11,7 +11,7 @@ class RankController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - Global - Rank',
+            'title'   => 'Global - Rank',
             'content' => 'global.rank'
         ];
 

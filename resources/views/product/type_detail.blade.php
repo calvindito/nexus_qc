@@ -10,7 +10,7 @@
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <a href="{{ url('general/type_product') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
+                        <a href="{{ url('product/type') }}" class="btn btn-secondary btn-labeled btn-labeled-left">
                             <b><i class="icon-arrow-left5"></i></b> Back To List
                         </a>
                     </div>
@@ -21,8 +21,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
-                    <a href="{{ url('general/type_product') }}" class="breadcrumb-item">Type Product</a>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
+                    <a href="{{ url('product/type') }}" class="breadcrumb-item">Type</a>
                     <span class="breadcrumb-item active">Detail</span>
                 </div>
             </div>

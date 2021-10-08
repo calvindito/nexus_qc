@@ -15,7 +15,7 @@ class ColorController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - General - Color',
+            'title'   => 'General - Color',
             'brand'   => Brand::where('status', 1)->get(),
             'fabric'  => Fabric::where('status', 1)->get(),
             'content' => 'general.color'

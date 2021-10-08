@@ -12,7 +12,7 @@ class BrandController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Master Data - General - Brand',
+            'title'   => 'General - Brand',
             'content' => 'general.brand'
         ];
 
