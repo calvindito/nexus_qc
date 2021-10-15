@@ -1,5 +1,6 @@
 $(function() {
     $('body').tooltip({selector: '[data-popup="tooltip"]'});
+    $('.listbox').bootstrapDualListbox();
 
     $('.sidebar-control').on('click', function() {
         $('#datatable_serverside').DataTable().columns.adjust().draw();

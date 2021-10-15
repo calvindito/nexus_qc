@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AllowanceSmvSeeder::class);
         $this->call(BuyerSeeder::class);
         $this->call(WorkingHoursTypeSeeder::class);
+        $this->call(CheckPointSeeder::class);
     }
 }

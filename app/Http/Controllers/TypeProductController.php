@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Excel;
 use App\Models\Size;
+use App\Models\CheckPoint;
 use App\Models\ProductType;
 use App\Models\ProductClass;
 use Illuminate\Http\Request;
@@ -134,7 +135,9 @@ class TypeProductController extends Controller {
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>
                                     <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
-                                    <a href="' . url('product/type/detail/' . $val->id) . '" class="dropdown-item"><i class="icon-info3"></i> Detail</a>
+                                    <a href="' . url('product/type/check_point/' . $val->id) . '" class="dropdown-item"><i class="icon-stack-check"></i> Check Point</a>
+                                    <a href="' . url('product/type/defect_list/' . $val->id) . '" class="dropdown-item"><i class="icon-ungroup"></i> Defect List</a>
+                                    <a href="' . url('product/type/silhouette/' . $val->id) . '" class="dropdown-item"><i class="icon-touch"></i> Silhouette</a>
                                 </div>
                             </div>
                         </div>
@@ -175,12 +178,13 @@ class TypeProductController extends Controller {
         return response()->json($gender);
     }
 
-    public function detail($id)
+    public function checkPoint($id)
     {
         $data = [
-            'title'        => 'Product - Type - Detail',
+            'title'        => 'Product - Type - Check Point',
             'type_product' => ProductType::find($id),
-            'content'      => 'product.type_detail'
+            'check_point'  => CheckPoint::where('status', 1)->get(),
+            'content'      => 'product.type_check_point'
         ];
 
         return view('layouts.index', ['data' => $data]);

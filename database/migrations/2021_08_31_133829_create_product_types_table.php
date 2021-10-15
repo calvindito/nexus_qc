@@ -21,7 +21,7 @@ class CreateProductTypesTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('name');
-            $table->string('smv_global');
+            $table->double('smv_global');
             $table->text('description')->nullable();
             $table->char('status', 1);
             $table->timestamps();

@@ -1,3 +1,14 @@
+<script src="{{ asset('template/global_assets/js/demo_pages/dashboard.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/streamgraph.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/sparklines.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/lines.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/areas.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/donuts.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bars.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/progress.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/heatmaps.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/pies.js') }}"></script>
+<script src="{{ asset('template/global_assets/js/demo_charts/pages/dashboard/light/bullets.js') }}"></script>
 <div class="content-inner">
     <div class="page-header page-header-light">
         <div class="page-header-content header-elements-lg-inline">

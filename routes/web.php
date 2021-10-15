@@ -100,6 +100,15 @@ Route::middleware('auth.login')->group(function() {
             Route::post('update/{id}', 'ColorController@update');
             Route::post('change_status', 'ColorController@changeStatus');
         });
+
+        Route::prefix('check_point')->group(function() {
+            Route::get('/', 'CheckPointController@index');
+            Route::get('datatable', 'CheckPointController@datatable');
+            Route::post('create', 'CheckPointController@create');
+            Route::post('show', 'CheckPointController@show');
+            Route::post('update/{id}', 'CheckPointController@update');
+            Route::post('change_status', 'CheckPointController@changeStatus');
+        });
     });
 
     Route::prefix('working_hours')->group(function() {
@@ -209,7 +218,7 @@ Route::middleware('auth.login')->group(function() {
             Route::get('/', 'TypeProductController@index');
             Route::get('datatable', 'TypeProductController@datatable');
             Route::post('get_gender', 'TypeProductController@getGender');
-            Route::get('detail/{id}', 'TypeProductController@detail');
+            Route::match(['get', 'post'], 'check_point/{id}', 'TypeProductController@checkPoint');
             Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
             Route::post('create', 'TypeProductController@create');
             Route::post('show', 'TypeProductController@show');
