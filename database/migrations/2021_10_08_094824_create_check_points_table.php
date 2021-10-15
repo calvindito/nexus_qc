@@ -15,7 +15,13 @@ class CreateCheckPointsTable extends Migration
     {
         Schema::create('check_points', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->char('status', 1);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
