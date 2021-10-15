@@ -30,6 +30,7 @@
     </div>
     <div class="content">
         <form action="" method="POST">
+            @csrf
             <div class="card">
                 <div class="card-header bg-transparent">
                     <h6 class="card-title">
@@ -38,7 +39,6 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -121,7 +121,8 @@
                     <div class="form-group">
                         <select multiple="multiple" class="form-control listbox" data-fouc>
                             @foreach($check_point as $cp)
-                                <option value="{{ $cp->id }}">{{ $cp->name }}</option>
+                                @php $check_selected = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->count(); @endphp
+                                <option value="{{ $cp->id }}" {{ $check_selected > 0 ? 'selected' : '' }}>{{ $cp->name }}</option>
                             @endforeach
                         </select>
                     </div>

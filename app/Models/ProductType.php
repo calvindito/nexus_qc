@@ -41,6 +41,11 @@ class ProductType extends Model {
         return $this->belongsTo('App\Models\Size');
     }
 
+    public function productTypeCheckPoint()
+    {
+        return $this->hasMany('App\Models\ProductTypeCheckPoint');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
