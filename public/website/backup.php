@@ -38,6 +38,28 @@ $buyer_contacts = array(
   array('id' => '13','buyer_id' => '11','rank_id' => '4','name' => 'tes 2 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37')
 );
 
+/* `nexus_qc`.`check_points` */
+$check_points = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '1-0','name' => 'Badan Keliling','status' => '1','created_at' => '2021-10-18 08:56:47','updated_at' => '2021-10-18 08:59:43','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '1-1','name' => 'Badan Muka Kiri','status' => '1','created_at' => '2021-10-18 08:57:05','updated_at' => '2021-10-18 08:59:56','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '1-2','name' => 'Badan Muka Kanan','status' => '1','created_at' => '2021-10-18 08:57:25','updated_at' => '2021-10-18 09:00:10','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '1-4','name' => 'Badan Belakang Kiri','status' => '1','created_at' => '2021-10-18 08:57:43','updated_at' => '2021-10-18 09:00:22','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '1-5','name' => 'Badan Belakang Kanan','status' => '1','created_at' => '2021-10-18 08:58:11','updated_at' => '2021-10-18 09:00:36','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '2-0','name' => 'Yoke','status' => '1','created_at' => '2021-10-18 08:58:24','updated_at' => '2021-10-18 09:00:51','deleted_at' => NULL),
+  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '3-0','name' => 'Waist','status' => '1','created_at' => '2021-10-18 08:58:44','updated_at' => '2021-10-18 08:58:44','deleted_at' => NULL),
+  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '4-0','name' => 'Tutup Ban','status' => '1','created_at' => '2021-10-18 08:58:56','updated_at' => '2021-10-18 09:01:04','deleted_at' => NULL),
+  array('id' => '9','created_by' => '1','updated_by' => '1','code' => '5-0','name' => 'J Stitch','status' => '1','created_at' => '2021-10-18 09:01:24','updated_at' => '2021-10-18 09:01:24','deleted_at' => NULL),
+  array('id' => '10','created_by' => '1','updated_by' => '1','code' => '6-0','name' => 'Front Rise','status' => '1','created_at' => '2021-10-18 09:01:38','updated_at' => '2021-10-18 09:01:38','deleted_at' => NULL),
+  array('id' => '11','created_by' => '1','updated_by' => '1','code' => '7-0','name' => 'Back Rise','status' => '1','created_at' => '2021-10-18 09:01:52','updated_at' => '2021-10-18 09:01:52','deleted_at' => NULL),
+  array('id' => '12','created_by' => '1','updated_by' => '1','code' => '8-0','name' => 'Inseam','status' => '1','created_at' => '2021-10-18 09:02:05','updated_at' => '2021-10-18 09:02:05','deleted_at' => NULL),
+  array('id' => '13','created_by' => '1','updated_by' => '1','code' => '9-0','name' => 'Side Seam','status' => '1','created_at' => '2021-10-18 09:03:02','updated_at' => '2021-10-18 09:03:02','deleted_at' => NULL),
+  array('id' => '14','created_by' => '1','updated_by' => '1','code' => '10-0','name' => 'KT Belakang','status' => '1','created_at' => '2021-10-18 09:03:19','updated_at' => '2021-10-18 09:03:19','deleted_at' => NULL),
+  array('id' => '15','created_by' => '1','updated_by' => '1','code' => '10-1','name' => 'KT Muka','status' => '1','created_at' => '2021-10-18 09:03:30','updated_at' => '2021-10-18 09:03:30','deleted_at' => NULL),
+  array('id' => '16','created_by' => '1','updated_by' => '1','code' => '10-2','name' => 'KT Samping','status' => '1','created_at' => '2021-10-18 09:03:43','updated_at' => '2021-10-18 09:03:43','deleted_at' => NULL),
+  array('id' => '17','created_by' => '1','updated_by' => '1','code' => '11-0','name' => 'Hemming Kaki','status' => '1','created_at' => '2021-10-18 09:03:56','updated_at' => '2021-10-18 09:03:56','deleted_at' => NULL),
+  array('id' => '18','created_by' => '1','updated_by' => '1','code' => '12-0','name' => 'Kantong Dalam','status' => '1','created_at' => '2021-10-18 09:04:12','updated_at' => '2021-10-18 09:04:21','deleted_at' => NULL)
+);
+
 /* `nexus_qc`.`cities` */
 $cities = array(
   array('id' => '1101','province_id' => '11','name' => 'Kabupaten Simeulue','latitude' => '2.583333','longitude' => '96.083333','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
@@ -868,7 +890,10 @@ $migrations = array(
   array('id' => '19','migration' => '2021_09_02_001915_create_buyer_contacts_table','batch' => '1'),
   array('id' => '20','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1'),
   array('id' => '21','migration' => '2021_10_02_230553_create_working_hours_types_table','batch' => '1'),
-  array('id' => '22','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1')
+  array('id' => '22','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1'),
+  array('id' => '23','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
+  array('id' => '24','migration' => '2021_10_15_131210_create_type_product_check_points_table','batch' => '1'),
+  array('id' => '25','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -890,7 +915,11 @@ $product_class_details = array(
 
 /* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','gender_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => 'Tes','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','gender_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => '10000','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`product_type_check_points` */
+$product_type_check_points = array(
 );
 
 /* `nexus_qc`.`provinces` */
@@ -953,6 +982,10 @@ $size_details = array(
   array('id' => '26','size_id' => '2','value' => 'L','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
   array('id' => '27','size_id' => '2','value' => 'XL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
   array('id' => '28','size_id' => '2','value' => 'XXL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06')
+);
+
+/* `nexus_qc`.`type_product_check_points` */
+$type_product_check_points = array(
 );
 
 /* `nexus_qc`.`users` */

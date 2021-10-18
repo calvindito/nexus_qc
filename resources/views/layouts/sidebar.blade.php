@@ -30,10 +30,6 @@
 				</div>
 				<div class="sidebar-section">
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
-						<li class="nav-item-header pt-0">
-							<div class="text-uppercase font-size-xs line-height-xs">Main Menu</div>
-							<i class="icon-menu" title="Main Menu"></i>
-						</li>
 						<li class="nav-item">
 							<a href="{{ url('dashboard') }}" class="nav-link {{ Request::segment(1) == 'dashboard' ? 'active' : '' }}">
 								<i class="icon-home4"></i>
@@ -177,6 +173,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('setting/activity') }}" class="nav-link {{ Request::segment(1) == 'setting' && Request::segment(2) == 'activity' ? 'active' : '' }}">Activity</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('setting/user') }}" class="nav-link {{ Request::segment(1) == 'setting' && Request::segment(2) == 'user' ? 'active' : '' }}">User</a>
                                 </li>
 							</ul>
 						</li>

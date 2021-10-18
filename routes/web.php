@@ -219,6 +219,7 @@ Route::middleware('auth.login')->group(function() {
             Route::get('datatable', 'TypeProductController@datatable');
             Route::post('get_gender', 'TypeProductController@getGender');
             Route::match(['get', 'post'], 'check_point/{id}', 'TypeProductController@checkPoint');
+            Route::match(['get', 'post'], 'defect/{id}', 'TypeProductController@defect');
             Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
             Route::post('create', 'TypeProductController@create');
             Route::post('show', 'TypeProductController@show');

@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Check Point Type Product</span>
+                    <span class="font-weight-semibold">Defect Type Product</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -23,7 +23,7 @@
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
                     <a href="{{ url('product/type') }}" class="breadcrumb-item">Type</a>
-                    <span class="breadcrumb-item active">Check Point</span>
+                    <span class="breadcrumb-item active">Defect</span>
                 </div>
             </div>
         </div>
@@ -133,19 +133,58 @@
             <div class="card">
                 <div class="card-header bg-transparent">
                     <h6 class="card-title">
-                        <i class="icon-stack-check mr-2"></i>
-                        Check Point
+                        <i class="icon-ungroup mr-2"></i>
+                        Defect
                     </h6>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <select name="check_point_id[]" multiple="multiple" class="form-control listbox" data-fouc>
-                            @foreach($check_point as $cp)
-                                @php $check_selected = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->count(); @endphp
-                                <option value="{{ $cp->id }}" {{ $check_selected > 0 ? 'selected' : '' }}>{{ $cp->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <table class="table table-striped w-100" id="datatable_defect">
+                        <thead class="bg-light">
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Code</th>
+                                <th>Check Point</th>
+                                <th>Defect</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($type_product->productTypeCheckPoint)
+                                @foreach($type_product->productTypeCheckPoint as $key => $ptcp)
+                                    <tr class="text-center">
+                                        <td class="align-middle">{{ $key + 1 }}</td>
+                                        <td class="align-middle">{{ $ptcp->checkPoint->code }}</td>
+                                        <td class="align-middle">{{ $ptcp->checkPoint->name }}</td>
+                                        <td class="align-middle">
+                                            <button type="button" class="btn btn-teal-100 btn-sm text-teal border-teal btn-icon" data-toggle="modal" data-target="#modal_defect{{ $ptcp->id }}"><i class="icon-eye"></i></button>
+                                            <div class="modal fade" id="modal_defect{{ $ptcp->id }}" data-backdrop="static" role="dialog">
+                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-light">
+                                                            <h5 class="modal-title">Form Defect</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <select name="group_defect_id{{ $ptcp->id }}[]" multiple="multiple" class="form-control listbox" data-fouc>
+                                                                    @foreach($defect as $d)
+                                                                        @php $check_selected = $type_product->productTypeDefect()->where('product_type_check_point_id', $ptcp->id)->where('group_defect_id', $d->id)->count(); @endphp
+                                                                        <option value="{{ $d->id }}" {{ $check_selected > 0 ? 'selected' : '' }}>{{ $d->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="card">
@@ -164,6 +203,7 @@
 
 <script>
     $(function() {
+        $('#datatable_defect').DataTable();
         $('#btn_submit').click(function() {
 			$('#form_data').submit();
 			loadingOpen('.content');
