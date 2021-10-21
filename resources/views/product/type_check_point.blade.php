@@ -141,8 +141,20 @@
                     <div class="form-group">
                         <select name="check_point_id[]" multiple="multiple" class="form-control listbox" data-fouc>
                             @foreach($check_point as $cp)
-                                @php $check_selected = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->count(); @endphp
-                                <option value="{{ $cp->id }}" {{ $check_selected > 0 ? 'selected' : '' }}>{{ $cp->name }}</option>
+                                @php
+                                    $check_selected = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->count();
+                                    $data           = $type_product->productTypeCheckPoint()
+                                        ->where('check_point_id', $cp->id)
+                                        ->where('product_type_id', $type_product->id)
+                                        ->first();
+
+                                    if($data) {
+                                        $existsable = $type_product->productTypeDefect()->where('product_type_check_point_id', $data->id)->count();
+                                    } else {
+                                        $existsable = 0;
+                                    }
+                                @endphp
+                                <option value="{{ $cp->id }}" {{ $check_selected > 0 ? 'selected' : '' }} {{ $existsable > 0 ? 'disabled' : '' }}>{{ $cp->name }}</option>
                             @endforeach
                         </select>
                     </div>

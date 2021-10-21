@@ -27,6 +27,12 @@
 	<script src="{{ asset('template/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/forms/inputs/duallistbox/duallistbox.min.js') }}"></script>
+    <script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/effects.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/extensions/cookie.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/trees/fancytree_all.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/trees/fancytree_childcounter.js') }}"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>

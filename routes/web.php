@@ -120,6 +120,10 @@ Route::middleware('auth.login')->group(function() {
             Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
             Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
         });
+
+        Route::prefix('chart')->group(function() {
+            Route::get('/', 'WorkingHoursChartController@index');
+        });
     });
 
     Route::prefix('group_defect')->group(function() {
