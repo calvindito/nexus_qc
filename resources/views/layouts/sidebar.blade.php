@@ -157,6 +157,9 @@
                                 <li class="nav-item">
                                     <a href="{{ url('product/type') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('product/manage') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'manage' ? 'active' : '' }}">Manage</a>
+                                </li>
 							</ul>
 						</li>
                         <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'setting' ? 'nav-item-expanded nav-item-open' : '' }}">

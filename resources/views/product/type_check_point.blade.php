@@ -165,7 +165,7 @@
                     <div class="form-group mb-0">
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary btn-labeled btn-labeled-left" id="btn_submit">
-                                <b><i class="icon-plus-circle2"></i></b> Save
+                                <b><i class="icon-floppy-disk"></i></b> Save
                             </button>
                         </div>
                     </div>

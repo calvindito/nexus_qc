@@ -230,5 +230,12 @@ Route::middleware('auth.login')->group(function() {
             Route::post('update/{id}', 'TypeProductController@update');
             Route::post('change_status', 'TypeProductController@changeStatus');
         });
+
+        Route::prefix('manage')->group(function() {
+            Route::get('/', 'ManageProductController@index');
+            Route::get('datatable', 'ManageProductController@datatable');
+            Route::post('load_content', 'ManageProductController@loadContent');
+            Route::post('submitable', 'ManageProductController@submitable');
+        });
     });
 });

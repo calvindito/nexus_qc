@@ -39,6 +39,10 @@ var swalInit = swal.mixin({
     }
 });
 
+function refreshListBox(selector, param = false) {
+    $(selector).trigger('bootstrapDualListbox.refresh', param);
+}
+
 function uploader(extension) {
     $('.file-input').fileinput({
         browseLabel: 'Browse',

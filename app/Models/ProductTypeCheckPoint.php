@@ -28,4 +28,9 @@ class ProductTypeCheckPoint extends Model {
         return $this->belongsTo('App\Models\CheckPoint');
     }
 
+    public function productTypeDefect()
+    {
+        return $this->hasMany('App\Models\ProductTypeDefect');
+    }
+
 }
