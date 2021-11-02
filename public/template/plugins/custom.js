@@ -1,6 +1,11 @@
 $(function() {
-    $('body').tooltip({selector: '[data-popup="tooltip"]'});
     $('.listbox').bootstrapDualListbox();
+
+    $('body').tooltip({
+        selector: '[data-popup="tooltip"]',
+        boundary: 'window',
+        trigger: 'hover'
+    });
 
     $('.sidebar-control').on('click', function() {
         $('#datatable_serverside').DataTable().columns.adjust().draw();
