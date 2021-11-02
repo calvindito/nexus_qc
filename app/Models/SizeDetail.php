@@ -20,7 +20,7 @@ class SizeDetail extends Model {
 
     public function size()
     {
-        return $this->belongsTo('App\Models\Size');
+        return $this->belongsTo('App\Models\Size')->withTrashed();
     }
 
 }

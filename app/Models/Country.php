@@ -21,7 +21,7 @@ class Country extends Model {
 
     public function province()
     {
-        return $this->hasMany('App\Models\Province');
+        return $this->hasMany('App\Models\Province')->withTrashed();
     }
 
 }

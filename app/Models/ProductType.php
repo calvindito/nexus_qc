@@ -28,17 +28,17 @@ class ProductType extends Model {
 
     public function productClass()
     {
-        return $this->belongsTo('App\Models\ProductClass');
+        return $this->belongsTo('App\Models\ProductClass')->withTrashed();
     }
 
     public function gender()
     {
-        return $this->belongsTo('App\Models\Gender');
+        return $this->belongsTo('App\Models\Gender')->withTrashed();
     }
 
     public function size()
     {
-        return $this->belongsTo('App\Models\Size');
+        return $this->belongsTo('App\Models\Size')->withTrashed();
     }
 
     public function productTypeCheckPoint()
@@ -53,12 +53,12 @@ class ProductType extends Model {
 
     public function createdBy()
     {
-        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id')->withTrashed();
     }
 
     public function status()

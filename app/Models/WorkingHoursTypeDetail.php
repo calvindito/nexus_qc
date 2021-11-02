@@ -24,7 +24,7 @@ class WorkingHoursTypeDetail extends Model {
 
     public function workingHoursType()
     {
-        return $this->belongsTo('App\Models\WorkingHoursType');
+        return $this->belongsTo('App\Models\WorkingHoursType')->withTrashed();
     }
 
     public function shift()

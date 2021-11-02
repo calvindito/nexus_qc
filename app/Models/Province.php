@@ -23,12 +23,12 @@ class Province extends Model {
 
     public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo('App\Models\Country')->withTrashed();
     }
 
     public function city()
     {
-        return $this->hasMany('App\Models\City');
+        return $this->hasMany('App\Models\City')->withTrashed();
     }
 
 }

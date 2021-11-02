@@ -19,12 +19,12 @@ class ProductClassDetail extends Model {
 
     public function productClass()
     {
-        return $this->belongsTo('App\Models\ProductClass');
+        return $this->belongsTo('App\Models\ProductClass')->withTrashed();
     }
 
     public function gender()
     {
-        return $this->belongsTo('App\Models\Gender');
+        return $this->belongsTo('App\Models\Gender')->withTrashed();
     }
 
 }

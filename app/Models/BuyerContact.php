@@ -22,7 +22,7 @@ class BuyerContact extends Model {
 
     public function buyer()
     {
-        return $this->belongsTo('App\Models\Buyer');
+        return $this->belongsTo('App\Models\Buyer')->withTrashed();
     }
 
     public function rank()

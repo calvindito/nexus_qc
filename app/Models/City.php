@@ -23,7 +23,7 @@ class City extends Model {
 
     public function province()
     {
-        return $this->belongsTo('App\Models\Province');
+        return $this->belongsTo('App\Models\Province')->withTrashed();
     }
 
 }

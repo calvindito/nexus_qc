@@ -20,12 +20,12 @@ class ProductTypeCheckPoint extends Model {
 
     public function productType()
     {
-        return $this->belongsTo('App\Models\ProductType');
+        return $this->belongsTo('App\Models\ProductType')->withTrashed();
     }
 
     public function checkPoint()
     {
-        return $this->belongsTo('App\Models\CheckPoint');
+        return $this->belongsTo('App\Models\CheckPoint')->withTrashed();
     }
 
     public function productTypeDefect()

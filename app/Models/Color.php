@@ -26,22 +26,22 @@ class Color extends Model {
 
     public function brand()
     {
-        return $this->belongsTo('App\Models\Brand');
+        return $this->belongsTo('App\Models\Brand')->withTrashed();
     }
 
     public function fabric()
     {
-        return $this->belongsTo('App\Models\Fabric');
+        return $this->belongsTo('App\Models\Fabric')->withTrashed();
     }
 
     public function createdBy()
     {
-        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id')->withTrashed();
     }
 
     public function status()

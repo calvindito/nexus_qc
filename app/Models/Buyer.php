@@ -31,17 +31,17 @@ class Buyer extends Model {
 
     public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo('App\Models\Country')->withTrashed();
     }
 
     public function province()
     {
-        return $this->belongsTo('App\Models\Province');
+        return $this->belongsTo('App\Models\Province')->withTrashed();
     }
 
     public function city()
     {
-        return $this->belongsTo('App\Models\City');
+        return $this->belongsTo('App\Models\City')->withTrashed();
     }
 
     public function departement()
@@ -51,12 +51,12 @@ class Buyer extends Model {
 
     public function createdBy()
     {
-        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+        return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id')->withTrashed();
     }
 
     public function buyerContact()

@@ -21,7 +21,7 @@ class ProductTypeDefect extends Model {
 
     public function productType()
     {
-        return $this->belongsTo('App\Models\ProductType');
+        return $this->belongsTo('App\Models\ProductType')->withTrashed();
     }
 
     public function typeProductCheckPoint()
@@ -31,7 +31,7 @@ class ProductTypeDefect extends Model {
 
     public function groupDefect()
     {
-        return $this->belongsTo('App\Models\GroupDefect');
+        return $this->belongsTo('App\Models\GroupDefect')->withTrashed();
     }
 
 }
