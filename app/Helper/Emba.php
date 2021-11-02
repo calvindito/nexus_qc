@@ -12,16 +12,31 @@ class Emba {
         $tree_view      = [];
         $branch         = [];
         $division       = [];
+        $departement    = [];
 
         foreach($sister_company as $sc) {
             if($sc->sisterBranch) {
                 foreach($sc->sisterBranch as $sb) {
                     if($sb->division) {
                         foreach($sb->division as $d) {
-                            $division[] = [
-                                'name' => $d->divisi,
-                                'sub'  => []
-                            ];
+                            if($d->departement) {
+                                foreach($d->departement as $dtt) {
+                                    $departement[] = [
+                                        'name' => $dtt->department,
+                                        'sub'  => []
+                                    ];
+                                }
+
+                                $division[] = [
+                                    'name' => $d->divisi,
+                                    'sub'  => $departement
+                                ];
+                            } else {
+                                $division[] = [
+                                    'name' => $d->divisi,
+                                    'sub'  => []
+                                ];
+                            }
                         }
 
                         $branch[] = [

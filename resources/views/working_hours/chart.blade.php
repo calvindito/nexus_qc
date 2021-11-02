@@ -46,9 +46,22 @@
                                                     <a href="javascript:void(0);" class="text-dark">{{ $sb['name'] }}</a>
                                                     <ul>
                                                         @foreach($sb['sub'] as $d)
-                                                            <li class="folder expanded">
-                                                                <a href="javascript:void(0);" class="text-dark">{{ $d['name'] }}</a>
-                                                            </li>
+                                                            @if($d['sub'])
+                                                                <li class="folder expanded">
+                                                                    <a href="javascript:void(0);" class="text-dark">{{ $d['name'] }}</a>
+                                                                    <ul>
+                                                                        @foreach($d['sub'] as $dtt)
+                                                                            <li class="folder expanded">
+                                                                                <a href="javascript:void(0);" class="text-dark">{{ $dtt['name'] }}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            @else
+                                                                <li class="folder expanded">
+                                                                    <a href="javascript:void(0);" class="text-dark">{{ $d['name'] }}</a>
+                                                                </li>
+                                                            @endif
                                                         @endforeach
                                                     </ul>
                                                 </li>

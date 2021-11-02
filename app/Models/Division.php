@@ -12,4 +12,9 @@ class Division extends Model {
     protected $connection = 'asset';
     protected $table      = 'divisi';
 
+    public function departement()
+    {
+        return $this->hasMany('App\Models\Departement', 'iddivisi', 'id');
+    }
+
 }
