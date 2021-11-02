@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()" data-toggle="modal" data-target="#modal_type_product">
-                            <b><i class="icon-list2"></i></b> Choise
+                            <b><i class="icon-list2"></i></b> Choice
                         </button>
                     </div>
                 </div>
@@ -31,116 +31,115 @@
         <div id="no_choose">
             <div class="alert bg-info text-white text-center">
                 <span class="font-weight-bold text-uppercase">Attention!</span><br>
-                Please select a product by clicking the <b class="font-italic">"Choise"</b> button to display detailed product data.
+                Please select a product by clicking the <b class="font-italic">"Choice"</b> button to display detailed product data.
             </div>
         </div>
         <div id="is_choose" style="display:none;">
             <div class="card">
-                <div class="card-header bg-transparent">
-                    <h6 class="card-title">
-                        <i class="icon-info22 mr-2"></i>
-                        Data Type Product
-                    </h6>
-                </div>
                 <div class="card-body">
                     <input type="hidden" id="product_type_id">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Type Product :</label>
-                                <div class="form-control-plaintext" id="type_product"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Class Product :</label>
-                                <div class="form-control-plaintext" id="class_product"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Gender :</label>
-                                <div class="form-control-plaintext" id="gender"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Group Size :</label>
-                                <div class="form-control-plaintext" id="group_size"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Smv Global :</label>
-                                <div class="form-control-plaintext" id="smv_global"></div>
+                    <ul class="nav nav-tabs nav-tabs-highlight nav-justified">
+                        <li class="nav-item">
+                            <a href="#justified-left-icon-data-type-product" class="nav-link active" data-toggle="tab">
+                                <i class="icon-info22 mr-2"></i> Data Type Product
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#justified-left-check-point" class="nav-link" data-toggle="tab">
+                                <i class="icon-stack-check mr-2"></i> Check Point
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#justified-left-defect" class="nav-link" data-toggle="tab">
+                                <i class="icon-ungroup mr-2"></i> Defect
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="justified-left-icon-data-type-product">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Type Product :</label>
+                                        <div class="form-control-plaintext" id="type_product"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Class Product :</label>
+                                        <div class="form-control-plaintext" id="class_product"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Gender :</label>
+                                        <div class="form-control-plaintext" id="gender"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Group Size :</label>
+                                        <div class="form-control-plaintext" id="group_size"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Smv Global :</label>
+                                        <div class="form-control-plaintext" id="smv_global"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Created By :</label>
+                                        <div class="form-control-plaintext" id="created_by"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Modified By :</label>
+                                        <div class="form-control-plaintext" id="modified_by"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Date Created :</label>
+                                        <div class="form-control-plaintext" id="date_created"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Last Modified Date :</label>
+                                        <div class="form-control-plaintext" id="last_modified_date"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Status :</label>
+                                        <div class="form-control-plaintext" id="status"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Created By :</label>
-                                <div class="form-control-plaintext" id="created_by"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Modified By :</label>
-                                <div class="form-control-plaintext" id="modified_by"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Date Created :</label>
-                                <div class="form-control-plaintext" id="date_created"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Last Modified Date :</label>
-                                <div class="form-control-plaintext" id="last_modified_date"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="font-weight-semibold">Status :</label>
-                                <div class="form-control-plaintext" id="status"></div>
-                            </div>
+                        <div class="tab-pane fade" id="justified-left-check-point">
+                            <form id="form_check_point">
+                                <div class="form-group">
+                                    <select name="check_point_id[]" id="check_point_id" multiple="multiple" class="form-control listbox" data-fouc></select>
+                                </div>
+                                <div class="form-group"><hr></div>
+                                <div class="form-group">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-success" onclick="submitable('check_point')"><i class="icon-floppy-disk"></i> Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="justified-left-defect">
+                            <form id="form_defect">
+                                <table class="table w-100" id="datatable_defect">
+                                    <thead class="bg-light">
+                                        <tr class="text-center">
+                                            <th>No</th>
+                                            <th>Code</th>
+                                            <th>Check Point</th>
+                                            <th>Defect</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <div class="form-group"><hr></div>
+                                <div class="form-group">
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-success" onclick="submitable('defect')"><i class="icon-floppy-disk"></i> Save</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <form id="form_check_point">
-                <div class="card">
-                    <div class="card-header bg-transparent">
-                        <h6 class="card-title">
-                            <i class="icon-stack-check mr-2"></i>
-                            Check Point
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <select name="check_point_id[]" id="check_point_id" multiple="multiple" class="form-control listbox" data-fouc></select>
-                        </div>
-                        <div class="form-group"><hr></div>
-                        <div class="form-group">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-success" onclick="submitable('check_point')"><i class="icon-floppy-disk"></i> Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <form id="form_defect">
-                <div class="card">
-                    <div class="card-header bg-transparent">
-                        <h6 class="card-title">
-                            <i class="icon-ungroup mr-2"></i>
-                            Defect
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped w-100" id="datatable_defect">
-                            <thead class="bg-light">
-                                <tr class="text-center">
-                                    <th>No</th>
-                                    <th>Code</th>
-                                    <th>Check Point</th>
-                                    <th>Defect</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <div class="form-group"><hr></div>
-                        <div class="form-group">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-success" onclick="submitable('defect')"><i class="icon-floppy-disk"></i> Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -154,7 +153,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped display nowrap w-100" id="datatable_serverside">
+                <table class="table display nowrap w-100" id="datatable_serverside">
                     <thead class="bg-light">
                         <tr class="text-center">
                             <th>No</th>
@@ -181,6 +180,10 @@
                 }
             ]
         });
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+			$('#datatable_defect').DataTable().columns.adjust();
+		});
     });
 
     function loadDataTable() {

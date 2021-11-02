@@ -77,6 +77,18 @@ class CriticalDefectListController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
+                if($val->status == 1) {
+                    $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
+                } else {
+                    $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
+                }
+
+                if($val->relations) {
+                    $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
+                } else {
+                    $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
+                }
+
                 $response['data'][] = [
                     $val->id,
                     $val->parent()->name,
@@ -93,8 +105,8 @@ class CriticalDefectListController extends Controller {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
+                                    ' . $destroy . '
+                                    ' . $status . '
                                 </div>
                             </div>
                         </div>
@@ -226,6 +238,24 @@ class CriticalDefectListController extends Controller {
             $response = [
                 'status'  => 500,
                 'message' => 'Failed to change status.'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function destroy(Request $request)
+    {
+        $query = GroupDefect::destroy($request->id);
+        if($query) {
+            $response = [
+                'status'  => 200,
+                'message' => 'Data deleted successfully.'
+            ];
+        } else {
+            $response = [
+                'status'  => 500,
+                'message' => 'Data failed to delete.'
             ];
         }
 

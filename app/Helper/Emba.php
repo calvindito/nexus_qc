@@ -8,25 +8,47 @@ class Emba {
 
     public static function treeViewWorkingHoursChart()
     {
-            $sister_company = SisterCompany::where('status', 'Active')->get();
-            $tree_view      = [];
-            $branch         = [];
+        $sister_company = SisterCompany::where('status', 'Active')->get();
+        $tree_view      = [];
+        $branch         = [];
+        $division       = [];
 
-            foreach($sister_company as $sc) {
-                if($sc->sisterBranch) {
-                    foreach($sc->sisterBranch as $sb) {
+        foreach($sister_company as $sc) {
+            if($sc->sisterBranch) {
+                foreach($sc->sisterBranch as $sb) {
+                    if($sb->division) {
+                        foreach($sb->division as $d) {
+                            $division[] = [
+                                'name' => $d->divisi,
+                                'sub'  => []
+                            ];
+                        }
 
+                        $branch[] = [
+                            'name' => $sb->description,
+                            'sub'  => $division
+                        ];
+                    } else {
+                        $branch[] = [
+                            'name' => $sb->description,
+                            'sub'  => []
+                        ];
                     }
-                } else {
-                    $tree_view[] = [
-                        'code'   => $sc->code,
-                        'name'   => $sc->nama,
-                        'branch' => []
-                    ];
                 }
-            }
 
-            return $tree_view;
+                $tree_view[] = [
+                    'name' => $sc->name,
+                    'sub'  => $branch
+                ];
+            } else {
+                $tree_view[] = [
+                    'name' => $sc->name,
+                    'sub'  => []
+                ];
+            }
+        }
+
+        return $tree_view;
     }
 
 }

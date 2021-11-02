@@ -32,44 +32,40 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="tree-default card card-body border-left-info border-left-2 mb-0">
                     <ul class="d-none mb-0">
-                        <li class="folder expanded">Expanded folder with children
-                            <ul>
-                                <li class="expanded">Expanded sub-item
+                        @foreach($tree_view as $tv)
+                            @if($tv['sub'])
+                                <li class="folder expanded">
+                                    <a href="javascript:void(0);" class="text-dark">{{ $tv['name'] }}</a>
                                     <ul>
-                                        <li class="active focused">Active sub-item (active and focus on init)</li>
-                                        <li>Basic <i>menu item</i> with <strong class="font-weight-semibold">HTML support</strong></li>
+                                        @foreach($tv['sub'] as $sb)
+                                            @if($sb['sub'])
+                                                <li class="folder expanded">
+                                                    <a href="javascript:void(0);" class="text-dark">{{ $sb['name'] }}</a>
+                                                    <ul>
+                                                        @foreach($sb['sub'] as $d)
+                                                            <li class="folder expanded">
+                                                                <a href="javascript:void(0);" class="text-dark">{{ $d['name'] }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                            @else
+                                                <li class="folder">
+                                                    <a href="javascript:void(0);" class="text-dark">{{ $sb['name'] }}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li>Collapsed sub-item
-                                    <ul>
-                                        <li>Sub-item 2.2.1</li>
-                                        <li>Sub-item 2.2.2</li>
-                                    </ul>
+                            @else
+                                <li class="folder">
+                                    <a href="javascript:void(0);" class="text-dark">{{ $v['name'] }}</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="has-tooltip" title="Look, a tool tip!">Menu item with key and tooltip</li>
-                        <li class="folder">Collapsed folder
-                            <ul>
-                                <li>Sub-item 1.1</li>
-                                <li>Sub-item 1.2</li>
-                            </ul>
-                        </li>
-                        <li class="selected">This is a selected item</li>
-                        <li class="expanded">Document with some children (expanded on init)
-                            <ul>
-                                <li>Document sub-item</li>
-                                <li>Another document sub-item
-                                    <ul>
-                                        <li>Sub-item 2.1.1</li>
-                                        <li>Sub-item 2.1.2</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>

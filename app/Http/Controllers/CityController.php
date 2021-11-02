@@ -73,6 +73,12 @@ class CityController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
+                if($val->relations) {
+                    $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
+                } else {
+                    $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
+                }
+
                 $response['data'][] = [
                     $val->id,
                     $val->province->name,
@@ -87,6 +93,7 @@ class CityController extends Controller {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    ' . $destroy . '
                                 </div>
                             </div>
                         </div>
@@ -187,6 +194,24 @@ class CityController extends Controller {
                     'message' => 'Data failed to update.'
                 ];
             }
+        }
+
+        return response()->json($response);
+    }
+
+    public function destroy(Request $request)
+    {
+        $query = City::destroy($request->id);
+        if($query) {
+            $response = [
+                'status'  => 200,
+                'message' => 'Data deleted successfully.'
+            ];
+        } else {
+            $response = [
+                'status'  => 500,
+                'message' => 'Data failed to delete.'
+            ];
         }
 
         return response()->json($response);

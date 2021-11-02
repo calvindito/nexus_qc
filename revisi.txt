@@ -1,0 +1,5 @@
+REVISI 02/11/2021 :
+    - jadi tab di di bagian product manage ~
+    - warna abu" table ~
+    - tambahkan fitur delete di master data ~
+    - setting aktif dan non aktif jadikan satu ~

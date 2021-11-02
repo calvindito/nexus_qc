@@ -40,6 +40,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'AllowanceSmvController@create');
             Route::post('show', 'AllowanceSmvController@show');
             Route::post('update/{id}', 'AllowanceSmvController@update');
+            Route::post('destroy', 'AllowanceSmvController@destroy');
         });
     });
 
@@ -51,6 +52,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'GenderController@show');
             Route::post('update/{id}', 'GenderController@update');
             Route::post('change_status', 'GenderController@changeStatus');
+            Route::post('destroy', 'GenderController@destroy');
         });
 
         Route::prefix('group_size')->group(function() {
@@ -60,6 +62,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'GroupSizeController@show');
             Route::post('update/{id}', 'GroupSizeController@update');
             Route::post('change_status', 'GroupSizeController@changeStatus');
+            Route::post('destroy', 'GroupSizeController@destroy');
         });
 
         Route::prefix('buyer')->group(function() {
@@ -72,6 +75,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'BuyerController@show');
             Route::post('update/{id}', 'BuyerController@update');
             Route::post('change_status', 'BuyerController@changeStatus');
+            Route::post('destroy', 'BuyerController@destroy');
         });
 
         Route::prefix('brand')->group(function() {
@@ -81,6 +85,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'BrandController@show');
             Route::post('update/{id}', 'BrandController@update');
             Route::post('change_status', 'BrandController@changeStatus');
+            Route::post('destroy', 'BrandController@destroy');
         });
 
         Route::prefix('fabric')->group(function() {
@@ -90,6 +95,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'FabricController@show');
             Route::post('update/{id}', 'FabricController@update');
             Route::post('change_status', 'FabricController@changeStatus');
+            Route::post('destroy', 'FabricController@destroy');
         });
 
         Route::prefix('color')->group(function() {
@@ -99,6 +105,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'ColorController@show');
             Route::post('update/{id}', 'ColorController@update');
             Route::post('change_status', 'ColorController@changeStatus');
+            Route::post('destroy', 'ColorController@destroy');
         });
 
         Route::prefix('check_point')->group(function() {
@@ -108,6 +115,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'CheckPointController@show');
             Route::post('update/{id}', 'CheckPointController@update');
             Route::post('change_status', 'CheckPointController@changeStatus');
+            Route::post('destroy', 'CheckPointController@destroy');
         });
     });
 
@@ -119,6 +127,7 @@ Route::middleware('auth.login')->group(function() {
             Route::match(['get', 'post'], 'create', 'WorkingHoursTypeController@create');
             Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
             Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
+            Route::post('destroy', 'WorkingHoursTypeController@destroy');
         });
 
         Route::prefix('chart')->group(function() {
@@ -134,6 +143,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'GroupController@show');
             Route::post('update/{id}', 'GroupController@update');
             Route::post('change_status', 'GroupController@changeStatus');
+            Route::post('destroy', 'GroupController@destroy');
         });
 
         Route::prefix('sub_group')->group(function() {
@@ -143,6 +153,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'SubGroupController@show');
             Route::post('update/{id}', 'SubGroupController@update');
             Route::post('change_status', 'SubGroupController@changeStatus');
+            Route::post('destroy', 'SubGroupController@destroy');
         });
 
         Route::prefix('defect_list')->group(function() {
@@ -152,6 +163,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'DefectListController@show');
             Route::post('update/{id}', 'DefectListController@update');
             Route::post('change_status', 'DefectListController@changeStatus');
+            Route::post('destroy', 'DefectListController@destroy');
         });
 
         Route::prefix('reject_list')->group(function() {
@@ -161,6 +173,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'RejectListController@show');
             Route::post('update/{id}', 'RejectListController@update');
             Route::post('change_status', 'RejectListController@changeStatus');
+            Route::post('destroy', 'RejectListController@destroy');
         });
 
         Route::prefix('major_defect_list')->group(function() {
@@ -170,6 +183,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'MajorDefectListController@show');
             Route::post('update/{id}', 'MajorDefectListController@update');
             Route::post('change_status', 'MajorDefectListController@changeStatus');
+            Route::post('destroy', 'MajorDefectListController@destroy');
         });
 
         Route::prefix('critical_defect_list')->group(function() {
@@ -179,6 +193,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'CriticalDefectListController@show');
             Route::post('update/{id}', 'CriticalDefectListController@update');
             Route::post('change_status', 'CriticalDefectListController@changeStatus');
+            Route::post('destroy', 'CriticalDefectListController@destroy');
         });
     });
 
@@ -189,6 +204,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'CountryController@create');
             Route::get('show', 'CountryController@show');
             Route::post('update/{id}', 'CountryController@update');
+            Route::post('destroy', 'CountryController@destroy');
         });
 
         Route::prefix('province')->group(function() {
@@ -197,6 +213,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'ProvinceController@create');
             Route::get('show', 'ProvinceController@show');
             Route::post('update/{id}', 'ProvinceController@update');
+            Route::post('destroy', 'ProvinceController@destroy');
         });
 
         Route::prefix('city')->group(function() {
@@ -205,6 +222,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('create', 'CityController@create');
             Route::get('show', 'CityController@show');
             Route::post('update/{id}', 'CityController@update');
+            Route::post('destroy', 'CityController@destroy');
         });
     });
 
@@ -216,19 +234,19 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'ClassProductController@show');
             Route::post('update/{id}', 'ClassProductController@update');
             Route::post('change_status', 'ClassProductController@changeStatus');
+            Route::post('destroy', 'ClassProductController@destroy');
         });
 
         Route::prefix('type')->group(function() {
             Route::get('/', 'TypeProductController@index');
             Route::get('datatable', 'TypeProductController@datatable');
             Route::post('get_gender', 'TypeProductController@getGender');
-            Route::match(['get', 'post'], 'check_point/{id}', 'TypeProductController@checkPoint');
-            Route::match(['get', 'post'], 'defect/{id}', 'TypeProductController@defect');
             Route::match(['get', 'post'], 'bulk', 'TypeProductController@bulk');
             Route::post('create', 'TypeProductController@create');
             Route::post('show', 'TypeProductController@show');
             Route::post('update/{id}', 'TypeProductController@update');
             Route::post('change_status', 'TypeProductController@changeStatus');
+            Route::post('destroy', 'TypeProductController@destroy');
         });
 
         Route::prefix('manage')->group(function() {

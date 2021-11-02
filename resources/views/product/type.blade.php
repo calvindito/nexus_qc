@@ -429,4 +429,50 @@
             }
         });
     }
+
+    function destroy(id) {
+        var notify_confirmation = new Noty({
+            text: '<h6 class="font-weight-bold mb-3">Confirmation Delete Data</h6><div class="font-italic text-danger mb-3">*) Deleted data can no longer be recovered.</div>',
+            theme: 'limitless',
+            timeout: false,
+            modal: true,
+            layout: 'center',
+            closeWith: 'button',
+            type: 'confirm',
+            buttons: [
+                Noty.button('Cancel', 'btn btn-light btn-sm', function() {
+                    notify_confirmation.close();
+                }),
+                Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
+                    $.ajax({
+                        url: '{{ url("product/type/destroy") }}',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            id: id
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if(response.status == 200) {
+                                $('#datatable_serverside').DataTable().ajax.reload(null, false);
+                                notif('success', 'bg-success', response.message);
+                                notify_confirmation.close();
+                            } else {
+                                notif('error', 'bg-danger', response.message);
+                            }
+                        },
+                        error: function() {
+                            swalInit.fire({
+                                title: 'Server Error',
+                                text: 'Please contact developer',
+                                type: 'error'
+                            });
+                        }
+                    });
+                })
+            ]
+        }).show();
+    }
 </script>

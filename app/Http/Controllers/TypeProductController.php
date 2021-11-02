@@ -117,6 +117,18 @@ class TypeProductController extends Controller {
                     $value .= 'Value not selected';
                 }
 
+                if($val->status == 1) {
+                    $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
+                } else {
+                    $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
+                }
+
+                if($val->relations) {
+                    $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
+                } else {
+                    $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
+                }
+
                 $response['data'][] = [
                     $val->id,
                     $val->productClass->name,
@@ -136,11 +148,8 @@ class TypeProductController extends Controller {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:void(0);" onclick="show(' . $val->id . ')" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>
-                                    <a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>
-                                    <a href="' . url('product/type/check_point/' . $val->id) . '" class="dropdown-item"><i class="icon-stack-check"></i> Check Point</a>
-                                    <a href="' . url('product/type/defect/' . $val->id) . '" class="dropdown-item"><i class="icon-ungroup"></i> Defect List</a>
-                                    <a href="' . url('product/type/silhouette/' . $val->id) . '" class="dropdown-item"><i class="icon-touch"></i> Silhouette</a>
+                                    ' . $destroy . '
+                                    ' . $status . '
                                 </div>
                             </div>
                         </div>
@@ -179,80 +188,6 @@ class TypeProductController extends Controller {
         }
 
         return response()->json($gender);
-    }
-
-    public function checkPoint(Request $request, $id)
-    {
-        $type_product = ProductType::find($id);
-        if($request->has('_token') && $request->_token == csrf_token()) {
-            $validation = Validator::make($request->all(), [
-                'check_point_id' => 'required'
-            ], [
-                'check_point_id.required' => 'Please choose one of the check point.'
-            ]);
-
-            if($validation->fails()) {
-                return redirect()->back()->withErrors($validation);
-            } else {
-                if($type_product->productTypeCheckPoint->count() > 0) {
-                    ProductTypeCheckPoint::where('product_type_id', $id)->delete();
-                }
-
-                foreach($request->check_point_id as $cpi) {
-                    ProductTypeCheckPoint::create([
-                        'product_type_id' => $id,
-                        'check_point_id'  => $cpi
-                    ]);
-                }
-
-                return redirect()->back()->with(['success' => true]);
-            }
-        } else {
-            $data = [
-                'title'        => 'Product - Type - Check Point',
-                'type_product' => $type_product,
-                'check_point'  => CheckPoint::where('status', 1)->get(),
-                'content'      => 'product.type_check_point'
-            ];
-
-            return view('layouts.index', ['data' => $data]);
-        }
-    }
-
-    public function defect(Request $request, $id)
-    {
-        $type_product = ProductType::find($id);
-        if($request->has('_token') && $request->_token == csrf_token()) {
-            if($type_product->productTypeDefect->count() > 0) {
-                ProductTypeDefect::where('product_type_id', $id)->delete();
-            }
-
-            foreach($type_product->productTypeCheckPoint as $ptcp) {
-                $group_defect_id = $request->input('group_defect_id' . $ptcp->id);
-                if(is_array($group_defect_id)) {
-                    if(count($group_defect_id) > 0) {
-                        foreach($group_defect_id as $gdi) {
-                            ProductTypeDefect::create([
-                                'product_type_id'             => $id,
-                                'product_type_check_point_id' => $ptcp->id,
-                                'group_defect_id'             => $gdi
-                            ]);
-                        }
-                    }
-                }
-            }
-
-            return redirect()->back()->with(['success' => true]);
-        } else {
-            $data = [
-                'title'        => 'Product - Type - Defect',
-                'type_product' => $type_product,
-                'defect'       => GroupDefect::where('type', 3)->where('status', 1)->get(),
-                'content'      => 'product.type_defect'
-            ];
-
-            return view('layouts.index', ['data' => $data]);
-        }
     }
 
     public function bulk(Request $request)
@@ -408,6 +343,24 @@ class TypeProductController extends Controller {
             $response = [
                 'status'  => 500,
                 'message' => 'Failed to change status.'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function destroy(Request $request)
+    {
+        $query = ProductType::destroy($request->id);
+        if($query) {
+            $response = [
+                'status'  => 200,
+                'message' => 'Data deleted successfully.'
+            ];
+        } else {
+            $response = [
+                'status'  => 500,
+                'message' => 'Data failed to delete.'
             ];
         }
 
