@@ -56,7 +56,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Upload the excel file below :</label>
-                        <a href="{{ url('download/excel_template/type_product') }}" class="float-right text-primary font-weight-bold">Download Template</a>
+                        <a href="{{ url('download/excel_template/type_product') }}" class="float-right badge badge-primary font-weight-bold">Download Template</a>
                         <input type="file" class="file-input  form-control-lg" name="file_excel" data-main-class="input-group-lg" data-fouc>
                     </div>
                 </form>

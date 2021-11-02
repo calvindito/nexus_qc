@@ -472,7 +472,6 @@
             deferRender: true,
             destroy: true,
             scrollX: true,
-            lengthChange: false,
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {

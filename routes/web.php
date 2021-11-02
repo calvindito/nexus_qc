@@ -120,6 +120,10 @@ Route::middleware('auth.login')->group(function() {
             Route::match(['get', 'post'], 'update/{id}', 'WorkingHoursTypeController@update');
             Route::post('change_status', 'WorkingHoursTypeController@changeStatus');
         });
+
+        Route::prefix('chart')->group(function() {
+            Route::get('/', 'WorkingHoursChartController@index');
+        });
     });
 
     Route::prefix('group_defect')->group(function() {
@@ -225,6 +229,13 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'TypeProductController@show');
             Route::post('update/{id}', 'TypeProductController@update');
             Route::post('change_status', 'TypeProductController@changeStatus');
+        });
+
+        Route::prefix('manage')->group(function() {
+            Route::get('/', 'ManageProductController@index');
+            Route::get('datatable', 'ManageProductController@datatable');
+            Route::post('load_content', 'ManageProductController@loadContent');
+            Route::post('submitable', 'ManageProductController@submitable');
         });
     });
 });
