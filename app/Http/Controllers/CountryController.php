@@ -105,7 +105,7 @@ class CountryController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code' => 'required|unique:countries,code',
+            'code' => 'required|unique:mysql.countries,code',
             'name' => 'required'
         ], [
             'code.required' => 'Code cannot be empty.',
@@ -149,7 +149,7 @@ class CountryController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code' => ['required', Rule::unique('countries', 'code')->ignore($id)],
+            'code' => ['required', Rule::unique('mysql.countries', 'code')->ignore($id)],
             'name' => 'required'
         ], [
             'code.required' => 'Code cannot be empty.',

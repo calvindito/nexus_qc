@@ -15,10 +15,10 @@ class ColorController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'General - Color',
+            'title'   => 'Material - Color',
             'brand'   => Brand::where('status', 1)->get(),
             'fabric'  => Fabric::where('status', 1)->get(),
-            'content' => 'general.color'
+            'content' => 'material.color'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -146,14 +146,13 @@ class ColorController extends Controller {
         $validation = Validator::make($request->all(), [
             'brand_id'  => 'required',
             'fabric_id' => 'required',
-            'code'      => 'required|unique:colors,code',
+            'code'      => 'required',
             'name'      => 'required',
             'status'    => 'required'
         ], [
             'brand_id.required'  => 'Please select a brand.',
             'fabric_id.required' => 'Please select a fabric.',
             'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
             'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
@@ -164,15 +163,27 @@ class ColorController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Color::create([
-                'brand_id'   => $request->brand_id,
-                'fabric_id'  => $request->fabric_id,
-                'created_by' => session('id'),
-                'updated_by' => session('id'),
-                'code'       => $request->code,
-                'name'       => $request->name,
-                'status'     => $request->status
-            ]);
+            $check_exist_data = Color::where('fabric_id', $request->id)
+                ->where('code', $request->code)
+                ->count();
+
+            if($check_exist_data > 0) {
+                return response()->json([
+                    'status'  => 500,
+                    'message' => 'Data exists'
+                ]);
+            } else {
+                $query = Color::create([
+                    'brand_id'   => $request->brand_id,
+                    'fabric_id'  => $request->fabric_id,
+                    'created_by' => session('id'),
+                    'updated_by' => session('id'),
+                    'code'       => $request->code,
+                    'name'       => $request->name,
+                    'status'     => $request->status
+                ]);
+            }
+
 
             if($query) {
                 $response = [
@@ -201,14 +212,13 @@ class ColorController extends Controller {
         $validation = Validator::make($request->all(), [
             'brand_id'  => 'required',
             'fabric_id' => 'required',
-            'code'      => ['required', Rule::unique('countries', 'code')->ignore($id)],
+            'code'      => 'required',
             'name'      => 'required',
             'status'    => 'required'
         ], [
             'brand_id.required'  => 'Please select a brand.',
             'fabric_id.required' => 'Please select a fabric.',
             'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
             'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
@@ -219,14 +229,26 @@ class ColorController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Color::find($id)->update([
-                'brand_id'   => $request->brand_id,
-                'fabric_id'  => $request->fabric_id,
-                'updated_by' => session('id'),
-                'code'       => $request->code,
-                'name'       => $request->name,
-                'status'     => $request->status
-            ]);
+            $check_exist_data = Color::where('fabric_id', $request->id)
+                ->where('code', $request->code)
+                ->where('id', '!=', $id)
+                ->count();
+
+            if($check_exist_data > 0) {
+                return response()->json([
+                    'status'  => 500,
+                    'message' => 'Data exists'
+                ]);
+            } else {
+                $query = Color::find($id)->update([
+                    'brand_id'   => $request->brand_id,
+                    'fabric_id'  => $request->fabric_id,
+                    'updated_by' => session('id'),
+                    'code'       => $request->code,
+                    'name'       => $request->name,
+                    'status'     => $request->status
+                ]);
+            }
 
             if($query) {
                 $response = [

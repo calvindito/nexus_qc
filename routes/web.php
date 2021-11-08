@@ -24,14 +24,24 @@ Route::middleware('auth.login')->group(function() {
     });
 
     Route::prefix('global')->group(function() {
+        Route::prefix('departement')->group(function() {
+            Route::get('/', 'DepartementController@index');
+            Route::get('datatable', 'DepartementController@datatable');
+        });
+
         Route::prefix('rank')->group(function() {
             Route::get('/', 'RankController@index');
             Route::get('datatable', 'RankController@datatable');
         });
 
-        Route::prefix('departement')->group(function() {
-            Route::get('/', 'DepartementController@index');
-            Route::get('datatable', 'DepartementController@datatable');
+        Route::prefix('job_desc')->group(function() {
+            Route::get('/', 'JobDescController@index');
+            Route::get('datatable', 'JobDescController@datatable');
+            Route::post('create', 'JobDescController@create');
+            Route::post('show', 'JobDescController@show');
+            Route::post('update/{id}', 'JobDescController@update');
+            Route::post('change_status', 'JobDescController@changeStatus');
+            Route::post('destroy', 'JobDescController@destroy');
         });
 
         Route::prefix('allowance_smv')->group(function() {
@@ -45,49 +55,18 @@ Route::middleware('auth.login')->group(function() {
     });
 
     Route::prefix('general')->group(function() {
-        Route::prefix('gender')->group(function() {
-            Route::get('/', 'GenderController@index');
-            Route::get('datatable', 'GenderController@datatable');
-            Route::post('create', 'GenderController@create');
-            Route::post('show', 'GenderController@show');
-            Route::post('update/{id}', 'GenderController@update');
-            Route::post('change_status', 'GenderController@changeStatus');
-            Route::post('destroy', 'GenderController@destroy');
+        Route::prefix('check_point')->group(function() {
+            Route::get('/', 'CheckPointController@index');
+            Route::get('datatable', 'CheckPointController@datatable');
+            Route::post('create', 'CheckPointController@create');
+            Route::post('show', 'CheckPointController@show');
+            Route::post('update/{id}', 'CheckPointController@update');
+            Route::post('change_status', 'CheckPointController@changeStatus');
+            Route::post('destroy', 'CheckPointController@destroy');
         });
+    });
 
-        Route::prefix('group_size')->group(function() {
-            Route::get('/', 'GroupSizeController@index');
-            Route::get('datatable', 'GroupSizeController@datatable');
-            Route::post('create', 'GroupSizeController@create');
-            Route::post('show', 'GroupSizeController@show');
-            Route::post('update/{id}', 'GroupSizeController@update');
-            Route::post('change_status', 'GroupSizeController@changeStatus');
-            Route::post('destroy', 'GroupSizeController@destroy');
-        });
-
-        Route::prefix('buyer')->group(function() {
-            Route::get('/', 'BuyerController@index');
-            Route::get('datatable', 'BuyerController@datatable');
-            Route::post('row_detail', 'BuyerController@rowDetail');
-            Route::post('get_gender', 'BuyerController@getGender');
-            Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
-            Route::post('create', 'BuyerController@create');
-            Route::post('show', 'BuyerController@show');
-            Route::post('update/{id}', 'BuyerController@update');
-            Route::post('change_status', 'BuyerController@changeStatus');
-            Route::post('destroy', 'BuyerController@destroy');
-        });
-
-        Route::prefix('brand')->group(function() {
-            Route::get('/', 'BrandController@index');
-            Route::get('datatable', 'BrandController@datatable');
-            Route::post('create', 'BrandController@create');
-            Route::post('show', 'BrandController@show');
-            Route::post('update/{id}', 'BrandController@update');
-            Route::post('change_status', 'BrandController@changeStatus');
-            Route::post('destroy', 'BrandController@destroy');
-        });
-
+    Route::prefix('material')->group(function() {
         Route::prefix('fabric')->group(function() {
             Route::get('/', 'FabricController@index');
             Route::get('datatable', 'FabricController@datatable');
@@ -107,15 +86,20 @@ Route::middleware('auth.login')->group(function() {
             Route::post('change_status', 'ColorController@changeStatus');
             Route::post('destroy', 'ColorController@destroy');
         });
+    });
 
-        Route::prefix('check_point')->group(function() {
-            Route::get('/', 'CheckPointController@index');
-            Route::get('datatable', 'CheckPointController@datatable');
-            Route::post('create', 'CheckPointController@create');
-            Route::post('show', 'CheckPointController@show');
-            Route::post('update/{id}', 'CheckPointController@update');
-            Route::post('change_status', 'CheckPointController@changeStatus');
-            Route::post('destroy', 'CheckPointController@destroy');
+    Route::prefix('contact')->group(function() {
+        Route::prefix('buyer')->group(function() {
+            Route::get('/', 'BuyerController@index');
+            Route::get('datatable', 'BuyerController@datatable');
+            Route::post('row_detail', 'BuyerController@rowDetail');
+            Route::post('get_gender', 'BuyerController@getGender');
+            Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
+            Route::post('create', 'BuyerController@create');
+            Route::post('show', 'BuyerController@show');
+            Route::post('update/{id}', 'BuyerController@update');
+            Route::post('change_status', 'BuyerController@changeStatus');
+            Route::post('destroy', 'BuyerController@destroy');
         });
     });
 
@@ -176,24 +160,24 @@ Route::middleware('auth.login')->group(function() {
             Route::post('destroy', 'RejectListController@destroy');
         });
 
-        Route::prefix('major_defect_list')->group(function() {
-            Route::get('/', 'MajorDefectListController@index');
-            Route::get('datatable', 'MajorDefectListController@datatable');
-            Route::post('create', 'MajorDefectListController@create');
-            Route::post('show', 'MajorDefectListController@show');
-            Route::post('update/{id}', 'MajorDefectListController@update');
-            Route::post('change_status', 'MajorDefectListController@changeStatus');
-            Route::post('destroy', 'MajorDefectListController@destroy');
+        Route::prefix('major_issues')->group(function() {
+            Route::get('/', 'MajorIssuesController@index');
+            Route::get('datatable', 'MajorIssuesController@datatable');
+            Route::post('create', 'MajorIssuesController@create');
+            Route::post('show', 'MajorIssuesController@show');
+            Route::post('update/{id}', 'MajorIssuesController@update');
+            Route::post('change_status', 'MajorIssuesController@changeStatus');
+            Route::post('destroy', 'MajorIssuesController@destroy');
         });
 
-        Route::prefix('critical_defect_list')->group(function() {
-            Route::get('/', 'CriticalDefectListController@index');
-            Route::get('datatable', 'CriticalDefectListController@datatable');
-            Route::post('create', 'CriticalDefectListController@create');
-            Route::post('show', 'CriticalDefectListController@show');
-            Route::post('update/{id}', 'CriticalDefectListController@update');
-            Route::post('change_status', 'CriticalDefectListController@changeStatus');
-            Route::post('destroy', 'CriticalDefectListController@destroy');
+        Route::prefix('critical_issues')->group(function() {
+            Route::get('/', 'CriticalIssuesController@index');
+            Route::get('datatable', 'CriticalIssuesController@datatable');
+            Route::post('create', 'CriticalIssuesController@create');
+            Route::post('show', 'CriticalIssuesController@show');
+            Route::post('update/{id}', 'CriticalIssuesController@update');
+            Route::post('change_status', 'CriticalIssuesController@changeStatus');
+            Route::post('destroy', 'CriticalIssuesController@destroy');
         });
     });
 
@@ -227,6 +211,36 @@ Route::middleware('auth.login')->group(function() {
     });
 
     Route::prefix('product')->group(function() {
+        Route::prefix('gender')->group(function() {
+            Route::get('/', 'GenderController@index');
+            Route::get('datatable', 'GenderController@datatable');
+            Route::post('create', 'GenderController@create');
+            Route::post('show', 'GenderController@show');
+            Route::post('update/{id}', 'GenderController@update');
+            Route::post('change_status', 'GenderController@changeStatus');
+            Route::post('destroy', 'GenderController@destroy');
+        });
+
+        Route::prefix('group_size')->group(function() {
+            Route::get('/', 'GroupSizeController@index');
+            Route::get('datatable', 'GroupSizeController@datatable');
+            Route::post('create', 'GroupSizeController@create');
+            Route::post('show', 'GroupSizeController@show');
+            Route::post('update/{id}', 'GroupSizeController@update');
+            Route::post('change_status', 'GroupSizeController@changeStatus');
+            Route::post('destroy', 'GroupSizeController@destroy');
+        });
+
+        Route::prefix('brand')->group(function() {
+            Route::get('/', 'BrandController@index');
+            Route::get('datatable', 'BrandController@datatable');
+            Route::post('create', 'BrandController@create');
+            Route::post('show', 'BrandController@show');
+            Route::post('update/{id}', 'BrandController@update');
+            Route::post('change_status', 'BrandController@changeStatus');
+            Route::post('destroy', 'BrandController@destroy');
+        });
+
         Route::prefix('class')->group(function() {
             Route::get('/', 'ClassProductController@index');
             Route::get('datatable', 'ClassProductController@datatable');
@@ -255,5 +269,11 @@ Route::middleware('auth.login')->group(function() {
             Route::post('load_content', 'ManageProductController@loadContent');
             Route::post('submitable', 'ManageProductController@submitable');
         });
+    });
+
+    Route::prefix('setting')->group(function() {
+        Route::get('account', 'SettingController@account');
+        Route::post('profile', 'SettingController@profile');
+        Route::post('change_password', 'SettingController@changePassword');
     });
 });

@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th rowspan="2" colspan="5" style="font-size:15px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center; width:100%;">NEXUS QUALITY CONTROL - DATA BRAND</th>
+            <th rowspan="2" colspan="5" style="font-size:15px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center; width:100%;">NEXUS QUALITY CONTROL - DATA JOB DESC</th>
         </tr>
     </thead>
 </table><br>
@@ -9,8 +9,8 @@
 <table>
     <thead>
         <tr>
-            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">BRAND</th>
-            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">AQL</th>
+            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">JOB DESC</th>
+            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">DESCRIPTION</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">STATUS</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">MODIFIED BY</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">DATE CREATED</th>
@@ -24,7 +24,7 @@
                         {{ $d->name }}
                     </td>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
-                        {{ $d->aql }}
+                        {{ $d->description }}
                     </td>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
                         @if($d->status == 1)

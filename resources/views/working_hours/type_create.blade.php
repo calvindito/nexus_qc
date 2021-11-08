@@ -34,7 +34,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

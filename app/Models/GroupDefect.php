@@ -55,10 +55,10 @@ class GroupDefect extends Model {
                 $type = 'Reject List';
                 break;
             case '5':
-                $type = 'Major Defect List';
+                $type = 'Major Issues';
                 break;
             case '6':
-                $type = 'Critical Defect List';
+                $type = 'Critical Issues';
                 break;
             default:
                 $type = 'Invalid';

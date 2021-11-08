@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Major Defect</span>
+                    <span class="font-weight-semibold">Gender</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/major_defect_list') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/major_defect_list') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/gender') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/gender') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,8 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
-                    <span class="breadcrumb-item active">Major Defect</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
+                    <span class="breadcrumb-item active">Gender</span>
                 </div>
             </div>
         </div>
@@ -44,9 +44,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Reject</th>
-                            <th>Code</th>
-                            <th>Major Defect</th>
+                            <th>Gender</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -68,26 +66,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Reject :<span class="text-danger">*</span></label>
-                        <select name="parent_id" id="parent_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($parent as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Major Defect :<span class="text-danger">*</span></label>
+                        <label>Gender :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -148,7 +133,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#parent_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -170,7 +154,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("group_defect/major_defect_list/datatable") }}',
+                url: '{{ url("product/gender/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -182,20 +166,18 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
-                { name: 'action', searchable: false, orderable: false, className: 'text-center nowrap align-middle' }
+                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
             ]
         });
     }
 
     function create() {
         $.ajax({
-            url: '{{ url("group_defect/major_defect_list/create") }}',
+            url: '{{ url("product/gender/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -243,7 +225,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("group_defect/major_defect_list/show") }}',
+            url: '{{ url("product/gender/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -257,9 +239,7 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#code').val(response.code);
                 $('#name').val(response.name);
-                $('#parent_id').val(response.parent_id).change();
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -277,7 +257,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("group_defect/major_defect_list/update") }}' + '/' + id,
+            url: '{{ url("product/gender/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -324,7 +304,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("group_defect/major_defect_list/change_status") }}',
+            url: '{{ url("product/gender/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -372,7 +352,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("group_defect/major_defect_list/destroy") }}',
+                        url: '{{ url("product/gender/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

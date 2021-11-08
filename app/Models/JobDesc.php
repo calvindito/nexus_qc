@@ -6,42 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Buyer extends Model {
+class JobDesc extends Model {
 
     use HasFactory, SoftDeletes;
 
     protected $connection = 'mysql';
-    protected $table      = 'buyers';
+    protected $table      = 'job_descs';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
-        'country_id',
-        'province_id',
-        'city_id',
         'created_by',
         'updated_by',
-        'excelable',
-        'company',
+        'name',
         'description',
-        'remark',
-        'address',
         'status'
     ];
-
-    public function country()
-    {
-        return $this->belongsTo('App\Models\Country')->withTrashed();
-    }
-
-    public function province()
-    {
-        return $this->belongsTo('App\Models\Province')->withTrashed();
-    }
-
-    public function city()
-    {
-        return $this->belongsTo('App\Models\City')->withTrashed();
-    }
 
     public function createdBy()
     {
@@ -51,11 +30,6 @@ class Buyer extends Model {
     public function updatedBy()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id')->withTrashed();
-    }
-
-    public function buyerContact()
-    {
-        return $this->hasMany('App\Models\BuyerContact');
     }
 
     public function status()

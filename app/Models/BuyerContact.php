@@ -14,7 +14,7 @@ class BuyerContact extends Model {
     protected $primaryKey = 'id';
     protected $fillable   = [
         'buyer_id',
-        'rank_id',
+        'job_desc_id',
         'name',
         'value',
         'type'
@@ -25,9 +25,9 @@ class BuyerContact extends Model {
         return $this->belongsTo('App\Models\Buyer')->withTrashed();
     }
 
-    public function rank()
+    public function jobDesc()
     {
-        return $this->belongsTo('App\Models\Rank');
+        return $this->belongsTo('App\Models\JobDesc');
     }
 
     public function type()

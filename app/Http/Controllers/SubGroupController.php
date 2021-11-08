@@ -130,7 +130,7 @@ class SubGroupController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
+            'code'      => 'required|unique:mysql.group_defects,code',
             'name'      => 'required',
             'parent_id' => 'required',
             'status'    => 'required'
@@ -183,7 +183,7 @@ class SubGroupController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('group_defects', 'code')->ignore($id)],
+            'code'      => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
             'name'      => 'required',
             'parent_id' => 'required',
             'status'    => 'required'

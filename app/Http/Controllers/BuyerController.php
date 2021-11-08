@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Excel;
-use App\Models\Rank;
 use App\Models\Buyer;
 use App\Models\Country;
+use App\Models\JobDesc;
 use App\Models\Departement;
 use App\Imports\BuyerImport;
 use App\Models\BuyerContact;
@@ -18,11 +18,10 @@ class BuyerController extends Controller {
     public function index()
     {
         $data = [
-            'title'       => 'General - Buyer',
-            'country'     => Country::orderBy('name', 'asc')->get(),
-            'departement' => Departement::where('status', 'Active')->get(),
-            'rank'        => Rank::where('status', 'Active')->get(),
-            'content'     => 'general.buyer'
+            'title'    => 'Contact - Buyer',
+            'country'  => Country::orderBy('name', 'asc')->get(),
+            'job_desc' => JobDesc::where('status', 1)->get(),
+            'content'  => 'contact.buyer'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -180,7 +179,7 @@ class BuyerController extends Controller {
                                     <small>' . $bc->type() . '</small>
                                 </div>
                                 <p><small class="mb-1">' . $bc->value . '</small></p>
-                                <small>' . $bc->rank->rank . '</small>
+                                <small>' . $bc->jobDesc->name . '</small>
                             </a>
                         </div>
                     ';
@@ -188,17 +187,7 @@ class BuyerController extends Controller {
             }
         }
 
-        $content = '
-            <div class="form-group row mb-0">
-                <label class="col-form-label col-lg-1 font-weight-bold">Departement</label>
-                <div class="col-lg-11">
-                    <div class="form-control-plaintext">:&nbsp;&nbsp;' . $data->departement->department . '</div>
-                </div>
-            </div>
-            <div class="form-group mb-0"><hr></div>
-        ';
-
-        return response()->json($content . $contact . '</div></div>');
+        return response()->json($contact . '</div></div>');
     }
 
     public function bulk(Request $request)
@@ -224,8 +213,8 @@ class BuyerController extends Controller {
             }
         } else {
             $data = [
-                'title'   => 'General - Buyer - Bulk Upload',
-                'content' => 'general.buyer_bulk'
+                'title'   => 'Contact - Buyer - Bulk Upload',
+                'content' => 'contact.buyer_bulk'
             ];
 
             return view('layouts.index', ['data' => $data]);
@@ -236,25 +225,23 @@ class BuyerController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'country_id'     => 'required',
-            'province_id'    => 'required',
-            'city_id'        => 'required',
-            'departement_id' => 'required',
-            'company'        => 'required',
-            'description'    => 'required',
-            'remark'         => 'required',
-            'address'        => 'required',
-            'status'         => 'required'
+            'country_id'  => 'required',
+            'province_id' => 'required',
+            'city_id'     => 'required',
+            'company'     => 'required',
+            'description' => 'required',
+            'remark'      => 'required',
+            'address'     => 'required',
+            'status'      => 'required'
         ], [
-            'country_id.required'     => 'Please select a country.',
-            'province_id.required'    => 'Please select a province.',
-            'city_id.required'        => 'Please select a city.',
-            'departement_id.required' => 'Please select a departement.',
-            'company.required'        => 'Company cannot be empty.',
-            'description.required'    => 'Description cannot be empty.',
-            'remark.required'         => 'Remark cannot be empty.',
-            'address.required'        => 'Address cannot be empty.',
-            'status.required'         => 'Please select a status.'
+            'country_id.required'  => 'Please select a country.',
+            'province_id.required' => 'Please select a province.',
+            'city_id.required'     => 'Please select a city.',
+            'company.required'     => 'Company cannot be empty.',
+            'description.required' => 'Description cannot be empty.',
+            'remark.required'      => 'Remark cannot be empty.',
+            'address.required'     => 'Address cannot be empty.',
+            'status.required'      => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -264,28 +251,27 @@ class BuyerController extends Controller {
             ];
         } else {
             $query = Buyer::create([
-                'country_id'     => $request->country_id,
-                'province_id'    => $request->province_id,
-                'city_id'        => $request->city_id,
-                'departement_id' => $request->departement_id,
-                'created_by'     => session('id'),
-                'updated_by'     => session('id'),
-                'company'        => $request->company,
-                'description'    => $request->description,
-                'remark'         => $request->remark,
-                'address'        => $request->address,
-                'status'         => $request->status
+                'country_id'  => $request->country_id,
+                'province_id' => $request->province_id,
+                'city_id'     => $request->city_id,
+                'created_by'  => session('id'),
+                'updated_by'  => session('id'),
+                'company'     => $request->company,
+                'description' => $request->description,
+                'remark'      => $request->remark,
+                'address'     => $request->address,
+                'status'      => $request->status
             ]);
 
             if($query) {
                 if($request->contact) {
                     foreach($request->contact as $key => $c) {
                         BuyerContact::create([
-                            'buyer_id' => $query->id,
-                            'rank_id'  => $request->contact_rank_id[$key],
-                            'name'     => $request->contact_name[$key],
-                            'value'    => $request->contact_value[$key],
-                            'type'     => $request->contact_type[$key]
+                            'buyer_id'    => $query->id,
+                            'job_desc_id' => $request->contact_job_desc_id[$key],
+                            'name'        => $request->contact_name[$key],
+                            'value'       => $request->contact_value[$key],
+                            'type'        => $request->contact_type[$key]
                         ]);
                     }
                 }
@@ -313,52 +299,49 @@ class BuyerController extends Controller {
         if($data->buyerContact) {
             foreach($data->buyerContact as $bc) {
                 $contact[] = [
-                    'rank_id'   => $bc->rank_id,
-                    'rank_name' => $bc->rank->rank,
-                    'name'      => $bc->name,
-                    'value'     => $bc->value,
-                    'type'      => $bc->type,
-                    'type_name' => $bc->type()
+                    'job_desc_id'   => $bc->job_desc_id,
+                    'job_desc_name' => $bc->jobDesc->name,
+                    'name'          => $bc->name,
+                    'value'         => $bc->value,
+                    'type'          => $bc->type,
+                    'type_name'     => $bc->type()
                 ];
             }
         }
 
         return response()->json([
-            'country_id'     => $data->country_id,
-            'province_id'    => $data->province_id,
-            'city_id'        => $data->city_id,
-            'departement_id' => $data->departement_id,
-            'company'        => $data->company,
-            'description'    => $data->description,
-            'remark'         => $data->remark,
-            'address'        => $data->address,
-            'status'         => $data->status,
-            'contact'        => $contact
+            'country_id'  => $data->country_id,
+            'province_id' => $data->province_id,
+            'city_id'     => $data->city_id,
+            'company'     => $data->company,
+            'description' => $data->description,
+            'remark'      => $data->remark,
+            'address'     => $data->address,
+            'status'      => $data->status,
+            'contact'     => $contact
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'country_id'     => 'required',
-            'province_id'    => 'required',
-            'city_id'        => 'required',
-            'departement_id' => 'required',
-            'company'        => 'required',
-            'description'    => 'required',
-            'remark'         => 'required',
-            'address'        => 'required',
-            'status'         => 'required'
+            'country_id'  => 'required',
+            'province_id' => 'required',
+            'city_id'     => 'required',
+            'company'     => 'required',
+            'description' => 'required',
+            'remark'      => 'required',
+            'address'     => 'required',
+            'status'      => 'required'
         ], [
-            'country_id.required'     => 'Please select a country.',
-            'province_id.required'    => 'Please select a province.',
-            'city_id.required'        => 'Please select a city.',
-            'departement_id.required' => 'Please select a departement.',
-            'company.required'        => 'Company cannot be empty.',
-            'description.required'    => 'Description cannot be empty.',
-            'remark.required'         => 'Remark cannot be empty.',
-            'address.required'        => 'Address cannot be empty.',
-            'status.required'         => 'Please select a status.'
+            'country_id.required'  => 'Please select a country.',
+            'province_id.required' => 'Please select a province.',
+            'city_id.required'     => 'Please select a city.',
+            'company.required'     => 'Company cannot be empty.',
+            'description.required' => 'Description cannot be empty.',
+            'remark.required'      => 'Remark cannot be empty.',
+            'address.required'     => 'Address cannot be empty.',
+            'status.required'      => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -368,16 +351,15 @@ class BuyerController extends Controller {
             ];
         } else {
             $query = Buyer::find($id)->update([
-                'country_id'     => $request->country_id,
-                'province_id'    => $request->province_id,
-                'city_id'        => $request->city_id,
-                'departement_id' => $request->departement_id,
-                'updated_by'     => session('id'),
-                'company'        => $request->company,
-                'description'    => $request->description,
-                'remark'         => $request->remark,
-                'address'        => $request->address,
-                'status'         => $request->status
+                'country_id'  => $request->country_id,
+                'province_id' => $request->province_id,
+                'city_id'     => $request->city_id,
+                'updated_by'  => session('id'),
+                'company'     => $request->company,
+                'description' => $request->description,
+                'remark'      => $request->remark,
+                'address'     => $request->address,
+                'status'      => $request->status
             ]);
 
             if($query) {
@@ -385,11 +367,11 @@ class BuyerController extends Controller {
                 if($request->contact) {
                     foreach($request->contact as $key => $c) {
                         BuyerContact::create([
-                            'buyer_id' => $id,
-                            'rank_id'  => $request->contact_rank_id[$key],
-                            'name'     => $request->contact_name[$key],
-                            'value'    => $request->contact_value[$key],
-                            'type'     => $request->contact_type[$key]
+                            'buyer_id'    => $id,
+                            'job_desc_id' => $request->contact_job_desc_id[$key],
+                            'name'        => $request->contact_name[$key],
+                            'value'       => $request->contact_value[$key],
+                            'type'        => $request->contact_type[$key]
                         ]);
                     }
                 }

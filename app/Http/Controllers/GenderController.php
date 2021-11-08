@@ -12,8 +12,8 @@ class GenderController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'General - Gender',
-            'content' => 'general.gender'
+            'title'   => 'Product - Gender',
+            'content' => 'product.gender'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -23,7 +23,6 @@ class GenderController extends Controller {
     {
         $column = [
             'id',
-            'code',
             'name',
             'status',
             'updated_by',

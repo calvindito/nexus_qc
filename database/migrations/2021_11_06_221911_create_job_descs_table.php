@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBuyersTable extends Migration
+class CreateJobDescsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateBuyersTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('buyers', function (Blueprint $table) {
+        Schema::create('job_descs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('country_id');
-            $table->unsignedBigInteger('province_id');
-            $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
-            $table->string('excelable')->nullable();
-            $table->string('company');
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->string('remark');
-            $table->text('address');
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');
@@ -38,6 +32,6 @@ class CreateBuyersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('buyers');
+        Schema::dropIfExists('job_descs');
     }
 }

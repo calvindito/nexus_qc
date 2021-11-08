@@ -5,18 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\ProductClassDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class CriticalDefectListController extends Controller {
+class MajorIssuesController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Critical Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 5)->get(),
-            'content' => 'group_defect.critical_defect_list'
+            'title'   => 'Group Defect - Major Issues',
+            'content' => 'group_defect.major_issues'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -26,7 +24,6 @@ class CriticalDefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
             'name',
             'status',
@@ -40,10 +37,10 @@ class CriticalDefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 6)
+        $total_data = GroupDefect::where('type', 5)
             ->count();
 
-        $query_data = GroupDefect::where('type', 6)
+        $query_data = GroupDefect::where('type', 5)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -60,7 +57,7 @@ class CriticalDefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 6)
+        $total_filtered = GroupDefect::where('type', 5)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -91,7 +88,6 @@ class CriticalDefectListController extends Controller {
 
                 $response['data'][] = [
                     $val->id,
-                    $val->parent()->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -131,16 +127,14 @@ class CriticalDefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'code'   => 'required|unique:mysql.group_defects,code',
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
-            'status.required'    => 'Please select a status.'
+            'code.required'   => 'Code cannot be empty.',
+            'code.unique'     => 'Code exists.',
+            'name.required'   => 'Major issues cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -154,8 +148,7 @@ class CriticalDefectListController extends Controller {
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 6,
+                'type'       => 5,
                 'status'     => $request->status
             ]);
 
@@ -184,16 +177,14 @@ class CriticalDefectListController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('group_defects', 'code')->ignore($id)],
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'code'   => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Critical defect cannot be empty.',
-            'parent_id.required' => 'Please select a major defect.',
-            'status.required'    => 'Please select a status.'
+            'code.required'   => 'Code cannot be empty.',
+            'code.unique'     => 'Code exists.',
+            'name.required'   => 'Major issues cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -206,7 +197,6 @@ class CriticalDefectListController extends Controller {
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'status'     => $request->status
             ]);
 

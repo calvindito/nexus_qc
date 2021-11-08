@@ -19,7 +19,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('general/buyer/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="{{ url('contact/buyer/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/buyer') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Contact</a>
                     <span class="breadcrumb-item active">Buyer</span>
                 </div>
             </div>
@@ -73,20 +73,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <ul class="nav nav-tabs nav-justified">
                         <li class="nav-item">
-                            <a href="#tab_data" class="nav-link rounded-top active" data-toggle="tab">Data</a>
+                            <a href="#tab_general" class="nav-link rounded-top active" data-toggle="tab">General</a>
                         </li>
                         <li class="nav-item">
                             <a href="#tab_contact" class="nav-link rounded-top" data-toggle="tab">Contact</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="tab_data">
+                        <div class="tab-pane fade show active" id="tab_general">
                             <div class="form-group">
                                 <label>Company :<span class="text-danger">*</span></label>
                                 <input type="text" name="company" id="company" class="form-control" placeholder="Enter company">
@@ -117,15 +117,6 @@
                                 <select name="city_id" id="city_id" class="select2"></select>
                             </div>
                             <div class="form-group">
-                                <label>Departement :<span class="text-danger">*</span></label>
-                                <select name="departement_id" id="departement_id" class="select2">
-                                    <option value="">-- Choose --</option>
-                                    @foreach($departement as $d)
-                                        <option value="{{ $d->id }}">{{ $d->department }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label>Remark :<span class="text-danger">*</span></label>
                                 <input type="text" name="remark" id="remark" class="form-control" placeholder="Enter remark">
                             </div>
@@ -136,11 +127,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Rank :<span class="text-danger">*</span></label>
-                                                <select id="contact_rank" class="select2">
+                                                <label>Job Desc :<span class="text-danger">*</span></label>
+                                                <select id="contact_job_desc" class="select2">
                                                     <option value="">-- Choose --</option>
-                                                    @foreach($rank as $r)
-                                                        <option value="{{ $r->id }};{{ $r->rank }}">{{ $r->rank }}</option>
+                                                    @foreach($job_desc as $jd)
+                                                        <option value="{{ $jd->id }};{{ $jd->name }}">{{ $jd->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -267,7 +258,7 @@
 		var content = '';
 
 		$.ajax({
-			url: '{{ url("general/buyer/row_detail") }}',
+			url: '{{ url("contact/buyer/row_detail") }}',
 			type: 'POST',
 			async: false,
 			data: {
@@ -377,13 +368,13 @@
     }
 
     function addContact() {
-        var contact_rank  = $('#contact_rank').val();
-        var contact_name  = $('#contact_name').val();
-        var contact_value = $('#contact_value').val();
-        var contact_type  = $('#contact_type').val();
+        var contact_job_desc = $('#contact_job_desc').val();
+        var contact_name     = $('#contact_name').val();
+        var contact_value    = $('#contact_value').val();
+        var contact_type     = $('#contact_type').val();
 
-        if(contact_rank && contact_name && contact_type && contact_value) {
-            var rankable = contact_rank.split(';');
+        if(contact_job_desc && contact_name && contact_type && contact_value) {
+            var job_descable = contact_job_desc.split(';');
             if(contact_type == 1) {
                 var type = 'Office';
             } else if(contact_type == 2) {
@@ -396,20 +387,20 @@
 
             $('#datatable_contact').DataTable().row.add([
                 contact_name,
-                rankable[1],
+                job_descable[1],
                 type,
                 contact_value,
                 `
                     <button type="button" class="btn btn-danger btn-sm" id="delete_data_contact"><i class="icon-trash-alt"></i></button>
                     <input type="hidden" name="contact[]" value="` + true + `">
-                    <input type="hidden" name="contact_rank_id[]" value="` + rankable[0] + `">
+                    <input type="hidden" name="contact_job_desc_id[]" value="` + job_descable[0] + `">
                     <input type="hidden" name="contact_name[]" value="` + contact_name + `">
                     <input type="hidden" name="contact_value[]" value="` + contact_value + `">
                     <input type="hidden" name="contact_type[]" value="` + contact_type + `">
                 `
             ]).draw().node();
 
-            $('#contact_rank').val(null).change();
+            $('#contact_job_desc').val(null).change();
             $('#contact_name').val(null);
             $('#contact_type').val(null);
             $('#contact_value').val(null);
@@ -445,14 +436,13 @@
 
     function reset() {
         $('.nav-tabs > li.nav-item > a.nav-link').removeClass('active');
-        $('.nav-tabs > li.nav-item > a[href="#tab_data"]').addClass('active');
+        $('.nav-tabs > li.nav-item > a[href="#tab_general"]').addClass('active');
         $('.tab-pane').removeClass('show active');
-        $('.tab-pane#tab_data').addClass('show active');
+        $('.tab-pane#tab_general').addClass('show active');
         $('#form_data').trigger('reset');
         $('#country_id').val(null).change();
         $('#province_id').html('<option value="">-- Choose --</option>');
         $('#city_id').html('<option value="">-- Choose --</option>');
-        $('#departement_id').val(null).change();
         $('#datatable_contact').DataTable().clear().draw();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
@@ -475,7 +465,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("general/buyer/datatable") }}',
+                url: '{{ url("contact/buyer/datatable") }}',
                 type: 'GET',
                 error: function() {
                     swalInit.fire({
@@ -505,7 +495,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("general/buyer/create") }}',
+            url: '{{ url("contact/buyer/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -553,7 +543,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("general/buyer/show") }}',
+            url: '{{ url("contact/buyer/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -570,7 +560,6 @@
                 $('#country_id').val(response.country_id).change();
                 getProvince(response.province_id);
                 getCity(response.city_id);
-                $('#departement_id').val(response.departement_id).change();
                 $('#company').val(response.company);
                 $('#description').val(response.description);
                 $('#remark').val(response.remark);
@@ -581,13 +570,13 @@
                 $.each(response.contact, function(i, val) {
                     $('#datatable_contact').DataTable().row.add([
                         val.name,
-                        val.rank_name,
+                        val.job_desc_name,
                         val.type_name,
                         val.value,
                         `
                             <button type="button" class="btn btn-danger btn-sm" id="delete_data_contact"><i class="icon-trash-alt"></i></button>
                             <input type="hidden" name="contact[]" value="` + true + `">
-                            <input type="hidden" name="contact_rank_id[]" value="` + val.rank_id + `">
+                            <input type="hidden" name="contact_job_desc_id[]" value="` + val.job_desc_id + `">
                             <input type="hidden" name="contact_name[]" value="` + val.name + `">
                             <input type="hidden" name="contact_value[]" value="` + val.value + `">
                             <input type="hidden" name="contact_type[]" value="` + val.type + `">
@@ -609,7 +598,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("general/buyer/update") }}' + '/' + id,
+            url: '{{ url("contact/buyer/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -656,7 +645,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("general/buyer/change_status") }}',
+            url: '{{ url("contact/buyer/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -704,7 +693,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("general/buyer/destroy") }}',
+                        url: '{{ url("contact/buyer/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

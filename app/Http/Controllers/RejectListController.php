@@ -14,7 +14,6 @@ class RejectListController extends Controller {
     {
         $data = [
             'title'   => 'Group Defect - Reject List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 3)->get(),
             'content' => 'group_defect.reject_list'
         ];
 
@@ -25,7 +24,6 @@ class RejectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
             'name',
             'status',
@@ -90,7 +88,6 @@ class RejectListController extends Controller {
 
                 $response['data'][] = [
                     $val->id,
-                    $val->parent()->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -130,16 +127,14 @@ class RejectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'code'   => 'required|unique:mysql.group_defects,code',
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Reject cannot be empty.',
-            'parent_id.required' => 'Please select a defect.',
-            'status.required'    => 'Please select a status.'
+            'code.required'   => 'Code cannot be empty.',
+            'code.unique'     => 'Code exists.',
+            'name.required'   => 'Reject cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -153,7 +148,6 @@ class RejectListController extends Controller {
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'type'       => 4,
                 'status'     => $request->status
             ]);
@@ -183,16 +177,14 @@ class RejectListController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('group_defects', 'code')->ignore($id)],
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'code'   => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Reject cannot be empty.',
-            'parent_id.required' => 'Please select a defect.',
-            'status.required'    => 'Please select a status.'
+            'code.required'   => 'Code cannot be empty.',
+            'code.unique'     => 'Code exists.',
+            'name.required'   => 'Reject cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -205,7 +197,6 @@ class RejectListController extends Controller {
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'status'     => $request->status
             ]);
 

@@ -10,32 +10,33 @@
 
 /* `nexus_qc`.`allowance_smvs` */
 $allowance_smvs = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Allowance 1','description' => NULL,'created_at' => '2021-11-02 11:23:59','updated_at' => '2021-11-02 11:23:59','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`brands` */
 $brands = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Brand 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 14:48:03','updated_at' => '2021-09-15 15:08:55','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Brand 1','aql' => 'tes','status' => '1','created_at' => '2021-09-15 14:48:03','updated_at' => '2021-09-15 15:08:55','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`buyers` */
 $buyers = array(
-  array('id' => '1','country_id' => '103','province_id' => '35','city_id' => '3578','departement_id' => '2','created_by' => '1','updated_by' => '1','excelable' => NULL,'company' => 'Karya Digital Solusindo','description' => 'Software House','remark' => 'Good','address' => 'Dharmahusada indah','status' => '1','created_at' => '2021-09-23 11:13:21','updated_at' => '2021-09-23 11:13:36','deleted_at' => NULL)
+  array('id' => '1','country_id' => '103','province_id' => '35','city_id' => '3578','created_by' => '1','updated_by' => '1','excelable' => NULL,'company' => 'Karya Digital Solusindo','description' => 'Software House','remark' => 'Good','address' => 'Dharmahusada indah','status' => '1','created_at' => '2021-09-23 11:13:21','updated_at' => '2021-09-23 11:13:36','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`buyer_contacts` */
 $buyer_contacts = array(
-  array('id' => '2','buyer_id' => '1','rank_id' => '3','name' => 'Dito','value' => '088999157717','type' => '2','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '3','buyer_id' => '1','rank_id' => '3','name' => 'Dito','value' => '(031) 5045225','type' => '1','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '4','buyer_id' => '1','rank_id' => '3','name' => 'Dito','value' => '(031) 5045225','type' => '3','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '5','buyer_id' => '1','rank_id' => '4','name' => 'Dito','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '6','buyer_id' => '10','rank_id' => '3','name' => 'tes 1 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '7','buyer_id' => '10','rank_id' => '3','name' => 'tes 1 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '8','buyer_id' => '10','rank_id' => '3','name' => 'tes 1 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '9','buyer_id' => '10','rank_id' => '3','name' => 'tes 1 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '10','buyer_id' => '11','rank_id' => '4','name' => 'tes 2 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '11','buyer_id' => '11','rank_id' => '4','name' => 'tes 2 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '12','buyer_id' => '11','rank_id' => '4','name' => 'tes 2 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '13','buyer_id' => '11','rank_id' => '4','name' => 'tes 2 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37')
+  array('id' => '2','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '088999157717','type' => '2','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
+  array('id' => '3','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '(031) 5045225','type' => '1','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
+  array('id' => '4','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '(031) 5045225','type' => '3','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
+  array('id' => '5','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
+  array('id' => '6','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '7','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '8','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '9','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '10','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '11','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '12','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
+  array('id' => '13','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37')
 );
 
 /* `nexus_qc`.`check_points` */
@@ -580,7 +581,7 @@ $cities = array(
 
 /* `nexus_qc`.`colors` */
 $colors = array(
-  array('id' => '1','brand_id' => '1','fabric_id' => '1','created_by' => '1','updated_by' => '1','code' => 'C1','name' => 'Color 1','status' => '1','created_at' => '2021-09-15 15:47:53','updated_at' => '2021-09-15 15:48:34','deleted_at' => NULL)
+  array('id' => '1','brand_id' => '1','fabric_id' => '1','created_by' => '1','updated_by' => '1','code' => 'C111','name' => 'Color 1','status' => '1','created_at' => '2021-09-15 15:47:53','updated_at' => '2021-09-15 15:48:34','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`countries` */
@@ -851,7 +852,7 @@ $failed_jobs = array(
 
 /* `nexus_qc`.`genders` */
 $genders = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-09-15 13:42:02','deleted_at' => NULL),
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-11-02 12:26:08','deleted_at' => '2021-11-02 12:26:08'),
   array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Mens','status' => '1','created_at' => '2021-09-13 22:53:07','updated_at' => '2021-09-13 22:53:07','deleted_at' => NULL),
   array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Ladies','status' => '1','created_at' => '2021-09-13 22:53:15','updated_at' => '2021-09-13 22:53:15','deleted_at' => NULL),
   array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Girls','status' => '1','created_at' => '2021-09-13 22:53:20','updated_at' => '2021-09-13 22:53:20','deleted_at' => NULL)
@@ -865,6 +866,11 @@ $group_defects = array(
   array('id' => '4','created_by' => '1','updated_by' => '1','code' => 'R-1','name' => 'Reject 1','parent_id' => '3','type' => '4','status' => '1','created_at' => '2021-09-13 17:02:00','updated_at' => '2021-09-13 17:02:06','deleted_at' => NULL),
   array('id' => '5','created_by' => '1','updated_by' => '1','code' => 'MD-1','name' => 'Major Defect 1','parent_id' => '4','type' => '5','status' => '1','created_at' => '2021-09-13 17:06:02','updated_at' => '2021-09-13 17:06:02','deleted_at' => NULL),
   array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-15 13:01:34','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`job_descs` */
+$job_descs = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Job 1','description' => NULL,'status' => '1','created_at' => '2021-11-06 22:35:54','updated_at' => '2021-11-06 22:36:24','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`migrations` */
@@ -893,7 +899,9 @@ $migrations = array(
   array('id' => '22','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1'),
   array('id' => '23','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
   array('id' => '24','migration' => '2021_10_15_131210_create_type_product_check_points_table','batch' => '1'),
-  array('id' => '25','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1')
+  array('id' => '25','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1'),
+  array('id' => '26','migration' => '2021_10_18_121549_create_product_type_defects_table','batch' => '1'),
+  array('id' => '27','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '2')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -920,6 +928,10 @@ $product_types = array(
 
 /* `nexus_qc`.`product_type_check_points` */
 $product_type_check_points = array(
+);
+
+/* `nexus_qc`.`product_type_defects` */
+$product_type_defects = array(
 );
 
 /* `nexus_qc`.`provinces` */
@@ -990,7 +1002,7 @@ $type_product_check_points = array(
 
 /* `nexus_qc`.`users` */
 $users = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$i8wP19z.btF5ywh7sfMqjO/QSc7wyaQT9eAHKsSURPIHW.P9WxGYu','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-09-13 14:09:27','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$4BG68beOemq79h3234d1iu6dpYUVrcqi.iGwZcZVQ/NLMClDPoP8i','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-08 08:52:51','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`working_hours_types` */

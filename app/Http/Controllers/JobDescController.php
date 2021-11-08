@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\JobDesc;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class BrandController extends Controller {
+class JobDescController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Product - Brand',
-            'content' => 'product.brand'
+            'title'   => 'Global - Job Desc',
+            'content' => 'global.job_desc'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -24,7 +24,7 @@ class BrandController extends Controller {
         $column = [
             'id',
             'name',
-            'aql',
+            'description',
             'status',
             'updated_by',
             'created_at'
@@ -36,13 +36,13 @@ class BrandController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = Brand::count();
+        $total_data = JobDesc::count();
 
-        $query_data = Brand::where(function($query) use ($search, $request) {
+        $query_data = JobDesc::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('name', 'like', "%$search%")
-                            ->orWhere('aql', 'like', "%$search%")
+                            ->orWhere('description', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -54,11 +54,11 @@ class BrandController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = Brand::where(function($query) use ($search, $request) {
+        $total_filtered = JobDesc::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('name', 'like', "%$search%")
-                            ->orWhere('aql', 'like', "%$search%")
+                            ->orWhere('description', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -85,7 +85,7 @@ class BrandController extends Controller {
                 $response['data'][] = [
                     $val->id,
                     $val->name,
-                    $val->aql,
+                    $val->description,
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -124,11 +124,9 @@ class BrandController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'name'   => 'required',
-            'aql'    => 'required',
             'status' => 'required'
         ], [
-            'name.required'   => 'Brand cannot be empty.',
-            'aql.required'    => 'AQL cannot be empty.',
+            'name.required'   => 'Job desc cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
 
@@ -138,12 +136,12 @@ class BrandController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Brand::create([
-                'created_by' => session('id'),
-                'updated_by' => session('id'),
-                'name'       => $request->name,
-                'aql'        => $request->aql,
-                'status'     => $request->status
+            $query = JobDesc::create([
+                'created_by'  => session('id'),
+                'updated_by'  => session('id'),
+                'name'        => $request->name,
+                'description' => $request->description,
+                'status'      => $request->status
             ]);
 
             if($query) {
@@ -164,7 +162,7 @@ class BrandController extends Controller {
 
     public function show(Request $request)
     {
-        $data = Brand::find($request->id);
+        $data = JobDesc::find($request->id);
         return response()->json($data);
     }
 
@@ -172,11 +170,9 @@ class BrandController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'name'   => 'required',
-            'aql'    => 'required',
             'status' => 'required'
         ], [
-            'name.required'   => 'Brand cannot be empty.',
-            'aql.required'    => 'AQL cannot be empty.',
+            'name.required'   => 'JobDesc cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
 
@@ -186,10 +182,10 @@ class BrandController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Brand::find($id)->update([
+            $query = JobDesc::find($id)->update([
                 'updated_by'  => session('id'),
                 'name'        => $request->name,
-                'aql'         => $request->aql,
+                'description' => $request->description,
                 'status'      => $request->status
             ]);
 
@@ -211,7 +207,7 @@ class BrandController extends Controller {
 
     public function changeStatus(Request $request)
     {
-        $query = Brand::find($request->id)->update(['status' => $request->status]);
+        $query = JobDesc::find($request->id)->update(['status' => $request->status]);
         if($query) {
             $response = [
                 'status'  => 200,
@@ -229,7 +225,7 @@ class BrandController extends Controller {
 
     public function destroy(Request $request)
     {
-        $query = Brand::destroy($request->id);
+        $query = JobDesc::destroy($request->id);
         if($query) {
             $response = [
                 'status'  => 200,

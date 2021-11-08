@@ -118,7 +118,7 @@ class CheckPointController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code' => 'required|unique:check_points,code',
+            'code' => 'required|unique:mysql.check_points,code',
             'name' => 'required'
         ], [
             'code.required' => 'Code cannot be empty.',
@@ -165,7 +165,7 @@ class CheckPointController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code' => ['required', Rule::unique('check_points', 'code')->ignore($id)],
+            'code' => ['required', Rule::unique('mysql.check_points', 'code')->ignore($id)],
             'name' => 'required'
         ], [
             'code.required' => 'Code cannot be empty.',

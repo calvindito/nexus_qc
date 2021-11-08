@@ -72,7 +72,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
@@ -90,6 +90,10 @@
                         <select name="gender_id" id="gender_id" class="select2"></select>
                     </div>
                     <div class="form-group">
+                        <label>Type Product :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
                         <label>Group Size :<span class="text-danger">*</span></label>
                         <select name="size_id" id="size_id" class="select2">
                             <option value="">-- Choose --</option>
@@ -97,10 +101,6 @@
                                 <option value="{{ $s->id }}">{{ $s->group }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Type Product :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group">
                         <label>Smv Global :<span class="text-danger">*</span></label>

@@ -56,7 +56,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>

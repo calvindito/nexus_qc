@@ -12,8 +12,8 @@ class FabricController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'General - Fabric',
-            'content' => 'general.fabric'
+            'title'   => 'Material - Fabric',
+            'content' => 'material.fabric'
         ];
 
         return view('layouts.index', ['data' => $data]);

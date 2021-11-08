@@ -18,15 +18,15 @@ class BrandSeeder extends Seeder
 
         foreach($brands as $b) {
             Brand::insert([
-                'id'          => $b['id'],
-                'created_by'  => $b['created_by'],
-                'updated_by'  => $b['updated_by'],
-                'name'        => $b['name'],
-                'description' => $b['description'],
-                'status'      => $b['status'],
-                'created_at'  => $b['created_at'],
-                'updated_at'  => $b['updated_at'],
-                'deleted_at'  => $b['deleted_at']
+                'id'         => $b['id'],
+                'created_by' => $b['created_by'],
+                'updated_by' => $b['updated_by'],
+                'name'       => $b['name'],
+                'aql'        => $b['aql'],
+                'status'     => $b['status'],
+                'created_at' => $b['created_at'],
+                'updated_at' => $b['updated_at'],
+                'deleted_at' => $b['deleted_at']
             ]);
         }
     }

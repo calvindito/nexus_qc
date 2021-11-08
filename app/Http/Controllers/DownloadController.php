@@ -9,6 +9,7 @@ use App\Models\Buyer;
 use App\Models\Color;
 use App\Models\Fabric;
 use App\Models\Gender;
+use App\Models\JobDesc;
 use App\Exports\SizeExport;
 use App\Models\GroupDefect;
 use App\Models\ProductType;
@@ -20,6 +21,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use App\Exports\FabricExport;
 use App\Exports\GenderExport;
+use App\Exports\JobDescExport;
 use App\Exports\GroupDefectExport;
 use App\Exports\TypeProductExport;
 use App\Exports\ProductClassExport;
@@ -34,15 +36,12 @@ class DownloadController extends Controller {
             abort(404);
         }
 
-        $pdf  = PDF::loadView('pdf.' . $data['view'], [
+        $pdf = PDF::loadView('pdf.' . $data['view'], [
             'title' => $data['title'],
             'data'  => $data['data']
         ], ['instanceConfigurator' => function($mpdf) {
             $mpdf->SetAuthor(session('name'));
             $mpdf->SetProtection(['copy', 'print', 'extract', 'print-highres'], '', 'NexusPDF');
-            $mpdf->SetWatermarkImage(public_path('website/logo-big.png'), 1, '', [160, 10]);
-            $mpdf->showWatermarkImage  = true;
-            $mpdf->watermarkImageAlpha = 0.1;
         }]);
 
         return $pdf->stream('QC - ' . $data['filename'] . ' - ' . date('Y_m_d_H_i_s') . '.pdf');
@@ -139,20 +138,28 @@ class DownloadController extends Controller {
                     'filename' => 'Data Reject'
                 ];
                 break;
-            case 'major_defect_list':
+            case 'major_issues':
                 $response = [
-                    'view'     => 'major_defect_list',
-                    'title'    => 'Nexus - Data Major Defect',
+                    'view'     => 'major_issues',
+                    'title'    => 'Nexus - Data Major Issues',
                     'data'     => GroupDefect::where('type', 5)->get(),
-                    'filename' => 'Data Major Defect'
+                    'filename' => 'Data Major Issues'
                 ];
                 break;
-            case 'critical_defect_list':
+            case 'critical_issues':
                 $response = [
-                    'view'     => 'critical_defect_list',
-                    'title'    => 'Nexus - Data Critical Defect',
+                    'view'     => 'critical_issues',
+                    'title'    => 'Nexus - Data Critical Issues',
                     'data'     => GroupDefect::where('type', 6)->get(),
-                    'filename' => 'Data Critical Defect'
+                    'filename' => 'Data Critical Issues'
+                ];
+                break;
+            case 'job_desc':
+                $response = [
+                    'view'     => 'job_desc',
+                    'title'    => 'Nexus - Data Job Desc',
+                    'data'     => JobDesc::all(),
+                    'filename' => 'Data Job Desc'
                 ];
                 break;
             default:
@@ -206,11 +213,14 @@ class DownloadController extends Controller {
             case 'reject_list':
                 return (new GroupDefectExport(4))->download('QC - Data Reject - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
-            case 'major_defect_list':
-                return (new GroupDefectExport(5))->download('QC - Data Major Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+            case 'major_issues':
+                return (new GroupDefectExport(5))->download('QC - Data Major Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
-            case 'critical_defect_list':
-                return (new GroupDefectExport(6))->download('QC - Data Critical Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+            case 'critical_issues':
+                return (new GroupDefectExport(6))->download('QC - Data Critical Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'job_desc':
+                return (new JobDescExport)->download('QC - Data Job Desc - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();

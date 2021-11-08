@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('aql');
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

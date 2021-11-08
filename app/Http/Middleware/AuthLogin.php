@@ -28,7 +28,9 @@ class AuthLogin
                 'image'    => $user->image(),
                 'username' => $user->username,
                 'email'    => $user->email,
-                'name'     => $user->name
+                'name'     => $user->name,
+                'gender'   => $user->gender,
+                'status'   => $user->status()
             ]);
 
             return $next($request);

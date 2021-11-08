@@ -36,10 +36,10 @@ class GroupDefectExport implements FromView, ShouldAutoSize {
                 $view = 'reject_list';
                 break;
             case '5':
-                $view = 'major_defect_list';
+                $view = 'major_issues';
                 break;
             case '6':
-                $view = 'critical_defect_list';
+                $view = 'critical_issues';
                 break;
             default:
                 $view = '';

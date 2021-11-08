@@ -29,7 +29,9 @@ class AuthController extends Controller {
                         'image'    => $user->image(),
                         'username' => $user->username,
                         'email'    => $user->email,
-                        'name'     => $user->name
+                        'name'     => $user->name,
+                        'gender'   => $user->gender,
+                        'status'   => $user->status()
                     ]);
 
                     return redirect('dashboard');

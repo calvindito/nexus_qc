@@ -13,8 +13,8 @@ class GroupSizeController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'General - Group Size',
-            'content' => 'general.group_size'
+            'title'   => 'Product - Group Size',
+            'content' => 'product.group_size'
         ];
 
         return view('layouts.index', ['data' => $data]);

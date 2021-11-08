@@ -44,7 +44,6 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Defect</th>
                             <th>Code</th>
                             <th>Reject</th>
                             <th>Status</th>
@@ -68,18 +67,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form_data">
+                <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
-                    </div>
-                    <div class="form-group">
-                        <label>Defect :<span class="text-danger">*</span></label>
-                        <select name="parent_id" id="parent_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($parent as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label>Reject :<span class="text-danger">*</span></label>
@@ -148,7 +138,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#parent_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -182,7 +171,6 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
@@ -259,7 +247,6 @@
                 loadingClose('.modal-content');
                 $('#code').val(response.code);
                 $('#name').val(response.name);
-                $('#parent_id').val(response.parent_id).change();
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
