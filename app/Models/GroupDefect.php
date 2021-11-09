@@ -36,7 +36,7 @@ class GroupDefect extends Model {
 
     public function parent()
     {
-        return GroupDefect::find($this->parent_id)->withTrashed();
+        return GroupDefect::withTrashed()->find($this->parent_id);
     }
 
     public function type()
