@@ -155,6 +155,7 @@ class GroupController extends Controller {
 
             if($query) {
                 $response = [
+                    'data'    => $query,
                     'status'  => 200,
                     'message' => 'Data added successfully.'
                 ];

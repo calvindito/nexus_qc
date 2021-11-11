@@ -74,12 +74,19 @@
                     </div>
                     <div class="form-group">
                         <label>Group :<span class="text-danger">*</span></label>
-                        <select name="parent_id" id="parent_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($parent as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <select name="parent_id" id="parent_id" class="select2">
+                                    <option value="">-- Choose --</option>
+                                    @foreach($parent as $p)
+                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-light col-12" onclick="showAddNew()"><i class="icon-plus2"></i> Add New</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Sub Group :<span class="text-danger">*</span></label>
@@ -116,42 +123,137 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal_add_new" data-backdrop="static" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form_data" autocomplete="off">
+                    <div class="alert alert-danger" id="validation_alert" style="display:none;">
+                        <ul id="validation_content" class="mb-0"></ul>
+                    </div>
+                    <input type="hidden" name="status" value="1">
+                    <div class="form-group">
+                        <label>Group :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label>Code :<span class="text-danger">*</span></label>
+                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <div class="form-group">
+                    <button type="button" class="btn btn-danger" onclick="showForm()"><i class="icon-arrow-left5"></i> Back to Form</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewGroup()"><i class="icon-plus3"></i> Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(function() {
         loadDataTable();
     });
 
+    function showAddNew() {
+        $('#modal_form').modal('hide');
+        $('#modal_add_new').modal('show');
+        $('#modal_add_new #form_data').trigger('reset');
+    }
+
+    function showForm() {
+        $('#modal_form').modal('show');
+        $('#modal_add_new').modal('hide');
+    }
+
+    function createNewGroup() {
+        $.ajax({
+            url: '{{ url("group_defect/group/create") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#modal_add_new #form_data').serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                $('#modal_add_new #validation_alert').hide();
+                $('#modal_add_new #validation_content').html('');
+                loadingOpen('#modal_add_new .modal-content');
+            },
+            success: function(response) {
+                loadingClose('#modal_add_new .modal-content');
+                if(response.status == 200) {
+                    $('#modal_form #parent_id').append('<option value="' + response.data.id + '">' + response.data.name + '</option>');
+                    notif('success', 'bg-success', response.message);
+                    $('#modal_add_new').modal('hide');
+                    $('#modal_form').modal('show');
+                } else if(response.status == 422) {
+                    $('#modal_add_new #validation_alert').show();
+                    $('#modal_add_new .modal-body').scrollTop(0);
+                    notif('warning', 'bg-warning', 'Please check the form');
+
+                    $.each(response.error, function(i, val) {
+                        $.each(val, function(i, val) {
+                            $('#modal_add_new #validation_content').append(`
+                                <li>` + val + `</li>
+                            `);
+                        });
+                    });
+                } else {
+                    notif('error', 'bg-danger', response.message);
+                }
+            },
+            error: function() {
+                $('#modal_add_new .modal-body').scrollTop(0);
+                loadingClose('#modal_add_new .modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
     function openModal() {
         reset();
-        $('#btn_create').show();
-        $('#btn_update').hide();
-        $('#btn_cancel').hide();
+        $('#modal_form #btn_create').show();
+        $('#modal_form #btn_update').hide();
+        $('#modal_form #btn_cancel').hide();
     }
 
     function cancel() {
         reset();
         $('#modal_form').modal('hide');
-        $('#btn_create').show();
-        $('#btn_update').hide();
-        $('#btn_cancel').hide();
+        $('#modal_form #btn_create').show();
+        $('#modal_form #btn_update').hide();
+        $('#modal_form #btn_cancel').hide();
     }
 
     function toShow() {
         reset();
         $('#modal_form').modal('show');
-        $('#validation_alert').hide();
-        $('#validation_content').html('');
-        $('#btn_create').hide();
-        $('#btn_update').show();
-        $('#btn_cancel').show();
+        $('#modal_form #validation_alert').hide();
+        $('#modal_form #validation_content').html('');
+        $('#modal_form #btn_create').hide();
+        $('#modal_form #btn_update').show();
+        $('#modal_form #btn_cancel').show();
     }
 
     function reset() {
-        $('#form_data').trigger('reset');
-        $('#parent_id').val(null).change();
-        $('input[name="status"][value="1"]').prop('checked', true);
-        $('#validation_alert').hide();
-        $('#validation_content').html('');
+        $('#modal_form #form_data').trigger('reset');
+        $('#modal_form #parent_id').val(null).change();
+        $('#modal_form input[name="status"][value="1"]').prop('checked', true);
+        $('#modal_form #validation_alert').hide();
+        $('#modal_form #validation_content').html('');
     }
 
     function success() {
@@ -198,28 +300,28 @@
             url: '{{ url("group_defect/sub_group/create") }}',
             type: 'POST',
             dataType: 'JSON',
-            data: $('#form_data').serialize(),
+            data: $('#modal_form #form_data').serialize(),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#validation_alert').hide();
-                $('#validation_content').html('');
-                loadingOpen('.modal-content');
+                $('#modal_form #validation_alert').hide();
+                $('#modal_form #validation_content').html('');
+                loadingOpen('#modal_form .modal-content');
             },
             success: function(response) {
-                loadingClose('.modal-content');
+                loadingClose('#modal_form .modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
                 } else if(response.status == 422) {
-                    $('#validation_alert').show();
-                    $('.modal-body').scrollTop(0);
+                    $('#modal_form #validation_alert').show();
+                    $('#modal_form .modal-body').scrollTop(0);
                     notif('warning', 'bg-warning', 'Please check the form');
 
                     $.each(response.error, function(i, val) {
                         $.each(val, function(i, val) {
-                            $('#validation_content').append(`
+                            $('#modal_form #validation_content').append(`
                                 <li>` + val + `</li>
                             `);
                         });
@@ -229,8 +331,8 @@
                 }
             },
             error: function() {
-                $('.modal-body').scrollTop(0);
-                loadingClose('.modal-content');
+                $('#modal_form .modal-body').scrollTop(0);
+                loadingClose('#modal_form .modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -253,19 +355,19 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                loadingOpen('.modal-content');
+                loadingOpen('#modal_form .modal-content');
             },
             success: function(response) {
-                loadingClose('.modal-content');
-                $('#code').val(response.code);
-                $('#name').val(response.name);
-                $('#parent_id').val(response.parent_id).change();
-                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
-                $('#btn_update').attr('onclick', 'update(' + id + ')');
+                loadingClose('#modal_form .modal-content');
+                $('#modal_form #code').val(response.code);
+                $('#modal_form #name').val(response.name);
+                $('#modal_form #parent_id').val(response.parent_id).change();
+                $('#modal_form input[name="status"][value="' + response.status + '"]').prop('checked', true);
+                $('#modal_form #btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
                 cancel();
-                loadingClose('.modal-content');
+                loadingClose('#modal_form .modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -280,28 +382,28 @@
             url: '{{ url("group_defect/sub_group/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
-            data: $('#form_data').serialize(),
+            data: $('#modal_form #form_data').serialize(),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#validation_alert').hide();
-                $('#validation_content').html('');
-                loadingOpen('.modal-content');
+                $('#modal_form #validation_alert').hide();
+                $('#modal_form #validation_content').html('');
+                loadingOpen('#modal_form .modal-content');
             },
             success: function(response) {
-                loadingClose('.modal-content');
+                loadingClose('#modal_form .modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
                 } else if(response.status == 422) {
-                    $('#validation_alert').show();
-                    $('.modal-body').scrollTop(0);
+                    $('#modal_form #validation_alert').show();
+                    $('#modal_form .modal-body').scrollTop(0);
                     notif('warning', 'bg-warning', 'Please check the form');
 
                     $.each(response.error, function(i, val) {
                         $.each(val, function(i, val) {
-                            $('#validation_content').append(`
+                            $('#modal_form #validation_content').append(`
                                 <li>` + val + `</li>
                             `);
                         });
@@ -311,8 +413,8 @@
                 }
             },
             error: function() {
-                $('.modal-body').scrollTop(0);
-                loadingClose('.modal-content');
+                $('#modal_form .modal-body').scrollTop(0);
+                loadingClose('#modal_form .modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -335,10 +437,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                loadingOpen('.modal-content');
+                loadingOpen('#modal_form .modal-content');
             },
             success: function(response) {
-                loadingClose('.modal-content');
+                loadingClose('#modal_form .modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
@@ -347,7 +449,7 @@
                 }
             },
             error: function() {
-                loadingClose('.modal-content');
+                loadingClose('#modal_form .modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',

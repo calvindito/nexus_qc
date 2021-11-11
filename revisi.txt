@@ -6,3 +6,7 @@ REVISI 02/11/2021 :
 
 REVISI 05/11/2021 :
     - Ada di excel Dito.xlsx ~
+
+REVISI 11/11/2021 :
+    - nama kontak letakkan di sebelah kiri atas tukar dengan job
+    - dimenu sub group ketika memilih group dan ketika gak ada data group bisa menambah langsung tanpa pindah ke menu master group

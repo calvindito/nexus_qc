@@ -12,11 +12,11 @@ $(function() {
     });
 
     $('.select2').select2({
-        dropdownParent: $('.modal')
+        dropdownParent: $('#modal_form')
     });
 
     $('.select2-tag').select2({
-        dropdownParent: $('.modal'),
+        dropdownParent: $('#modal_form'),
         tags: true,
         cache: true,
         createTag: function(params) {

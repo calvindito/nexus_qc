@@ -22,7 +22,7 @@ class JobDescSeeder extends Seeder
                 'created_by'  => $jd['created_by'],
                 'updated_by'  => $jd['updated_by'],
                 'name'        => $jd['name'],
-                'description' => $jd['parent_id'],
+                'description' => $jd['description'],
                 'status'      => $jd['status'],
                 'created_at'  => $jd['created_at'],
                 'updated_at'  => $jd['updated_at'],

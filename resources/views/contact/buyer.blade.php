@@ -127,6 +127,12 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label>Name :<span class="text-danger">*</span></label>
+                                                <input type="text" id="contact_name" class="form-control" placeholder="Enter name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>Job Desc :<span class="text-danger">*</span></label>
                                                 <select id="contact_job_desc" class="select2">
                                                     <option value="">-- Choose --</option>
@@ -134,12 +140,6 @@
                                                         <option value="{{ $jd->id }};{{ $jd->name }}">{{ $jd->name }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Name :<span class="text-danger">*</span></label>
-                                                <input type="text" id="contact_name" class="form-control" placeholder="Enter name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
