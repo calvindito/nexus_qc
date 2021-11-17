@@ -1,10 +1,44 @@
 $(function() {
     $('.listbox').bootstrapDualListbox();
 
+    $.extend($.fn.dataTable.defaults, {
+        autoWidth: false,
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        lengthMenu: [
+            [10, 25, 50, 100],
+            ['10 rows', '25 rows', '50 rows', '100 rows']
+        ],
+        buttons: [
+            {
+                extend: 'colvis',
+                text: 'Visible',
+                className: 'btn btn-light dropdown-toggle',
+                collectionLayout: 'fixed one-column',
+                postfixButtons: ['colvisRestore']
+            },
+            {
+                extend: 'pageLength',
+                className: 'btn btn-light'
+            }
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Type to search ...',
+            lengthMenu: '<span>Show:</span>_MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' },
+            buttons: {
+                colvisRestore: 'View All'
+            }
+        }
+    });
+
+    $.extend($.fn.dataTableExt.oStdClasses, {
+        sLengthSelect: 'custom-select'
+    });
+
     $('body').tooltip({
         selector: '[data-popup="tooltip"]',
-        boundary: 'window',
-        trigger: 'hover'
+        boundary: 'window'
     });
 
     $('.sidebar-control').on('click', function() {
@@ -32,6 +66,13 @@ $(function() {
             }
         }
     });
+});
+
+lightbox.option({
+    resizeDuration: 200,
+    wrapAround: true,
+    fitImagesInViewport: true,
+    fitImagesInViewport: true,
 });
 
 var swalInit = swal.mixin({

@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use Excel;
 use App\Models\Size;
-use App\Models\CheckPoint;
-use App\Models\GroupDefect;
 use App\Models\ProductType;
 use App\Models\ProductClass;
 use Illuminate\Http\Request;
-use App\Models\ProductTypeDefect;
 use App\Imports\TypeProductImport;
 use App\Http\Controllers\Controller;
-use App\Models\ProductTypeCheckPoint;
 use Illuminate\Support\Facades\Validator;
 
 class TypeProductController extends Controller {
@@ -34,7 +30,6 @@ class TypeProductController extends Controller {
         $column = [
             'id',
             'product_class_id',
-            'gender_id',
             'name',
             'description',
             'size_id',
@@ -61,9 +56,6 @@ class TypeProductController extends Controller {
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
-                            ->orWhereHas('gender', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            })
                             ->orWhereHas('size', function($query) use ($search) {
                                 $query->whereHas('sizeDetail', function($query) use ($search) {
                                         $query->where('value', 'like', "%$search%");
@@ -87,9 +79,6 @@ class TypeProductController extends Controller {
                             ->orWhere('description', 'like', "%$search%")
                             ->orWhere('smv_global', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            })
-                            ->orWhereHas('gender', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('size', function($query) use ($search) {
@@ -123,7 +112,7 @@ class TypeProductController extends Controller {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
                 }
 
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -132,7 +121,6 @@ class TypeProductController extends Controller {
                 $response['data'][] = [
                     $val->id,
                     $val->productClass->name,
-                    $val->gender->name,
                     $val->name,
                     $val->description,
                     $value,
@@ -171,25 +159,6 @@ class TypeProductController extends Controller {
         return response()->json($response);
     }
 
-    public function getGender(Request $request)
-    {
-        $gender        = [];
-        $product_class = ProductClass::find($request->product_class_id);
-
-        if($product_class) {
-            if($product_class->productClassDetail) {
-                foreach($product_class->productClassDetail as $pcd) {
-                    $gender[] = [
-                        'gender_id'   => $pcd->gender_id,
-                        'gender_name' => $pcd->gender->name
-                    ];
-                }
-            }
-        }
-
-        return response()->json($gender);
-    }
-
     public function bulk(Request $request)
     {
         if($request->has('_token') && $request->_token == csrf_token()) {
@@ -206,6 +175,11 @@ class TypeProductController extends Controller {
             } else {
                 $import = Excel::import(new TypeProductImport, $request->file('file_excel'));
                 if($import) {
+                    activity('type product')
+                        ->performedOn(new ProductType())
+                        ->causedBy(session('id'))
+                        ->log('do bulk upload');
+
                     return redirect()->back()->with(['success' => true]);
                 } else {
                     return redirect()->back()->with(['failed' => true]);
@@ -219,21 +193,18 @@ class TypeProductController extends Controller {
 
             return view('layouts.index', ['data' => $data]);
         }
-
     }
 
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
-            'gender_id'        => 'required',
             'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
-            'gender_id.required'        => 'Please select a gender.',
             'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
@@ -248,7 +219,6 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::create([
                 'product_class_id' => $request->product_class_id,
-                'gender_id'        => $request->gender_id,
                 'size_id'          => $request->size_id,
                 'created_by'       => session('id'),
                 'updated_by'       => session('id'),
@@ -259,6 +229,11 @@ class TypeProductController extends Controller {
             ]);
 
             if($query) {
+                activity('type product')
+                    ->performedOn(new ProductType())
+                    ->causedBy(session('id'))
+                    ->log('create data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -284,14 +259,12 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
-            'gender_id'        => 'required',
             'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
-            'gender_id.required'        => 'Please select a gender.',
             'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
@@ -306,7 +279,6 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::find($id)->update([
                 'product_class_id' => $request->product_class_id,
-                'gender_id'        => $request->gender_id,
                 'size_id'          => $request->size_id,
                 'updated_by'       => session('id'),
                 'name'             => $request->name,
@@ -316,6 +288,11 @@ class TypeProductController extends Controller {
             ]);
 
             if($query) {
+                activity('type product')
+                    ->performedOn(new ProductType())
+                    ->causedBy(session('id'))
+                    ->log('edit data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data updated successfully.'
@@ -335,6 +312,11 @@ class TypeProductController extends Controller {
     {
         $query = ProductType::find($request->id)->update(['status' => $request->status]);
         if($query) {
+            activity('type product')
+                ->performedOn(new ProductType())
+                ->causedBy(session('id'))
+                ->log('change status');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Status has been changed.'
@@ -353,6 +335,11 @@ class TypeProductController extends Controller {
     {
         $query = ProductType::destroy($request->id);
         if($query) {
+            activity('type product')
+                ->performedOn(new ProductType())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

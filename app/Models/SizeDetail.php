@@ -18,9 +18,23 @@ class SizeDetail extends Model {
         'value'
     ];
 
+    public function hasRelation()
+    {
+        if($this->purchasingDetail()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function size()
     {
         return $this->belongsTo('App\Models\Size')->withTrashed();
+    }
+
+    public function purchasingDetail()
+    {
+        return $this->hasMany('App\Models\PurchasingDetail');
     }
 
 }

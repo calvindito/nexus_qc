@@ -27,6 +27,7 @@ class UserSeeder extends Seeder
                 'email'      => $u['email'],
                 'gender'     => $u['gender'],
                 'password'   => $u['password'],
+                'last_login' => $u['last_login'],
                 'status'     => $u['status'],
                 'created_at' => $u['created_at'],
                 'updated_at' => $u['updated_at'],

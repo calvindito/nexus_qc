@@ -27,7 +27,6 @@ class ManageProductController extends Controller {
         $column = [
             'id',
             'product_class_id',
-            'gender_id',
             'name'
         ];
 
@@ -45,9 +44,6 @@ class ManageProductController extends Controller {
                         $query->where('name', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
-                            })
-                            ->orWhereHas('gender', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
                             });
                     });
                 }
@@ -63,9 +59,6 @@ class ManageProductController extends Controller {
                         $query->where('name', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
-                            })
-                            ->orWhereHas('gender', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
                             });
                     });
                 }
@@ -79,7 +72,6 @@ class ManageProductController extends Controller {
                 $response['data'][] = [
                     $nomor,
                     $val->productClass->name,
-                    $val->gender->name,
                     $val->name,
                     '
                         <a href="javascript:void(0);" class="badge badge-success btn-sm" onclick="chooseProduct(' . $val->id . ')">Choose</a>
@@ -119,30 +111,24 @@ class ManageProductController extends Controller {
         }
 
         foreach($check_point as $cp) {
-            $check_selected = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->count();
-            $data           = $type_product->productTypeCheckPoint()
-                ->where('check_point_id', $cp->id)
-                ->where('product_type_id', $type_product->id)
-                ->first();
-
-            if($data) {
-                $existsable = $type_product->productTypeDefect()->where('product_type_check_point_id', $data->id)->count();
-            } else {
-                $existsable = 0;
-            }
-
-            $disable            = $existsable > 0 ? 'disabled' : '';
-            $selectedable       = $check_selected > 0 ? 'selected' : '';
-            $data_check_point[] = '<option value="' . $cp->id . '" ' . $selectedable . ' ' . $disable . '>' . $cp->name . '</option>';
+            $data               = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->first();
+            $existsable         = $data ? $data->hasRelation() : false;
+            $disable            = $existsable ? 'disabled' : '';
+            $selected           = $data ? 'selected' : '';
+            $data_check_point[] = '<option value="' . $cp->id . '" ' . $selected . ' ' . $disable . '>' . $cp->name . '</option>';
         }
 
         if($type_product->productTypeCheckPoint) {
             foreach($type_product->productTypeCheckPoint as $key => $ptcp) {
                 $string_defect = '';
                 foreach($defect as $d) {
-                    $check_selected = $type_product->productTypeDefect()->where('product_type_check_point_id', $ptcp->id)->where('group_defect_id', $d->id)->count();
-                    $selectedable   = $check_selected > 0 ? 'selected' : '';
-                    $string_defect .= '<option value="' . $d->id . '" ' . $selectedable . '>' . $d->name . '</option>';
+                    $data = $type_product->productTypeDefect()
+                        ->where('product_type_check_point_id', $ptcp->id)
+                        ->where('group_defect_id', $d->id)
+                        ->first();
+
+                    $selected       = $data ? 'selected' : '';
+                    $string_defect .= '<option value="' . $d->id . '" ' . $selected . '>' . $d->name . '</option>';
                 }
 
                 $button = '
@@ -181,8 +167,8 @@ class ManageProductController extends Controller {
 
         return response()->json([
             'type_product'       => $type_product->name,
+            'description'        => $type_product->description,
             'class_product'      => $type_product->productClass->name,
-            'gender'             => $type_product->gender->name,
             'group_size'         => $group_size,
             'smv_global'         => $type_product->smv_global,
             'created_by'         => $type_product->createdBy->name,
@@ -214,6 +200,11 @@ class ManageProductController extends Controller {
                 }
             }
 
+            activity('type product')
+                ->performedOn(new ProductTypeCheckPoint())
+                ->causedBy(session('id'))
+                ->log('manage check point type product');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data has been processed'
@@ -237,6 +228,11 @@ class ManageProductController extends Controller {
                     }
                 }
             }
+
+            activity('type product')
+                ->performedOn(new ProductTypeDefect())
+                ->causedBy(session('id'))
+                ->log('manage defect type product');
 
             $response = [
                 'status'  => 200,

@@ -24,6 +24,20 @@ class Color extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->purchasingDetail()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function purchasingDetail()
+    {
+        return $this->hasMany('App\Models\PurchasingDetail');
+    }
+
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand')->withTrashed();

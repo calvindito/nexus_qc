@@ -13,7 +13,7 @@ class CreateCheckPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('check_points', function (Blueprint $table) {
+        Schema::connection('mysql')->create('check_points', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');

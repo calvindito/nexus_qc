@@ -73,7 +73,7 @@ class GenderController extends Controller {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
                 }
 
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -140,6 +140,11 @@ class GenderController extends Controller {
             ]);
 
             if($query) {
+                activity('gender')
+                    ->performedOn(new Gender())
+                    ->causedBy(session('id'))
+                    ->log('create data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -184,6 +189,11 @@ class GenderController extends Controller {
             ]);
 
             if($query) {
+                activity('gender')
+                    ->performedOn(new Gender())
+                    ->causedBy(session('id'))
+                    ->log('edit data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data updated successfully.'
@@ -203,6 +213,11 @@ class GenderController extends Controller {
     {
         $query = Gender::find($request->id)->update(['status' => $request->status]);
         if($query) {
+            activity('gender')
+                ->performedOn(new Gender())
+                ->causedBy(session('id'))
+                ->log('change status');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Status has been changed.'
@@ -221,6 +236,11 @@ class GenderController extends Controller {
     {
         $query = Gender::destroy($request->id);
         if($query) {
+            activity('gender')
+                ->performedOn(new Gender())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

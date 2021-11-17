@@ -21,6 +21,20 @@ class Province extends Model {
         'longitude'
     ];
 
+    public function hasRelation()
+    {
+        if($this->province()->count() > 0 || $this->city()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function buyer()
+    {
+        return $this->hasMany('App\Models\Buyer');
+    }
+
     public function country()
     {
         return $this->belongsTo('App\Models\Country')->withTrashed();

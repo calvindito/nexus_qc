@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Helper;
-
 use App\Models\SisterCompany;
 
-class Emba {
-
-    public static function treeViewWorkingHoursChart()
-    {
+if(!function_exists('treeViewWorkingHoursChart')) {
+    function treeViewWorkingHoursChart() {
         $sister_company = SisterCompany::where('status', 'Active')->get();
         $tree_view      = [];
         $branch         = [];
@@ -65,5 +61,30 @@ class Emba {
 
         return $tree_view;
     }
+}
 
+if(!function_exists('encodeString')) {
+    function encodeString($value) {
+        $key     = '4532879263570159';
+        $secret  = '4987632563987124';
+        $method  = 'aes-256-cbc';
+        $encrypt = hash('sha256', $secret);
+        $hash    = substr(hash('sha256', $key), 0, 16);
+        $result  = openssl_encrypt($value, $method, $encrypt, 0, $hash);
+
+        return base64_encode($result);
+    }
+}
+
+if(!function_exists('decodeString')) {
+    function decodeString($value) {
+        $key     = '4532879263570159';
+        $secret  = '4987632563987124';
+        $method  = 'aes-256-cbc';
+        $encrypt = hash('sha256', $secret);
+        $hash    = substr(hash('sha256', $key), 0, 16);
+        $result  = openssl_decrypt(base64_decode($value), $method, $encrypt, 0, $hash);
+
+        return $result;
+    }
 }

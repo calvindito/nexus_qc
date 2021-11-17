@@ -24,9 +24,6 @@
 							<h1 class="display-3 font-weight-semibold line-height-1 mb-2">429</h1>
 							<h5>Oops, an error has occurred. <br> Sorry, currently there are too many requests.</h5>
 						</div>
-						<div class="text-center">
-							<a href="{{ url()->previous() }}" class="btn btn-primary"><i class="icon-arrow-left7 mr-2"></i> Back</a>
-						</div>
 					</div>
 				</div>
 			</div>

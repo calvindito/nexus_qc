@@ -46,7 +46,6 @@
                         <tr class="text-center">
                             <th>ID</th>
                             <th>Class Product</th>
-                            <th>Gender</th>
                             <th>Type Product</th>
                             <th>Description</th>
                             <th>Group Size</th>
@@ -78,16 +77,12 @@
                     </div>
                     <div class="form-group">
                         <label>Class Product :<span class="text-danger">*</span></label>
-                        <select name="product_class_id" id="product_class_id" class="select2" onchange="getGender()">
+                        <select name="product_class_id" id="product_class_id" class="select2">
                             <option value="">-- Choose --</option>
                             @foreach($class_product as $cp)
                                 <option value="{{ $cp->id }}">{{ $cp->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Gender :<span class="text-danger">*</span></label>
-                        <select name="gender_id" id="gender_id" class="select2"></select>
                     </div>
                     <div class="form-group">
                         <label>Type Product :<span class="text-danger">*</span></label>
@@ -142,50 +137,6 @@
         loadDataTable();
     });
 
-    function getGender(id = null) {
-        $.ajax({
-            url: '{{ url("product/type/get_gender") }}',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                product_class_id: $('#product_class_id').val()
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function() {
-                loadingOpen('.modal-content');
-                $('#gender_id').html('<option value="">-- Choose --</option>');
-            },
-            success: function(response) {
-                loadingClose('.modal-content');
-                $.each(response, function(i, val) {
-                    if(id == val.gender_id) {
-                        var selected = 'selected';
-                    } else {
-                        var selected = '';
-                    }
-
-                    $('#gender_id').append(`
-                        <option value="` + val.gender_id + `" ` + selected + `>` + val.gender_name + `</option>
-                    `);
-                });
-
-                if(param) {
-                    $('#gender_id').val(param).change();
-                }
-            },
-            error: function() {
-                loadingClose('.modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    icon: 'error'
-                });
-            }
-        });
-    }
-
     function openModal() {
         reset();
         $('#btn_create').show();
@@ -215,7 +166,6 @@
         $('#form_data').trigger('reset');
         $('#product_class_id').val(null).change();
         $('#size_id').val(null).change();
-        $('#gender_id').html('<option value="">-- Choose --</option>');
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -229,9 +179,10 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
-            processing: true,
             deferRender: true,
+            stateSave: true,
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
@@ -239,7 +190,14 @@
             ajax: {
                 url: '{{ url("product/type/datatable") }}',
                 type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
                 error: function() {
+                    loadingClose('.dataTables_scroll');
                     swalInit.fire({
                         title: 'Server Error',
                         text: 'Please contact developer',
@@ -250,7 +208,6 @@
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'product_class_id', className: 'text-center align-middle' },
-                { name: 'gender_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
                 { name: 'size_id', className: 'text-center align-middle' },
@@ -328,7 +285,6 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#product_class_id').val(response.product_class_id).change();
-                getGender(response.gender_id);
                 $('#size_id').val(response.size_id).change();
                 $('#name').val(response.name);
                 $('#smv_global').val(response.smv_global);
@@ -467,7 +423,7 @@
                             swalInit.fire({
                                 title: 'Server Error',
                                 text: 'Please contact developer',
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                     });

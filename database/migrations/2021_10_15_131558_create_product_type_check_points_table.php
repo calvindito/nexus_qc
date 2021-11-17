@@ -13,7 +13,7 @@ class CreateProductTypeCheckPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_type_check_points', function (Blueprint $table) {
+        Schema::connection('mysql')->create('product_type_check_points', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_type_id');
             $table->unsignedBigInteger('check_point_id');

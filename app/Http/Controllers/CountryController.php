@@ -62,7 +62,7 @@ class CountryController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -125,6 +125,11 @@ class CountryController extends Controller {
             ]);
 
             if($query) {
+                activity('country')
+                    ->performedOn(new Country())
+                    ->causedBy(session('id'))
+                    ->log('create data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -169,6 +174,11 @@ class CountryController extends Controller {
             ]);
 
             if($query) {
+                activity('country')
+                    ->performedOn(new Country())
+                    ->causedBy(session('id'))
+                    ->log('edit data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data updated successfully.'
@@ -188,6 +198,11 @@ class CountryController extends Controller {
     {
         $query = Country::destroy($request->id);
         if($query) {
+            activity('country')
+                ->performedOn(new Country())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

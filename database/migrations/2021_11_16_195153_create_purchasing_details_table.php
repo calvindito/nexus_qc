@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductClassDetailsTable extends Migration
+class CreatePurchasingDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateProductClassDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('product_class_details', function (Blueprint $table) {
+        Schema::connection('mysql')->create('purchasing_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_class_id');
-            $table->unsignedBigInteger('gender_id');
+            $table->unsignedBigInteger('purchasing_id');
+            $table->unsignedBigInteger('color_id');
+            $table->unsignedBigInteger('size_detail_id');
+            $table->integer('qty');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateProductClassDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_class_details');
+        Schema::dropIfExists('purchasing_details');
     }
 }

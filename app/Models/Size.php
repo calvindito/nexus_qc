@@ -21,6 +21,20 @@ class Size extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->productType()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function productType()
+    {
+        return $this->hasMany('App\Models\ProductType');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

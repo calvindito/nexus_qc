@@ -68,16 +68,16 @@
                                         <div class="form-control-plaintext" id="class_product"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-semibold">Gender :</label>
-                                        <div class="form-control-plaintext" id="gender"></div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="font-weight-semibold">Group Size :</label>
                                         <div class="form-control-plaintext" id="group_size"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-weight-semibold">Smv Global :</label>
                                         <div class="form-control-plaintext" id="smv_global"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Description :</label>
+                                        <div class="form-control-plaintext" id="description"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -158,7 +158,6 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>Class Product</th>
-                            <th>Gender</th>
                             <th>Type Product</th>
                             <th><i class="icon-list2"></i></th>
                         </tr>
@@ -188,9 +187,10 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
-            processing: true,
             deferRender: true,
+            stateSave: true,
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
@@ -198,7 +198,14 @@
             ajax: {
                 url: '{{ url("product/manage/datatable") }}',
                 type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
                 error: function() {
+                    loadingClose('.dataTables_scroll');
                     swalInit.fire({
                         title: 'Server Error',
                         text: 'Please contact developer',
@@ -209,7 +216,6 @@
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'product_class_id', className: 'text-center align-middle' },
-                { name: 'gender_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
             ]
@@ -244,7 +250,7 @@
                 loadingClose('.content');
                 $('#type_product').html(response.type_product);
                 $('#class_product').html(response.class_product);
-                $('#gender').html(response.gender);
+                $('#description').html(response.description);
                 $('#group_size').html(response.group_size);
                 $('#smv_global').html(response.smv_global);
                 $('#created_by').html(response.created_by);

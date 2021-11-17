@@ -18,6 +18,15 @@ class ProductTypeCheckPoint extends Model {
         'check_point_id'
     ];
 
+    public function hasRelation()
+    {
+        if($this->productTypeDefect()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function productType()
     {
         return $this->belongsTo('App\Models\ProductType')->withTrashed();

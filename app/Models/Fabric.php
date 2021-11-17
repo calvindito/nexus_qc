@@ -22,6 +22,20 @@ class Fabric extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->color()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function color()
+    {
+        return $this->hasMany('App\Models\Color');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

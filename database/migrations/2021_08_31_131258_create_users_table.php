@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->char('gender', 1);
             $table->string('password');
+            $table->timestamp('last_login')->nullable();
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

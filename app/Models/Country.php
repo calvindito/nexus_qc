@@ -19,6 +19,20 @@ class Country extends Model {
         'name'
     ];
 
+    public function hasRelation()
+    {
+        if($this->buyer()->count() > 0 || $this->province()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function buyer()
+    {
+        return $this->hasMany('App\Models\Buyer');
+    }
+
     public function province()
     {
         return $this->hasMany('App\Models\Province')->withTrashed();

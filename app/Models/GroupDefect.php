@@ -24,6 +24,20 @@ class GroupDefect extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->productTypeDefect()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function productTypeDefect()
+    {
+        return $this->hasMany('App\Models\ProductTypeDefect');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

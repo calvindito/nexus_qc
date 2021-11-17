@@ -457,9 +457,10 @@
 
     function loadDataTable() {
         return $('#datatable_serverside').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
-            processing: true,
             deferRender: true,
+            stateSave: true,
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
@@ -467,7 +468,14 @@
             ajax: {
                 url: '{{ url("contact/buyer/datatable") }}',
                 type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
                 error: function() {
+                    loadingClose('.dataTables_scroll');
                     swalInit.fire({
                         title: 'Server Error',
                         text: 'Please contact developer',
@@ -715,7 +723,7 @@
                             swalInit.fire({
                                 title: 'Server Error',
                                 text: 'Please contact developer',
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                     });

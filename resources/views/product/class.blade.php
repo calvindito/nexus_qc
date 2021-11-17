@@ -45,7 +45,6 @@
                         <tr class="text-center">
                             <th>ID</th>
                             <th>Class Product</th>
-                            <th>Gender</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -74,14 +73,6 @@
                     <div class="form-group">
                         <label>Class Product :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Gender :<span class="text-danger">*</span></label>
-                        <select name="gender[]" id="gender" class="select2" multiple>
-                            @foreach($gender as $g)
-                                <option value="{{ $g->id }}">{{ $g->name }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -142,7 +133,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#gender').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -156,9 +146,10 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
-            processing: true,
             deferRender: true,
+            stateSave: true,
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
@@ -166,7 +157,14 @@
             ajax: {
                 url: '{{ url("product/class/datatable") }}',
                 type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
                 error: function() {
+                    loadingClose('.dataTables_scroll');
                     swalInit.fire({
                         title: 'Server Error',
                         text: 'Please contact developer',
@@ -177,7 +175,6 @@
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'gender', orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -250,13 +247,7 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                var gender = new Array();
-                $.each(response.gender, function(i, val) {
-                    gender[i] = val.gender_id;
-                });
-
                 $('#name').val(response.name);
-                $('#gender').val(gender).change();
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -391,7 +382,7 @@
                             swalInit.fire({
                                 title: 'Server Error',
                                 text: 'Please contact developer',
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                     });

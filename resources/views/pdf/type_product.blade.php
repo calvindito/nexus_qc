@@ -50,7 +50,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Class Product</th>
-                    <th>Gender</th>
                     <th>Type Product</th>
                     <th>Description</th>
                     <th>Group Size</th>
@@ -66,7 +65,6 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $d->productClass->name }}</td>
-                            <td>{{ $d->gender->name }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->description }}</td>
                             <td>
@@ -87,7 +85,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="10">Data not available</td>
+                        <td colspan="9">Data not available</td>
                     </tr>
                 @endif
             </tbody>

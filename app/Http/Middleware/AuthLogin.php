@@ -19,18 +19,20 @@ class AuthLogin
     {
         $user_id = session('id');
         $user    = User::where('id', $user_id)
+            ->where('last_login', session('last_login'))
             ->where('status', 1)
             ->first();
 
         if($user_id && $user) {
             session([
-                'id'       => $user->id,
-                'image'    => $user->image(),
-                'username' => $user->username,
-                'email'    => $user->email,
-                'name'     => $user->name,
-                'gender'   => $user->gender,
-                'status'   => $user->status()
+                'id'         => $user->id,
+                'image'      => $user->image(),
+                'username'   => $user->username,
+                'email'      => $user->email,
+                'name'       => $user->name,
+                'gender'     => $user->gender,
+                'last_login' => session('last_login'),
+                'status'     => $user->status()
             ]);
 
             return $next($request);

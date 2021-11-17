@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller {
 
-    public function index(Request $request)
+    public function login(Request $request)
     {
         if(session('id')) {
             return redirect()->back();
@@ -24,15 +25,24 @@ class AuthController extends Controller {
 
             if($user) {
                 if(Hash::check($request->password, $user->password)) {
+                    $last_login = Carbon::now();
+                    User::find($user->id)->update(['last_login' => $last_login]);
+
                     session([
-                        'id'       => $user->id,
-                        'image'    => $user->image(),
-                        'username' => $user->username,
-                        'email'    => $user->email,
-                        'name'     => $user->name,
-                        'gender'   => $user->gender,
-                        'status'   => $user->status()
+                        'id'         => $user->id,
+                        'image'      => $user->image(),
+                        'username'   => $user->username,
+                        'email'      => $user->email,
+                        'name'       => $user->name,
+                        'gender'     => $user->gender,
+                        'last_login' => $user->last_login ? $user->last_login : $last_login,
+                        'status'     => $user->status()
                     ]);
+
+                    activity('user')
+                        ->performedOn(new User())
+                        ->causedBy(session('id'))
+                        ->log('login');
 
                     return redirect('dashboard');
                 } else {
@@ -48,6 +58,11 @@ class AuthController extends Controller {
 
     public function logout()
     {
+        activity('user')
+            ->performedOn(new User())
+            ->causedBy(session('id'))
+            ->log('logout');
+
         session()->flush();
         return redirect('/')->with(['success' => 'You have logged out']);
     }

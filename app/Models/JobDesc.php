@@ -22,6 +22,20 @@ class JobDesc extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->buyerContact()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function buyerContact()
+    {
+        return $this->hasMany('App\Models\BuyerContact');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

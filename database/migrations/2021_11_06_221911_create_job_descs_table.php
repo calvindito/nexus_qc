@@ -13,7 +13,7 @@ class CreateJobDescsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_descs', function (Blueprint $table) {
+        Schema::connection('mysql')->create('job_descs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');

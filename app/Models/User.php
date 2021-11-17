@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model {
+class User extends Authenticatable {
 
     use HasFactory, SoftDeletes;
 
@@ -23,8 +23,14 @@ class User extends Model {
         'name',
         'gender',
         'password',
+        'last_login',
         'status'
     ];
+
+    public function hasRelation()
+    {
+        return false;
+    }
 
     public function createdBy()
     {

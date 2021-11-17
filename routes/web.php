@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::match(['get', 'post'], '/', 'AuthController@index');
+Route::match(['get', 'post'], '/', 'AuthController@login')->middleware('throttle:login');
 
 Route::middleware('auth.login')->group(function() {
     Route::get('dashboard', 'DashboardController@index');
@@ -93,7 +93,6 @@ Route::middleware('auth.login')->group(function() {
             Route::get('/', 'BuyerController@index');
             Route::get('datatable', 'BuyerController@datatable');
             Route::post('row_detail', 'BuyerController@rowDetail');
-            Route::post('get_gender', 'BuyerController@getGender');
             Route::match(['get', 'post'], 'bulk', 'BuyerController@bulk');
             Route::post('create', 'BuyerController@create');
             Route::post('show', 'BuyerController@show');
@@ -186,7 +185,7 @@ Route::middleware('auth.login')->group(function() {
             Route::get('/', 'CountryController@index');
             Route::get('datatable', 'CountryController@datatable');
             Route::post('create', 'CountryController@create');
-            Route::get('show', 'CountryController@show');
+            Route::post('show', 'CountryController@show');
             Route::post('update/{id}', 'CountryController@update');
             Route::post('destroy', 'CountryController@destroy');
         });
@@ -195,7 +194,7 @@ Route::middleware('auth.login')->group(function() {
             Route::get('/', 'ProvinceController@index');
             Route::get('datatable', 'ProvinceController@datatable');
             Route::post('create', 'ProvinceController@create');
-            Route::get('show', 'ProvinceController@show');
+            Route::post('show', 'ProvinceController@show');
             Route::post('update/{id}', 'ProvinceController@update');
             Route::post('destroy', 'ProvinceController@destroy');
         });
@@ -204,7 +203,7 @@ Route::middleware('auth.login')->group(function() {
             Route::get('/', 'CityController@index');
             Route::get('datatable', 'CityController@datatable');
             Route::post('create', 'CityController@create');
-            Route::get('show', 'CityController@show');
+            Route::post('show', 'CityController@show');
             Route::post('update/{id}', 'CityController@update');
             Route::post('destroy', 'CityController@destroy');
         });
@@ -263,6 +262,16 @@ Route::middleware('auth.login')->group(function() {
             Route::post('destroy', 'TypeProductController@destroy');
         });
 
+        Route::prefix('style')->group(function() {
+            Route::get('/', 'StyleController@index');
+            Route::get('datatable', 'StyleController@datatable');
+            Route::post('create', 'StyleController@create');
+            Route::post('show', 'StyleController@show');
+            Route::post('update/{id}', 'StyleController@update');
+            Route::post('change_status', 'StyleController@changeStatus');
+            Route::post('destroy', 'StyleController@destroy');
+        });
+
         Route::prefix('manage')->group(function() {
             Route::get('/', 'ManageProductController@index');
             Route::get('datatable', 'ManageProductController@datatable');
@@ -271,9 +280,40 @@ Route::middleware('auth.login')->group(function() {
         });
     });
 
+    Route::prefix('order')->group(function() {
+        Route::prefix('purchasing')->group(function() {
+            Route::get('/', 'PurchasingController@index');
+            Route::get('datatable', 'PurchasingController@datatable');
+            Route::post('get_size', 'PurchasingController@getSize');
+            Route::post('create', 'PurchasingController@create');
+            Route::post('show', 'PurchasingController@show');
+            Route::post('update/{id}', 'PurchasingController@update');
+            Route::post('destroy', 'PurchasingController@destroy');
+        });
+    });
+
     Route::prefix('setting')->group(function() {
-        Route::get('account', 'SettingController@account');
-        Route::post('profile', 'SettingController@profile');
-        Route::post('change_password', 'SettingController@changePassword');
+        Route::prefix('account')->group(function() {
+            Route::get('/', 'SettingController@account');
+            Route::post('profile', 'SettingController@profile');
+            Route::post('change_password', 'SettingController@changePassword');
+            Route::get('load_activity', 'SettingController@loadActivity');
+        });
+
+        Route::prefix('user')->group(function() {
+            Route::get('/', 'UserController@index');
+            Route::get('datatable', 'UserController@datatable');
+            Route::post('create', 'UserController@create');
+            Route::post('show', 'UserController@show');
+            Route::post('update/{id}', 'UserController@update');
+            Route::post('reset_password', 'UserController@resetPassword');
+            Route::post('change_status', 'UserController@changeStatus');
+            Route::post('destroy', 'UserController@destroy');
+        });
+
+        Route::prefix('activity')->group(function() {
+            Route::get('/', 'ActivityController@index');
+            Route::get('datatable', 'ActivityController@datatable');
+        });
     });
 });

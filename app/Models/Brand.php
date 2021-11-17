@@ -22,6 +22,25 @@ class Brand extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->color()->count() > 0 || $this->style()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function color()
+    {
+        return $this->hasMany('App\Models\Color');
+    }
+
+    public function style()
+    {
+        return $this->hasMany('App\Models\Style');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

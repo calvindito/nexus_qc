@@ -141,9 +141,10 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
-            processing: true,
             deferRender: true,
+            stateSave: true,
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
@@ -151,7 +152,14 @@
             ajax: {
                 url: '{{ url("location/city/datatable") }}',
                 type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
                 error: function() {
+                    loadingClose('.dataTables_scroll');
                     swalInit.fire({
                         title: 'Server Error',
                         text: 'Please contact developer',
@@ -225,6 +233,9 @@
             dataType: 'JSON',
             data: {
                 id: id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
                 loadingOpen('.modal-content');
@@ -333,7 +344,7 @@
                             swalInit.fire({
                                 title: 'Server Error',
                                 text: 'Please contact developer',
-                                type: 'error'
+                                icon: 'error'
                             });
                         }
                     });

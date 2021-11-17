@@ -22,6 +22,20 @@ class CheckPoint extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->productTypeCheckPoint()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function productTypeCheckPoint()
+    {
+        return $this->hasMany('App\Models\ProductTypeCheckPoint');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

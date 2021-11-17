@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\Emba;
 use Illuminate\Http\Request;
 
 class WorkingHoursChartController extends Controller {
@@ -11,7 +10,7 @@ class WorkingHoursChartController extends Controller {
     {
         $data = [
             'title'     => 'Working Hours - Chart',
-            'tree_view' => Emba::treeViewWorkingHoursChart(),
+            'tree_view' => treeViewWorkingHoursChart(),
             'content'   => 'working_hours.chart'
         ];
 

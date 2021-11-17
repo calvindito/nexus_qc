@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartementsTable extends Migration
+class CreateStylesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateDepartementsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('departements', function (Blueprint $table) {
+        Schema::connection('mysql')->create('styles', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_type_id');
+            $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('code')->unique();
@@ -32,6 +34,6 @@ class CreateDepartementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departements');
+        Schema::dropIfExists('styles');
     }
 }

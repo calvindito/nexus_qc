@@ -50,7 +50,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Class Product</th>
-                    <th>Gender</th>
                     <th>Status</th>
                     <th>Modified By</th>
                     <th>Date Created</th>
@@ -62,16 +61,6 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $d->name }}</td>
-                            <td>
-                                @if($d->productClassDetail->count() > 0)
-                                    @foreach($d->productClassDetail as $key => $pcd)
-                                        @php $delimeter = $d->productClassDetail->count() == $key + 1 ? '' : ','; @endphp
-                                        {{ $pcd->gender->name . $delimeter }}
-                                    @endforeach
-                                @else
-                                    No Gender
-                                @endif
-                            </td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
                             <td>{{ $d->created_at->format('d M Y') }}</td>
@@ -79,7 +68,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Data not available</td>
+                        <td colspan="4">Data not available</td>
                     </tr>
                 @endif
             </tbody>

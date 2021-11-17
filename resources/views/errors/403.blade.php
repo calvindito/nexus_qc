@@ -24,9 +24,6 @@
 							<h1 class="display-3 font-weight-semibold line-height-1 mb-2">403</h1>
 							<h5>Oops, an error has occurred. <br> Access to this resource on the server is denied.</h5>
 						</div>
-						<div class="text-center">
-							<a href="{{ url()->previous() }}" class="btn btn-primary"><i class="icon-arrow-left7 mr-2"></i> Back</a>
-						</div>
 					</div>
 				</div>
 			</div>

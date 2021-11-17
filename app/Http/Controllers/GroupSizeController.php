@@ -90,7 +90,7 @@ class GroupSizeController extends Controller {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
                 }
 
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -169,6 +169,11 @@ class GroupSizeController extends Controller {
                     }
                 }
 
+                activity('group size')
+                    ->performedOn(new Size())
+                    ->causedBy(session('id'))
+                    ->log('create data');
+
                 $response = [
                     'status'  => 200,
                     'message' => 'Data added successfully.'
@@ -186,11 +191,21 @@ class GroupSizeController extends Controller {
 
     public function show(Request $request)
     {
-        $data = Size::find($request->id);
+        $data        = Size::find($request->id);
+        $size_detail = [];
+
+        if($data->sizeDetail) {
+            foreach($data->sizeDetail as $sd) {
+                $size_detail[] = [
+                    'value' => $sd->value
+                ];
+            }
+        }
+
         return response()->json([
             'group'       => $data->group,
             'status'      => $data->status,
-            'size_detail' => $data->sizeDetail
+            'size_detail' => $size_detail
         ]);
     }
 
@@ -219,15 +234,29 @@ class GroupSizeController extends Controller {
             ]);
 
             if($query) {
-                SizeDetail::where('size_id', $id)->delete();
-                if($request->value) {
-                    foreach($request->value as $v) {
-                        SizeDetail::create([
-                            'size_id' => $id,
-                            'value'   => $v
-                        ]);
+                $empty_detail = SizeDetail::where('size_id', $id)->get();
+                foreach($empty_detail as $ed) {
+                    if(!$ed->hasRelation()) {
+                        SizeDetail::destroy($ed->id);
                     }
                 }
+
+                if($request->value) {
+                    foreach($request->value as $v) {
+                        $exists_data = SizeDetail::where('size_id', $id)->where('value', $v)->first();
+                        if(!$exists_data) {
+                            SizeDetail::create([
+                                'size_id' => $id,
+                                'value'   => $v
+                            ]);
+                        }
+                    }
+                }
+
+                activity('group size')
+                    ->performedOn(new Size())
+                    ->causedBy(session('id'))
+                    ->log('edit data');
 
                 $response = [
                     'status'  => 200,
@@ -248,6 +277,11 @@ class GroupSizeController extends Controller {
     {
         $query = Size::find($request->id)->update(['status' => $request->status]);
         if($query) {
+            activity('group size')
+                ->performedOn(new Size())
+                ->causedBy(session('id'))
+                ->log('change status');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Status has been changed.'
@@ -266,6 +300,11 @@ class GroupSizeController extends Controller {
     {
         $query = Size::destroy($request->id);
         if($query) {
+            activity('group size')
+                ->performedOn(new Size())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

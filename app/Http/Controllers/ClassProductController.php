@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Gender;
 use App\Models\ProductClass;
 use Illuminate\Http\Request;
-use App\Models\ProductClassDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +14,6 @@ class ClassProductController extends Controller {
     {
         $data = [
             'title'   => 'Product - Class',
-            'gender'  => Gender::where('status', 1)->get(),
             'content' => 'product.class'
         ];
 
@@ -27,7 +25,6 @@ class ClassProductController extends Controller {
         $column = [
             'id',
             'name',
-            'gender',
             'status',
             'updated_by',
             'created_at'
@@ -47,11 +44,6 @@ class ClassProductController extends Controller {
                         $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
-                            })
-                            ->orWhereHas('productClassDetail', function($query) use ($search) {
-                                $query->whereHas('gender', function($query) use ($search) {
-                                    $query->where('name', 'like', "%$search%");
-                                });
                             });
                     });
                 }
@@ -67,11 +59,6 @@ class ClassProductController extends Controller {
                         $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
-                            })
-                            ->orWhereHas('productClassDetail', function($query) use ($search) {
-                                $query->whereHas('gender', function($query) use ($search) {
-                                    $query->where('name', 'like', "%$search%");
-                                });
                             });
                     });
                 }
@@ -81,22 +68,13 @@ class ClassProductController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
-                $gender = '';
-                if($val->productClassDetail) {
-                    foreach($val->productClassDetail as $pcd) {
-                        $gender .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $pcd->gender->name . '</span>';
-                    }
-                } else {
-                    $gender .= 'Gender not selected';
-                }
-
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
                 } else {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
                 }
 
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -105,7 +83,6 @@ class ClassProductController extends Controller {
                 $response['data'][] = [
                     $val->id,
                     $val->name,
-                    $gender,
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -144,11 +121,9 @@ class ClassProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'name'   => 'required',
-            'gender' => 'required',
             'status' => 'required'
         ], [
             'name.required'   => 'Class product cannot be empty.',
-            'gender.required' => 'Please select a gender.',
             'status.required' => 'Please select a status.'
         ]);
 
@@ -166,14 +141,10 @@ class ClassProductController extends Controller {
             ]);
 
             if($query) {
-                if($request->gender) {
-                    foreach($request->gender as $g) {
-                        ProductClassDetail::create([
-                            'product_class_id' => $query->id,
-                            'gender_id'        => $g
-                        ]);
-                    }
-                }
+                activity('class product')
+                    ->performedOn(new ProductClass())
+                    ->causedBy(session('id'))
+                    ->log('create data');
 
                 $response = [
                     'status'  => 200,
@@ -195,8 +166,7 @@ class ClassProductController extends Controller {
         $data = ProductClass::find($request->id);
         return response()->json([
             'name'   => $data->name,
-            'status' => $data->status,
-            'gender' => $data->productClassDetail
+            'status' => $data->status
         ]);
     }
 
@@ -204,11 +174,9 @@ class ClassProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'name'   => 'required',
-            'gender' => 'required',
             'status' => 'required'
         ], [
             'name.required'   => 'Class product cannot be empty.',
-            'gender.required' => 'Please select a gender.',
             'status.required' => 'Please select a status.'
         ]);
 
@@ -225,15 +193,10 @@ class ClassProductController extends Controller {
             ]);
 
             if($query) {
-                ProductClassDetail::where('product_class_id', $id)->delete();
-                if($request->gender) {
-                    foreach($request->gender as $g) {
-                        ProductClassDetail::create([
-                            'product_class_id' => $id,
-                            'gender_id'        => $g
-                        ]);
-                    }
-                }
+                activity('class product')
+                    ->performedOn(new ProductClass())
+                    ->causedBy(session('id'))
+                    ->log('edit data');
 
                 $response = [
                     'status'  => 200,
@@ -254,6 +217,11 @@ class ClassProductController extends Controller {
     {
         $query = ProductClass::find($request->id)->update(['status' => $request->status]);
         if($query) {
+            activity('class product')
+                ->performedOn(new ProductClass())
+                ->causedBy(session('id'))
+                ->log('change status');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Status has been changed.'
@@ -272,6 +240,11 @@ class ClassProductController extends Controller {
     {
         $query = ProductClass::destroy($request->id);
         if($query) {
+            activity('class product')
+                ->performedOn(new ProductClass())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

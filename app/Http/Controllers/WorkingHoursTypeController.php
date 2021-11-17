@@ -83,7 +83,7 @@ class WorkingHoursTypeController extends Controller {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 1)" class="dropdown-item"><i class="icon-check"></i> Active</a>';
                 }
 
-                if($val->relations) {
+                if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
@@ -201,6 +201,11 @@ class WorkingHoursTypeController extends Controller {
                         }
                     }
 
+                    activity('working hours type')
+                        ->performedOn(new WorkingHoursType())
+                        ->causedBy(session('id'))
+                        ->log('create data');
+
                     $response = [
                         'status'  => 200,
                         'message' => 'Data added successfully.'
@@ -269,6 +274,11 @@ class WorkingHoursTypeController extends Controller {
                         }
                     }
 
+                    activity('working hours type')
+                        ->performedOn(new WorkingHoursType())
+                        ->causedBy(session('id'))
+                        ->log('edit data');
+
                     $response = [
                         'status'  => 200,
                         'message' => 'Data updated successfully.'
@@ -298,6 +308,11 @@ class WorkingHoursTypeController extends Controller {
     {
         $query = WorkingHoursType::find($request->id)->update(['status' => $request->status]);
         if($query) {
+            activity('working hours type')
+                ->performedOn(new WorkingHoursType())
+                ->causedBy(session('id'))
+                ->log('change status');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Status has been changed.'
@@ -316,6 +331,11 @@ class WorkingHoursTypeController extends Controller {
     {
         $query = WorkingHoursType::destroy($request->id);
         if($query) {
+            activity('working hours type')
+                ->performedOn(new WorkingHoursType())
+                ->causedBy(session('id'))
+                ->log('delete data');
+
             $response = [
                 'status'  => 200,
                 'message' => 'Data deleted successfully.'

@@ -29,15 +29,5 @@ class ProductClassSeeder extends Seeder
                 'deleted_at' => $pc['deleted_at']
             ]);
         }
-
-        foreach($product_class_details as $pcd) {
-            ProductClassDetail::insert([
-                'id'               => $pcd['id'],
-                'product_class_id' => $pcd['product_class_id'],
-                'gender_id'        => $pcd['gender_id'],
-                'created_at'       => $pcd['created_at'],
-                'updated_at'       => $pcd['updated_at']
-            ]);
-        }
     }
 }

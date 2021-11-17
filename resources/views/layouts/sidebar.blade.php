@@ -63,9 +63,6 @@
                             </a>
 							<ul class="nav nav-group-sub" data-submenu-title="General">
                                 <li class="nav-item">
-                                    <a href="{{ url('general/style') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'style' ? 'active' : '' }}">Style</a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('general/check_point') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'check_point' ? 'active' : '' }}">Check Point</a>
                                 </li>
 							</ul>
@@ -177,7 +174,21 @@
                                     <a href="{{ url('product/type') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ url('product/style') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'style' ? 'active' : '' }}">Style</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ url('product/manage') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'manage' ? 'active' : '' }}">Manage</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'order' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-cart5"></i>
+                                <span>Order</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Order">
+                                <li class="nav-item">
+                                    <a href="{{ url('order/purchasing') }}" class="nav-link {{ Request::segment(1) == 'order' && Request::segment(2) == 'purchasing' ? 'active' : '' }}">Purchasing</a>
                                 </li>
 							</ul>
 						</li>

@@ -46,10 +46,9 @@
                                     <i class="icon-calendar3"></i> My Activity
                                 </a>
                             </li>
-                            <li class="nav-item-divider"></li>
-                            <li class="nav-item mx-auto">
-                                <a href="javascript:void(0);" class="nav-link cursor-none">
-                                    {!! session('status') !!}
+                            <li class="nav-item bg-light mt-3">
+                                <a href="javascript:void(0);" class="nav-link no-pointer font-weight-semibold" style="font-size:12px;">
+                                    Last Login : {{ date('d M Y, H:i A', strtotime(session('last_login'))) }}
                                 </a>
                             </li>
                         </ul>
@@ -133,13 +132,12 @@
                             <h6 class="card-title">List My Activity</h6>
                         </div>
                         <div class="card-body">
-                            <table class="table table-striped display w-100" id="datatable_serverside">
+                            <table class="table table-striped display w-100" id="datatable_activity">
                                 <thead class="bg-light">
                                     <tr class="text-center">
                                         <th>No</th>
                                         <th>Menu</th>
                                         <th>Description</th>
-                                        <th>Property</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -154,11 +152,16 @@
 <script>
     $(function() {
         $('.sidebar-control').click();
+        loadDataTable();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+			$('#datatable_activity').DataTable().columns.adjust();
+		});
     });
 
     function profile() {
         $.ajax({
-            url: '{{ url("setting/profile") }}',
+            url: '{{ url("setting/account/profile") }}',
             type: 'POST',
             dataType: 'JSON',
             data: new FormData($('#form_profile')[0]),
@@ -209,7 +212,7 @@
 
     function changePassword() {
         $.ajax({
-            url: '{{ url("setting/change_password") }}',
+            url: '{{ url("setting/account/change_password") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_change_password').serialize(),
@@ -252,6 +255,42 @@
                     icon: 'error'
                 });
             }
+        });
+    }
+
+    function loadDataTable() {
+        $('#datatable_activity').DataTable({
+            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            serverSide: true,
+            deferRender: true,
+            destroy: true,
+            scrollX: true,
+            iDisplayInLength: 10,
+            order: [[0, 'desc']],
+            ajax: {
+                url: '{{ url("setting/account/load_activity") }}',
+                type: 'GET',
+                beforeSend: function() {
+                    loadingOpen('.dataTables_scroll');
+                },
+                complete: function() {
+                    loadingClose('.dataTables_scroll');
+                },
+                error: function() {
+                    loadingClose('.dataTables_scroll');
+                    swalInit.fire({
+                        title: 'Server Error',
+                        text: 'Please contact developer',
+                        icon: 'error'
+                    });
+                }
+            },
+            columns: [
+                { name: 'id', searchable: false, className: 'text-center align-middle' },
+                { name: 'log_name', className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
+                { name: 'created_at', searchable: false, className: 'text-center align-middle' }
+            ]
         });
     }
 </script>

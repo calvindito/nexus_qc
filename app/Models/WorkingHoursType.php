@@ -22,6 +22,11 @@ class WorkingHoursType extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        return false;
+    }
+
     public function departement()
     {
         return $this->belongsTo('App\Models\Departement');

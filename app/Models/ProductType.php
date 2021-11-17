@@ -16,7 +16,6 @@ class ProductType extends Model {
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
         'product_class_id',
-        'gender_id',
         'size_id',
         'created_by',
         'updated_by',
@@ -26,14 +25,23 @@ class ProductType extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->style()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function style()
+    {
+        return $this->hasMany('App\Models\Style');
+    }
+
     public function productClass()
     {
         return $this->belongsTo('App\Models\ProductClass')->withTrashed();
-    }
-
-    public function gender()
-    {
-        return $this->belongsTo('App\Models\Gender')->withTrashed();
     }
 
     public function size()

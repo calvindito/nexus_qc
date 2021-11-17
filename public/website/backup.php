@@ -1,67 +1,38 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 4.9.7
+ * @version 5.1.1
  */
 
 /**
- * Database `solusier_emba_qc`
+ * Database `nexus_qc`
  */
 
-/* `solusier_emba_qc`.`allowance_smvs` */
+/* `nexus_qc`.`activity_logs` */
+$activity_logs = array(
+);
+
+/* `nexus_qc`.`allowance_smvs` */
 $allowance_smvs = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Allowance 1','description' => NULL,'created_at' => '2021-11-02 11:23:59','updated_at' => '2021-11-02 11:23:59','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`brands` */
+/* `nexus_qc`.`brands` */
 $brands = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Brand 1','aql' => 'tes','status' => '1','created_at' => '2021-09-15 14:48:03','updated_at' => '2021-09-15 15:08:55','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`buyers` */
+/* `nexus_qc`.`buyers` */
 $buyers = array(
-  array('id' => '1','country_id' => '103','province_id' => '35','city_id' => '3578','created_by' => '1','updated_by' => '1','excelable' => NULL,'company' => 'Karya Digital Solusindo','description' => 'Software House','remark' => 'Good','address' => 'Dharmahusada indah','status' => '1','created_at' => '2021-09-23 11:13:21','updated_at' => '2021-09-23 11:13:36','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`buyer_contacts` */
+/* `nexus_qc`.`buyer_contacts` */
 $buyer_contacts = array(
-  array('id' => '2','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '088999157717','type' => '2','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '3','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '(031) 5045225','type' => '1','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '4','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => '(031) 5045225','type' => '3','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '5','buyer_id' => '1','job_desc_id' => '1','name' => 'Dito','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-25 01:25:48','updated_at' => '2021-09-25 01:25:48'),
-  array('id' => '6','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '7','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '8','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '9','buyer_id' => '10','job_desc_id' => '1','name' => 'tes 1 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '10','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 office','value' => '88999157717','type' => '1','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '11','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 hp','value' => '88999157717','type' => '2','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '12','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 fax','value' => '88999157717','type' => '3','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37'),
-  array('id' => '13','buyer_id' => '11','job_desc_id' => '1','name' => 'tes 2 email','value' => 'calvindito7@gmail.com','type' => '4','created_at' => '2021-09-28 17:18:37','updated_at' => '2021-09-28 17:18:37')
 );
 
-/* `solusier_emba_qc`.`check_points` */
+/* `nexus_qc`.`check_points` */
 $check_points = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '1-0','name' => 'Badan Keliling','status' => '1','created_at' => '2021-10-18 08:56:47','updated_at' => '2021-10-18 08:59:43','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '1-1','name' => 'Badan Muka Kiri','status' => '1','created_at' => '2021-10-18 08:57:05','updated_at' => '2021-10-18 08:59:56','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '1-2','name' => 'Badan Muka Kanan','status' => '1','created_at' => '2021-10-18 08:57:25','updated_at' => '2021-10-18 09:00:10','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '1-4','name' => 'Badan Belakang Kiri','status' => '1','created_at' => '2021-10-18 08:57:43','updated_at' => '2021-10-18 09:00:22','deleted_at' => NULL),
-  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '1-5','name' => 'Badan Belakang Kanan','status' => '1','created_at' => '2021-10-18 08:58:11','updated_at' => '2021-10-18 09:00:36','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '2-0','name' => 'Yoke','status' => '1','created_at' => '2021-10-18 08:58:24','updated_at' => '2021-10-18 09:00:51','deleted_at' => NULL),
-  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '3-0','name' => 'Waist','status' => '1','created_at' => '2021-10-18 08:58:44','updated_at' => '2021-10-18 08:58:44','deleted_at' => NULL),
-  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '4-0','name' => 'Tutup Ban','status' => '1','created_at' => '2021-10-18 08:58:56','updated_at' => '2021-10-18 09:01:04','deleted_at' => NULL),
-  array('id' => '9','created_by' => '1','updated_by' => '1','code' => '5-0','name' => 'J Stitch','status' => '1','created_at' => '2021-10-18 09:01:24','updated_at' => '2021-10-18 09:01:24','deleted_at' => NULL),
-  array('id' => '10','created_by' => '1','updated_by' => '1','code' => '6-0','name' => 'Front Rise','status' => '1','created_at' => '2021-10-18 09:01:38','updated_at' => '2021-10-18 09:01:38','deleted_at' => NULL),
-  array('id' => '11','created_by' => '1','updated_by' => '1','code' => '7-0','name' => 'Back Rise','status' => '1','created_at' => '2021-10-18 09:01:52','updated_at' => '2021-10-18 09:01:52','deleted_at' => NULL),
-  array('id' => '12','created_by' => '1','updated_by' => '1','code' => '8-0','name' => 'Inseam','status' => '1','created_at' => '2021-10-18 09:02:05','updated_at' => '2021-10-18 09:02:05','deleted_at' => NULL),
-  array('id' => '13','created_by' => '1','updated_by' => '1','code' => '9-0','name' => 'Side Seam','status' => '1','created_at' => '2021-10-18 09:03:02','updated_at' => '2021-10-18 09:03:02','deleted_at' => NULL),
-  array('id' => '14','created_by' => '1','updated_by' => '1','code' => '10-0','name' => 'KT Belakang','status' => '1','created_at' => '2021-10-18 09:03:19','updated_at' => '2021-10-18 09:03:19','deleted_at' => NULL),
-  array('id' => '15','created_by' => '1','updated_by' => '1','code' => '10-1','name' => 'KT Muka','status' => '1','created_at' => '2021-10-18 09:03:30','updated_at' => '2021-10-18 09:03:30','deleted_at' => NULL),
-  array('id' => '16','created_by' => '1','updated_by' => '1','code' => '10-2','name' => 'KT Samping','status' => '1','created_at' => '2021-10-18 09:03:43','updated_at' => '2021-10-18 09:03:43','deleted_at' => NULL),
-  array('id' => '17','created_by' => '1','updated_by' => '1','code' => '11-0','name' => 'Hemming Kaki','status' => '1','created_at' => '2021-10-18 09:03:56','updated_at' => '2021-10-18 09:03:56','deleted_at' => NULL),
-  array('id' => '18','created_by' => '1','updated_by' => '1','code' => '12-0','name' => 'Kantong Dalam','status' => '1','created_at' => '2021-10-18 09:04:12','updated_at' => '2021-10-18 09:04:21','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`cities` */
+/* `nexus_qc`.`cities` */
 $cities = array(
   array('id' => '1101','province_id' => '11','name' => 'Kabupaten Simeulue','latitude' => '2.583333','longitude' => '96.083333','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
   array('id' => '1102','province_id' => '11','name' => 'Kabupaten Aceh Singkil','latitude' => '2.3589459','longitude' => '97.87216','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
@@ -579,12 +550,11 @@ $cities = array(
   array('id' => '9471','province_id' => '94','name' => 'Kota Jayapura','latitude' => '-2.533','longitude' => '140.717','created_at' => '2021-03-10 16:18:08','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`colors` */
+/* `nexus_qc`.`colors` */
 $colors = array(
-  array('id' => '1','brand_id' => '1','fabric_id' => '1','created_by' => '1','updated_by' => '1','code' => 'C111','name' => 'Color 1','status' => '1','created_at' => '2021-09-15 15:47:53','updated_at' => '2021-09-15 15:48:34','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`countries` */
+/* `nexus_qc`.`countries` */
 $countries = array(
   array('id' => '1','code' => 'AW','name' => 'Aruba','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-08-09 10:41:20','deleted_at' => '2021-08-09 10:41:20'),
   array('id' => '2','code' => 'AF','name' => 'Afghanistan','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL),
@@ -837,39 +807,27 @@ $countries = array(
   array('id' => '249','code' => 'ZW','name' => 'Zimbabwe','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`departements` */
+/* `nexus_qc`.`departements` */
 $departements = array(
 );
 
-/* `solusier_emba_qc`.`fabrics` */
+/* `nexus_qc`.`fabrics` */
 $fabrics = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Fabric 1','description' => NULL,'status' => '1','created_at' => '2021-09-15 15:35:18','updated_at' => '2021-09-15 15:35:36','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`genders` */
+/* `nexus_qc`.`genders` */
 $genders = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Boys','status' => '1','created_at' => '2021-09-13 22:49:40','updated_at' => '2021-11-02 12:26:08','deleted_at' => '2021-11-02 12:26:08'),
-  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Mens','status' => '1','created_at' => '2021-09-13 22:53:07','updated_at' => '2021-09-13 22:53:07','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Ladies','status' => '1','created_at' => '2021-09-13 22:53:15','updated_at' => '2021-09-13 22:53:15','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Girls','status' => '1','created_at' => '2021-09-13 22:53:20','updated_at' => '2021-09-13 22:53:20','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`group_defects` */
+/* `nexus_qc`.`group_defects` */
 $group_defects = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','code' => 'G-1','name' => 'Group 1','parent_id' => '0','type' => '1','status' => '1','created_at' => '2021-09-13 16:49:42','updated_at' => '2021-09-13 16:49:42','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','code' => 'SG-1','name' => 'Sub Group 1','parent_id' => '1','type' => '2','status' => '1','created_at' => '2021-09-13 16:50:07','updated_at' => '2021-09-13 16:51:01','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','code' => 'D-1','name' => 'Defect 1','parent_id' => '2','type' => '3','status' => '1','created_at' => '2021-09-13 16:58:18','updated_at' => '2021-09-13 16:58:24','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','code' => 'R-1','name' => 'Reject 1','parent_id' => '3','type' => '4','status' => '1','created_at' => '2021-09-13 17:02:00','updated_at' => '2021-09-13 17:02:06','deleted_at' => NULL),
-  array('id' => '5','created_by' => '1','updated_by' => '1','code' => 'MD-1','name' => 'Major Defect 1','parent_id' => '4','type' => '5','status' => '1','created_at' => '2021-09-13 17:06:02','updated_at' => '2021-09-13 17:06:02','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','code' => 'CD-1','name' => 'Critical Defect 1','parent_id' => '5','type' => '6','status' => '1','created_at' => '2021-09-13 17:10:45','updated_at' => '2021-09-15 13:01:34','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`job_descs` */
+/* `nexus_qc`.`job_descs` */
 $job_descs = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Director','description' => 'Director','status' => '1','created_at' => '2021-11-09 14:21:50','updated_at' => '2021-11-09 14:21:50','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`migrations` */
+/* `nexus_qc`.`migrations` */
 $migrations = array(
   array('id' => '1','migration' => '2019_12_14_000001_create_personal_access_tokens_table','batch' => '1'),
   array('id' => '2','migration' => '2021_08_31_131258_create_users_table','batch' => '1'),
@@ -895,40 +853,35 @@ $migrations = array(
   array('id' => '22','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
   array('id' => '23','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1'),
   array('id' => '24','migration' => '2021_10_18_121549_create_product_type_defects_table','batch' => '1'),
-  array('id' => '25','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1')
+  array('id' => '25','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1'),
+  array('id' => '26','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '2'),
+  array('id' => '27','migration' => '2021_11_16_142753_create_styles_table','batch' => '3'),
+  array('id' => '28','migration' => '2021_11_16_195114_create_purchasings_table','batch' => '4'),
+  array('id' => '29','migration' => '2021_11_16_195153_create_purchasing_details_table','batch' => '4'),
+  array('id' => '30','migration' => '2021_11_17_130137_create_locks_table','batch' => '5')
 );
 
-/* `solusier_emba_qc`.`personal_access_tokens` */
+/* `nexus_qc`.`personal_access_tokens` */
 $personal_access_tokens = array(
 );
 
-/* `solusier_emba_qc`.`product_classes` */
+/* `nexus_qc`.`product_classes` */
 $product_classes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Clothing','status' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-15 13:39:47','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`product_class_details` */
-$product_class_details = array(
-  array('id' => '1','product_class_id' => '1','gender_id' => '1','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
-  array('id' => '2','product_class_id' => '1','gender_id' => '2','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
-  array('id' => '3','product_class_id' => '1','gender_id' => '3','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09'),
-  array('id' => '4','product_class_id' => '1','gender_id' => '4','created_at' => '2021-09-14 00:02:09','updated_at' => '2021-09-14 00:02:09')
-);
-
-/* `solusier_emba_qc`.`product_types` */
+/* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','gender_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'Cargo Pant','smv_global' => '10000','description' => NULL,'status' => '1','created_at' => '2021-09-14 19:46:26','updated_at' => '2021-09-15 14:33:34','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`product_type_check_points` */
+/* `nexus_qc`.`product_type_check_points` */
 $product_type_check_points = array(
 );
 
-/* `solusier_emba_qc`.`product_type_defects` */
+/* `nexus_qc`.`product_type_defects` */
 $product_type_defects = array(
 );
 
-/* `solusier_emba_qc`.`provinces` */
+/* `nexus_qc`.`provinces` */
 $provinces = array(
   array('id' => '11','country_id' => '103','name' => 'Aceh','latitude' => '4.695135','longitude' => '96.7493993','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
   array('id' => '12','country_id' => '103','name' => 'Sumatera Utara','latitude' => '2.1153547','longitude' => '99.5450974','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
@@ -966,41 +919,35 @@ $provinces = array(
   array('id' => '94','country_id' => '103','name' => 'Papua','latitude' => '-4.269928','longitude' => '138.0803529','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`sizes` */
+/* `nexus_qc`.`purchasings` */
+$purchasings = array(
+);
+
+/* `nexus_qc`.`purchasing_details` */
+$purchasing_details = array(
+);
+
+/* `nexus_qc`.`sizes` */
 $sizes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Numeric','status' => '1','created_at' => '2021-09-14 16:44:00','updated_at' => '2021-09-23 14:29:13','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','group' => 'Alpha','status' => '1','created_at' => '2021-09-14 16:44:59','updated_at' => '2021-09-23 14:30:06','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`size_details` */
+/* `nexus_qc`.`size_details` */
 $size_details = array(
-  array('id' => '15','size_id' => '1','value' => '27','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '16','size_id' => '1','value' => '28','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '17','size_id' => '1','value' => '29','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '18','size_id' => '1','value' => '30','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '19','size_id' => '1','value' => '31','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '20','size_id' => '1','value' => '32','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '21','size_id' => '1','value' => '33','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '22','size_id' => '1','value' => '34','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '23','size_id' => '1','value' => '36','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '24','size_id' => '1','value' => '38','created_at' => '2021-09-23 14:29:13','updated_at' => '2021-09-23 14:29:13'),
-  array('id' => '25','size_id' => '2','value' => 'M','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
-  array('id' => '26','size_id' => '2','value' => 'L','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
-  array('id' => '27','size_id' => '2','value' => 'XL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06'),
-  array('id' => '28','size_id' => '2','value' => 'XXL','created_at' => '2021-09-23 14:30:06','updated_at' => '2021-09-23 14:30:06')
 );
 
-/* `solusier_emba_qc`.`users` */
+/* `nexus_qc`.`styles` */
+$styles = array(
+);
+
+/* `nexus_qc`.`users` */
 $users = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$4BG68beOemq79h3234d1iu6dpYUVrcqi.iGwZcZVQ/NLMClDPoP8i','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-08 08:52:51','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$IAcNK/wnnHvptFHs3VxQ5.1assd9YndBksK1EmlMw9xRcphYTGtQG','last_login' => '2021-11-17 10:52:55','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-17 10:52:55','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`working_hours_types` */
+/* `nexus_qc`.`working_hours_types` */
 $working_hours_types = array(
-  array('id' => '1','departement_id' => '1','created_by' => '1','updated_by' => '1','name' => 'testerTest','status' => '1','created_at' => '2021-10-03 15:25:31','updated_at' => '2021-10-03 15:31:08','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`working_hours_type_details` */
+/* `nexus_qc`.`working_hours_type_details` */
 $working_hours_type_details = array(
-  array('id' => '1','working_hours_type_id' => '1','start_time' => '08:00:00','end_time' => '12:00:00','shift' => '1','duration' => '240','order_sequence' => '1','total_minutes' => '240','created_at' => '2021-10-03 15:25:31','updated_at' => '2021-10-03 15:25:31')
 );

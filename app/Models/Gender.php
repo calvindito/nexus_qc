@@ -21,6 +21,11 @@ class Gender extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        return false;
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();

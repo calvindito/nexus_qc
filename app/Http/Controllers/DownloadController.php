@@ -7,6 +7,7 @@ use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Buyer;
 use App\Models\Color;
+use App\Models\Style;
 use App\Models\Fabric;
 use App\Models\Gender;
 use App\Models\JobDesc;
@@ -16,6 +17,7 @@ use App\Models\ProductType;
 use App\Exports\BrandExport;
 use App\Exports\BuyerExport;
 use App\Exports\ColorExport;
+use App\Exports\StyleExport;
 use App\Models\ProductClass;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
@@ -57,6 +59,12 @@ class DownloadController extends Controller {
                     'data'     => Gender::all(),
                     'filename' => 'Data Gender'
                 ];
+
+                activity('gender')
+                    ->performedOn(new Gender())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'class_product':
                 $response = [
@@ -65,6 +73,12 @@ class DownloadController extends Controller {
                     'data'     => ProductClass::all(),
                     'filename' => 'Data Class Product'
                 ];
+
+                activity('class product')
+                    ->performedOn(new ProductClass())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'group_size':
                 $response = [
@@ -73,6 +87,12 @@ class DownloadController extends Controller {
                     'data'     => Size::all(),
                     'filename' => 'Data Group Size'
                 ];
+
+                activity('group size')
+                    ->performedOn(new Size())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'type_product':
                 $response = [
@@ -81,6 +101,12 @@ class DownloadController extends Controller {
                     'data'     => ProductType::all(),
                     'filename' => 'Data Type Product'
                 ];
+
+                activity('type product')
+                    ->performedOn(new ProductType())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'brand':
                 $response = [
@@ -89,6 +115,12 @@ class DownloadController extends Controller {
                     'data'     => Brand::all(),
                     'filename' => 'Data Brand'
                 ];
+
+                activity('brand')
+                    ->performedOn(new Brand())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'fabric':
                 $response = [
@@ -97,6 +129,12 @@ class DownloadController extends Controller {
                     'data'     => Fabric::all(),
                     'filename' => 'Data Fabric'
                 ];
+
+                activity('fabric')
+                    ->performedOn(new Fabric())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'color':
                 $response = [
@@ -105,6 +143,12 @@ class DownloadController extends Controller {
                     'data'     => Color::all(),
                     'filename' => 'Data Color'
                 ];
+
+                activity('color')
+                    ->performedOn(new Color())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'group_defect':
                 $response = [
@@ -113,6 +157,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 1)->get(),
                     'filename' => 'Data Group Defect'
                 ];
+
+                activity('group defect')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'sub_group_defect':
                 $response = [
@@ -121,6 +171,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 2)->get(),
                     'filename' => 'Data Sub Group Defect'
                 ];
+
+                activity('sub group defect')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'defect_list':
                 $response = [
@@ -129,6 +185,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 3)->get(),
                     'filename' => 'Data Defect'
                 ];
+
+                activity('defect list')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'reject_list':
                 $response = [
@@ -137,6 +199,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 4)->get(),
                     'filename' => 'Data Reject'
                 ];
+
+                activity('reject list')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'major_issues':
                 $response = [
@@ -145,6 +213,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 5)->get(),
                     'filename' => 'Data Major Issues'
                 ];
+
+                activity('major issues')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'critical_issues':
                 $response = [
@@ -153,6 +227,12 @@ class DownloadController extends Controller {
                     'data'     => GroupDefect::where('type', 6)->get(),
                     'filename' => 'Data Critical Issues'
                 ];
+
+                activity('critical issues')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             case 'job_desc':
                 $response = [
@@ -161,6 +241,27 @@ class DownloadController extends Controller {
                     'data'     => JobDesc::all(),
                     'filename' => 'Data Job Desc'
                 ];
+
+                activity('job desc')
+                    ->performedOn(new JobDesc())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
+
+            case 'style':
+                $response = [
+                    'view'     => 'style',
+                    'title'    => 'Nexus - Data Style',
+                    'data'     => Style::all(),
+                    'filename' => 'Data Style'
+                ];
+
+                activity('style')
+                    ->performedOn(new Style())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
                 break;
             default:
                 $response = [];
@@ -178,49 +279,133 @@ class DownloadController extends Controller {
 
         switch($param) {
             case 'gender':
+                activity('gender')
+                    ->performedOn(new Gender())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GenderExport)->download('QC - Data Gender - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'class_product':
+                activity('class product')
+                    ->performedOn(new ProductClass())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new ProductClassExport)->download('QC - Data Class Product - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'group_size':
+                activity('group size')
+                    ->performedOn(new Size())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new SizeExport)->download('QC - Data Group Size - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'type_product':
+                activity('type product')
+                    ->performedOn(new ProductType())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new TypeProductExport)->download('QC - Data Type Product - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'buyer':
+                activity('buyer')
+                    ->performedOn(new Buyer())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new BuyerExport)->download('QC - Data Buyer - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'brand':
+                activity('brand')
+                    ->performedOn(new Brand())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new BrandExport)->download('QC - Data Brand - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'fabric':
+                activity('fabric')
+                    ->performedOn(new Fabric())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new FabricExport)->download('QC - Data Fabric - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'color':
+                activity('color')
+                    ->performedOn(new Color())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new ColorExport)->download('QC - Data Color - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'group_defect':
+                activity('group defect')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(1))->download('QC - Data Group Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'sub_group_defect':
+                activity('sub group defect')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(2))->download('QC - Data Sub Group Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'defect_list':
+                activity('defect list')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(3))->download('QC - Data Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'reject_list':
+                activity('reject list')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(4))->download('QC - Data Reject - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'major_issues':
+                activity('major issues')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(5))->download('QC - Data Major Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'critical_issues':
+                activity('critical issues')
+                    ->performedOn(new GroupDefect())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new GroupDefectExport(6))->download('QC - Data Critical Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'job_desc':
+                activity('job desc')
+                    ->performedOn(new JobDesc())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
                 return (new JobDescExport)->download('QC - Data Job Desc - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+
+            case 'style':
+                activity('style')
+                    ->performedOn(new Style())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new StyleExport)->download('QC - Data Style - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();
@@ -232,9 +417,19 @@ class DownloadController extends Controller {
     {
         switch($param) {
             case 'type_product':
+                activity('type product')
+                    ->performedOn(new ProductType())
+                    ->causedBy(session('id'))
+                    ->log('download template excel');
+
                 return response()->download(public_path('website/Template QC - Type Product.xlsx'));
                 break;
             case 'buyer':
+                activity('buyer')
+                    ->performedOn(new Buyer())
+                    ->causedBy(session('id'))
+                    ->log('download template excel');
+
                 return response()->download(public_path('website/Template QC - Buyer.xlsx'));
                 break;
             default:

@@ -21,6 +21,20 @@ class ProductClass extends Model {
         'status'
     ];
 
+    public function hasRelation()
+    {
+        if($this->productClass()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function productClass()
+    {
+        return $this->hasMany('App\Models\ProductClass');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id')->withTrashed();
@@ -46,11 +60,6 @@ class ProductClass extends Model {
         }
 
         return $status;
-    }
-
-    public function productClassDetail()
-    {
-        return $this->hasMany('App\Models\ProductClassDetail');
     }
 
 }
