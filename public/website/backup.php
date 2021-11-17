@@ -1,38 +1,67 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 5.1.1
+ * @version 4.9.7
  */
 
 /**
- * Database `nexus_qc`
+ * Database `solusier_emba_qc`
  */
 
-/* `nexus_qc`.`activity_logs` */
+/* `solusier_emba_qc`.`activity_logs` */
 $activity_logs = array(
+  array('id' => '1','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:14:54','updated_at' => '2021-11-17 15:14:54'),
+  array('id' => '2','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:15:04','updated_at' => '2021-11-17 15:15:04'),
+  array('id' => '3','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:15:11','updated_at' => '2021-11-17 15:15:11'),
+  array('id' => '4','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:17:38','updated_at' => '2021-11-17 15:17:38'),
+  array('id' => '5','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 20:57:45','updated_at' => '2021-11-17 20:57:45'),
+  array('id' => '6','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:30:57','updated_at' => '2021-11-17 21:30:57'),
+  array('id' => '7','log_name' => 'group size','description' => 'create data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:50:31','updated_at' => '2021-11-17 21:50:31'),
+  array('id' => '8','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:51:10','updated_at' => '2021-11-17 21:51:10'),
+  array('id' => '9','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:56:37','updated_at' => '2021-11-17 21:56:37'),
+  array('id' => '10','log_name' => 'group size','description' => 'create data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '11','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:57:57','updated_at' => '2021-11-17 21:57:57'),
+  array('id' => '12','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:12','updated_at' => '2021-11-17 21:58:12'),
+  array('id' => '13','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:23','updated_at' => '2021-11-17 21:58:23'),
+  array('id' => '14','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:51','updated_at' => '2021-11-17 21:58:51'),
+  array('id' => '15','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:59:08','updated_at' => '2021-11-17 21:59:08'),
+  array('id' => '16','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:59:46','updated_at' => '2021-11-17 21:59:46'),
+  array('id' => '17','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:00:04','updated_at' => '2021-11-17 22:00:04'),
+  array('id' => '18','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '19','log_name' => 'group size','description' => 'delete data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:04:42','updated_at' => '2021-11-17 22:04:42'),
+  array('id' => '20','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23'),
+  array('id' => '21','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13'),
+  array('id' => '22','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:57','updated_at' => '2021-11-17 22:07:57'),
+  array('id' => '23','log_name' => 'user','description' => 'logout','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:09:11','updated_at' => '2021-11-17 22:09:11')
 );
 
-/* `nexus_qc`.`allowance_smvs` */
+/* `solusier_emba_qc`.`allowance_smvs` */
 $allowance_smvs = array(
 );
 
-/* `nexus_qc`.`brands` */
+/* `solusier_emba_qc`.`brands` */
 $brands = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Emba Jeans','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:57:57','updated_at' => '2021-11-17 21:57:57','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Emba Casual','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:58:12','updated_at' => '2021-11-17 21:58:12','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Twist','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:58:23','updated_at' => '2021-11-17 21:58:23','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Morphidae','aql' => '4,0','status' => '1','created_at' => '2021-11-17 21:58:51','updated_at' => '2021-11-17 21:58:51','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','name' => 'Used','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:59:08','updated_at' => '2021-11-17 21:59:08','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','name' => 'Emba Ladies','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:59:46','updated_at' => '2021-11-17 21:59:46','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`buyers` */
+/* `solusier_emba_qc`.`buyers` */
 $buyers = array(
 );
 
-/* `nexus_qc`.`buyer_contacts` */
+/* `solusier_emba_qc`.`buyer_contacts` */
 $buyer_contacts = array(
 );
 
-/* `nexus_qc`.`check_points` */
+/* `solusier_emba_qc`.`check_points` */
 $check_points = array(
 );
 
-/* `nexus_qc`.`cities` */
+/* `solusier_emba_qc`.`cities` */
 $cities = array(
   array('id' => '1101','province_id' => '11','name' => 'Kabupaten Simeulue','latitude' => '2.583333','longitude' => '96.083333','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
   array('id' => '1102','province_id' => '11','name' => 'Kabupaten Aceh Singkil','latitude' => '2.3589459','longitude' => '97.87216','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
@@ -550,11 +579,11 @@ $cities = array(
   array('id' => '9471','province_id' => '94','name' => 'Kota Jayapura','latitude' => '-2.533','longitude' => '140.717','created_at' => '2021-03-10 16:18:08','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`colors` */
+/* `solusier_emba_qc`.`colors` */
 $colors = array(
 );
 
-/* `nexus_qc`.`countries` */
+/* `solusier_emba_qc`.`countries` */
 $countries = array(
   array('id' => '1','code' => 'AW','name' => 'Aruba','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-08-09 10:41:20','deleted_at' => '2021-08-09 10:41:20'),
   array('id' => '2','code' => 'AF','name' => 'Afghanistan','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL),
@@ -807,27 +836,23 @@ $countries = array(
   array('id' => '249','code' => 'ZW','name' => 'Zimbabwe','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`departements` */
-$departements = array(
-);
-
-/* `nexus_qc`.`fabrics` */
+/* `solusier_emba_qc`.`fabrics` */
 $fabrics = array(
 );
 
-/* `nexus_qc`.`genders` */
+/* `solusier_emba_qc`.`genders` */
 $genders = array(
 );
 
-/* `nexus_qc`.`group_defects` */
+/* `solusier_emba_qc`.`group_defects` */
 $group_defects = array(
 );
 
-/* `nexus_qc`.`job_descs` */
+/* `solusier_emba_qc`.`job_descs` */
 $job_descs = array(
 );
 
-/* `nexus_qc`.`migrations` */
+/* `solusier_emba_qc`.`migrations` */
 $migrations = array(
   array('id' => '1','migration' => '2019_12_14_000001_create_personal_access_tokens_table','batch' => '1'),
   array('id' => '2','migration' => '2021_08_31_131258_create_users_table','batch' => '1'),
@@ -841,47 +866,48 @@ $migrations = array(
   array('id' => '10','migration' => '2021_08_31_134756_create_brands_table','batch' => '1'),
   array('id' => '11','migration' => '2021_08_31_134817_create_fabrics_table','batch' => '1'),
   array('id' => '12','migration' => '2021_08_31_134829_create_colors_table','batch' => '1'),
-  array('id' => '13','migration' => '2021_09_01_235902_create_product_class_details_table','batch' => '1'),
-  array('id' => '14','migration' => '2021_09_02_001609_create_countries_table','batch' => '1'),
-  array('id' => '15','migration' => '2021_09_02_001616_create_provinces_table','batch' => '1'),
-  array('id' => '16','migration' => '2021_09_02_001624_create_cities_table','batch' => '1'),
-  array('id' => '17','migration' => '2021_09_02_001653_create_departements_table','batch' => '1'),
-  array('id' => '18','migration' => '2021_09_02_001915_create_buyer_contacts_table','batch' => '1'),
-  array('id' => '19','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1'),
-  array('id' => '20','migration' => '2021_10_02_230553_create_working_hours_types_table','batch' => '1'),
-  array('id' => '21','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1'),
-  array('id' => '22','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
-  array('id' => '23','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1'),
-  array('id' => '24','migration' => '2021_10_18_121549_create_product_type_defects_table','batch' => '1'),
-  array('id' => '25','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1'),
-  array('id' => '26','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '2'),
-  array('id' => '27','migration' => '2021_11_16_142753_create_styles_table','batch' => '3'),
-  array('id' => '28','migration' => '2021_11_16_195114_create_purchasings_table','batch' => '4'),
-  array('id' => '29','migration' => '2021_11_16_195153_create_purchasing_details_table','batch' => '4'),
-  array('id' => '30','migration' => '2021_11_17_130137_create_locks_table','batch' => '5')
+  array('id' => '13','migration' => '2021_09_02_001609_create_countries_table','batch' => '1'),
+  array('id' => '14','migration' => '2021_09_02_001616_create_provinces_table','batch' => '1'),
+  array('id' => '15','migration' => '2021_09_02_001624_create_cities_table','batch' => '1'),
+  array('id' => '16','migration' => '2021_09_02_001915_create_buyer_contacts_table','batch' => '1'),
+  array('id' => '17','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1'),
+  array('id' => '18','migration' => '2021_10_02_230553_create_working_hours_types_table','batch' => '1'),
+  array('id' => '19','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1'),
+  array('id' => '20','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
+  array('id' => '21','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1'),
+  array('id' => '22','migration' => '2021_10_18_121549_create_product_type_defects_table','batch' => '1'),
+  array('id' => '23','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1'),
+  array('id' => '24','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '1'),
+  array('id' => '25','migration' => '2021_11_16_142753_create_styles_table','batch' => '1'),
+  array('id' => '26','migration' => '2021_11_16_195114_create_purchasings_table','batch' => '1'),
+  array('id' => '27','migration' => '2021_11_16_195153_create_purchasing_details_table','batch' => '1')
 );
 
-/* `nexus_qc`.`personal_access_tokens` */
+/* `solusier_emba_qc`.`personal_access_tokens` */
 $personal_access_tokens = array(
 );
 
-/* `nexus_qc`.`product_classes` */
+/* `solusier_emba_qc`.`product_classes` */
 $product_classes = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'MensWear','status' => '1','created_at' => '2021-11-17 22:00:04','updated_at' => '2021-11-17 22:00:04','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'LadiesWear','status' => '1','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'BoysWear','status' => '1','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`product_types` */
+/* `solusier_emba_qc`.`product_types` */
 $product_types = array(
+  array('id' => '1','product_class_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-17 22:07:56','updated_at' => '2021-11-17 22:07:56','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`product_type_check_points` */
+/* `solusier_emba_qc`.`product_type_check_points` */
 $product_type_check_points = array(
 );
 
-/* `nexus_qc`.`product_type_defects` */
+/* `solusier_emba_qc`.`product_type_defects` */
 $product_type_defects = array(
 );
 
-/* `nexus_qc`.`provinces` */
+/* `solusier_emba_qc`.`provinces` */
 $provinces = array(
   array('id' => '11','country_id' => '103','name' => 'Aceh','latitude' => '4.695135','longitude' => '96.7493993','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
   array('id' => '12','country_id' => '103','name' => 'Sumatera Utara','latitude' => '2.1153547','longitude' => '99.5450974','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
@@ -919,35 +945,54 @@ $provinces = array(
   array('id' => '94','country_id' => '103','name' => 'Papua','latitude' => '-4.269928','longitude' => '138.0803529','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`purchasings` */
+/* `solusier_emba_qc`.`purchasings` */
 $purchasings = array(
 );
 
-/* `nexus_qc`.`purchasing_details` */
+/* `solusier_emba_qc`.`purchasing_details` */
 $purchasing_details = array(
 );
 
-/* `nexus_qc`.`sizes` */
+/* `solusier_emba_qc`.`sizes` */
 $sizes = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Size Adult','status' => '1','created_at' => '2021-11-17 21:50:31','updated_at' => '2021-11-17 22:04:32','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','group' => 'Big Size','status' => '1','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 22:04:42','deleted_at' => '2021-11-17 22:04:42')
 );
 
-/* `nexus_qc`.`size_details` */
+/* `solusier_emba_qc`.`size_details` */
 $size_details = array(
+  array('id' => '24','size_id' => '1','value' => '27','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '23','size_id' => '1','value' => '28','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '22','size_id' => '1','value' => '29','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '21','size_id' => '1','value' => '30','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '20','size_id' => '1','value' => '31','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '19','size_id' => '1','value' => '32','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '14','size_id' => '2','value' => '33','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '15','size_id' => '2','value' => '34','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '16','size_id' => '2','value' => '35','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '17','size_id' => '2','value' => '36','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '18','size_id' => '2','value' => '38','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '25','size_id' => '1','value' => '33','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '26','size_id' => '1','value' => '34','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '27','size_id' => '1','value' => '35','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '28','size_id' => '1','value' => '36','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '29','size_id' => '1','value' => '38','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '30','size_id' => '1','value' => '40','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32')
 );
 
-/* `nexus_qc`.`styles` */
+/* `solusier_emba_qc`.`styles` */
 $styles = array(
 );
 
-/* `nexus_qc`.`users` */
+/* `solusier_emba_qc`.`users` */
 $users = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$IAcNK/wnnHvptFHs3VxQ5.1assd9YndBksK1EmlMw9xRcphYTGtQG','last_login' => '2021-11-17 10:52:55','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-17 10:52:55','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$IAcNK/wnnHvptFHs3VxQ5.1assd9YndBksK1EmlMw9xRcphYTGtQG','last_login' => '2021-11-17 21:30:56','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-17 21:30:56','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`working_hours_types` */
+/* `solusier_emba_qc`.`working_hours_types` */
 $working_hours_types = array(
 );
 
-/* `nexus_qc`.`working_hours_type_details` */
+/* `solusier_emba_qc`.`working_hours_type_details` */
 $working_hours_type_details = array(
 );
