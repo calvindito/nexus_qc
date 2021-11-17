@@ -19,7 +19,6 @@ class AuthLogin
     {
         $user_id = session('id');
         $user    = User::where('id', $user_id)
-            ->where('last_login', session('last_login'))
             ->where('status', 1)
             ->first();
 
