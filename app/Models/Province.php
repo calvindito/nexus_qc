@@ -23,7 +23,7 @@ class Province extends Model {
 
     public function hasRelation()
     {
-        if($this->province()->count() > 0 || $this->city()->count() > 0) {
+        if($this->buyer()->count() > 0 || $this->city()->count() > 0) {
             return true;
         } else {
             return false;
