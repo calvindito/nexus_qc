@@ -24,6 +24,9 @@
 							<h1 class="display-3 font-weight-semibold line-height-1 mb-2">408</h1>
 							<h5>You have tried to login 3 times. <br> Please try again in 1 hour.</h5>
 						</div>
+                        <div class="text-center">
+							<a href="{{ url('/') }}" class="btn btn-primary"><i class="icon-arrow-left7 mr-2"></i> Back</a>
+						</div>
 					</div>
 				</div>
 			</div>

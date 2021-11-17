@@ -18,7 +18,7 @@
 		<div class="content-wrapper">
 			<div class="content-inner">
 				<div class="content d-flex justify-content-center align-items-center">
-					<form class="login-form" action="" method="POST">
+					<form class="login-form" action="{{ url('login') }}" method="POST">
                         @csrf
 						<div class="card mb-0">
 							<div class="card-body">

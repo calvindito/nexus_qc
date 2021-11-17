@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::match(['get', 'post'], '/', 'AuthController@login')->middleware('throttle:login');
+Route::get('/', 'AuthController@index');
+Route::post('login', 'AuthController@login')->middleware('throttle:login');
 
 Route::middleware('auth.login')->group(function() {
     Route::get('dashboard', 'DashboardController@index');
