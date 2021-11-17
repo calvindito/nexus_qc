@@ -132,6 +132,11 @@
                             <h6 class="card-title">List My Activity</h6>
                         </div>
                         <div class="card-body">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                                    <b><i class="icon-sync"></i></b> Refresh
+                                </button>
+                            </div>
                             <table class="table table-striped display w-100" id="datatable_activity">
                                 <thead class="bg-light">
                                     <tr class="text-center">
