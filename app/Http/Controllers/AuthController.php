@@ -13,7 +13,7 @@ class AuthController extends Controller {
     public function index()
     {
         if(session('id')) {
-            return redirect()->back();
+            return redirect('dashboard');
         }
 
         return view('login');
@@ -22,7 +22,7 @@ class AuthController extends Controller {
     public function login(Request $request)
     {
         if(session('id')) {
-            return redirect()->back();
+            return redirect('dashboard');
         }
 
         $user = User::where([
