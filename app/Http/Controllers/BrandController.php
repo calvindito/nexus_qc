@@ -150,7 +150,7 @@ class BrandController extends Controller {
                 activity('brand')
                     ->performedOn(new Brand())
                     ->causedBy(session('id'))
-                    ->log('create status');
+                    ->log('create data');
 
                 $response = [
                     'status'  => 200,
