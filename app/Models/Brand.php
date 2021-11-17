@@ -18,7 +18,7 @@ class Brand extends Model {
         'created_by',
         'updated_by',
         'name',
-        'description',
+        'aql',
         'status'
     ];
 
