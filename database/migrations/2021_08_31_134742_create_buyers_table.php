@@ -20,6 +20,7 @@ class CreateBuyersTable extends Migration
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
+            $table->string('excelable')->nullable();
             $table->string('company');
             $table->text('description')->nullable();
             $table->string('remark');

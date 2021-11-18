@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductTypeCheckPointsTable extends Migration
+class CreateSalesOrderDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateProductTypeCheckPointsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('product_type_check_points', function (Blueprint $table) {
+        Schema::connection('mysql')->create('sales_order_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_type_id');
-            $table->unsignedBigInteger('check_point_id');
+            $table->unsignedBigInteger('sales_order_id');
+            $table->unsignedBigInteger('color_id');
+            $table->unsignedBigInteger('size_detail_id');
+            $table->integer('qty');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateProductTypeCheckPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_type_check_points');
+        Schema::dropIfExists('sales_order_details');
     }
 }

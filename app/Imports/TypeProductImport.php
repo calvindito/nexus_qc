@@ -23,14 +23,11 @@ class TypeProductImport implements ToCollection, WithHeadingRow, WithBatchInsert
     {
         Validator::make($rows->toArray(), [
             'class_product_id.*' => 'required|integer',
-            'group_size_id.*'    => 'required|integer',
             'type_product.*'     => 'required|string',
             'smv_global.*'       => 'required|string'
         ], [
             'class_product_id.*.required' => 'Class product ID cannot be empty',
             'class_product_id.*.integer'  => 'Class product ID must be number',
-            'group_size_id.*.required'    => 'Group size ID cannot be empty',
-            'group_size_id.*.integer'     => 'Group size ID must be number',
             'type_product.*.required'     => 'Type product cannot be empty',
             'smv_global.*.required'       => 'Smv global cannot be empty'
         ])->validate();
@@ -38,7 +35,6 @@ class TypeProductImport implements ToCollection, WithHeadingRow, WithBatchInsert
         foreach($rows as $r) {
             ProductType::create([
                 'product_class_id' => $r['class_product_id'],
-                'size_id'          => $r['group_size_id'],
                 'created_by'       => session('id'),
                 'updated_by'       => session('id'),
                 'name'             => $r['type_product'],

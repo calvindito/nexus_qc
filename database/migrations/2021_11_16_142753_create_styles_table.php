@@ -17,6 +17,7 @@ class CreateStylesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_type_id');
             $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('size_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('code')->unique();

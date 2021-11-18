@@ -17,6 +17,7 @@ class Style extends Model {
     protected $fillable   = [
         'product_type_id',
         'brand_id',
+        'size_id',
         'created_by',
         'updated_by',
         'code',
@@ -26,16 +27,16 @@ class Style extends Model {
 
     public function hasRelation()
     {
-        if($this->purchasing()->count() > 0) {
+        if($this->salesOrder()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function purchasing()
+    public function salesOrder()
     {
-        return $this->hasMany('App\Models\Style');
+        return $this->hasMany('App\Models\SalesOrder');
     }
 
     public function productType()
@@ -46,6 +47,11 @@ class Style extends Model {
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand')->withTrashed();
+    }
+
+    public function size()
+    {
+        return $this->belongsTo('App\Models\Size')->withTrashed();
     }
 
     public function createdBy()

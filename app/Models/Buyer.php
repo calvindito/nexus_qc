@@ -20,6 +20,7 @@ class Buyer extends Model {
         'city_id',
         'created_by',
         'updated_by',
+        'excelable',
         'company',
         'description',
         'remark',
@@ -29,16 +30,16 @@ class Buyer extends Model {
 
     public function hasRelation()
     {
-        if($this->purchasing()->count() > 0) {
+        if($this->salesOrder()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function purchasing()
+    public function salesOrder()
     {
-        return $this->hasMany('App\Models\Purchasing');
+        return $this->hasMany('App\Models\SalesOrder');
     }
 
     public function country()

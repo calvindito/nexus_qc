@@ -15,7 +15,7 @@ class ProductTypeDefect extends Model {
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
         'product_type_id',
-        'product_type_check_point_id',
+        'product_type_position_id',
         'group_defect_id'
     ];
 
@@ -24,9 +24,9 @@ class ProductTypeDefect extends Model {
         return $this->belongsTo('App\Models\ProductType')->withTrashed();
     }
 
-    public function typeProductCheckPoint()
+    public function productTypePosition()
     {
-        return $this->belongsTo('App\Models\ProductTypeCheckPoint');
+        return $this->belongsTo('App\Models\ProductTypePosition');
     }
 
     public function groupDefect()

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Excel;
-use App\Models\Size;
 use App\Models\ProductType;
 use App\Models\ProductClass;
 use Illuminate\Http\Request;
@@ -18,7 +17,6 @@ class TypeProductController extends Controller {
         $data = [
             'title'         => 'Product - Type',
             'class_product' => ProductClass::where('status', 1)->get(),
-            'size'          => Size::where('status', 1)->get(),
             'content'       => 'product.type'
         ];
 
@@ -32,7 +30,6 @@ class TypeProductController extends Controller {
             'product_class_id',
             'name',
             'description',
-            'size_id',
             'smv_global',
             'status',
             'updated_by',
@@ -56,11 +53,6 @@ class TypeProductController extends Controller {
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
-                            ->orWhereHas('size', function($query) use ($search) {
-                                $query->whereHas('sizeDetail', function($query) use ($search) {
-                                        $query->where('value', 'like', "%$search%");
-                                    });
-                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -81,11 +73,6 @@ class TypeProductController extends Controller {
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
-                            ->orWhereHas('size', function($query) use ($search) {
-                                $query->whereHas('sizeDetail', function($query) use ($search) {
-                                        $query->where('value', 'like', "%$search%");
-                                    });
-                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -97,15 +84,6 @@ class TypeProductController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
-                $value = '';
-                if($val->size->sizeDetail) {
-                    foreach($val->size->sizeDetail as $sd) {
-                        $value .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $sd->value . '</span>';
-                    }
-                } else {
-                    $value .= 'Value not selected';
-                }
-
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
                 } else {
@@ -123,7 +101,6 @@ class TypeProductController extends Controller {
                     $val->productClass->name,
                     $val->name,
                     $val->description,
-                    $value,
                     $val->smv_global,
                     $val->status(),
                     $val->updatedBy->name,
@@ -199,13 +176,11 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
-            'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
-            'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
             'status.required'           => 'Please select a status.'
@@ -219,7 +194,6 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::create([
                 'product_class_id' => $request->product_class_id,
-                'size_id'          => $request->size_id,
                 'created_by'       => session('id'),
                 'updated_by'       => session('id'),
                 'name'             => $request->name,
@@ -259,13 +233,11 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
-            'size_id'          => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
-            'size_id.required'          => 'Please select a group size.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
             'status.required'           => 'Please select a status.'
@@ -279,7 +251,6 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::find($id)->update([
                 'product_class_id' => $request->product_class_id,
-                'size_id'          => $request->size_id,
                 'updated_by'       => session('id'),
                 'name'             => $request->name,
                 'smv_global'       => $request->smv_global,

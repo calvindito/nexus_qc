@@ -1,14 +1,14 @@
 <?php
 /**
  * Export to PHP Array plugin for PHPMyAdmin
- * @version 4.9.7
+ * @version 5.1.1
  */
 
 /**
- * Database `solusier_emba_qc`
+ * Database `nexus_qc`
  */
 
-/* `solusier_emba_qc`.`activity_logs` */
+/* `nexus_qc`.`activity_logs` */
 $activity_logs = array(
   array('id' => '1','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:14:54','updated_at' => '2021-11-17 15:14:54'),
   array('id' => '2','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:15:04','updated_at' => '2021-11-17 15:15:04'),
@@ -32,14 +32,36 @@ $activity_logs = array(
   array('id' => '20','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23'),
   array('id' => '21','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13'),
   array('id' => '22','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:57','updated_at' => '2021-11-17 22:07:57'),
-  array('id' => '23','log_name' => 'user','description' => 'logout','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:09:11','updated_at' => '2021-11-17 22:09:11')
+  array('id' => '23','log_name' => 'user','description' => 'logout','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:09:11','updated_at' => '2021-11-17 22:09:11'),
+  array('id' => '24','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:05:19','updated_at' => '2021-11-18 06:05:19'),
+  array('id' => '25','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:07:24','updated_at' => '2021-11-18 06:07:24'),
+  array('id' => '26','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:07:55','updated_at' => '2021-11-18 06:07:55'),
+  array('id' => '27','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:08:59','updated_at' => '2021-11-18 06:08:59'),
+  array('id' => '28','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:14:30','updated_at' => '2021-11-18 06:14:30'),
+  array('id' => '29','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:14:47','updated_at' => '2021-11-18 06:14:47'),
+  array('id' => '30','log_name' => 'group defect','description' => 'edit data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:15:54','updated_at' => '2021-11-18 06:15:54'),
+  array('id' => '31','log_name' => 'group defect','description' => 'edit data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:16:09','updated_at' => '2021-11-18 06:16:09'),
+  array('id' => '32','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:16:37','updated_at' => '2021-11-18 06:16:37'),
+  array('id' => '33','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:17:20','updated_at' => '2021-11-18 06:17:20'),
+  array('id' => '34','log_name' => 'sub group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:23:56','updated_at' => '2021-11-18 06:23:56'),
+  array('id' => '35','log_name' => 'sub group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:25:34','updated_at' => '2021-11-18 06:25:34'),
+  array('id' => '36','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 11:35:14','updated_at' => '2021-11-18 11:35:14'),
+  array('id' => '37','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 18:04:29','updated_at' => '2021-11-18 18:04:29'),
+  array('id' => '38','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 18:08:21','updated_at' => '2021-11-18 18:08:21'),
+  array('id' => '39','log_name' => 'position','description' => 'download template excel','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:33:07','updated_at' => '2021-11-18 19:33:07'),
+  array('id' => '40','log_name' => 'position','description' => 'view print','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:35:03','updated_at' => '2021-11-18 19:35:03'),
+  array('id' => '41','log_name' => 'position','description' => 'view print','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:36:07','updated_at' => '2021-11-18 19:36:07'),
+  array('id' => '42','log_name' => 'position','description' => 'download excel','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:36:36','updated_at' => '2021-11-18 19:36:36'),
+  array('id' => '43','log_name' => 'position','description' => 'create data','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:37:05','updated_at' => '2021-11-18 19:37:05'),
+  array('id' => '44','log_name' => 'style','description' => 'view print','subject_type' => 'App\\Models\\Style','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 21:45:22','updated_at' => '2021-11-18 21:45:22'),
+  array('id' => '45','log_name' => 'style','description' => 'create data','subject_type' => 'App\\Models\\Style','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 21:45:42','updated_at' => '2021-11-18 21:45:42')
 );
 
-/* `solusier_emba_qc`.`allowance_smvs` */
+/* `nexus_qc`.`allowance_smvs` */
 $allowance_smvs = array(
 );
 
-/* `solusier_emba_qc`.`brands` */
+/* `nexus_qc`.`brands` */
 $brands = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Emba Jeans','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:57:57','updated_at' => '2021-11-17 21:57:57','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Emba Casual','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:58:12','updated_at' => '2021-11-17 21:58:12','deleted_at' => NULL),
@@ -49,19 +71,15 @@ $brands = array(
   array('id' => '6','created_by' => '1','updated_by' => '1','name' => 'Emba Ladies','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:59:46','updated_at' => '2021-11-17 21:59:46','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`buyers` */
+/* `nexus_qc`.`buyers` */
 $buyers = array(
 );
 
-/* `solusier_emba_qc`.`buyer_contacts` */
+/* `nexus_qc`.`buyer_contacts` */
 $buyer_contacts = array(
 );
 
-/* `solusier_emba_qc`.`check_points` */
-$check_points = array(
-);
-
-/* `solusier_emba_qc`.`cities` */
+/* `nexus_qc`.`cities` */
 $cities = array(
   array('id' => '1101','province_id' => '11','name' => 'Kabupaten Simeulue','latitude' => '2.583333','longitude' => '96.083333','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
   array('id' => '1102','province_id' => '11','name' => 'Kabupaten Aceh Singkil','latitude' => '2.3589459','longitude' => '97.87216','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL),
@@ -579,11 +597,11 @@ $cities = array(
   array('id' => '9471','province_id' => '94','name' => 'Kota Jayapura','latitude' => '-2.533','longitude' => '140.717','created_at' => '2021-03-10 16:18:08','updated_at' => '2021-09-14 21:16:29','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`colors` */
+/* `nexus_qc`.`colors` */
 $colors = array(
 );
 
-/* `solusier_emba_qc`.`countries` */
+/* `nexus_qc`.`countries` */
 $countries = array(
   array('id' => '1','code' => 'AW','name' => 'Aruba','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-08-09 10:41:20','deleted_at' => '2021-08-09 10:41:20'),
   array('id' => '2','code' => 'AF','name' => 'Afghanistan','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL),
@@ -836,23 +854,33 @@ $countries = array(
   array('id' => '249','code' => 'ZW','name' => 'Zimbabwe','created_at' => '2021-05-10 09:38:10','updated_at' => '2021-05-10 09:38:10','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`fabrics` */
+/* `nexus_qc`.`fabrics` */
 $fabrics = array(
 );
 
-/* `solusier_emba_qc`.`genders` */
+/* `nexus_qc`.`genders` */
 $genders = array(
 );
 
-/* `solusier_emba_qc`.`group_defects` */
+/* `nexus_qc`.`group_defects` */
 $group_defects = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Workmanship','type' => '1','status' => '1','created_at' => '2021-11-18 06:07:24','updated_at' => '2021-11-18 06:07:24','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Fabric','type' => '1','status' => '1','created_at' => '2021-11-18 06:07:55','updated_at' => '2021-11-18 06:07:55','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '003','name' => 'Accessories','type' => '1','status' => '1','created_at' => '2021-11-18 06:08:59','updated_at' => '2021-11-18 06:08:59','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '004','name' => 'Printing & Embroidery','type' => '1','status' => '1','created_at' => '2021-11-18 06:14:30','updated_at' => '2021-11-18 06:15:54','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '005','name' => 'Measurement','type' => '1','status' => '1','created_at' => '2021-11-18 06:14:47','updated_at' => '2021-11-18 06:16:09','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '006','name' => 'Cleanliness','type' => '1','status' => '1','created_at' => '2021-11-18 06:16:37','updated_at' => '2021-11-18 06:16:37','deleted_at' => NULL),
+  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '007','name' => 'Safety','type' => '1','status' => '1','created_at' => '2021-11-18 06:17:20','updated_at' => '2021-11-18 06:17:20','deleted_at' => NULL),
+  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Kain Cacat,Garis/Slub,Benang Putus','type' => '2','status' => '1','created_at' => '2021-11-18 06:23:56','updated_at' => '2021-11-18 06:23:56','deleted_at' => NULL),
+  array('id' => '9','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Kain Belang/Shading','type' => '2','status' => '1','created_at' => '2021-11-18 06:25:34','updated_at' => '2021-11-18 06:25:34','deleted_at' => NULL),
+  array('id' => '10','created_by' => '1','updated_by' => '1','code' => '008','name' => 'Safe Guard','type' => '1','status' => '1','created_at' => '2021-11-18 18:08:21','updated_at' => '2021-11-18 18:08:21','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`job_descs` */
+/* `nexus_qc`.`job_descs` */
 $job_descs = array(
 );
 
-/* `solusier_emba_qc`.`migrations` */
+/* `nexus_qc`.`migrations` */
 $migrations = array(
   array('id' => '1','migration' => '2019_12_14_000001_create_personal_access_tokens_table','batch' => '1'),
   array('id' => '2','migration' => '2021_08_31_131258_create_users_table','batch' => '1'),
@@ -873,41 +901,45 @@ $migrations = array(
   array('id' => '17','migration' => '2021_09_14_162011_create_size_details_table','batch' => '1'),
   array('id' => '18','migration' => '2021_10_02_230553_create_working_hours_types_table','batch' => '1'),
   array('id' => '19','migration' => '2021_10_02_231017_create_working_hours_type_details_table','batch' => '1'),
-  array('id' => '20','migration' => '2021_10_08_094824_create_check_points_table','batch' => '1'),
-  array('id' => '21','migration' => '2021_10_15_131558_create_product_type_check_points_table','batch' => '1'),
+  array('id' => '20','migration' => '2021_10_08_094824_create_positions_table','batch' => '1'),
+  array('id' => '21','migration' => '2021_10_15_131558_create_product_type_positions_table','batch' => '1'),
   array('id' => '22','migration' => '2021_10_18_121549_create_product_type_defects_table','batch' => '1'),
   array('id' => '23','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1'),
   array('id' => '24','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '1'),
   array('id' => '25','migration' => '2021_11_16_142753_create_styles_table','batch' => '1'),
-  array('id' => '26','migration' => '2021_11_16_195114_create_purchasings_table','batch' => '1'),
-  array('id' => '27','migration' => '2021_11_16_195153_create_purchasing_details_table','batch' => '1')
+  array('id' => '26','migration' => '2021_11_16_195114_create_sales_orders_table','batch' => '1'),
+  array('id' => '27','migration' => '2021_11_16_195153_create_sales_order_details_table','batch' => '1')
 );
 
-/* `solusier_emba_qc`.`personal_access_tokens` */
+/* `nexus_qc`.`personal_access_tokens` */
 $personal_access_tokens = array(
 );
 
-/* `solusier_emba_qc`.`product_classes` */
+/* `nexus_qc`.`positions` */
+$positions = array(
+);
+
+/* `nexus_qc`.`product_classes` */
 $product_classes = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'MensWear','status' => '1','created_at' => '2021-11-17 22:00:04','updated_at' => '2021-11-17 22:00:04','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'LadiesWear','status' => '1','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23','deleted_at' => NULL),
   array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'BoysWear','status' => '1','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`product_types` */
+/* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','size_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-17 22:07:56','updated_at' => '2021-11-17 22:07:56','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-17 22:07:56','updated_at' => '2021-11-17 22:07:56','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`product_type_check_points` */
-$product_type_check_points = array(
-);
-
-/* `solusier_emba_qc`.`product_type_defects` */
+/* `nexus_qc`.`product_type_defects` */
 $product_type_defects = array(
 );
 
-/* `solusier_emba_qc`.`provinces` */
+/* `nexus_qc`.`product_type_positions` */
+$product_type_positions = array(
+);
+
+/* `nexus_qc`.`provinces` */
 $provinces = array(
   array('id' => '11','country_id' => '103','name' => 'Aceh','latitude' => '4.695135','longitude' => '96.7493993','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
   array('id' => '12','country_id' => '103','name' => 'Sumatera Utara','latitude' => '2.1153547','longitude' => '99.5450974','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL),
@@ -945,33 +977,33 @@ $provinces = array(
   array('id' => '94','country_id' => '103','name' => 'Papua','latitude' => '-4.269928','longitude' => '138.0803529','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`purchasings` */
-$purchasings = array(
+/* `nexus_qc`.`sales_orders` */
+$sales_orders = array(
 );
 
-/* `solusier_emba_qc`.`purchasing_details` */
-$purchasing_details = array(
+/* `nexus_qc`.`sales_order_details` */
+$sales_order_details = array(
 );
 
-/* `solusier_emba_qc`.`sizes` */
+/* `nexus_qc`.`sizes` */
 $sizes = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Size Adult','status' => '1','created_at' => '2021-11-17 21:50:31','updated_at' => '2021-11-17 22:04:32','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','group' => 'Big Size','status' => '1','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 22:04:42','deleted_at' => '2021-11-17 22:04:42')
 );
 
-/* `solusier_emba_qc`.`size_details` */
+/* `nexus_qc`.`size_details` */
 $size_details = array(
-  array('id' => '24','size_id' => '1','value' => '27','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '23','size_id' => '1','value' => '28','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '22','size_id' => '1','value' => '29','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '21','size_id' => '1','value' => '30','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '20','size_id' => '1','value' => '31','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '19','size_id' => '1','value' => '32','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
   array('id' => '14','size_id' => '2','value' => '33','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
   array('id' => '15','size_id' => '2','value' => '34','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
   array('id' => '16','size_id' => '2','value' => '35','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
   array('id' => '17','size_id' => '2','value' => '36','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
   array('id' => '18','size_id' => '2','value' => '38','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
+  array('id' => '19','size_id' => '1','value' => '32','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '20','size_id' => '1','value' => '31','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '21','size_id' => '1','value' => '30','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '22','size_id' => '1','value' => '29','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '23','size_id' => '1','value' => '28','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
+  array('id' => '24','size_id' => '1','value' => '27','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
   array('id' => '25','size_id' => '1','value' => '33','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
   array('id' => '26','size_id' => '1','value' => '34','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
   array('id' => '27','size_id' => '1','value' => '35','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
@@ -980,19 +1012,18 @@ $size_details = array(
   array('id' => '30','size_id' => '1','value' => '40','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32')
 );
 
-/* `solusier_emba_qc`.`styles` */
+/* `nexus_qc`.`styles` */
 $styles = array(
 );
 
-/* `solusier_emba_qc`.`users` */
+/* `nexus_qc`.`users` */
 $users = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','image' => 'public/user/vlRI5FvH9vSksOaW9wamqNopeJVqqEXd1rTlN0aR.jpg','username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2a$12$IAcNK/wnnHvptFHs3VxQ5.1assd9YndBksK1EmlMw9xRcphYTGtQG','last_login' => '2021-11-17 21:30:56','status' => '1','created_at' => '2021-09-13 14:09:27','updated_at' => '2021-11-17 21:30:56','deleted_at' => NULL)
 );
 
-/* `solusier_emba_qc`.`working_hours_types` */
+/* `nexus_qc`.`working_hours_types` */
 $working_hours_types = array(
 );
 
-/* `solusier_emba_qc`.`working_hours_type_details` */
+/* `nexus_qc`.`working_hours_type_details` */
 $working_hours_type_details = array(
 );

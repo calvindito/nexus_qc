@@ -16,7 +16,7 @@ class CreateProductTypeDefectsTable extends Migration
         Schema::connection('mysql')->create('product_type_defects', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_type_id');
-            $table->unsignedBigInteger('product_type_check_point_id');
+            $table->unsignedBigInteger('product_type_position_id');
             $table->unsignedBigInteger('group_defect_id');
             $table->timestamps();
         });

@@ -56,17 +56,6 @@
                                 </li>
 							</ul>
 						</li>
-                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'general' ? 'nav-item-expanded nav-item-open' : '' }}">
-							<a href="#" class="nav-link">
-                                <i class="icon-grid6"></i>
-                                <span>General</span>
-                            </a>
-							<ul class="nav nav-group-sub" data-submenu-title="General">
-                                <li class="nav-item">
-                                    <a href="{{ url('general/check_point') }}" class="nav-link {{ Request::segment(1) == 'general' && Request::segment(2) == 'check_point' ? 'active' : '' }}">Check Point</a>
-                                </li>
-							</ul>
-						</li>
                         <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'material' ? 'nav-item-expanded nav-item-open' : '' }}">
 							<a href="#" class="nav-link">
                                 <i class="icon-hammer"></i>
@@ -136,9 +125,6 @@
                                     <a href="{{ url('group_defect/group') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'group' ? 'active' : '' }}">Group</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('group_defect/sub_group') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'sub_group' ? 'active' : '' }}">Sub Group</a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('group_defect/defect_list') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'defect_list' ? 'active' : '' }}">Defect List</a>
                                 </li>
                                 <li class="nav-item">
@@ -149,6 +135,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('group_defect/critical_issues') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'critical_issues' ? 'active' : '' }}">Critical Issues</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('group_defect/position') }}" class="nav-link {{ Request::segment(1) == 'group_defect' && Request::segment(2) == 'position' ? 'active' : '' }}">Position</a>
                                 </li>
 							</ul>
 						</li>
@@ -181,14 +170,14 @@
                                 </li>
 							</ul>
 						</li>
-                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'order' ? 'nav-item-expanded nav-item-open' : '' }}">
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'production_order' ? 'nav-item-expanded nav-item-open' : '' }}">
 							<a href="#" class="nav-link">
                                 <i class="icon-cart5"></i>
-                                <span>Order</span>
+                                <span>Production Order</span>
                             </a>
-							<ul class="nav nav-group-sub" data-submenu-title="Order">
+							<ul class="nav nav-group-sub" data-submenu-title="Production Order">
                                 <li class="nav-item">
-                                    <a href="{{ url('order/purchasing') }}" class="nav-link {{ Request::segment(1) == 'order' && Request::segment(2) == 'purchasing' ? 'active' : '' }}">Purchasing</a>
+                                    <a href="{{ url('production_order/so_production') }}" class="nav-link {{ Request::segment(1) == 'production_order' && Request::segment(2) == 'so_production' ? 'active' : '' }}">SO Production</a>
                                 </li>
 							</ul>
 						</li>

@@ -45,8 +45,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#justified-left-check-point" class="nav-link" data-toggle="tab">
-                                <i class="icon-stack-check mr-2"></i> Check Point
+                            <a href="#justified-left-position" class="nav-link" data-toggle="tab">
+                                <i class="icon-stack-check mr-2"></i> Position
                             </a>
                         </li>
                         <li class="nav-item">
@@ -68,16 +68,12 @@
                                         <div class="form-control-plaintext" id="class_product"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-semibold">Group Size :</label>
-                                        <div class="form-control-plaintext" id="group_size"></div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="font-weight-semibold">Smv Global :</label>
                                         <div class="form-control-plaintext" id="smv_global"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-semibold">Description :</label>
-                                        <div class="form-control-plaintext" id="description"></div>
+                                        <label class="font-weight-semibold">Status :</label>
+                                        <div class="form-control-plaintext" id="status"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -97,22 +93,18 @@
                                         <label class="font-weight-semibold">Last Modified Date :</label>
                                         <div class="form-control-plaintext" id="last_modified_date"></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-semibold">Status :</label>
-                                        <div class="form-control-plaintext" id="status"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="justified-left-check-point">
-                            <form id="form_check_point">
+                        <div class="tab-pane fade" id="justified-left-position">
+                            <form id="form_position">
                                 <div class="form-group">
-                                    <select name="check_point_id[]" id="check_point_id" multiple="multiple" class="form-control listbox" data-fouc></select>
+                                    <select name="position_id[]" id="position_id" multiple="multiple" class="form-control listbox" data-fouc></select>
                                 </div>
                                 <div class="form-group"><hr></div>
                                 <div class="form-group">
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-success" onclick="submitable('check_point')"><i class="icon-floppy-disk"></i> Save</button>
+                                        <button type="button" class="btn btn-success" onclick="submitable('position')"><i class="icon-floppy-disk"></i> Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -124,7 +116,7 @@
                                         <tr class="text-center">
                                             <th>No</th>
                                             <th>Code</th>
-                                            <th>Check Point</th>
+                                            <th>Position</th>
                                             <th>Defect</th>
                                         </tr>
                                     </thead>
@@ -243,7 +235,7 @@
             },
             beforeSend: function() {
                 loadingOpen('.content');
-                $('#check_point_id').html('');
+                $('#position_id').html('');
                 $('#datatable_defect').DataTable().clear().draw();
             },
             success: function(response) {
@@ -251,7 +243,6 @@
                 $('#type_product').html(response.type_product);
                 $('#class_product').html(response.class_product);
                 $('#description').html(response.description);
-                $('#group_size').html(response.group_size);
                 $('#smv_global').html(response.smv_global);
                 $('#created_by').html(response.created_by);
                 $('#modified_by').html(response.modified_by);
@@ -259,11 +250,11 @@
                 $('#last_modified_date').html(response.last_modified_date);
                 $('#status').html(response.status);
 
-                $.each(response.check_point, function(i, val) {
-                    $('#check_point_id').append(val);
+                $.each(response.position, function(i, val) {
+                    $('#position_id').append(val);
                 });
 
-                refreshListBox('#check_point_id');
+                refreshListBox('#position_id');
 
                 $.each(response.defect, function(i, val) {
                     $('#datatable_defect').DataTable().row.add([
@@ -288,8 +279,8 @@
     function submitable(param) {
         var product_type_id = $('#product_type_id').val();
 
-        if(param == 'check_point') {
-            var form_data = $('#form_check_point').serialize();
+        if(param == 'position') {
+            var form_data = $('#form_position').serialize();
         } else {
             var form_data = $('#form_defect').serialize();
         }

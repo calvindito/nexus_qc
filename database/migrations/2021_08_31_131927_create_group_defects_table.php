@@ -17,9 +17,8 @@ class CreateGroupDefectsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
-            $table->string('code')->unique();
+            $table->string('code');
             $table->string('name');
-            $table->unsignedBigInteger('parent_id')->nullable();
             $table->char('type', 1);
             $table->char('status', 1);
             $table->timestamps();

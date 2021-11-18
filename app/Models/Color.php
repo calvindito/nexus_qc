@@ -26,16 +26,16 @@ class Color extends Model {
 
     public function hasRelation()
     {
-        if($this->purchasingDetail()->count() > 0) {
+        if($this->salesOrderDetail()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function purchasingDetail()
+    public function salesOrderDetail()
     {
-        return $this->hasMany('App\Models\PurchasingDetail');
+        return $this->hasMany('App\Models\SalesOrderDetail');
     }
 
     public function brand()

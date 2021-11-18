@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupDefect;
+use App\Models\Position;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
+use App\Imports\PositionImport;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class SubGroupController extends Controller {
+class PositionController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Group Defect - Sub Group',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 1)->get(),
-            'content' => 'group_defect.sub_group'
+            'title'   => 'Group Defect - Position',
+            'content' => 'group_defect.position'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -25,7 +26,6 @@ class SubGroupController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
             'name',
             'status',
@@ -39,18 +39,13 @@ class SubGroupController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 2)
-            ->count();
+        $total_data = Position::count();
 
-        $query_data = GroupDefect::where('type', 2)
-            ->where(function($query) use ($search, $request) {
+        $query_data = Position::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                            ->orWhere('name', 'like', "%$search%");
                     });
                 }
             })
@@ -59,15 +54,11 @@ class SubGroupController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 2)
-            ->where(function($query) use ($search, $request) {
+        $total_filtered = Position::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
-                            ->orWhereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                            ->orWhere('name', 'like', "%$search%");
                     });
                 }
             })
@@ -90,7 +81,6 @@ class SubGroupController extends Controller {
 
                 $response['data'][] = [
                     $val->id,
-                    $val->parent()->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -127,19 +117,48 @@ class SubGroupController extends Controller {
         return response()->json($response);
     }
 
+    public function bulk(Request $request)
+    {
+        if($request->has('_token') && $request->_token == csrf_token()) {
+            $validation = Validator::make($request->all(), [
+                'file_excel' => 'required|max:5120|mimes:xlsx'
+            ], [
+                'file_excel.required' => 'File excel cannot be empty.',
+                'file_excel.max'      => 'File excel max size 5MB.',
+                'file_excel.mimes'    => 'Only files with xlsx extension are allowed.'
+            ]);
+
+            if($validation->fails()) {
+                return redirect()->back()->withErrors($validation);
+            } else {
+                $import = Excel::import(new PositionImport, $request->file('file_excel'));
+                if($import) {
+                    activity('position')
+                        ->performedOn(new Position())
+                        ->causedBy(session('id'))
+                        ->log('do bulk upload');
+
+                    return redirect()->back()->with(['success' => true]);
+                } else {
+                    return redirect()->back()->with(['failed' => true]);
+                }
+            }
+        } else {
+            $data = [
+                'title'   => 'Group Defect - Position - Bulk Upload',
+                'content' => 'group_defect.position_bulk'
+            ];
+
+            return view('layouts.index', ['data' => $data]);
+        }
+    }
+
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:mysql.group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Sub group cannot be empty.',
-            'parent_id.required' => 'Please select a group.',
-            'status.required'    => 'Please select a status.'
+            'name.required' => 'Position cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -148,19 +167,17 @@ class SubGroupController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::create([
+            $query = Position::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
+                'code'       => Position::generateCode(),
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 2,
                 'status'     => $request->status
             ]);
 
             if($query) {
-                activity('sub group defect')
-                    ->performedOn(new GroupDefect())
+                activity('position')
+                    ->performedOn(new Position())
                     ->causedBy(session('id'))
                     ->log('create data');
 
@@ -181,23 +198,16 @@ class SubGroupController extends Controller {
 
     public function show(Request $request)
     {
-        $data = GroupDefect::find($request->id);
+        $data = Position::find($request->id);
         return response()->json($data);
     }
 
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Sub group cannot be empty.',
-            'parent_id.required' => 'Please select a group.',
-            'status.required'    => 'Please select a status.'
+            'name.required' => 'Position cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -206,17 +216,16 @@ class SubGroupController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = GroupDefect::find($id)->update([
+            $query = Position::find($id)->update([
                 'updated_by' => session('id'),
                 'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'status'     => $request->status
             ]);
 
             if($query) {
-                activity('sub group defect')
-                    ->performedOn(new GroupDefect())
+                activity('position')
+                    ->performedOn(new Position())
                     ->causedBy(session('id'))
                     ->log('edit data');
 
@@ -237,10 +246,10 @@ class SubGroupController extends Controller {
 
     public function changeStatus(Request $request)
     {
-        $query = GroupDefect::find($request->id)->update(['status' => $request->status]);
+        $query = Position::find($request->id)->update(['status' => $request->status]);
         if($query) {
-            activity('sub group defect')
-                ->performedOn(new GroupDefect())
+            activity('position')
+                ->performedOn(new Position())
                 ->causedBy(session('id'))
                 ->log('change status');
 
@@ -260,10 +269,10 @@ class SubGroupController extends Controller {
 
     public function destroy(Request $request)
     {
-        $query = GroupDefect::destroy($request->id);
+        $query = Position::destroy($request->id);
         if($query) {
-            activity('sub group defect')
-                ->performedOn(new GroupDefect())
+            activity('position')
+                ->performedOn(new Position())
                 ->causedBy(session('id'))
                 ->log('delete data');
 

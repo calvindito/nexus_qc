@@ -23,7 +23,6 @@ class GroupDefectSeeder extends Seeder
                 'updated_by' => $gd['updated_by'],
                 'code'       => $gd['code'],
                 'name'       => $gd['name'],
-                'parent_id'  => $gd['parent_id'],
                 'type'       => $gd['type'],
                 'status'     => $gd['status'],
                 'created_at' => $gd['created_at'],

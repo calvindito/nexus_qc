@@ -44,7 +44,6 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Sub Group</th>
                             <th>Code</th>
                             <th>Defect</th>
                             <th>Status</th>
@@ -73,21 +72,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Sub Group :<span class="text-danger">*</span></label>
-                        <select name="parent_id" id="parent_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($parent as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
+                        <label>Code :</label>
+                        <input type="text" id="code" class="form-control" placeholder="Auto Generate" readonly>
                     </div>
                     <div class="form-group">
                         <label>Defect :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -148,7 +138,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#parent_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -190,7 +179,6 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
@@ -267,7 +255,6 @@
                 loadingClose('.modal-content');
                 $('#code').val(response.code);
                 $('#name').val(response.name);
-                $('#parent_id').val(response.parent_id).change();
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },

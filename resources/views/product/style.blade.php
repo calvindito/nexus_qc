@@ -47,6 +47,7 @@
                             <th>Brand</th>
                             <th>Class Product</th>
                             <th>Type Product</th>
+                            <th>Group Size</th>
                             <th>Code</th>
                             <th>Style</th>
                             <th>Smv Global</th>
@@ -90,6 +91,15 @@
                             <option value="">-- Choose --</option>
                             @foreach($type_product as $tp)
                                 <option value="{{ $tp->id }}">{{ $tp->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Group Size :<span class="text-danger">*</span></label>
+                        <select name="size_id" id="size_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($size as $s)
+                                <option value="{{ $s->id }}">{{ $s->group }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -162,6 +172,7 @@
         $('#form_data').trigger('reset');
         $('#brand_id').val(null).change();
         $('#product_type_id').val(null).change();
+        $('#size_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -206,6 +217,7 @@
                 { name: 'brand_id', className: 'text-center align-middle' },
                 { name: 'product_class_id', orderable: false, className: 'text-center align-middle' },
                 { name: 'product_type_id', className: 'text-center align-middle' },
+                { name: 'size_id', className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'smv_global', searchable: false, orderable: false, className: 'text-center align-middle' },
@@ -283,6 +295,7 @@
                 loadingClose('.modal-content');
                 $('#brand_id').val(response.brand_id).change();
                 $('#product_type_id').val(response.product_type_id).change();
+                $('#size_id').val(response.size_id).change();
                 $('#code').val(response.code);
                 $('#name').val(response.name);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);

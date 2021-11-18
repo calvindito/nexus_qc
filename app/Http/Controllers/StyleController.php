@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Style;
 use App\Models\ProductType;
@@ -18,6 +19,7 @@ class StyleController extends Controller {
             'title'        => 'Product - Style',
             'type_product' => ProductType::where('status', 1)->get(),
             'brand'        => Brand::where('status', 1)->get(),
+            'size'         => Size::where('status', 1)->get(),
             'content'      => 'product.style'
         ];
 
@@ -31,6 +33,7 @@ class StyleController extends Controller {
             'brand_id',
             'class_product_id',
             'product_type_id',
+            'size_id',
             'code',
             'name',
             'smv_global',
@@ -61,6 +64,9 @@ class StyleController extends Controller {
                                         $query->where('name', 'like', "%$search%");
                                     });
                             })
+                            ->orWhereHas('size', function($query) use ($search) {
+                                $query->where('group', 'like', "%$search%");
+                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -86,6 +92,9 @@ class StyleController extends Controller {
                                         $query->where('name', 'like', "%$search%");
                                     });
                             })
+                            ->orWhereHas('size', function($query) use ($search) {
+                                $query->where('group', 'like', "%$search%");
+                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -97,6 +106,12 @@ class StyleController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             foreach($query_data as $val) {
+                $size = '';
+                foreach($val->size->sizeDetail as $key => $sd) {
+                    $delimeter = $key + 1 == $val->size->sizeDetail->count() ? '' : ', ';
+                    $size     .= $sd->value . $delimeter;
+                }
+
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
                 } else {
@@ -114,6 +129,7 @@ class StyleController extends Controller {
                     $val->brand->name,
                     $val->productType->productClass->name,
                     $val->productType->name,
+                    '<a href="javascript:void(0);" class="text-dark" data-popup="tooltip" title="' . $size . '">' . $val->size->group . '</a>',
                     $val->code,
                     $val->name,
                     $val->productType->smv_global,
@@ -156,12 +172,14 @@ class StyleController extends Controller {
         $validation = Validator::make($request->all(), [
             'product_type_id' => 'required',
             'brand_id'        => 'required',
+            'size_id'         => 'required',
             'code'            => 'required|unique:mysql.styles,code',
             'name'            => 'required',
             'status'          => 'required'
         ], [
             'product_type_id.required' => 'Please select a type product.',
             'brand_id.required'        => 'Please select a brand.',
+            'size_id.required'         => 'Please select a group size.',
             'code.required'            => 'Code cannot be empty.',
             'code.unique'              => 'Code exists.',
             'name.required'            => 'Style cannot be empty.',
@@ -177,6 +195,7 @@ class StyleController extends Controller {
             $query = Style::create([
                 'product_type_id' => $request->product_type_id,
                 'brand_id'        => $request->brand_id,
+                'size_id'         => $request->size_id,
                 'created_by'      => session('id'),
                 'updated_by'      => session('id'),
                 'code'            => $request->code,
@@ -216,12 +235,14 @@ class StyleController extends Controller {
         $validation = Validator::make($request->all(), [
             'product_type_id' => 'required',
             'brand_id'        => 'required',
+            'size_id'         => 'required',
             'code'            => ['required', Rule::unique('mysql.styles', 'code')->ignore($id)],
             'name'            => 'required',
             'status'          => 'required'
         ], [
             'product_type_id.required' => 'Please select a type product.',
             'brand_id.required'        => 'Please select a brand.',
+            'size_id.required'         => 'Please select a group size.',
             'code.required'            => 'Code cannot be empty.',
             'code.unique'              => 'Code exists.',
             'name.required'            => 'Style cannot be empty.',
@@ -237,6 +258,7 @@ class StyleController extends Controller {
             $query = Style::find($id)->update([
                 'product_type_id' => $request->product_type_id,
                 'brand_id'        => $request->brand_id,
+                'size_id'         => $request->size_id,
                 'updated_by'      => session('id'),
                 'code'            => $request->code,
                 'name'            => $request->name,

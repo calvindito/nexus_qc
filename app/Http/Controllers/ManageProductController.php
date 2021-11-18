@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CheckPoint;
+use App\Models\Position;
 use App\Models\GroupDefect;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
 use App\Models\ProductTypeDefect;
 use App\Http\Controllers\Controller;
-use App\Models\ProductTypeCheckPoint;
+use App\Models\ProductTypePosition;
 
 class ManageProductController extends Controller {
 
@@ -96,34 +96,26 @@ class ManageProductController extends Controller {
 
     public function loadContent(Request $request)
     {
-        $type_product     = ProductType::find($request->id);
-        $check_point      = CheckPoint::where('status', 1)->get();
-        $defect           = GroupDefect::where('type', 3)->where('status', 1)->get();
-        $group_size       = '';
-        $data_check_point = [];
-        $data_defect      = [];
+        $type_product  = ProductType::find($request->id);
+        $position      = Position::where('status', 1)->get();
+        $defect        = GroupDefect::where('type', 2)->where('status', 1)->get();
+        $data_position = [];
+        $data_defect   = [];
 
-        if($type_product->size->sizeDetail) {
-            foreach($type_product->size->sizeDetail as $key => $sd) {
-                $separator   = $key + 1 == $type_product->size->sizeDetail->count() ? '' : ', ';
-                $group_size .= $sd->value . $separator;
-            }
+        foreach($position as $p) {
+            $data            = $type_product->productTypePosition()->where('position_id', $cp->id)->first();
+            $existsable      = $data ? $data->hasRelation() : false;
+            $disable         = $existsable ? 'disabled' : '';
+            $selected        = $data ? 'selected' : '';
+            $data_position[] = '<option value="' . $cp->id . '" ' . $selected . ' ' . $disable . '>' . $cp->name . '</option>';
         }
 
-        foreach($check_point as $cp) {
-            $data               = $type_product->productTypeCheckPoint()->where('check_point_id', $cp->id)->first();
-            $existsable         = $data ? $data->hasRelation() : false;
-            $disable            = $existsable ? 'disabled' : '';
-            $selected           = $data ? 'selected' : '';
-            $data_check_point[] = '<option value="' . $cp->id . '" ' . $selected . ' ' . $disable . '>' . $cp->name . '</option>';
-        }
-
-        if($type_product->productTypeCheckPoint) {
-            foreach($type_product->productTypeCheckPoint as $key => $ptcp) {
+        if($type_product->productTypePosition) {
+            foreach($type_product->productTypePosition as $key => $ptcp) {
                 $string_defect = '';
                 foreach($defect as $d) {
                     $data = $type_product->productTypeDefect()
-                        ->where('product_type_check_point_id', $ptcp->id)
+                        ->where('product_type_position_id', $ptcp->id)
                         ->where('group_defect_id', $d->id)
                         ->first();
 
@@ -157,8 +149,8 @@ class ManageProductController extends Controller {
 
                 $data_defect[] = [
                     'no'       => $key + 1,
-                    'code'     => $ptcp->checkPoint->code,
-                    'name'     => $ptcp->checkPoint->name,
+                    'code'     => $ptcp->position->code,
+                    'name'     => $ptcp->position->name,
                     'button'   => $button,
                     'selector' => '#group_defect_id' . $ptcp->id
                 ];
@@ -169,14 +161,13 @@ class ManageProductController extends Controller {
             'type_product'       => $type_product->name,
             'description'        => $type_product->description,
             'class_product'      => $type_product->productClass->name,
-            'group_size'         => $group_size,
             'smv_global'         => $type_product->smv_global,
             'created_by'         => $type_product->createdBy->name,
             'modified_by'        => $type_product->updatedBy->name,
             'date_created'       => $type_product->created_at->format('d F Y, H:i'),
             'last_modified_date' => $type_product->updated_at->format('d F Y, H:i'),
             'status'             => $type_product->status(),
-            'check_point'        => $data_check_point,
+            'position'           => $data_position,
             'defect'             => $data_defect
         ]);
     }
@@ -184,26 +175,26 @@ class ManageProductController extends Controller {
     public function submitable(Request $request)
     {
         $type_product = ProductType::find($request->product_type_id);
-        if($request->param == 'check_point') {
-            if($type_product->productTypeCheckPoint->count() > 0) {
-                ProductTypeCheckPoint::doesntHave('productTypeDefect')
+        if($request->param == 'position') {
+            if($type_product->productTypePosition->count() > 0) {
+                ProductTypePosition::doesntHave('productTypeDefect')
                     ->where('product_type_id', $type_product->id)
                     ->delete();
             }
 
-            if($request->check_point_id) {
-                foreach($request->check_point_id as $cpi) {
-                    ProductTypeCheckPoint::create([
+            if($request->position_id) {
+                foreach($request->position_id as $cpi) {
+                    ProductTypePosition::create([
                         'product_type_id' => $type_product->id,
-                        'check_point_id'  => $cpi
+                        'position_id'     => $cpi
                     ]);
                 }
             }
 
             activity('type product')
-                ->performedOn(new ProductTypeCheckPoint())
+                ->performedOn(new ProductTypePosition())
                 ->causedBy(session('id'))
-                ->log('manage check point type product');
+                ->log('manage position type product');
 
             $response = [
                 'status'  => 200,
@@ -214,15 +205,15 @@ class ManageProductController extends Controller {
                 ProductTypeDefect::where('product_type_id', $type_product->id)->delete();
             }
 
-            foreach($type_product->productTypeCheckPoint as $ptcp) {
+            foreach($type_product->productTypePosition as $ptcp) {
                 $group_defect_id = $request->input('group_defect_id' . $ptcp->id);
                 if(is_array($group_defect_id)) {
                     if(count($group_defect_id) > 0) {
                         foreach($group_defect_id as $gdi) {
                             ProductTypeDefect::create([
-                                'product_type_id'             => $type_product->id,
-                                'product_type_check_point_id' => $ptcp->id,
-                                'group_defect_id'             => $gdi
+                                'product_type_id'          => $type_product->id,
+                                'product_type_position_id' => $ptcp->id,
+                                'group_defect_id'          => $gdi
                             ]);
                         }
                     }

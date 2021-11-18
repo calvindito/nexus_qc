@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PurchasingDetail extends Model {
+class SalesOrderDetail extends Model {
 
     use HasFactory;
 
     protected $connection = 'mysql';
-    protected $table      = 'purchasing_details';
+    protected $table      = 'sales_order_details';
     protected $primaryKey = 'id';
     protected $fillable   = [
-        'purchasing_id',
+        'sales_order_id',
         'color_id',
         'size_detail_id',
         'qty'
     ];
 
-    public function purchasing()
+    public function salesOrder()
     {
-        return $this->belongsTo('App\Models\Purchasing')->withTrashed();
+        return $this->belongsTo('App\Models\SalesOrder');
     }
 
     public function color()

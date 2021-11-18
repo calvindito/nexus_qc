@@ -19,10 +19,26 @@ class GroupDefect extends Model {
         'updated_by',
         'code',
         'name',
-        'parent_id',
         'type',
         'status'
     ];
+
+    public static function generateCode($param)
+    {
+        $query = GroupDefect::where('type', $param)
+            ->orderBy('code', 'desc')
+            ->limit(1)
+            ->withTrashed()
+            ->get();
+
+        if($query->count() > 0) {
+            $code = (int)$query[0]->code + 1;
+        } else {
+            $code = '001';
+        }
+
+        return sprintf('%03s', $code);
+    }
 
     public function hasRelation()
     {
@@ -48,11 +64,6 @@ class GroupDefect extends Model {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id')->withTrashed();
     }
 
-    public function parent()
-    {
-        return GroupDefect::withTrashed()->find($this->parent_id);
-    }
-
     public function type()
     {
         switch($this->type) {
@@ -60,18 +71,15 @@ class GroupDefect extends Model {
                 $type = 'Parent';
                 break;
             case '2':
-                $type = 'Sub Group';
-                break;
-            case '3':
                 $type = 'Defect List';
                 break;
-            case '4':
+            case '3':
                 $type = 'Reject List';
                 break;
-            case '5':
+            case '4':
                 $type = 'Major Issues';
                 break;
-            case '6':
+            case '5':
                 $type = 'Critical Issues';
                 break;
             default:

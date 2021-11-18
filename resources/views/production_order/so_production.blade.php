@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Purchasing</span>
+                    <span class="font-weight-semibold">SO Production</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -24,8 +24,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Order</a>
-                    <span class="breadcrumb-item active">Purchasing</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Production Order</a>
+                    <span class="breadcrumb-item active">SO Production</span>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab_general">
                             <div class="form-group">
-                                <label>No Purchasing :<span class="text-danger">*</span></label>
+                                <label>No SO :<span class="text-danger">*</span></label>
                                 <input type="text" name="code" id="code" class="form-control" placeholder="Enter no">
                             </div>
                             <div class="form-group">
@@ -225,7 +225,7 @@
 
     function getSize() {
         $.ajax({
-            url: '{{ url("order/purchasing/get_size") }}',
+            url: '{{ url("production_order/so_production/get_size") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -343,7 +343,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("order/purchasing/datatable") }}',
+                url: '{{ url("production_order/so_production/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -380,7 +380,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("order/purchasing/create") }}',
+            url: '{{ url("production_order/so_production/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -428,7 +428,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("order/purchasing/show") }}',
+            url: '{{ url("production_order/so_production/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -480,7 +480,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("order/purchasing/update") }}' + '/' + id,
+            url: '{{ url("production_order/so_production/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -540,7 +540,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("order/purchasing/destroy") }}',
+                        url: '{{ url("production_order/so_production/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

@@ -23,7 +23,7 @@ class City extends Model {
 
     public function hasRelation()
     {
-        if($this->buyer()->count() > 0 || $this->purchasing()->count() > 0) {
+        if($this->buyer()->count() > 0 || $this->salesOrder()->count() > 0) {
             return true;
         } else {
             return false;
@@ -35,9 +35,9 @@ class City extends Model {
         return $this->hasMany('App\Models\Buyer');
     }
 
-    public function purchasing()
+    public function salesOrder()
     {
-        return $this->hasMany('App\Models\Purchasing');
+        return $this->hasMany('App\Models\SalesOrder');
     }
 
     public function province()

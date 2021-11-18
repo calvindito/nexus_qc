@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Code</th>
                     <th>Major Issues</th>
                     <th>Status</th>

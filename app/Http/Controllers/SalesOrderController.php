@@ -6,24 +6,24 @@ use App\Models\City;
 use App\Models\Buyer;
 use App\Models\Color;
 use App\Models\Style;
-use App\Models\Purchasing;
+use App\Models\SalesOrder;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\PurchasingDetail;
+use App\Models\SalesOrderDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class PurchasingController extends Controller {
+class SalesOrderController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Order - Purchasing',
+            'title'   => 'Production Order - SO Production',
             'buyer'   => Buyer::where('status', 1)->get(),
             'style'   => Style::where('status', 1)->get(),
             'color'   => Color::where('status', 1)->get(),
             'city'    => City::orderBy('name', 'asc')->get(),
-            'content' => 'order.purchasing'
+            'content' => 'production_order.so_production'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -52,9 +52,9 @@ class PurchasingController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = Purchasing::count();
+        $total_data = SalesOrder::count();
 
-        $query_data = Purchasing::where(function($query) use ($search, $request) {
+        $query_data = SalesOrder::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
@@ -84,7 +84,7 @@ class PurchasingController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = Purchasing::where(function($query) use ($search, $request) {
+        $total_filtered = SalesOrder::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('code', 'like', "%$search%")
@@ -173,10 +173,10 @@ class PurchasingController extends Controller {
         $size_detail = [];
 
         if($data) {
-            foreach($data->productType->size->sizeDetail as $sd) {
+            foreach($data->size->sizeDetail as $s) {
                 $size_detail[] = [
-                    'id'    => $sd->id,
-                    'value' => $sd->value
+                    'id'    => $s->id,
+                    'value' => $s->value
                 ];
             }
         }
@@ -190,15 +190,15 @@ class PurchasingController extends Controller {
             'buyer_id'      => 'required',
             'style_id'      => 'required',
             'city_id'       => 'required',
-            'code'          => 'required|unique:mysql.purchasings,code',
+            'code'          => 'required|unique:mysql.sales_orders,code',
             'price'         => 'required',
             'delivery_date' => 'required'
         ], [
             'buyer_id.required'      => 'Please select a buyer.',
             'style_id.required'      => 'Please select a style.',
             'city_id.required'       => 'Please select a destination.',
-            'code.required'          => 'No purchasing cannot be empty.',
-            'code.unique'            => 'No purchasing exists.',
+            'code.required'          => 'No SO cannot be empty.',
+            'code.unique'            => 'No SO exists.',
             'price.required'         => 'Price cannot be empty.',
             'delivery_date.required' => 'Delivery date cannot be empty.'
         ]);
@@ -209,7 +209,7 @@ class PurchasingController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Purchasing::create([
+            $query = SalesOrder::create([
                 'buyer_id'      => $request->buyer_id,
                 'style_id'      => $request->style_id,
                 'city_id'       => $request->city_id,
@@ -222,8 +222,8 @@ class PurchasingController extends Controller {
             if($query) {
                 if($request->detail) {
                     foreach($request->detail as $key => $d) {
-                        PurchasingDetail::create([
-                            'purchasing_id'  => $query->id,
+                        SalesOrderDetail::create([
+                            'sales_order_id' => $query->id,
                             'color_id'       => $request->detail_color_id[$key],
                             'size_detail_id' => $request->detail_size_detail_id[$key],
                             'qty'            => $request->detail_qty[$key]
@@ -231,8 +231,8 @@ class PurchasingController extends Controller {
                     }
                 }
 
-                activity('purchasing')
-                    ->performedOn(new Purchasing())
+                activity('so production')
+                    ->performedOn(new SalesOrder())
                     ->causedBy(session('id'))
                     ->log('create data');
 
@@ -254,16 +254,16 @@ class PurchasingController extends Controller {
     public function show(Request $request)
     {
         $detail = [];
-        $data   = Purchasing::find($request->id);
+        $data   = SalesOrder::find($request->id);
 
-        if($data->purchasingDetail) {
-            foreach($data->purchasingDetail as $pd) {
+        if($data->salesOrderDetail) {
+            foreach($data->salesOrderDetail as $sod) {
                 $detail[] = [
-                    'color_id'          => $pd->color_id,
-                    'color_name'        => $pd->color->name,
-                    'size_detail_id'    => $pd->size_detail_id,
-                    'size_detail_value' => $pd->sizeDetail->value,
-                    'qty'               => $pd->qty
+                    'color_id'          => $sod->color_id,
+                    'color_name'        => $sod->color->name,
+                    'size_detail_id'    => $sod->size_detail_id,
+                    'size_detail_value' => $sod->sizeDetail->value,
+                    'qty'               => $sod->qty
                 ];
             }
         }
@@ -286,15 +286,15 @@ class PurchasingController extends Controller {
             'buyer_id'      => 'required',
             'style_id'      => 'required',
             'city_id'       => 'required',
-            'code'          => ['required', Rule::unique('mysql.purchasings', 'code')->ignore($id)],
+            'code'          => ['required', Rule::unique('mysql.sales_orders', 'code')->ignore($id)],
             'price'         => 'required',
             'delivery_date' => 'required'
         ], [
             'buyer_id.required'      => 'Please select a buyer.',
             'style_id.required'      => 'Please select a style.',
             'city_id.required'       => 'Please select a destination.',
-            'code.required'          => 'No purchasing cannot be empty.',
-            'code.unique'            => 'No purchasing exists.',
+            'code.required'          => 'No SO cannot be empty.',
+            'code.unique'            => 'No SO exists.',
             'price.required'         => 'Price cannot be empty.',
             'delivery_date.required' => 'Delivery date cannot be empty.'
         ]);
@@ -305,7 +305,7 @@ class PurchasingController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Purchasing::find($id)->update([
+            $query = SalesOrder::find($id)->update([
                 'buyer_id'      => $request->buyer_id,
                 'style_id'      => $request->style_id,
                 'city_id'       => $request->city_id,
@@ -316,11 +316,11 @@ class PurchasingController extends Controller {
             ]);
 
             if($query) {
-                PurchasingDetail::where('purchasing_id', $id)->delete();
+                SalesOrderDetail::where('sales_order_id', $id)->delete();
                 if($request->detail) {
                     foreach($request->detail as $key => $d) {
-                        PurchasingDetail::create([
-                            'purchasing_id'  => $id,
+                        SalesOrderDetail::create([
+                            'sales_order_id' => $id,
                             'color_id'       => $request->detail_color_id[$key],
                             'size_detail_id' => $request->detail_size_detail_id[$key],
                             'qty'            => $request->detail_qty[$key]
@@ -328,8 +328,8 @@ class PurchasingController extends Controller {
                     }
                 }
 
-                activity('purchasing')
-                    ->performedOn(new Purchasing())
+                activity('so production')
+                    ->performedOn(new SalesOrder())
                     ->causedBy(session('id'))
                     ->log('edit data');
 
@@ -350,10 +350,10 @@ class PurchasingController extends Controller {
 
     public function destroy(Request $request)
     {
-        $query = Purchasing::destroy($request->id);
+        $query = SalesOrder::destroy($request->id);
         if($query) {
-            activity('purchasing')
-                ->performedOn(new Purchasing())
+            activity('so production')
+                ->performedOn(new SalesOrder())
                 ->causedBy(session('id'))
                 ->log('delete data');
 

@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Brand</th>
                     <th>AQL</th>
                     <th>Status</th>
@@ -70,7 +70,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Data not available</td>
+                        <td colspan="6">Data not available</td>
                     </tr>
                 @endif
             </tbody>

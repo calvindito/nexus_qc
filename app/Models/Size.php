@@ -23,16 +23,16 @@ class Size extends Model {
 
     public function hasRelation()
     {
-        if($this->productType()->count() > 0) {
+        if($this->style()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function productType()
+    public function style()
     {
-        return $this->hasMany('App\Models\ProductType');
+        return $this->hasMany('App\Models\Style');
     }
 
     public function createdBy()

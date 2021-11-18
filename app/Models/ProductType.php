@@ -16,7 +16,6 @@ class ProductType extends Model {
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
         'product_class_id',
-        'size_id',
         'created_by',
         'updated_by',
         'name',
@@ -44,14 +43,9 @@ class ProductType extends Model {
         return $this->belongsTo('App\Models\ProductClass')->withTrashed();
     }
 
-    public function size()
+    public function productTypePosition()
     {
-        return $this->belongsTo('App\Models\Size')->withTrashed();
-    }
-
-    public function productTypeCheckPoint()
-    {
-        return $this->hasMany('App\Models\ProductTypeCheckPoint');
+        return $this->hasMany('App\Models\ProductTypePosition');
     }
 
     public function productTypeDefect()

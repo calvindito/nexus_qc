@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,10 +36,10 @@ class MajorIssuesController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 5)
+        $total_data = GroupDefect::where('type', 4)
             ->count();
 
-        $query_data = GroupDefect::where('type', 5)
+        $query_data = GroupDefect::where('type', 4)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -57,7 +56,7 @@ class MajorIssuesController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 5)
+        $total_filtered = GroupDefect::where('type', 4)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -127,12 +126,9 @@ class MajorIssuesController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'   => 'required|unique:mysql.group_defects,code',
             'name'   => 'required',
             'status' => 'required'
         ], [
-            'code.required'   => 'Code cannot be empty.',
-            'code.unique'     => 'Code exists.',
             'name.required'   => 'Major issues cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
@@ -146,9 +142,9 @@ class MajorIssuesController extends Controller {
             $query = GroupDefect::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
+                'code'       => GroupDefect::generateCode(4),
                 'name'       => $request->name,
-                'type'       => 5,
+                'type'       => 4,
                 'status'     => $request->status
             ]);
 
@@ -182,12 +178,9 @@ class MajorIssuesController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'   => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
             'name'   => 'required',
             'status' => 'required'
         ], [
-            'code.required'   => 'Code cannot be empty.',
-            'code.unique'     => 'Code exists.',
             'name.required'   => 'Major issues cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
@@ -200,7 +193,6 @@ class MajorIssuesController extends Controller {
         } else {
             $query = GroupDefect::find($id)->update([
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
                 'status'     => $request->status
             ]);

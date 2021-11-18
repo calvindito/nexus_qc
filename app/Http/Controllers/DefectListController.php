@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +13,6 @@ class DefectListController extends Controller {
     {
         $data = [
             'title'   => 'Group Defect - Defect List',
-            'parent'  => GroupDefect::where('status', 1)->where('type', 2)->get(),
             'content' => 'group_defect.defect_list'
         ];
 
@@ -25,7 +23,6 @@ class DefectListController extends Controller {
     {
         $column = [
             'id',
-            'parent_id',
             'code',
             'name',
             'status',
@@ -39,10 +36,10 @@ class DefectListController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = GroupDefect::where('type', 3)
+        $total_data = GroupDefect::where('type', 2)
             ->count();
 
-        $query_data = GroupDefect::where('type', 3)
+        $query_data = GroupDefect::where('type', 2)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -59,7 +56,7 @@ class DefectListController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = GroupDefect::where('type', 3)
+        $total_filtered = GroupDefect::where('type', 2)
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
@@ -90,7 +87,6 @@ class DefectListController extends Controller {
 
                 $response['data'][] = [
                     $val->id,
-                    $val->parent()->name,
                     $val->code,
                     $val->name,
                     $val->status(),
@@ -130,16 +126,11 @@ class DefectListController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => 'required|unique:mysql.group_defects,code',
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Defect cannot be empty.',
-            'parent_id.required' => 'Please select a sub group.',
-            'status.required'    => 'Please select a status.'
+            'name.required'   => 'Defect cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -151,10 +142,9 @@ class DefectListController extends Controller {
             $query = GroupDefect::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
+                'code'       => GroupDefect::generateCode(2),
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
-                'type'       => 3,
+                'type'       => 2,
                 'status'     => $request->status
             ]);
 
@@ -188,16 +178,11 @@ class DefectListController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'      => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
-            'name'      => 'required',
-            'parent_id' => 'required',
-            'status'    => 'required'
+            'name'   => 'required',
+            'status' => 'required'
         ], [
-            'code.required'      => 'Code cannot be empty.',
-            'code.unique'        => 'Code exists.',
-            'name.required'      => 'Defect cannot be empty.',
-            'parent_id.required' => 'Please select a sub group.',
-            'status.required'    => 'Please select a status.'
+            'name.required'   => 'Defect cannot be empty.',
+            'status.required' => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -208,9 +193,7 @@ class DefectListController extends Controller {
         } else {
             $query = GroupDefect::find($id)->update([
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
-                'parent_id'  => $request->parent_id,
                 'status'     => $request->status
             ]);
 

@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Sub Group</span>
+                    <span class="font-weight-semibold">Position</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,9 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/sub_group_defect') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/sub_group_defect') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/position') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('group_defect/position/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
+                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/position') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -32,7 +33,7 @@
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Group Defect</a>
-                    <span class="breadcrumb-item active">Sub Group</span>
+                    <span class="breadcrumb-item active">Position</span>
                 </div>
             </div>
         </div>
@@ -44,9 +45,8 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>ID</th>
-                            <th>Group</th>
                             <th>Code</th>
-                            <th>Sub Group</th>
+                            <th>Position</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -73,28 +73,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Group :<span class="text-danger">*</span></label>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <select name="parent_id" id="parent_id" class="select2">
-                                    <option value="">-- Choose --</option>
-                                    @foreach($parent as $p)
-                                        <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="button" class="btn btn-light col-12" onclick="showAddNew()"><i class="icon-plus2"></i> Add New</button>
-                            </div>
-                        </div>
+                        <label>Code :</label>
+                        <input type="text" id="code" class="form-control" placeholder="Auto Generate" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Sub Group :<span class="text-danger">*</span></label>
+                        <label>Position :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -123,137 +107,41 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_add_new" data-backdrop="static" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header bg-light">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Group</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form_data" autocomplete="off">
-                    <div class="alert alert-danger" id="validation_alert" style="display:none;">
-                        <ul id="validation_content" class="mb-0"></ul>
-                    </div>
-                    <input type="hidden" name="status" value="1">
-                    <div class="form-group">
-                        <label>Group :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer bg-light">
-                <div class="form-group">
-                    <button type="button" class="btn btn-danger" onclick="showForm()"><i class="icon-arrow-left5"></i> Back to Form</button>
-                    <button type="button" class="btn btn-primary" onclick="createNewGroup()"><i class="icon-plus3"></i> Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     $(function() {
         loadDataTable();
     });
 
-    function showAddNew() {
-        $('#modal_form').modal('hide');
-        $('#modal_add_new').modal('show');
-        $('#modal_add_new #form_data').trigger('reset');
-    }
-
-    function showForm() {
-        $('#modal_form').modal('show');
-        $('#modal_add_new').modal('hide');
-    }
-
-    function createNewGroup() {
-        $.ajax({
-            url: '{{ url("group_defect/group/create") }}',
-            type: 'POST',
-            dataType: 'JSON',
-            data: $('#modal_add_new #form_data').serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function() {
-                $('#modal_add_new #validation_alert').hide();
-                $('#modal_add_new #validation_content').html('');
-                loadingOpen('#modal_add_new .modal-content');
-            },
-            success: function(response) {
-                loadingClose('#modal_add_new .modal-content');
-                if(response.status == 200) {
-                    $('#modal_form #parent_id').append('<option value="' + response.data.id + '">' + response.data.name + '</option>');
-                    notif('success', 'bg-success', response.message);
-                    $('#modal_add_new').modal('hide');
-                    $('#modal_form').modal('show');
-                } else if(response.status == 422) {
-                    $('#modal_add_new #validation_alert').show();
-                    $('#modal_add_new .modal-body').scrollTop(0);
-                    notif('warning', 'bg-warning', 'Please check the form');
-
-                    $.each(response.error, function(i, val) {
-                        $.each(val, function(i, val) {
-                            $('#modal_add_new #validation_content').append(`
-                                <li>` + val + `</li>
-                            `);
-                        });
-                    });
-                } else {
-                    notif('error', 'bg-danger', response.message);
-                }
-            },
-            error: function() {
-                $('#modal_add_new .modal-body').scrollTop(0);
-                loadingClose('#modal_add_new .modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    icon: 'error'
-                });
-            }
-        });
-    }
-
     function openModal() {
         reset();
-        $('#modal_form #btn_create').show();
-        $('#modal_form #btn_update').hide();
-        $('#modal_form #btn_cancel').hide();
+        $('#btn_create').show();
+        $('#btn_update').hide();
+        $('#btn_cancel').hide();
     }
 
     function cancel() {
         reset();
         $('#modal_form').modal('hide');
-        $('#modal_form #btn_create').show();
-        $('#modal_form #btn_update').hide();
-        $('#modal_form #btn_cancel').hide();
+        $('#btn_create').show();
+        $('#btn_update').hide();
+        $('#btn_cancel').hide();
     }
 
     function toShow() {
         reset();
         $('#modal_form').modal('show');
-        $('#modal_form #validation_alert').hide();
-        $('#modal_form #validation_content').html('');
-        $('#modal_form #btn_create').hide();
-        $('#modal_form #btn_update').show();
-        $('#modal_form #btn_cancel').show();
+        $('#validation_alert').hide();
+        $('#validation_content').html('');
+        $('#btn_create').hide();
+        $('#btn_update').show();
+        $('#btn_cancel').show();
     }
 
     function reset() {
-        $('#modal_form #form_data').trigger('reset');
-        $('#modal_form #parent_id').val(null).change();
-        $('#modal_form input[name="status"][value="1"]').prop('checked', true);
-        $('#modal_form #validation_alert').hide();
-        $('#modal_form #validation_content').html('');
+        $('#form_data').trigger('reset');
+        $('input[name="status"][value="1"]').prop('checked', true);
+        $('#validation_alert').hide();
+        $('#validation_content').html('');
     }
 
     function success() {
@@ -273,7 +161,7 @@
             iDisplayInLength: 10,
             order: [[0, 'asc']],
             ajax: {
-                url: '{{ url("group_defect/sub_group/datatable") }}',
+                url: '{{ url("group_defect/position/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -292,7 +180,6 @@
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'parent_id', searchable: false, className: 'text-center align-middle' },
                 { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
@@ -305,31 +192,31 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("group_defect/sub_group/create") }}',
+            url: '{{ url("group_defect/position/create") }}',
             type: 'POST',
             dataType: 'JSON',
-            data: $('#modal_form #form_data').serialize(),
+            data: $('#form_data').serialize(),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#modal_form #validation_alert').hide();
-                $('#modal_form #validation_content').html('');
-                loadingOpen('#modal_form .modal-content');
+                $('#validation_alert').hide();
+                $('#validation_content').html('');
+                loadingOpen('.modal-content');
             },
             success: function(response) {
-                loadingClose('#modal_form .modal-content');
+                loadingClose('.modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
                 } else if(response.status == 422) {
-                    $('#modal_form #validation_alert').show();
-                    $('#modal_form .modal-body').scrollTop(0);
+                    $('#validation_alert').show();
+                    $('.modal-body').scrollTop(0);
                     notif('warning', 'bg-warning', 'Please check the form');
 
                     $.each(response.error, function(i, val) {
                         $.each(val, function(i, val) {
-                            $('#modal_form #validation_content').append(`
+                            $('#validation_content').append(`
                                 <li>` + val + `</li>
                             `);
                         });
@@ -339,8 +226,8 @@
                 }
             },
             error: function() {
-                $('#modal_form .modal-body').scrollTop(0);
-                loadingClose('#modal_form .modal-content');
+                $('.modal-body').scrollTop(0);
+                loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -353,7 +240,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("group_defect/sub_group/show") }}',
+            url: '{{ url("group_defect/position/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -363,19 +250,18 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                loadingOpen('#modal_form .modal-content');
+                loadingOpen('.modal-content');
             },
             success: function(response) {
-                loadingClose('#modal_form .modal-content');
-                $('#modal_form #code').val(response.code);
-                $('#modal_form #name').val(response.name);
-                $('#modal_form #parent_id').val(response.parent_id).change();
-                $('#modal_form input[name="status"][value="' + response.status + '"]').prop('checked', true);
-                $('#modal_form #btn_update').attr('onclick', 'update(' + id + ')');
+                loadingClose('.modal-content');
+                $('#code').val(response.code);
+                $('#name').val(response.name);
+                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
+                $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
                 cancel();
-                loadingClose('#modal_form .modal-content');
+                loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -387,31 +273,31 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("group_defect/sub_group/update") }}' + '/' + id,
+            url: '{{ url("group_defect/position/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
-            data: $('#modal_form #form_data').serialize(),
+            data: $('#form_data').serialize(),
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#modal_form #validation_alert').hide();
-                $('#modal_form #validation_content').html('');
-                loadingOpen('#modal_form .modal-content');
+                $('#validation_alert').hide();
+                $('#validation_content').html('');
+                loadingOpen('.modal-content');
             },
             success: function(response) {
-                loadingClose('#modal_form .modal-content');
+                loadingClose('.modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
                 } else if(response.status == 422) {
-                    $('#modal_form #validation_alert').show();
-                    $('#modal_form .modal-body').scrollTop(0);
+                    $('#validation_alert').show();
+                    $('.modal-body').scrollTop(0);
                     notif('warning', 'bg-warning', 'Please check the form');
 
                     $.each(response.error, function(i, val) {
                         $.each(val, function(i, val) {
-                            $('#modal_form #validation_content').append(`
+                            $('#validation_content').append(`
                                 <li>` + val + `</li>
                             `);
                         });
@@ -421,8 +307,8 @@
                 }
             },
             error: function() {
-                $('#modal_form .modal-body').scrollTop(0);
-                loadingClose('#modal_form .modal-content');
+                $('.modal-body').scrollTop(0);
+                loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -434,7 +320,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("group_defect/sub_group/change_status") }}',
+            url: '{{ url("group_defect/position/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -445,10 +331,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                loadingOpen('#modal_form .modal-content');
+                loadingOpen('.modal-content');
             },
             success: function(response) {
-                loadingClose('#modal_form .modal-content');
+                loadingClose('.modal-content');
                 if(response.status == 200) {
                     success();
                     notif('success', 'bg-success', response.message);
@@ -457,7 +343,7 @@
                 }
             },
             error: function() {
-                loadingClose('#modal_form .modal-content');
+                loadingClose('.modal-content');
                 swalInit.fire({
                     title: 'Server Error',
                     text: 'Please contact developer',
@@ -482,7 +368,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("group_defect/sub_group/destroy") }}',
+                        url: '{{ url("group_defect/position/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

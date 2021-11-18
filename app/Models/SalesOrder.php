@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Purchasing extends Model {
+class SalesOrder extends Model {
 
     use HasFactory, SoftDeletes;
 
     protected $connection = 'mysql';
-    protected $table      = 'purchasings';
+    protected $table      = 'sales_orders';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
@@ -44,9 +44,9 @@ class Purchasing extends Model {
         return $this->belongsTo('App\Models\City')->withTrashed();
     }
 
-    public function purchasingDetail()
+    public function salesOrderDetail()
     {
-        return $this->hasMany('App\Models\PurchasingDetail');
+        return $this->hasMany('App\Models\SalesOrderDetail');
     }
 
 }

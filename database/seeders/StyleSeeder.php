@@ -19,8 +19,9 @@ class StyleSeeder extends Seeder
         foreach($styles as $s) {
             Style::insert([
                 'id'              => $s['id'],
-                'brand_id'        => $s['brand_id'],
                 'product_type_id' => $s['product_type_id'],
+                'brand_id'        => $s['brand_id'],
+                'size_id'         => $s['size_id'],
                 'created_by'      => $s['created_by'],
                 'updated_by'      => $s['updated_by'],
                 'code'            => $s['code'],

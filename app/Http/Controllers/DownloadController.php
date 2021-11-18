@@ -11,6 +11,7 @@ use App\Models\Style;
 use App\Models\Fabric;
 use App\Models\Gender;
 use App\Models\JobDesc;
+use App\Models\Position;
 use App\Exports\SizeExport;
 use App\Models\GroupDefect;
 use App\Models\ProductType;
@@ -24,6 +25,7 @@ use Maatwebsite\Excel\Excel;
 use App\Exports\FabricExport;
 use App\Exports\GenderExport;
 use App\Exports\JobDescExport;
+use App\Exports\PositionExport;
 use App\Exports\GroupDefectExport;
 use App\Exports\TypeProductExport;
 use App\Exports\ProductClassExport;
@@ -164,25 +166,11 @@ class DownloadController extends Controller {
                     ->log('view print');
 
                 break;
-            case 'sub_group_defect':
-                $response = [
-                    'view'     => 'sub_group_defect',
-                    'title'    => 'Nexus - Data Sub Group Defect',
-                    'data'     => GroupDefect::where('type', 2)->get(),
-                    'filename' => 'Data Sub Group Defect'
-                ];
-
-                activity('sub group defect')
-                    ->performedOn(new GroupDefect())
-                    ->causedBy(session('id'))
-                    ->log('view print');
-
-                break;
             case 'defect_list':
                 $response = [
                     'view'     => 'defect_list',
                     'title'    => 'Nexus - Data Defect',
-                    'data'     => GroupDefect::where('type', 3)->get(),
+                    'data'     => GroupDefect::where('type', 2)->get(),
                     'filename' => 'Data Defect'
                 ];
 
@@ -196,7 +184,7 @@ class DownloadController extends Controller {
                 $response = [
                     'view'     => 'reject_list',
                     'title'    => 'Nexus - Data Reject',
-                    'data'     => GroupDefect::where('type', 4)->get(),
+                    'data'     => GroupDefect::where('type', 3)->get(),
                     'filename' => 'Data Reject'
                 ];
 
@@ -210,7 +198,7 @@ class DownloadController extends Controller {
                 $response = [
                     'view'     => 'major_issues',
                     'title'    => 'Nexus - Data Major Issues',
-                    'data'     => GroupDefect::where('type', 5)->get(),
+                    'data'     => GroupDefect::where('type', 4)->get(),
                     'filename' => 'Data Major Issues'
                 ];
 
@@ -224,7 +212,7 @@ class DownloadController extends Controller {
                 $response = [
                     'view'     => 'critical_issues',
                     'title'    => 'Nexus - Data Critical Issues',
-                    'data'     => GroupDefect::where('type', 6)->get(),
+                    'data'     => GroupDefect::where('type', 5)->get(),
                     'filename' => 'Data Critical Issues'
                 ];
 
@@ -248,7 +236,6 @@ class DownloadController extends Controller {
                     ->log('view print');
 
                 break;
-
             case 'style':
                 $response = [
                     'view'     => 'style',
@@ -259,6 +246,20 @@ class DownloadController extends Controller {
 
                 activity('style')
                     ->performedOn(new Style())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
+            case 'position':
+                $response = [
+                    'view'     => 'position',
+                    'title'    => 'Nexus - Data Position',
+                    'data'     => Position::all(),
+                    'filename' => 'Data Position'
+                ];
+
+                activity('position')
+                    ->performedOn(new Position())
                     ->causedBy(session('id'))
                     ->log('view print');
 
@@ -350,21 +351,13 @@ class DownloadController extends Controller {
 
                 return (new GroupDefectExport(1))->download('QC - Data Group Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
-            case 'sub_group_defect':
-                activity('sub group defect')
-                    ->performedOn(new GroupDefect())
-                    ->causedBy(session('id'))
-                    ->log('download excel');
-
-                return (new GroupDefectExport(2))->download('QC - Data Sub Group Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
-                break;
             case 'defect_list':
                 activity('defect list')
                     ->performedOn(new GroupDefect())
                     ->causedBy(session('id'))
                     ->log('download excel');
 
-                return (new GroupDefectExport(3))->download('QC - Data Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(2))->download('QC - Data Defect - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'reject_list':
                 activity('reject list')
@@ -372,7 +365,7 @@ class DownloadController extends Controller {
                     ->causedBy(session('id'))
                     ->log('download excel');
 
-                return (new GroupDefectExport(4))->download('QC - Data Reject - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(3))->download('QC - Data Reject - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'major_issues':
                 activity('major issues')
@@ -380,7 +373,7 @@ class DownloadController extends Controller {
                     ->causedBy(session('id'))
                     ->log('download excel');
 
-                return (new GroupDefectExport(5))->download('QC - Data Major Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(4))->download('QC - Data Major Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'critical_issues':
                 activity('critical issues')
@@ -388,7 +381,7 @@ class DownloadController extends Controller {
                     ->causedBy(session('id'))
                     ->log('download excel');
 
-                return (new GroupDefectExport(6))->download('QC - Data Critical Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new GroupDefectExport(5))->download('QC - Data Critical Issues - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'job_desc':
                 activity('job desc')
@@ -398,7 +391,6 @@ class DownloadController extends Controller {
 
                 return (new JobDescExport)->download('QC - Data Job Desc - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
-
             case 'style':
                 activity('style')
                     ->performedOn(new Style())
@@ -406,6 +398,14 @@ class DownloadController extends Controller {
                     ->log('download excel');
 
                 return (new StyleExport)->download('QC - Data Style - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'position':
+                activity('position')
+                    ->performedOn(new Position())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new PositionExport)->download('QC - Data Position - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();
@@ -431,6 +431,14 @@ class DownloadController extends Controller {
                     ->log('download template excel');
 
                 return response()->download(public_path('website/Template QC - Buyer.xlsx'));
+                break;
+            case 'position':
+                activity('position')
+                    ->performedOn(new Position())
+                    ->causedBy(session('id'))
+                    ->log('download template excel');
+
+                return response()->download(public_path('website/Template QC - Position.xlsx'));
                 break;
             default:
                 return redirect()->back();

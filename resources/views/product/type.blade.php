@@ -48,7 +48,6 @@
                             <th>Class Product</th>
                             <th>Type Product</th>
                             <th>Description</th>
-                            <th>Group Size</th>
                             <th>Smv Global</th>
                             <th>Status</th>
                             <th>Modified By</th>
@@ -87,15 +86,6 @@
                     <div class="form-group">
                         <label>Type Product :<span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label>Group Size :<span class="text-danger">*</span></label>
-                        <select name="size_id" id="size_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($size as $s)
-                                <option value="{{ $s->id }}">{{ $s->group }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label>Smv Global :<span class="text-danger">*</span></label>
@@ -165,7 +155,6 @@
     function reset() {
         $('#form_data').trigger('reset');
         $('#product_class_id').val(null).change();
-        $('#size_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -210,7 +199,6 @@
                 { name: 'product_class_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
-                { name: 'size_id', className: 'text-center align-middle' },
                 { name: 'smv_global', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
@@ -285,7 +273,6 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#product_class_id').val(response.product_class_id).change();
-                $('#size_id').val(response.size_id).change();
                 $('#name').val(response.name);
                 $('#smv_global').val(response.smv_global);
                 $('#description').val(response.description);

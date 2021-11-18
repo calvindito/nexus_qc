@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePurchasingsTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreatePurchasingsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('purchasings', function (Blueprint $table) {
+        Schema::connection('mysql')->create('positions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('buyer_id');
-            $table->unsignedBigInteger('style_id');
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->string('code')->unique();
-            $table->double('price');
-            $table->double('tax')->default(0);
-            $table->date('delivery_date');
+            $table->string('name');
+            $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
@@ -34,6 +32,6 @@ class CreatePurchasingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchasings');
+        Schema::dropIfExists('positions');
     }
 }

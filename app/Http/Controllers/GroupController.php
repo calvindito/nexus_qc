@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -127,12 +126,9 @@ class GroupController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'code'   => 'required|unique:mysql.group_defects,code',
             'name'   => 'required',
             'status' => 'required'
         ], [
-            'code.required'   => 'Code cannot be empty.',
-            'code.unique'     => 'Code exists.',
             'name.required'   => 'Group cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
@@ -146,9 +142,8 @@ class GroupController extends Controller {
             $query = GroupDefect::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => $request->code,
+                'code'       => GroupDefect::generateCode(1),
                 'name'       => $request->name,
-                'parent_id'  => 0,
                 'type'       => 1,
                 'status'     => $request->status
             ]);
@@ -184,13 +179,10 @@ class GroupController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'code'   => ['required', Rule::unique('mysql.group_defects', 'code')->ignore($id)],
             'name'   => 'required',
             'status' => 'required'
         ], [
-            'code.required'   => 'Code cannot be empty.',
-            'code.unique'     => 'Code exists.',
-            'name.required'   => 'Critical defect cannot be empty.',
+            'name.required'   => 'Group cannot be empty.',
             'status.required' => 'Please select a status.'
         ]);
 
@@ -202,7 +194,6 @@ class GroupController extends Controller {
         } else {
             $query = GroupDefect::find($id)->update([
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
                 'status'     => $request->status
             ]);

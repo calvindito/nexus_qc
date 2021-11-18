@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CheckPoint extends Model {
+class Position extends Model {
 
     use HasFactory, SoftDeletes;
 
     protected $connection = 'mysql';
-    protected $table      = 'check_points';
+    protected $table      = 'positions';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
@@ -22,18 +22,34 @@ class CheckPoint extends Model {
         'status'
     ];
 
+    public static function generateCode()
+    {
+        $query = Position::orderBy('code', 'desc')
+            ->limit(1)
+            ->withTrashed()
+            ->get();
+
+        if($query->count() > 0) {
+            $code = (int)$query[0]->code + 1;
+        } else {
+            $code = '001';
+        }
+
+        return sprintf('%03s', $code);
+    }
+
     public function hasRelation()
     {
-        if($this->productTypeCheckPoint()->count() > 0) {
+        if($this->productTypePosition()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function productTypeCheckPoint()
+    public function productTypePosition()
     {
-        return $this->hasMany('App\Models\ProductTypeCheckPoint');
+        return $this->hasMany('App\Models\ProductTypePosition');
     }
 
     public function createdBy()

@@ -38,7 +38,9 @@ $(function() {
 
     $('body').tooltip({
         selector: '[data-popup="tooltip"]',
-        boundary: 'window'
+        boundary: 'window',
+        trigger: 'hover',
+        template: '<div class="tooltip"><div class="arrow border-teal"></div><div class="tooltip-inner bg-teal text-white"></div></div>'
     });
 
     $('.sidebar-control').on('click', function() {

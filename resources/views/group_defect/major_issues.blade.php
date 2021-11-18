@@ -72,12 +72,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Major Issues :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <label>Code :</label>
+                        <input type="text" id="code" class="form-control" placeholder="Auto Generate" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
+                        <label>Major Issues :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">

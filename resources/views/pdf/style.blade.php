@@ -48,10 +48,11 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
+                    <th>Type Product</th>
                     <th>Brand</th>
                     <th>Class Product</th>
-                    <th>Type Product</th>
+                    <th>Group Size</th>
                     <th>Code</th>
                     <th>Style</th>
                     <th>Smv Global</th>
@@ -65,9 +66,10 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
+                            <td>{{ $d->productType->name }}</td>
                             <td>{{ $d->brand->name }}</td>
                             <td>{{ $d->productType->productClass->name }}</td>
-                            <td>{{ $d->productType->name }}</td>
+                            <td>{{ $d->size->group }}</td>
                             <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->productType->smv_global }}</td>
@@ -78,7 +80,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="10">Data not available</td>
+                        <td colspan="11">Data not available</td>
                     </tr>
                 @endif
             </tbody>

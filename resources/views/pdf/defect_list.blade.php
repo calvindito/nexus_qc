@@ -48,8 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Sub Group</th>
+                    <th>No</th>
                     <th>Code</th>
                     <th>Defect</th>
                     <th>Status</th>
@@ -62,7 +61,6 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $d->parent()->name }}</td>
                             <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{!! $d->status() !!}</td>
@@ -72,7 +70,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="7">Data not available</td>
+                        <td colspan="6">Data not available</td>
                     </tr>
                 @endif
             </tbody>

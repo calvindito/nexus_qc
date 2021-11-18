@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTypeCheckPoint extends Model {
+class ProductTypePosition extends Model {
 
     use HasFactory;
 
     protected $connection = 'mysql';
-    protected $table      = 'product_type_check_points';
+    protected $table      = 'product_type_positions';
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
         'product_type_id',
-        'check_point_id'
+        'position_id'
     ];
 
     public function hasRelation()
@@ -32,9 +32,9 @@ class ProductTypeCheckPoint extends Model {
         return $this->belongsTo('App\Models\ProductType')->withTrashed();
     }
 
-    public function checkPoint()
+    public function position()
     {
-        return $this->belongsTo('App\Models\CheckPoint')->withTrashed();
+        return $this->belongsTo('App\Models\Position')->withTrashed();
     }
 
     public function productTypeDefect()

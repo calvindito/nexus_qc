@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Gender</th>
                     <th>Status</th>
                     <th>Modified By</th>

@@ -48,7 +48,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Job Desc</th>
                     <th>Description</th>
                     <th>Status</th>

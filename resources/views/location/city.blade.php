@@ -6,11 +6,10 @@
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
                     <span class="font-weight-semibold">City</span>
                 </h4>
-                <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
             </div>
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-teal btn-labeled btn-labeled-left mr-1" onclick="loadDataTable()">
+                    <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
                         <b><i class="icon-sync"></i></b> Refresh
                     </button>
                     <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">

@@ -48,11 +48,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Class Product</th>
                     <th>Type Product</th>
                     <th>Description</th>
-                    <th>Group Size</th>
                     <th>Smv Global</th>
                     <th>Status</th>
                     <th>Modified By</th>
@@ -67,16 +66,6 @@
                             <td>{{ $d->productClass->name }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->description }}</td>
-                            <td>
-                                @if($d->size->sizeDetail->count() > 0)
-                                    @foreach($d->size->sizeDetail as $key => $sd)
-                                        @php $delimeter = $d->size->sizeDetail->count() == $key + 1 ? '' : ','; @endphp
-                                        {{ $sd->value . $delimeter }}
-                                    @endforeach
-                                @else
-                                    No Size
-                                @endif
-                            </td>
                             <td>{{ $d->smv_global }}</td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
@@ -85,7 +74,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="9">Data not available</td>
+                        <td colspan="8">Data not available</td>
                     </tr>
                 @endif
             </tbody>

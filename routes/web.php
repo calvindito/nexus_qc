@@ -55,18 +55,6 @@ Route::middleware('auth.login')->group(function() {
         });
     });
 
-    Route::prefix('general')->group(function() {
-        Route::prefix('check_point')->group(function() {
-            Route::get('/', 'CheckPointController@index');
-            Route::get('datatable', 'CheckPointController@datatable');
-            Route::post('create', 'CheckPointController@create');
-            Route::post('show', 'CheckPointController@show');
-            Route::post('update/{id}', 'CheckPointController@update');
-            Route::post('change_status', 'CheckPointController@changeStatus');
-            Route::post('destroy', 'CheckPointController@destroy');
-        });
-    });
-
     Route::prefix('material')->group(function() {
         Route::prefix('fabric')->group(function() {
             Route::get('/', 'FabricController@index');
@@ -130,16 +118,6 @@ Route::middleware('auth.login')->group(function() {
             Route::post('destroy', 'GroupController@destroy');
         });
 
-        Route::prefix('sub_group')->group(function() {
-            Route::get('/', 'SubGroupController@index');
-            Route::get('datatable', 'SubGroupController@datatable');
-            Route::post('create', 'SubGroupController@create');
-            Route::post('show', 'SubGroupController@show');
-            Route::post('update/{id}', 'SubGroupController@update');
-            Route::post('change_status', 'SubGroupController@changeStatus');
-            Route::post('destroy', 'SubGroupController@destroy');
-        });
-
         Route::prefix('defect_list')->group(function() {
             Route::get('/', 'DefectListController@index');
             Route::get('datatable', 'DefectListController@datatable');
@@ -178,6 +156,17 @@ Route::middleware('auth.login')->group(function() {
             Route::post('update/{id}', 'CriticalIssuesController@update');
             Route::post('change_status', 'CriticalIssuesController@changeStatus');
             Route::post('destroy', 'CriticalIssuesController@destroy');
+        });
+
+        Route::prefix('position')->group(function() {
+            Route::get('/', 'PositionController@index');
+            Route::get('datatable', 'PositionController@datatable');
+            Route::match(['get', 'post'], 'bulk', 'PositionController@bulk');
+            Route::post('create', 'PositionController@create');
+            Route::post('show', 'PositionController@show');
+            Route::post('update/{id}', 'PositionController@update');
+            Route::post('change_status', 'PositionController@changeStatus');
+            Route::post('destroy', 'PositionController@destroy');
         });
     });
 
@@ -281,15 +270,15 @@ Route::middleware('auth.login')->group(function() {
         });
     });
 
-    Route::prefix('order')->group(function() {
-        Route::prefix('purchasing')->group(function() {
-            Route::get('/', 'PurchasingController@index');
-            Route::get('datatable', 'PurchasingController@datatable');
-            Route::post('get_size', 'PurchasingController@getSize');
-            Route::post('create', 'PurchasingController@create');
-            Route::post('show', 'PurchasingController@show');
-            Route::post('update/{id}', 'PurchasingController@update');
-            Route::post('destroy', 'PurchasingController@destroy');
+    Route::prefix('production_order')->group(function() {
+        Route::prefix('so_production')->group(function() {
+            Route::get('/', 'SalesOrderController@index');
+            Route::get('datatable', 'SalesOrderController@datatable');
+            Route::post('get_size', 'SalesOrderController@getSize');
+            Route::post('create', 'SalesOrderController@create');
+            Route::post('show', 'SalesOrderController@show');
+            Route::post('update/{id}', 'SalesOrderController@update');
+            Route::post('destroy', 'SalesOrderController@destroy');
         });
     });
 
