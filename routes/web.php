@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'AuthController@index');
-Route::post('login', 'AuthController@login')->middleware('throttle:login');
+Route::match(['get', 'post'], '/', 'AuthController@login');
+Route::match(['get', 'post'], 'verification', 'AuthController@verification');
 
 Route::middleware('auth.login')->group(function() {
     Route::get('dashboard', 'DashboardController@index');
@@ -288,6 +288,7 @@ Route::middleware('auth.login')->group(function() {
             Route::post('profile', 'SettingController@profile');
             Route::post('change_password', 'SettingController@changePassword');
             Route::get('load_activity', 'SettingController@loadActivity');
+            Route::post('two_factor_authentication', 'SettingController@twoFactorAuthentication');
         });
 
         Route::prefix('user')->group(function() {

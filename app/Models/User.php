@@ -23,6 +23,7 @@ class User extends Authenticatable {
         'name',
         'gender',
         'password',
+        'tfa',
         'last_login',
         'status'
     ];
@@ -85,6 +86,11 @@ class User extends Authenticatable {
         }
 
         return $status;
+    }
+
+    public function token()
+    {
+        return $this->hasMany('App\Models\Token');
     }
 
 }

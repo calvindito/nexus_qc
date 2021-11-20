@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Nexus - {{ $title }}</title>
 	<link href="{{ asset('website/icon.png') }}" rel="shortcut icon">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet">
@@ -29,7 +29,7 @@
 	<script src="{{ asset('template/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/forms/inputs/duallistbox/duallistbox.min.js') }}"></script>
-    <script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/core.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/effects.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/extensions/cookie.js') }}"></script>

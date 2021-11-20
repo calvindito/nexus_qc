@@ -10,10 +10,6 @@
     position: static !important;
 }
 
-.btn {
-    border-radius: 0 !important;
-}
-
 .select2 {
     width: 100%!important;
 }

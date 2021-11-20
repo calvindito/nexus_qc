@@ -203,4 +203,27 @@ class SettingController extends Controller {
         return response()->json($response);
     }
 
+    public function twoFactorAuthentication(Request $request)
+    {
+        $query = User::find(session('id'))->update(['tfa' => $request->tfa]);
+        if($query) {
+            activity('user')
+                ->performedOn(new User())
+                ->causedBy(session('id'))
+                ->log('change two factor authentication');
+
+            $response = [
+                'status'  => 200,
+                'message' => '2FA has been changed.'
+            ];
+        } else {
+            $response = [
+                'status'  => 500,
+                'message' => 'Failed to change 2FA.'
+            ];
+        }
+
+        return response()->json($response);
+    }
+
 }

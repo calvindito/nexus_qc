@@ -19,6 +19,7 @@ class AuthLogin
     {
         $user_id = session('id');
         $user    = User::where('id', $user_id)
+            ->where('last_login', session('last_login'))
             ->where('status', 1)
             ->first();
 
@@ -30,7 +31,8 @@ class AuthLogin
                 'email'      => $user->email,
                 'name'       => $user->name,
                 'gender'     => $user->gender,
-                'last_login' => session('last_login'),
+                'tfa'        => $user->tfa,
+                'last_login' => $user->last_login,
                 'status'     => $user->status()
             ]);
 

@@ -10,10 +10,10 @@
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                     </div>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <label>Image :</label>
-                        <input type="file" name="image" id="image" class="form-control">
+                        <input type="file" name="image" id="image" class="form-control h-auto">
                     </div>
                     <div class="form-group">
                         <label>Name :<span class="text-danger">*</span></label>
@@ -118,9 +118,9 @@
                     *) For newly created users, the default password is <b style="text-decoration:underline;">NexusQc21</b>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
-                    <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
-                    <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
+                    <button type="button" class="btn btn-danger ml-1" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
+                    <button type="button" class="btn btn-warning ml-1" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
+                    <button type="button" class="btn btn-primary ml-1" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
             </div>
         </div>

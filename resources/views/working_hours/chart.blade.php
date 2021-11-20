@@ -7,18 +7,6 @@
                     <span class="font-weight-semibold">Working Hours Chart</span>
                 </h4>
             </div>
-            <div class="header-elements">
-                <div class="d-flex justify-content-center">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
-                            <b><i class="icon-sync"></i></b> Refresh
-                        </button>
-                        <a href="{{ url('working_hours/type/create') }}" class="btn btn-teal btn-labeled btn-labeled-left">
-                            <b><i class="icon-plus-circle2"></i></b> Add
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="breadcrumb-line breadcrumb-line-light header-elements-lg-inline">
             <div class="d-flex">

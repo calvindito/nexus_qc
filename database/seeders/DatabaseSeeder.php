@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SalesOrderSeeder::class);
         $this->call(SizeSeeder::class);
         $this->call(StyleSeeder::class);
+        $this->call(TokenSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(WorkingHoursTypeSeeder::class);
     }

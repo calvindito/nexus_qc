@@ -21,6 +21,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \DzId\LaravelHtmlMinifier\Middleware\MinifyHtml::class,
+        \DzId\LaravelHtmlMinifier\Middleware\MinifyCss::class,
+        \DzId\LaravelHtmlMinifier\Middleware\MinifyJavascript::class,
     ];
 
     /**

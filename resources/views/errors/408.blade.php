@@ -22,7 +22,7 @@
 						<div class="text-center mb-4">
 							<img src="{{ asset('template/global_assets/images/error_bg.svg') }}" class="img-fluid mb-4" height="230" alt="">
 							<h1 class="display-3 font-weight-semibold line-height-1 mb-2">408</h1>
-							<h5>You have tried to login 3 times. <br> Please try again in 1 hour.</h5>
+							<h5>You have tried to login 3 times. <br> Please try again in the next 1 hour since you were first blocked.</h5>
 						</div>
                         <div class="text-center">
 							<a href="{{ url('/') }}" class="btn btn-primary"><i class="icon-arrow-left7 mr-2"></i> Back</a>

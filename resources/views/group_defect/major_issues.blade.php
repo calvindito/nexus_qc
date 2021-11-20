@@ -10,14 +10,14 @@
             <div class="header-elements">
                 <div class="d-flex justify-content-center">
                     <div class="form-group">
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="loadDataTable()">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="loadDataTable()">
                             <b><i class="icon-sync"></i></b> Refresh
                         </button>
-                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
+                        <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-teal" data-toggle="dropdown"><i class="icon-menu"></i></button>
+                            <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/major_issues') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/major_issues') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
@@ -97,9 +97,9 @@
             </div>
             <div class="modal-footer bg-light">
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
-                    <button type="button" class="btn btn-warning" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
-                    <button type="button" class="btn btn-primary" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
+                    <button type="button" class="btn btn-danger ml-1" id="btn_cancel" onclick="openModal()" style="display:none;"><i class="icon-cross3"></i> Cancel</button>
+                    <button type="button" class="btn btn-warning ml-1" id="btn_update" onclick="update()" style="display:none;"><i class="icon-pencil7"></i> Save</button>
+                    <button type="button" class="btn btn-primary ml-1" id="btn_create" onclick="create()"><i class="icon-plus3"></i> Save</button>
                 </div>
             </div>
         </div>

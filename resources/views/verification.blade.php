@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Nexus</title>
+	<title>Nexus - Two Factor Authentication</title>
     <link href="{{ asset('website/icon.png') }}" rel="shortcut icon">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet">
 	<link href="{{ asset('template/global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet">
@@ -23,10 +23,10 @@
 						<div class="card mb-0">
 							<div class="card-body">
                                 <div class="text-center mb-3">
-                                    <img src="{{ asset('website/icon.png') }}" width="200" class="img-fluid mb-1 mt-1">
-									<h5 class="mb-0">Nexus QC System</h5>
-									<span class="d-block text-muted">Enter your username and password here</span>
-								</div>
+                                    <i class="icon-lock icon-2x text-primary border-primary border-3 rounded-pill p-3 mb-3 mt-1"></i>
+                                    <h5 class="mb-0">Two Factor Authentication</h5>
+                                    <span class="d-block text-muted">Enter 6-digit code from the email we sent</span>
+                                </div>
                                 @if(session('success'))
                                     <div class="alert bg-danger text-white alert-styled-left alert-dismissible">
                                         <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
@@ -38,21 +38,10 @@
                                         <span class="font-weight-semibold">{{ session('failed') }}</span>
                                     </div>
                                 @endif
-								<div class="form-group form-group-feedback form-group-feedback-left">
-									<input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
-									<div class="form-control-feedback">
-										<i class="icon-user text-muted"></i>
-									</div>
-								</div>
-								<div class="form-group form-group-feedback form-group-feedback-left">
-									<input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-									<div class="form-control-feedback">
-										<i class="icon-lock2 text-muted"></i>
-									</div>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-block">Sign in</button>
-								</div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="code" id="code" placeholder="Enter your code" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block"><i class="icon-paperplane mr-2"></i> Confirmation</button>
 							</div>
 						</div>
 					</form>
@@ -60,5 +49,22 @@
 			</div>
 		</div>
 	</div>
+
+    <script>
+        $(function() {
+            setTimeout(function() {
+                window.location.replace('{{ url("/") }}');
+            }, 900000);
+
+            $('#code').keyup(function() {
+                var code = $('#code').val();
+                if(code && code.length >= 6) {
+                    $('.btn-block').attr('disabled', true);
+                    $('.login-form').submit();
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
