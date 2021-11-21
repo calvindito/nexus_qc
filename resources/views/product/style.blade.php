@@ -16,7 +16,7 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
-                        <div class="btn-group">
+                        <div class="d-inline">
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/style') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>

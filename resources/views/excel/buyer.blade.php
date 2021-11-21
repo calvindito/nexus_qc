@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th rowspan="2" colspan="14" style="font-size:15px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center; width:100%;">NEXUS QUALITY CONTROL - DATA BUYER</th>
+            <th rowspan="2" colspan="11" style="font-size:15px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center; width:100%;">NEXUS QUALITY CONTROL - DATA BUYER</th>
         </tr>
     </thead>
 </table><br>
@@ -122,7 +122,7 @@
             @endforeach
         @else
             <tr>
-                <td colspan="14" style="font-size:10px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">Data Not Available</td>
+                <td colspan="11" style="font-size:10px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">Data Not Available</td>
             </tr>
         @endif
     </tbody>

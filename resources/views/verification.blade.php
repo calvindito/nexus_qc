@@ -54,11 +54,12 @@
         $(function() {
             setTimeout(function() {
                 window.location.replace('{{ url("/") }}');
-            }, 900000);
+            }, 3600000);
 
             $('#code').keyup(function() {
                 var code = $('#code').val();
                 if(code && code.length >= 6) {
+                    $('#code').attr('disabled', true);
                     $('.btn-block').attr('disabled', true);
                     $('.login-form').submit();
                 }
