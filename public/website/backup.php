@@ -10,51 +10,25 @@
 
 /* `nexus_qc`.`activity_logs` */
 $activity_logs = array(
-  array('id' => '1','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:14:54','updated_at' => '2021-11-17 15:14:54'),
-  array('id' => '2','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:15:04','updated_at' => '2021-11-17 15:15:04'),
-  array('id' => '3','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:15:11','updated_at' => '2021-11-17 15:15:11'),
-  array('id' => '4','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 15:17:38','updated_at' => '2021-11-17 15:17:38'),
-  array('id' => '5','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 20:57:45','updated_at' => '2021-11-17 20:57:45'),
-  array('id' => '6','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:30:57','updated_at' => '2021-11-17 21:30:57'),
-  array('id' => '7','log_name' => 'group size','description' => 'create data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:50:31','updated_at' => '2021-11-17 21:50:31'),
-  array('id' => '8','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:51:10','updated_at' => '2021-11-17 21:51:10'),
-  array('id' => '9','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:56:37','updated_at' => '2021-11-17 21:56:37'),
-  array('id' => '10','log_name' => 'group size','description' => 'create data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '11','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:57:57','updated_at' => '2021-11-17 21:57:57'),
-  array('id' => '12','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:12','updated_at' => '2021-11-17 21:58:12'),
-  array('id' => '13','log_name' => 'brand','description' => 'create status','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:23','updated_at' => '2021-11-17 21:58:23'),
-  array('id' => '14','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:58:51','updated_at' => '2021-11-17 21:58:51'),
-  array('id' => '15','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:59:08','updated_at' => '2021-11-17 21:59:08'),
-  array('id' => '16','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 21:59:46','updated_at' => '2021-11-17 21:59:46'),
-  array('id' => '17','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:00:04','updated_at' => '2021-11-17 22:00:04'),
-  array('id' => '18','log_name' => 'group size','description' => 'edit data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '19','log_name' => 'group size','description' => 'delete data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:04:42','updated_at' => '2021-11-17 22:04:42'),
-  array('id' => '20','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23'),
-  array('id' => '21','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13'),
-  array('id' => '22','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:07:57','updated_at' => '2021-11-17 22:07:57'),
-  array('id' => '23','log_name' => 'user','description' => 'logout','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-17 22:09:11','updated_at' => '2021-11-17 22:09:11'),
-  array('id' => '24','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:05:19','updated_at' => '2021-11-18 06:05:19'),
-  array('id' => '25','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:07:24','updated_at' => '2021-11-18 06:07:24'),
-  array('id' => '26','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:07:55','updated_at' => '2021-11-18 06:07:55'),
-  array('id' => '27','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:08:59','updated_at' => '2021-11-18 06:08:59'),
-  array('id' => '28','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:14:30','updated_at' => '2021-11-18 06:14:30'),
-  array('id' => '29','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:14:47','updated_at' => '2021-11-18 06:14:47'),
-  array('id' => '30','log_name' => 'group defect','description' => 'edit data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:15:54','updated_at' => '2021-11-18 06:15:54'),
-  array('id' => '31','log_name' => 'group defect','description' => 'edit data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:16:09','updated_at' => '2021-11-18 06:16:09'),
-  array('id' => '32','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:16:37','updated_at' => '2021-11-18 06:16:37'),
-  array('id' => '33','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:17:20','updated_at' => '2021-11-18 06:17:20'),
-  array('id' => '34','log_name' => 'sub group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:23:56','updated_at' => '2021-11-18 06:23:56'),
-  array('id' => '35','log_name' => 'sub group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 06:25:34','updated_at' => '2021-11-18 06:25:34'),
-  array('id' => '36','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 11:35:14','updated_at' => '2021-11-18 11:35:14'),
-  array('id' => '37','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 18:04:29','updated_at' => '2021-11-18 18:04:29'),
-  array('id' => '38','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 18:08:21','updated_at' => '2021-11-18 18:08:21'),
-  array('id' => '39','log_name' => 'position','description' => 'download template excel','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:33:07','updated_at' => '2021-11-18 19:33:07'),
-  array('id' => '40','log_name' => 'position','description' => 'view print','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:35:03','updated_at' => '2021-11-18 19:35:03'),
-  array('id' => '41','log_name' => 'position','description' => 'view print','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:36:07','updated_at' => '2021-11-18 19:36:07'),
-  array('id' => '42','log_name' => 'position','description' => 'download excel','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:36:36','updated_at' => '2021-11-18 19:36:36'),
-  array('id' => '43','log_name' => 'position','description' => 'create data','subject_type' => 'App\\Models\\Position','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 19:37:05','updated_at' => '2021-11-18 19:37:05'),
-  array('id' => '44','log_name' => 'style','description' => 'view print','subject_type' => 'App\\Models\\Style','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 21:45:22','updated_at' => '2021-11-18 21:45:22'),
-  array('id' => '45','log_name' => 'style','description' => 'create data','subject_type' => 'App\\Models\\Style','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-18 21:45:42','updated_at' => '2021-11-18 21:45:42')
+  array('id' => '1','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:01:04','updated_at' => '2021-11-21 21:01:04'),
+  array('id' => '2','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:01:30','updated_at' => '2021-11-21 21:01:30'),
+  array('id' => '3','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:13:38','updated_at' => '2021-11-21 21:13:38'),
+  array('id' => '4','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:13:53','updated_at' => '2021-11-21 21:13:53'),
+  array('id' => '5','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:14:07','updated_at' => '2021-11-21 21:14:07'),
+  array('id' => '6','log_name' => 'group defect','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:14:16','updated_at' => '2021-11-21 21:14:16'),
+  array('id' => '7','log_name' => 'defect list','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:14:34','updated_at' => '2021-11-21 21:14:34'),
+  array('id' => '8','log_name' => 'defect list','description' => 'create data','subject_type' => 'App\\Models\\GroupDefect','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:14:50','updated_at' => '2021-11-21 21:14:50'),
+  array('id' => '9','log_name' => 'group size','description' => 'create data','subject_type' => 'App\\Models\\Size','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '10','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:16:44','updated_at' => '2021-11-21 21:16:44'),
+  array('id' => '11','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:16:59','updated_at' => '2021-11-21 21:16:59'),
+  array('id' => '12','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:17:12','updated_at' => '2021-11-21 21:17:12'),
+  array('id' => '13','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:17:31','updated_at' => '2021-11-21 21:17:31'),
+  array('id' => '14','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:17:42','updated_at' => '2021-11-21 21:17:42'),
+  array('id' => '15','log_name' => 'brand','description' => 'create data','subject_type' => 'App\\Models\\Brand','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:17:55','updated_at' => '2021-11-21 21:17:55'),
+  array('id' => '16','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:21','updated_at' => '2021-11-21 21:18:21'),
+  array('id' => '17','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:33','updated_at' => '2021-11-21 21:18:33'),
+  array('id' => '18','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:42','updated_at' => '2021-11-21 21:18:42'),
+  array('id' => '19','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27')
 );
 
 /* `nexus_qc`.`allowance_smvs` */
@@ -63,12 +37,12 @@ $allowance_smvs = array(
 
 /* `nexus_qc`.`brands` */
 $brands = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Emba Jeans','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:57:57','updated_at' => '2021-11-17 21:57:57','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Emba Casual','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:58:12','updated_at' => '2021-11-17 21:58:12','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Twist','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:58:23','updated_at' => '2021-11-17 21:58:23','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Morphidae','aql' => '4,0','status' => '1','created_at' => '2021-11-17 21:58:51','updated_at' => '2021-11-17 21:58:51','deleted_at' => NULL),
-  array('id' => '5','created_by' => '1','updated_by' => '1','name' => 'Used','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:59:08','updated_at' => '2021-11-17 21:59:08','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','name' => 'Emba Ladies','aql' => '4.0','status' => '1','created_at' => '2021-11-17 21:59:46','updated_at' => '2021-11-17 21:59:46','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Emba Jeans','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:16:44','updated_at' => '2021-11-21 21:16:44','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Emba Casual','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:16:59','updated_at' => '2021-11-21 21:16:59','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Twist','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:17:12','updated_at' => '2021-11-21 21:17:12','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Morphidae','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:17:31','updated_at' => '2021-11-21 21:17:31','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','name' => 'Used','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:17:42','updated_at' => '2021-11-21 21:17:42','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','name' => 'Emba Ladies','aql' => '4.0','status' => '1','created_at' => '2021-11-21 21:17:55','updated_at' => '2021-11-21 21:17:55','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`buyers` */
@@ -858,22 +832,28 @@ $countries = array(
 $fabrics = array(
 );
 
+/* `nexus_qc`.`failed_jobs` */
+$failed_jobs = array(
+);
+
 /* `nexus_qc`.`genders` */
 $genders = array(
 );
 
 /* `nexus_qc`.`group_defects` */
 $group_defects = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Workmanship','type' => '1','status' => '1','created_at' => '2021-11-18 06:07:24','updated_at' => '2021-11-18 06:07:24','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Fabric','type' => '1','status' => '1','created_at' => '2021-11-18 06:07:55','updated_at' => '2021-11-18 06:07:55','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '003','name' => 'Accessories','type' => '1','status' => '1','created_at' => '2021-11-18 06:08:59','updated_at' => '2021-11-18 06:08:59','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '004','name' => 'Printing & Embroidery','type' => '1','status' => '1','created_at' => '2021-11-18 06:14:30','updated_at' => '2021-11-18 06:15:54','deleted_at' => NULL),
-  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '005','name' => 'Measurement','type' => '1','status' => '1','created_at' => '2021-11-18 06:14:47','updated_at' => '2021-11-18 06:16:09','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '006','name' => 'Cleanliness','type' => '1','status' => '1','created_at' => '2021-11-18 06:16:37','updated_at' => '2021-11-18 06:16:37','deleted_at' => NULL),
-  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '007','name' => 'Safety','type' => '1','status' => '1','created_at' => '2021-11-18 06:17:20','updated_at' => '2021-11-18 06:17:20','deleted_at' => NULL),
-  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Kain Cacat,Garis/Slub,Benang Putus','type' => '2','status' => '1','created_at' => '2021-11-18 06:23:56','updated_at' => '2021-11-18 06:23:56','deleted_at' => NULL),
-  array('id' => '9','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Kain Belang/Shading','type' => '2','status' => '1','created_at' => '2021-11-18 06:25:34','updated_at' => '2021-11-18 06:25:34','deleted_at' => NULL),
-  array('id' => '10','created_by' => '1','updated_by' => '1','code' => '008','name' => 'Safe Guard','type' => '1','status' => '1','created_at' => '2021-11-18 18:08:21','updated_at' => '2021-11-18 18:08:21','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Workmanship','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:04','updated_at' => '2021-11-21 21:01:04','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Fabric','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:30','updated_at' => '2021-11-21 21:01:30','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '003','name' => 'Accessories','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:38','updated_at' => '2021-11-21 21:13:38','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '004','name' => 'Printing & Embroidery','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:53','updated_at' => '2021-11-21 21:13:53','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '005','name' => 'Measurement','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:07','updated_at' => '2021-11-21 21:14:07','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '006','name' => 'Cleanliness','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:16','updated_at' => '2021-11-21 21:14:16','deleted_at' => NULL),
+  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Kain Cacat,Garis/Slub,Benang Putus','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:34','updated_at' => '2021-11-21 21:14:34','deleted_at' => NULL),
+  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Kain Belang/Shading','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:50','updated_at' => '2021-11-21 21:14:50','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`jobs` */
+$jobs = array(
 );
 
 /* `nexus_qc`.`job_descs` */
@@ -908,7 +888,13 @@ $migrations = array(
   array('id' => '24','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '1'),
   array('id' => '25','migration' => '2021_11_16_142753_create_styles_table','batch' => '1'),
   array('id' => '26','migration' => '2021_11_16_195114_create_sales_orders_table','batch' => '1'),
-  array('id' => '27','migration' => '2021_11_16_195153_create_sales_order_details_table','batch' => '1')
+  array('id' => '27','migration' => '2021_11_16_195153_create_sales_order_details_table','batch' => '1'),
+  array('id' => '28','migration' => '2021_11_20_181901_create_tokens_table','batch' => '2'),
+  array('id' => '29','migration' => '2021_11_20_192600_create_jobs_table','batch' => '3'),
+  array('id' => '30','migration' => '2021_11_20_192842_create_failed_jobs_table','batch' => '4'),
+  array('id' => '31','migration' => '2021_11_21_200629_create_menus_table','batch' => '5'),
+  array('id' => '32','migration' => '2021_11_21_200912_create_roles_table','batch' => '5'),
+  array('id' => '33','migration' => '2021_11_21_200926_create_permissions_table','batch' => '5')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -921,14 +907,14 @@ $positions = array(
 
 /* `nexus_qc`.`product_classes` */
 $product_classes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'MensWear','status' => '1','created_at' => '2021-11-17 22:00:04','updated_at' => '2021-11-17 22:00:04','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'LadiesWear','status' => '1','created_at' => '2021-11-17 22:05:23','updated_at' => '2021-11-17 22:05:23','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'BoysWear','status' => '1','created_at' => '2021-11-17 22:07:13','updated_at' => '2021-11-17 22:07:13','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'MensWear','status' => '1','created_at' => '2021-11-21 21:18:21','updated_at' => '2021-11-21 21:18:21','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'LadiesWear','status' => '1','created_at' => '2021-11-21 21:18:33','updated_at' => '2021-11-21 21:18:33','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'BoysWear','status' => '1','created_at' => '2021-11-21 21:18:42','updated_at' => '2021-11-21 21:18:42','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-17 22:07:56','updated_at' => '2021-11-17 22:07:56','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`product_type_defects` */
@@ -987,37 +973,38 @@ $sales_order_details = array(
 
 /* `nexus_qc`.`sizes` */
 $sizes = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Size Adult','status' => '1','created_at' => '2021-11-17 21:50:31','updated_at' => '2021-11-17 22:04:32','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','group' => 'Big Size','status' => '1','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 22:04:42','deleted_at' => '2021-11-17 22:04:42')
+  array('id' => '1','created_by' => '1','updated_by' => '1','group' => 'Size Adult','status' => '1','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`size_details` */
 $size_details = array(
-  array('id' => '14','size_id' => '2','value' => '33','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '15','size_id' => '2','value' => '34','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '16','size_id' => '2','value' => '35','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '17','size_id' => '2','value' => '36','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '18','size_id' => '2','value' => '38','created_at' => '2021-11-17 21:57:34','updated_at' => '2021-11-17 21:57:34'),
-  array('id' => '19','size_id' => '1','value' => '32','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '20','size_id' => '1','value' => '31','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '21','size_id' => '1','value' => '30','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '22','size_id' => '1','value' => '29','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '23','size_id' => '1','value' => '28','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '24','size_id' => '1','value' => '27','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '25','size_id' => '1','value' => '33','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '26','size_id' => '1','value' => '34','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '27','size_id' => '1','value' => '35','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '28','size_id' => '1','value' => '36','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '29','size_id' => '1','value' => '38','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32'),
-  array('id' => '30','size_id' => '1','value' => '40','created_at' => '2021-11-17 22:04:32','updated_at' => '2021-11-17 22:04:32')
+  array('id' => '1','size_id' => '1','value' => '27','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '2','size_id' => '1','value' => '28','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '3','size_id' => '1','value' => '29','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '4','size_id' => '1','value' => '30','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '5','size_id' => '1','value' => '31','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '6','size_id' => '1','value' => '32','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '7','size_id' => '1','value' => '33','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '8','size_id' => '1','value' => '34','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '9','size_id' => '1','value' => '35','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '10','size_id' => '1','value' => '36','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '11','size_id' => '1','value' => '37','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '12','size_id' => '1','value' => '38','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '13','size_id' => '1','value' => '39','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19'),
+  array('id' => '14','size_id' => '1','value' => '40','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19')
 );
 
 /* `nexus_qc`.`styles` */
 $styles = array(
 );
 
+/* `nexus_qc`.`tokens` */
+$tokens = array(
+);
+
 /* `nexus_qc`.`users` */
 $users = array(
+  array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$hYGFiT225WQtf0IxGUPOFOnzx6TIlTcJtILhQJ/jkt5oX1YlbOsYi','tfa' => '0','last_login' => '2021-11-21 15:39:33','status' => '1','created_at' => '2021-11-19 21:20:47','updated_at' => '2021-11-21 15:39:33','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`working_hours_types` */
