@@ -21,6 +21,7 @@ class RankController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'rank',
             'description',
@@ -60,13 +61,18 @@ class RankController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->rank,
                     $val->description,
                     $val->status
                 ];
+
+                $nomor++;
             }
         }
 

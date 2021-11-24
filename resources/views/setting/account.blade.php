@@ -330,7 +330,7 @@
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
-            order: [[0, 'desc']],
+            order: [[1, 'asc']],
             ajax: {
                 url: '{{ url("setting/account/load_activity") }}',
                 type: 'GET',
@@ -350,6 +350,7 @@
                 }
             },
             columns: [
+                { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'log_name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },

@@ -23,6 +23,7 @@ class GroupSizeController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'group',
             'value',
@@ -74,6 +75,8 @@ class GroupSizeController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 $value = '';
                 if($val->sizeDetail) {
@@ -97,6 +100,7 @@ class GroupSizeController extends Controller {
                 }
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->group,
                     $value,
@@ -118,6 +122,8 @@ class GroupSizeController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

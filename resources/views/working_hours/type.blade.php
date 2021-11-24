@@ -37,6 +37,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th><i class="icon-eye"></i></th>
+                            <th>No</th>
                             <th>ID</th>
                             <th>Departement</th>
                             <th>Type Working Hours</th>
@@ -148,7 +149,7 @@
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
-            order: [[1, 'asc']],
+            order: [[2, 'asc']],
             ajax: {
                 url: '{{ url("working_hours/type/datatable") }}',
                 type: 'GET',
@@ -169,6 +170,7 @@
             },
             columns: [
                 { name: 'detail', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'departement_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },

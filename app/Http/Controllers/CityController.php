@@ -24,6 +24,7 @@ class CityController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'province_id',
             'name',
@@ -72,6 +73,8 @@ class CityController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
@@ -80,6 +83,7 @@ class CityController extends Controller {
                 }
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->province->name,
                     $val->name,
@@ -99,6 +103,8 @@ class CityController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

@@ -24,7 +24,8 @@ class WorkingHoursTypeController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
-            'deteail',
+            'detail',
+            'no',
             'id',
             'departement_id',
             'name',
@@ -76,6 +77,8 @@ class WorkingHoursTypeController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
@@ -91,6 +94,7 @@ class WorkingHoursTypeController extends Controller {
 
                 $response['data'][] = [
                     '<a href="javascript:void(0);" onclick="detail(' . $val->id . ')" class="text-info"><i class="icon-info22"></i></a>',
+                    $nomor,
                     $val->id,
                     $val->departement->department,
                     $val->name,
@@ -112,6 +116,8 @@ class WorkingHoursTypeController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

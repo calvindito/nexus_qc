@@ -23,6 +23,7 @@ class ClassProductController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'name',
             'status',
@@ -67,6 +68,8 @@ class ClassProductController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
@@ -81,6 +84,7 @@ class ClassProductController extends Controller {
                 }
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->name,
                     $val->status(),
@@ -101,6 +105,8 @@ class ClassProductController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

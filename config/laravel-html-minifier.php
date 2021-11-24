@@ -9,7 +9,7 @@ return [
     | Setel bagian ini ke false untuk mematikan minify
     |
     */
-    "enable" => true,
+    "enable" => env('APP_ENV') == 'production' ? true : false,
 
     /*
     |--------------------------------------------------------------------------

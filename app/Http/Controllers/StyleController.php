@@ -29,6 +29,7 @@ class StyleController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'brand_id',
             'class_product_id',
@@ -105,6 +106,8 @@ class StyleController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 $size = '';
                 foreach($val->size->sizeDetail as $key => $sd) {
@@ -125,6 +128,7 @@ class StyleController extends Controller {
                 }
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->brand->name,
                     $val->productType->productClass->name,
@@ -151,6 +155,8 @@ class StyleController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

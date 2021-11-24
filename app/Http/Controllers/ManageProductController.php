@@ -68,6 +68,7 @@ class ManageProductController extends Controller {
         $response['data'] = [];
         if($query_data <> FALSE) {
             $nomor = 1;
+
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
@@ -77,8 +78,9 @@ class ManageProductController extends Controller {
                         <a href="javascript:void(0);" class="badge badge-success btn-sm" onclick="chooseProduct(' . $val->id . ')">Choose</a>
                     '
                 ];
+
+                $nomor++;
             }
-            $nomor++;
         }
 
         $response['recordsTotal'] = 0;

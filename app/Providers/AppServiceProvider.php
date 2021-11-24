@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(165);
         date_default_timezone_set('Asia/Jakarta');
-        config(['app.locale' => 'id']);
     }
 }

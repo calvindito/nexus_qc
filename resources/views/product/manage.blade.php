@@ -179,7 +179,6 @@
 
     function loadDataTable() {
         $('#datatable_serverside').DataTable({
-            dom: '<"datatable-header"fB><"datatable-scroll-wrap"t><"datatable-footer"ip>',
             serverSide: true,
             deferRender: true,
             stateSave: true,

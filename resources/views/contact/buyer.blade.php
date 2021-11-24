@@ -44,6 +44,7 @@
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
                             <th>#</th>
+                            <th>No</th>
                             <th>ID</th>
                             <th>Company</th>
                             <th>Description</th>
@@ -464,7 +465,7 @@
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
-            order: [[1, 'asc']],
+            order: [[2, 'asc']],
             ajax: {
                 url: '{{ url("contact/buyer/datatable") }}',
                 type: 'GET',
@@ -485,6 +486,7 @@
             },
             columns: [
                 { name: 'row_detail', orderable: false, searchable: false, className: 'text-center align-middle details-control' },
+                { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'company', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },

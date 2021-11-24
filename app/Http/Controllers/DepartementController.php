@@ -21,6 +21,7 @@ class DepartementController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'department',
             'description',
@@ -60,13 +61,18 @@ class DepartementController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->department,
                     $val->description,
                     $val->status
                 ];
+
+                $nomor++;
             }
         }
 

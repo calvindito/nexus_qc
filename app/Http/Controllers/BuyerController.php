@@ -31,6 +31,7 @@ class BuyerController extends Controller {
     {
         $column = [
             'row_detail',
+            'no',
             'id',
             'company',
             'description',
@@ -105,6 +106,8 @@ class BuyerController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
@@ -120,6 +123,7 @@ class BuyerController extends Controller {
 
                 $response['data'][] = [
                     '<span class="text-success" data-id="' . $val->id . '"><i class="icon-plus-circle2"></i></span>',
+                    $nomor,
                     $val->id,
                     $val->company,
                     $val->description,
@@ -146,6 +150,8 @@ class BuyerController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

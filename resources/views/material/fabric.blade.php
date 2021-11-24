@@ -43,6 +43,7 @@
                 <table class="table table-striped display nowrap w-100" id="datatable_serverside">
                     <thead class="bg-dark text-white">
                         <tr class="text-center">
+                            <th>No</th>
                             <th>ID</th>
                             <th>Fabric</th>
                             <th>Description</th>
@@ -158,7 +159,7 @@
             destroy: true,
             scrollX: true,
             iDisplayInLength: 10,
-            order: [[0, 'asc']],
+            order: [[1, 'asc']],
             ajax: {
                 url: '{{ url("material/fabric/datatable") }}',
                 type: 'GET',
@@ -178,6 +179,7 @@
                 }
             },
             columns: [
+                { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },

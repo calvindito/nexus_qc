@@ -32,6 +32,7 @@ class SalesOrderController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'code',
             'buyer_id',
@@ -113,6 +114,8 @@ class SalesOrderController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 $price    = $val->price;
                 $tax      = $val->tax;
@@ -125,6 +128,7 @@ class SalesOrderController extends Controller {
                 }
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $val->code,
                     $val->buyer->company,
@@ -151,6 +155,8 @@ class SalesOrderController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 

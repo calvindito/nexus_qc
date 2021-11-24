@@ -25,6 +25,7 @@ class UserController extends Controller {
     public function datatable(Request $request)
     {
         $column = [
+            'no',
             'id',
             'image',
             'name',
@@ -75,6 +76,8 @@ class UserController extends Controller {
 
         $response['data'] = [];
         if($query_data <> FALSE) {
+            $nomor = $start + 1;
+
             foreach($query_data as $val) {
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
@@ -91,6 +94,7 @@ class UserController extends Controller {
                 $image = '<a href="' . $val->image() . '" data-lightbox="image-' . $val->id . '" data-title="' . $val->name . '"><img src="' . $val->image() . '" class="img-preview rounded"></a>';
 
                 $response['data'][] = [
+                    $nomor,
                     $val->id,
                     $image,
                     $val->name,
@@ -116,6 +120,8 @@ class UserController extends Controller {
                         </div>
                     '
                 ];
+
+                $nomor++;
             }
         }
 
