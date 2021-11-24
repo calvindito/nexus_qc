@@ -15,6 +15,8 @@
 	<link href="{{ asset('template/plugins/custom.css') }}" rel="stylesheet">
 	<script src="{{ asset('template/global_assets/js/main/jquery.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/ui/prism.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/tables/datatables/extensions/buttons.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/notifications/jgrowl.min.js') }}"></script>

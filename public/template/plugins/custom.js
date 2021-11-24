@@ -87,6 +87,26 @@ var swalInit = swal.mixin({
     }
 });
 
+function preloader() {
+    $.blockUI({
+        message: '<i class="icon-spinner4 spinner"></i>',
+        timeout: 1000,
+        overlayCSS: {
+            backgroundColor: '#1b2024',
+            opacity: 0.8,
+            zIndex: 1200,
+            cursor: 'wait'
+        },
+        css: {
+            border: 0,
+            color: '#fff',
+            zIndex: 1201,
+            padding: 0,
+            backgroundColor: 'transparent'
+        }
+    });
+}
+
 function refreshListBox(selector, param = false) {
     $(selector).trigger('bootstrapDualListbox.refresh', param);
 }

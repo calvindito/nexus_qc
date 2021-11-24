@@ -1,4 +1,4 @@
-<body>
+<body onload="preloader()">
 	<div class="page-content">
 		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
 			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0" style="height:55px;">
