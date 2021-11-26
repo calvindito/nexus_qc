@@ -7,8 +7,10 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-class BuyerExport implements FromView, ShouldAutoSize {
+class BuyerExport extends StringValueBinder implements FromView, ShouldAutoSize, WithCustomValueBinder {
 
     use Exportable;
 

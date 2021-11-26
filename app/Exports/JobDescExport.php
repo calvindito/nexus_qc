@@ -8,8 +8,10 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 
-class JobDescExport implements FromView, ShouldAutoSize {
+class JobDescExport extends StringValueBinder implements FromView, ShouldAutoSize, WithCustomValueBinder {
 
     use Exportable;
 
