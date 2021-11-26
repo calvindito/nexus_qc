@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->char('gender', 1);
             $table->string('password');
-            $table->boolean('tfa');
+            $table->boolean('tfa')->default(false);
             $table->timestamp('last_login')->nullable();
             $table->char('status', 1);
             $table->timestamps();
