@@ -21,6 +21,7 @@ class User extends Authenticatable {
         'image',
         'username',
         'name',
+        'email',
         'gender',
         'password',
         'tfa',
