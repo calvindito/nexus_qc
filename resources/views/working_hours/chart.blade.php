@@ -20,7 +20,7 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="tree-default card card-body border-left-info border-left-2 mb-0">
                     <ul class="d-none mb-0">
                         @foreach($tree_view as $tv)
@@ -39,9 +39,35 @@
                                                                     <a href="javascript:void(0);" class="text-dark">{{ $d['name'] }}</a>
                                                                     <ul>
                                                                         @foreach($d['sub'] as $dtt)
-                                                                            <li class="folder expanded">
-                                                                                <a href="javascript:void(0);" class="text-dark">{{ $dtt['name'] }}</a>
-                                                                            </li>
+                                                                            @if($dtt['sub'])
+                                                                                <li class="folder expanded">
+                                                                                    <a href="javascript:void(0);" class="text-dark">{{ $dtt['name'] }}</a>
+                                                                                    <ul>
+                                                                                        @foreach($dtt['sub'] as $s)
+                                                                                            @if($s['sub'])
+                                                                                                <li class="folder expanded">
+                                                                                                    <a href="javascript:void(0);" class="text-dark">{{ $s['name'] }}</a>
+                                                                                                    <ul>
+                                                                                                        @foreach($s['sub'] as $l)
+                                                                                                            <li class="folder expanded">
+                                                                                                                <a href="javascript:void(0);" class="text-dark">{{ $l['name'] }}</a>
+                                                                                                            </li>
+                                                                                                        @endforeach
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                            @else
+                                                                                                <li class="folder expanded">
+                                                                                                    <a href="javascript:void(0);" class="text-dark">{{ $s['name'] }}</a>
+                                                                                                </li>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </li>
+                                                                            @else
+                                                                                <li class="folder expanded">
+                                                                                    <a href="javascript:void(0);" class="text-dark">{{ $dtt['name'] }}</a>
+                                                                                </li>
+                                                                            @endif
                                                                         @endforeach
                                                                     </ul>
                                                                 </li>
@@ -63,7 +89,7 @@
                                 </li>
                             @else
                                 <li class="folder">
-                                    <a href="javascript:void(0);" class="text-dark">{{ $v['name'] }}</a>
+                                    <a href="javascript:void(0);" class="text-dark">{{ $tv['name'] }}</a>
                                 </li>
                             @endif
                         @endforeach

@@ -90,6 +90,7 @@ var swalInit = swal.mixin({
 function preloader() {
     $.blockUI({
         message: '<i class="icon-spinner4 spinner"></i>',
+        fadeIn: 800,
         timeout: 1000,
         overlayCSS: {
             backgroundColor: '#1b2024',

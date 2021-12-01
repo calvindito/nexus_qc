@@ -28,7 +28,15 @@ $activity_logs = array(
   array('id' => '16','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:21','updated_at' => '2021-11-21 21:18:21'),
   array('id' => '17','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:33','updated_at' => '2021-11-21 21:18:33'),
   array('id' => '18','log_name' => 'class product','description' => 'create data','subject_type' => 'App\\Models\\ProductClass','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:18:42','updated_at' => '2021-11-21 21:18:42'),
-  array('id' => '19','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27')
+  array('id' => '19','log_name' => 'type product','description' => 'create data','subject_type' => 'App\\Models\\ProductType','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27'),
+  array('id' => '20','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-26 22:53:07','updated_at' => '2021-11-26 22:53:07'),
+  array('id' => '21','log_name' => 'user','description' => 'logout','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-26 22:57:27','updated_at' => '2021-11-26 22:57:27'),
+  array('id' => '22','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '2','properties' => '[]','created_at' => '2021-11-26 22:57:33','updated_at' => '2021-11-26 22:57:33'),
+  array('id' => '23','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '2','properties' => '[]','created_at' => '2021-11-26 23:00:10','updated_at' => '2021-11-26 23:00:10'),
+  array('id' => '24','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-26 23:03:36','updated_at' => '2021-11-26 23:03:36'),
+  array('id' => '25','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '2','properties' => '[]','created_at' => '2021-11-27 10:16:30','updated_at' => '2021-11-27 10:16:30'),
+  array('id' => '26','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '1','properties' => '[]','created_at' => '2021-11-27 16:46:47','updated_at' => '2021-11-27 16:46:47'),
+  array('id' => '27','log_name' => 'user','description' => 'login','subject_type' => 'App\\Models\\User','subject_id' => NULL,'causer_type' => 'App\\Models\\User','causer_id' => '2','properties' => '[]','created_at' => '2021-11-29 15:27:34','updated_at' => '2021-11-29 15:27:34')
 );
 
 /* `nexus_qc`.`allowance_smvs` */
@@ -860,6 +868,10 @@ $jobs = array(
 $job_descs = array(
 );
 
+/* `nexus_qc`.`lines` */
+$lines = array(
+);
+
 /* `nexus_qc`.`migrations` */
 $migrations = array(
   array('id' => '1','migration' => '2019_12_14_000001_create_personal_access_tokens_table','batch' => '1'),
@@ -887,14 +899,14 @@ $migrations = array(
   array('id' => '23','migration' => '2021_11_06_221911_create_job_descs_table','batch' => '1'),
   array('id' => '24','migration' => '2021_11_16_010447_create_activity_log_table','batch' => '1'),
   array('id' => '25','migration' => '2021_11_16_142753_create_styles_table','batch' => '1'),
-  array('id' => '26','migration' => '2021_11_16_195114_create_sales_orders_table','batch' => '1'),
-  array('id' => '27','migration' => '2021_11_16_195153_create_sales_order_details_table','batch' => '1'),
-  array('id' => '28','migration' => '2021_11_20_181901_create_tokens_table','batch' => '2'),
-  array('id' => '29','migration' => '2021_11_20_192600_create_jobs_table','batch' => '3'),
-  array('id' => '30','migration' => '2021_11_20_192842_create_failed_jobs_table','batch' => '4'),
-  array('id' => '31','migration' => '2021_11_21_200629_create_menus_table','batch' => '5'),
-  array('id' => '32','migration' => '2021_11_21_200912_create_roles_table','batch' => '5'),
-  array('id' => '33','migration' => '2021_11_21_200926_create_permissions_table','batch' => '5')
+  array('id' => '26','migration' => '2021_11_16_195114_create_productions_table','batch' => '1'),
+  array('id' => '27','migration' => '2021_11_16_195153_create_production_details_table','batch' => '1'),
+  array('id' => '28','migration' => '2021_11_20_181901_create_tokens_table','batch' => '1'),
+  array('id' => '29','migration' => '2021_11_20_192600_create_jobs_table','batch' => '1'),
+  array('id' => '30','migration' => '2021_11_20_192842_create_failed_jobs_table','batch' => '1'),
+  array('id' => '31','migration' => '2021_11_30_140048_create_product_groups_table','batch' => '1'),
+  array('id' => '32','migration' => '2021_11_30_205249_create_sections_table','batch' => '1'),
+  array('id' => '33','migration' => '2021_11_30_215528_create_lines_table','batch' => '1')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -905,6 +917,14 @@ $personal_access_tokens = array(
 $positions = array(
 );
 
+/* `nexus_qc`.`productions` */
+$productions = array(
+);
+
+/* `nexus_qc`.`production_details` */
+$production_details = array(
+);
+
 /* `nexus_qc`.`product_classes` */
 $product_classes = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'MensWear','status' => '1','created_at' => '2021-11-21 21:18:21','updated_at' => '2021-11-21 21:18:21','deleted_at' => NULL),
@@ -912,9 +932,13 @@ $product_classes = array(
   array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'BoysWear','status' => '1','created_at' => '2021-11-21 21:18:42','updated_at' => '2021-11-21 21:18:42','deleted_at' => NULL)
 );
 
+/* `nexus_qc`.`product_groups` */
+$product_groups = array(
+);
+
 /* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27','deleted_at' => NULL)
+  array('id' => '1','product_class_id' => '1','product_group_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`product_type_defects` */
@@ -963,12 +987,8 @@ $provinces = array(
   array('id' => '94','country_id' => '103','name' => 'Papua','latitude' => '-4.269928','longitude' => '138.0803529','created_at' => '2021-03-10 16:18:06','updated_at' => '2021-09-14 21:14:37','deleted_at' => NULL)
 );
 
-/* `nexus_qc`.`sales_orders` */
-$sales_orders = array(
-);
-
-/* `nexus_qc`.`sales_order_details` */
-$sales_order_details = array(
+/* `nexus_qc`.`sections` */
+$sections = array(
 );
 
 /* `nexus_qc`.`sizes` */
@@ -1004,7 +1024,8 @@ $tokens = array(
 
 /* `nexus_qc`.`users` */
 $users = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$hYGFiT225WQtf0IxGUPOFOnzx6TIlTcJtILhQJ/jkt5oX1YlbOsYi','tfa' => '0','last_login' => '2021-11-21 15:39:33','status' => '1','created_at' => '2021-11-19 21:20:47','updated_at' => '2021-11-21 15:39:33','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$hYGFiT225WQtf0IxGUPOFOnzx6TIlTcJtILhQJ/jkt5oX1YlbOsYi','tfa' => '0','last_login' => '2021-11-27 16:46:47','status' => '1','created_at' => '2021-11-19 21:20:47','updated_at' => '2021-11-27 16:46:47','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'ardy','name' => 'Ardiyanto Herlambang','email' => 'ardiyanto_herlambang@yahoo.com','gender' => '1','password' => '$2a$12$S.x2f6xUU2pCzz6DjVYM0.Q6K2e0Q/n1H7Ur7U5OkPh1ZuzF6RFNS','tfa' => '0','last_login' => '2021-11-29 15:27:34','status' => '1','created_at' => '2021-11-26 22:56:16','updated_at' => '2021-11-29 15:27:34','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`working_hours_types` */

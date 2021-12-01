@@ -50,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Type Working Hours :<span class="text-danger">*</span></label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter type">
                             </div>
                         </div>
                     </div>

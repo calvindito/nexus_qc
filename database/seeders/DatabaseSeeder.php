@@ -24,11 +24,14 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderSeeder::class);
         $this->call(GroupDefectSeeder::class);
         $this->call(JobDescSeeder::class);
+        $this->call(LineSeeder::class);
         $this->call(PositionSeeder::class);
         $this->call(ProductClassSeeder::class);
+        $this->call(ProductGroupSeeder::class);
+        $this->call(ProductionSeeder::class);
         $this->call(ProductTypeSeeder::class);
         $this->call(ProvinceSeeder::class);
-        $this->call(SalesOrderSeeder::class);
+        $this->call(SectionSeeder::class);
         $this->call(SizeSeeder::class);
         $this->call(StyleSeeder::class);
         $this->call(TokenSeeder::class);

@@ -73,7 +73,7 @@
                     </div>
                     <div class="form-group">
                         <label>City :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter city">
                     </div>
                     <div class="form-group">
                         <label>Latitude :</label>

@@ -185,7 +185,7 @@ class StyleController extends Controller {
         ], [
             'product_type_id.required' => 'Please select a type product.',
             'brand_id.required'        => 'Please select a brand.',
-            'size_id.required'         => 'Please select a group size.',
+            'size_id.required'         => 'Please select a size.',
             'code.required'            => 'Code cannot be empty.',
             'code.unique'              => 'Code exists.',
             'name.required'            => 'Style cannot be empty.',
@@ -248,7 +248,7 @@ class StyleController extends Controller {
         ], [
             'product_type_id.required' => 'Please select a type product.',
             'brand_id.required'        => 'Please select a brand.',
-            'size_id.required'         => 'Please select a group size.',
+            'size_id.required'         => 'Please select a size.',
             'code.required'            => 'Code cannot be empty.',
             'code.unique'              => 'Code exists.',
             'name.required'            => 'Style cannot be empty.',

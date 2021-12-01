@@ -6,24 +6,24 @@ use App\Models\City;
 use App\Models\Buyer;
 use App\Models\Color;
 use App\Models\Style;
-use App\Models\SalesOrder;
+use App\Models\Production;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\SalesOrderDetail;
+use App\Models\ProductionDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class SalesOrderController extends Controller {
+class ProductionController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Production Order - SO Production',
+            'title'   => 'Order - Production',
             'buyer'   => Buyer::where('status', 1)->get(),
             'style'   => Style::where('status', 1)->get(),
             'color'   => Color::where('status', 1)->get(),
             'city'    => City::orderBy('name', 'asc')->get(),
-            'content' => 'production_order.so_production'
+            'content' => 'order.production'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -34,17 +34,13 @@ class SalesOrderController extends Controller {
         $column = [
             'no',
             'id',
-            'code',
+            'code_production',
+            'code_job_order',
+            'code_buyer',
             'buyer_id',
             'brand_id',
-            'product_class_id',
-            'style_code',
-            'style_id',
-            'city_id',
-            'delivery_date',
-            'price',
-            'tax',
-            'subtotal'
+            'destination_id',
+            'delivery_date'
         ];
 
         $start  = $request->start;
@@ -53,25 +49,20 @@ class SalesOrderController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = SalesOrder::count();
+        $total_data = Production::count();
 
-        $query_data = SalesOrder::where(function($query) use ($search, $request) {
+        $query_data = Production::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
+                        $query->where('code_production', 'like', "%$search%")
+                            ->orWhere('code_job_order', 'like', "%$search%")
+                            ->orWhere('code_buyer', 'like', "%$search%")
                             ->orWhereHas('buyer', function($query) use ($search) {
                                 $query->where('company', 'like', "%$search%");
                             })
                             ->orWhereHas('style', function($query) use ($search) {
-                                $query->where('code', 'like', "%$search%")
-                                    ->orWhere('name', 'like', "%$search%")
-                                    ->orWhereHas('brand', function($query) use ($search) {
+                                $query->whereHas('brand', function($query) use ($search) {
                                         $query->where('name', 'like', "%$search%");
-                                    })
-                                    ->orWhereHas('productType', function($query) use ($search) {
-                                        $query->whereHas('productClass', function($query) use ($search) {
-                                            $query->where('name', 'like', "%$search%");
-                                        });
                                     });
                             })
                             ->orWhereHas('city', function($query) use ($search) {
@@ -85,23 +76,18 @@ class SalesOrderController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = SalesOrder::where(function($query) use ($search, $request) {
+        $total_filtered = Production::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
+                        $query->where('code_production', 'like', "%$search%")
+                            ->orWhere('code_job_order', 'like', "%$search%")
+                            ->orWhere('code_buyer', 'like', "%$search%")
                             ->orWhereHas('buyer', function($query) use ($search) {
                                 $query->where('company', 'like', "%$search%");
                             })
                             ->orWhereHas('style', function($query) use ($search) {
-                                $query->where('code', 'like', "%$search%")
-                                    ->orWhere('name', 'like', "%$search%")
-                                    ->orWhereHas('brand', function($query) use ($search) {
+                                $query->whereHas('brand', function($query) use ($search) {
                                         $query->where('name', 'like', "%$search%");
-                                    })
-                                    ->orWhereHas('productType', function($query) use ($search) {
-                                        $query->whereHas('productClass', function($query) use ($search) {
-                                            $query->where('name', 'like', "%$search%");
-                                        });
                                     });
                             })
                             ->orWhereHas('city', function($query) use ($search) {
@@ -117,10 +103,6 @@ class SalesOrderController extends Controller {
             $nomor = $start + 1;
 
             foreach($query_data as $val) {
-                $price    = $val->price;
-                $tax      = $val->tax;
-                $subtotal = (($tax / 100) * $price) + $price;
-
                 if($val->hasRelation()) {
                     $destroy = '<a href="javascript:void(0);" class="dropdown-item disabled"><i class="icon-trash"></i> Delete</a>';
                 } else {
@@ -130,17 +112,13 @@ class SalesOrderController extends Controller {
                 $response['data'][] = [
                     $nomor,
                     $val->id,
-                    $val->code,
+                    $val->code_production,
+                    $val->code_job_order,
+                    $val->code_buyer,
                     $val->buyer->company,
                     $val->style->brand->name,
-                    $val->style->productType->productClass->name,
-                    $val->style->code,
-                    $val->style->name,
                     $val->city->name,
                     $val->delivery_date,
-                    number_format($price, 0, ',', '.'),
-                    $tax . '%',
-                    number_format($subtotal, 0, ',', '.'),
                     '
                         <div class="list-icons">
                             <div class="dropdown">
@@ -193,20 +171,21 @@ class SalesOrderController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'buyer_id'      => 'required',
-            'style_id'      => 'required',
-            'city_id'       => 'required',
-            'code'          => 'required|unique:mysql.sales_orders,code',
-            'price'         => 'required',
-            'delivery_date' => 'required'
+            'buyer_id'       => 'required',
+            'style_id'       => 'required',
+            'city_id'        => 'required',
+            'code_job_order' => 'required|unique:mysql.productions,code_job_order',
+            'code_buyer'     => 'required|unique:mysql.productions,code_buyer',
+            'delivery_date'  => 'required'
         ], [
-            'buyer_id.required'      => 'Please select a buyer.',
-            'style_id.required'      => 'Please select a style.',
-            'city_id.required'       => 'Please select a destination.',
-            'code.required'          => 'No SO cannot be empty.',
-            'code.unique'            => 'No SO exists.',
-            'price.required'         => 'Price cannot be empty.',
-            'delivery_date.required' => 'Delivery date cannot be empty.'
+            'buyer_id.required'       => 'Please select a buyer.',
+            'style_id.required'       => 'Please select a style.',
+            'city_id.required'        => 'Please select a destination.',
+            'code_job_order.required' => 'No job order cannot be empty.',
+            'code_job_order.unique'   => 'No job order exists.',
+            'code_buyer.required'     => 'No buyer cannot be empty.',
+            'code_buyer.unique'       => 'No buyer exists.',
+            'delivery_date.required'  => 'Delivery date cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -215,21 +194,21 @@ class SalesOrderController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = SalesOrder::create([
-                'buyer_id'      => $request->buyer_id,
-                'style_id'      => $request->style_id,
-                'city_id'       => $request->city_id,
-                'code'          => $request->code,
-                'price'         => $request->price,
-                'tax'           => $request->tax,
-                'delivery_date' => $request->delivery_date
+            $query = Production::create([
+                'buyer_id'        => $request->buyer_id,
+                'style_id'        => $request->style_id,
+                'city_id'         => $request->city_id,
+                'code_production' => Production::generateCodeProduction($request),
+                'code_job_order'  => $request->code_job_order,
+                'code_buyer'      => $request->code_buyer,
+                'delivery_date'   => $request->delivery_date
             ]);
 
             if($query) {
                 if($request->detail) {
                     foreach($request->detail as $key => $d) {
-                        SalesOrderDetail::create([
-                            'sales_order_id' => $query->id,
+                        ProductionDetail::create([
+                            'production_id'  => $query->id,
                             'color_id'       => $request->detail_color_id[$key],
                             'size_detail_id' => $request->detail_size_detail_id[$key],
                             'qty'            => $request->detail_qty[$key]
@@ -237,8 +216,8 @@ class SalesOrderController extends Controller {
                     }
                 }
 
-                activity('so production')
-                    ->performedOn(new SalesOrder())
+                activity('production')
+                    ->performedOn(new Production())
                     ->causedBy(session('id'))
                     ->log('create data');
 
@@ -260,10 +239,10 @@ class SalesOrderController extends Controller {
     public function show(Request $request)
     {
         $detail = [];
-        $data   = SalesOrder::find($request->id);
+        $data   = Production::find($request->id);
 
-        if($data->salesOrderDetail) {
-            foreach($data->salesOrderDetail as $sod) {
+        if($data->productionDetail) {
+            foreach($data->productionDetail as $sod) {
                 $detail[] = [
                     'color_id'          => $sod->color_id,
                     'color_name'        => $sod->color->name,
@@ -275,34 +254,36 @@ class SalesOrderController extends Controller {
         }
 
         return response()->json([
-            'buyer_id'      => $data->buyer_id,
-            'style_id'      => $data->style_id,
-            'city_id'       => $data->city_id,
-            'code'          => $data->code,
-            'price'         => $data->price,
-            'tax'           => $data->tax,
-            'delivery_date' => $data->delivery_date,
-            'detail'        => $detail
+            'buyer_id'        => $data->buyer_id,
+            'style_id'        => $data->style_id,
+            'city_id'         => $data->city_id,
+            'code_production' => $data->code_production,
+            'code_job_order'  => $data->code_job_order,
+            'code_buyer'      => $data->code_buyer,
+            'delivery_date'   => $data->delivery_date,
+            'detail'          => $detail
         ]);
     }
 
     public function update(Request $request, $id)
     {
+        $production = Production::find($id);
         $validation = Validator::make($request->all(), [
-            'buyer_id'      => 'required',
-            'style_id'      => 'required',
-            'city_id'       => 'required',
-            'code'          => ['required', Rule::unique('mysql.sales_orders', 'code')->ignore($id)],
-            'price'         => 'required',
-            'delivery_date' => 'required'
+            'buyer_id'       => 'required',
+            'style_id'       => 'required',
+            'city_id'        => 'required',
+            'code_job_order' => ['required', Rule::unique('mysql.productions', 'code_job_order')->ignore($id)],
+            'code_buyer'     => ['required', Rule::unique('mysql.productions', 'code_buyer')->ignore($id)],
+            'delivery_date'  => 'required'
         ], [
-            'buyer_id.required'      => 'Please select a buyer.',
-            'style_id.required'      => 'Please select a style.',
-            'city_id.required'       => 'Please select a destination.',
-            'code.required'          => 'No SO cannot be empty.',
-            'code.unique'            => 'No SO exists.',
-            'price.required'         => 'Price cannot be empty.',
-            'delivery_date.required' => 'Delivery date cannot be empty.'
+            'buyer_id.required'       => 'Please select a buyer.',
+            'style_id.required'       => 'Please select a style.',
+            'city_id.required'        => 'Please select a destination.',
+            'code_job_order.required' => 'No job order cannot be empty.',
+            'code_job_order.unique'   => 'No job order exists.',
+            'code_buyer.required'     => 'No buyer cannot be empty.',
+            'code_buyer.unique'       => 'No buyer exists.',
+            'delivery_date.required'  => 'Delivery date cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -311,22 +292,22 @@ class SalesOrderController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = SalesOrder::find($id)->update([
-                'buyer_id'      => $request->buyer_id,
-                'style_id'      => $request->style_id,
-                'city_id'       => $request->city_id,
-                'code'          => $request->code,
-                'price'         => $request->price,
-                'tax'           => $request->tax,
-                'delivery_date' => $request->delivery_date
+            $query = Production::find($id)->update([
+                'buyer_id'        => $request->buyer_id,
+                'style_id'        => $request->style_id,
+                'city_id'         => $request->city_id,
+                'code_production' => Production::generateCodeProduction($request, $production->code),
+                'code_job_order'  => $request->code_job_order,
+                'code_buyer'      => $request->code_buyer,
+                'delivery_date'   => $request->delivery_date
             ]);
 
             if($query) {
-                SalesOrderDetail::where('sales_order_id', $id)->delete();
+                ProductionDetail::where('production_id', $id)->delete();
                 if($request->detail) {
                     foreach($request->detail as $key => $d) {
-                        SalesOrderDetail::create([
-                            'sales_order_id' => $id,
+                        ProductionDetail::create([
+                            'production_id'  => $id,
                             'color_id'       => $request->detail_color_id[$key],
                             'size_detail_id' => $request->detail_size_detail_id[$key],
                             'qty'            => $request->detail_qty[$key]
@@ -334,8 +315,8 @@ class SalesOrderController extends Controller {
                     }
                 }
 
-                activity('so production')
-                    ->performedOn(new SalesOrder())
+                activity('production')
+                    ->performedOn(new Production())
                     ->causedBy(session('id'))
                     ->log('edit data');
 
@@ -356,10 +337,10 @@ class SalesOrderController extends Controller {
 
     public function destroy(Request $request)
     {
-        $query = SalesOrder::destroy($request->id);
+        $query = Production::destroy($request->id);
         if($query) {
-            activity('so production')
-                ->performedOn(new SalesOrder())
+            activity('production')
+                ->performedOn(new Production())
                 ->causedBy(session('id'))
                 ->log('delete data');
 

@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <label>Allowance SMV :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter allowance smv">
                     </div>
                     <div class="form-group">
                         <label>Description :</label>

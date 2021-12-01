@@ -30,16 +30,16 @@ class Buyer extends Model {
 
     public function hasRelation()
     {
-        if($this->salesOrder()->count() > 0) {
+        if($this->production()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function salesOrder()
+    public function production()
     {
-        return $this->hasMany('App\Models\SalesOrder');
+        return $this->hasMany('App\Models\Production');
     }
 
     public function country()

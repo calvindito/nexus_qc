@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Group Size</span>
+                    <span class="font-weight-semibold">Group</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="d-inline">
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/group_size') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/group_size') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/group_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/excel/group_product') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
                     <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
-                    <span class="breadcrumb-item active">Group Size</span>
+                    <span class="breadcrumb-item active">Group</span>
                 </div>
             </div>
         </div>
@@ -46,7 +46,6 @@
                             <th>No</th>
                             <th>ID</th>
                             <th>Group</th>
-                            <th>Chart</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -74,11 +73,7 @@
                     </div>
                     <div class="form-group">
                         <label>Group :<span class="text-danger">*</span></label>
-                        <input type="text" name="group" id="group" class="form-control" placeholder="Enter group">
-                    </div>
-                    <div class="form-group">
-                        <label>Chart :<span class="text-danger">*</span></label>
-                        <select name="value[]" id="value" class="select2-tag" multiple></select>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter group">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -139,7 +134,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#value').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -162,7 +156,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("product/group_size/datatable") }}',
+                url: '{{ url("product/group/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -182,8 +176,7 @@
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'group', searchable: false, className: 'text-center align-middle' },
-                { name: 'value', orderable: false, className: 'text-center align-middle' },
+                { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -194,7 +187,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("product/group_size/create") }}',
+            url: '{{ url("product/group/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -242,7 +235,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("product/group_size/show") }}',
+            url: '{{ url("product/group/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -256,13 +249,7 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $.each(response.size_detail, function(i, val) {
-                    $('#value').append(`
-                        <option value="` + val.value + `" selected>` + val.value + `</option>
-                    `);
-                });
-
-                $('#group').val(response.group);
+                $('#name').val(response.name);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -280,7 +267,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("product/group_size/update") }}' + '/' + id,
+            url: '{{ url("product/group/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -327,7 +314,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("product/group_size/change_status") }}',
+            url: '{{ url("product/group/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -375,7 +362,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("product/group_size/destroy") }}',
+                        url: '{{ url("product/group/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

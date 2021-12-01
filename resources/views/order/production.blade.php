@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">SO Production</span>
+                    <span class="font-weight-semibold">Production</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -24,8 +24,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Production Order</a>
-                    <span class="breadcrumb-item active">SO Production</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Order</a>
+                    <span class="breadcrumb-item active">Production</span>
                 </div>
             </div>
         </div>
@@ -38,17 +38,12 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Code</th>
+                            <th>No Production</th>
+                            <th>No Job Order</th>
+                            <th>No Buyer</th>
                             <th>Buyer</th>
                             <th>Brand</th>
-                            <th>Product Class</th>
-                            <th>Style Code</th>
-                            <th>Style Name</th>
-                            <th>Destination</th>
                             <th>Delivery Date</th>
-                            <th>Price</th>
-                            <th>Tax</th>
-                            <th>Subtotal</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -81,20 +76,36 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab_general">
-                            <div class="form-group">
-                                <label>No SO :<span class="text-danger">*</span></label>
-                                <input type="text" name="code" id="code" class="form-control" placeholder="Enter no">
-                            </div>
-                            <div class="form-group">
-                                <label>Buyer :<span class="text-danger">*</span></label>
-                                <select name="buyer_id" id="buyer_id" class="select2">
-                                    <option value="">-- Choose --</option>
-                                    @foreach($buyer as $b)
-                                        <option value="{{ $b->id }}">{{ $b->company }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>No Production :<span class="text-danger">*</span></label>
+                                        <input type="text" id="code_production" class="form-control" placeholder="Auto Generate" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>No Job Order :<span class="text-danger">*</span></label>
+                                        <input type="text" name="code_job_order" id="code_job_order" class="form-control" placeholder="Enter no job order">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>No Buyer :<span class="text-danger">*</span></label>
+                                        <input type="text" name="code_buyer" id="code_buyer" class="form-control" placeholder="Enter no buyer">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Buyer :<span class="text-danger">*</span></label>
+                                        <select name="buyer_id" id="buyer_id" class="select2">
+                                            <option value="">-- Choose --</option>
+                                            @foreach($buyer as $b)
+                                                <option value="{{ $b->id }}">{{ $b->company }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Style :<span class="text-danger">*</span></label>
@@ -117,22 +128,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Price :<span class="text-danger">*</span></label>
-                                        <input type="number" name="price" id="price" class="form-control" placeholder="Enter price">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Tax :</label>
-                                        <div class="form-group-feedback form-group-feedback-right">
-                                            <input type="number" name="tax" id="tax" class="form-control" placeholder="Enter tax">
-                                            <div class="form-control-feedback"><b>%</b></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Delivery Date :<span class="text-danger">*</span></label>
                                         <input type="date" name="delivery_date" id="delivery_date" class="form-control">
@@ -226,7 +222,7 @@
 
     function getSize() {
         $.ajax({
-            url: '{{ url("production_order/so_production/get_size") }}',
+            url: '{{ url("order/production/get_size") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -344,7 +340,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("production_order/so_production/datatable") }}',
+                url: '{{ url("order/production/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -364,17 +360,13 @@
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
+                { name: 'code_production', className: 'text-center align-middle' },
+                { name: 'code_job_order', className: 'text-center align-middle' },
+                { name: 'code_buyer', className: 'text-center align-middle' },
                 { name: 'buyer_id', className: 'text-center align-middle' },
                 { name: 'brand_id', orderable: false, className: 'text-center align-middle' },
-                { name: 'product_class_id', orderable: false, className: 'text-center align-middle' },
-                { name: 'style_code', orderable: false, className: 'text-center align-middle' },
-                { name: 'style_id', className: 'text-center align-middle' },
                 { name: 'city_id', className: 'text-center align-middle' },
                 { name: 'delivery_date', searchable: false, className: 'text-center align-middle' },
-                { name: 'price', searchable: false, className: 'text-center align-middle' },
-                { name: 'tax', searchable: false, className: 'text-center align-middle' },
-                { name: 'subtotal', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
             ]
         });
@@ -382,7 +374,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("production_order/so_production/create") }}',
+            url: '{{ url("order/production/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -430,7 +422,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("production_order/so_production/show") }}',
+            url: '{{ url("order/production/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -447,9 +439,9 @@
                 $('#buyer_id').val(response.buyer_id).change();
                 $('#style_id').val(response.style_id).change();
                 $('#city_id').val(response.city_id).change();
-                $('#code').val(response.code);
-                $('#price').val(response.price);
-                $('#tax').val(response.tax);
+                $('#code_production').val(response.code_production);
+                $('#code_job_order').val(response.code_job_order);
+                $('#code_buyer').val(response.code_buyer);
                 $('#delivery_date').val(response.delivery_date);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
 
@@ -482,7 +474,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("production_order/so_production/update") }}' + '/' + id,
+            url: '{{ url("order/production/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -542,7 +534,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("production_order/so_production/destroy") }}',
+                        url: '{{ url("order/production/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

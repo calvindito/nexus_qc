@@ -20,7 +20,7 @@
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/style') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/style') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/excel/style') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             <th>Brand</th>
                             <th>Class Product</th>
                             <th>Type Product</th>
-                            <th>Group Size</th>
+                            <th>Size</th>
                             <th>Code</th>
                             <th>Style</th>
                             <th>Smv Global</th>
@@ -96,7 +96,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Group Size :<span class="text-danger">*</span></label>
+                        <label>Size :<span class="text-danger">*</span></label>
                         <select name="size_id" id="size_id" class="select2">
                             <option value="">-- Choose --</option>
                             @foreach($size as $s)
@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group">
                         <label>Style :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter style">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">

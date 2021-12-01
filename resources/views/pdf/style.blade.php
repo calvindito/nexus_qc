@@ -52,7 +52,7 @@
                     <th>Type Product</th>
                     <th>Brand</th>
                     <th>Class Product</th>
-                    <th>Group Size</th>
+                    <th>Size</th>
                     <th>Code</th>
                     <th>Style</th>
                     <th>Smv Global</th>

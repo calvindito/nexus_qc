@@ -9,18 +9,48 @@ if(!function_exists('treeViewWorkingHoursChart')) {
         $branch         = [];
         $division       = [];
         $departement    = [];
+        $section        = [];
+        $line           = [];
 
         foreach($sister_company as $sc) {
-            if($sc->sisterBranch) {
+            if($sc->sisterBranch->count() > 0) {
                 foreach($sc->sisterBranch as $sb) {
-                    if($sb->division) {
+                    if($sb->division->count() > 0) {
                         foreach($sb->division as $d) {
-                            if($d->departement) {
+                            if($d->departement->count() > 0) {
                                 foreach($d->departement as $dtt) {
-                                    $departement[] = [
-                                        'name' => $dtt->department,
-                                        'sub'  => []
-                                    ];
+                                    if($dtt->section->count() > 0) {
+                                        foreach($dtt->section as $s) {
+                                            if($s->line->count() > 0) {
+                                                foreach($s->line as $l) {
+                                                    $line[] = [
+                                                        'name' => $l->name,
+                                                        'sub'  => []
+                                                    ];
+                                                }
+
+                                                $section[] = [
+                                                    'name' => $s->name,
+                                                    'sub'  => $line
+                                                ];
+                                            } else {
+                                                $section[] = [
+                                                    'name' => $s->name,
+                                                    'sub'  => []
+                                                ];
+                                            }
+                                        }
+
+                                        $departement[] = [
+                                            'name' => $dtt->department,
+                                            'sub'  => $section
+                                        ];
+                                    } else {
+                                        $departement[] = [
+                                            'name' => $dtt->department,
+                                            'sub'  => []
+                                        ];
+                                    }
                                 }
 
                                 $division[] = [
@@ -58,6 +88,8 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                 ];
             }
         }
+
+        // dd($tree_view);
 
         return $tree_view;
     }

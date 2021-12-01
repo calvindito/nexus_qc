@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalesOrderDetailsTable extends Migration
+class CreateProductGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateSalesOrderDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('sales_order_details', function (Blueprint $table) {
+        Schema::connection('mysql')->create('product_groups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sales_order_id');
-            $table->unsignedBigInteger('color_id');
-            $table->unsignedBigInteger('size_detail_id');
-            $table->integer('qty');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+            $table->string('name');
+            $table->char('status', 1);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateSalesOrderDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_order_details');
+        Schema::dropIfExists('product_groups');
     }
 }

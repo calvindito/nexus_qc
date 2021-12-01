@@ -350,7 +350,6 @@
                 }
             },
             columns: [
-                { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'log_name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },

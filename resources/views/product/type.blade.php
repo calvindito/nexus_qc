@@ -21,7 +21,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                 <a href="{{ url('product/type/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/type_product') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/excel/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -47,6 +47,7 @@
                             <th>No</th>
                             <th>ID</th>
                             <th>Class Product</th>
+                            <th>Group</th>
                             <th>Type Product</th>
                             <th>Description</th>
                             <th>Smv Global</th>
@@ -85,8 +86,17 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Group :<span class="text-danger">*</span></label>
+                        <select name="product_group_id" id="product_group_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($group as $g)
+                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Type Product :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter type product">
                     </div>
                     <div class="form-group">
                         <label>Smv Global :<span class="text-danger">*</span></label>
@@ -156,6 +166,7 @@
     function reset() {
         $('#form_data').trigger('reset');
         $('#product_class_id').val(null).change();
+        $('#product_group_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -199,6 +210,7 @@
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'product_class_id', className: 'text-center align-middle' },
+                { name: 'product_group_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
                 { name: 'smv_global', className: 'text-center align-middle' },
@@ -275,6 +287,7 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#product_class_id').val(response.product_class_id).change();
+                $('#product_group_id').val(response.product_group_id).change();
                 $('#name').val(response.name);
                 $('#smv_global').val(response.smv_global);
                 $('#description').val(response.description);

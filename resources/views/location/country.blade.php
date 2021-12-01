@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label>Country :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter country">
                     </div>
                     <div class="form-group">
                         <label>Code :<span class="text-danger">*</span></label>

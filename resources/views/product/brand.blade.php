@@ -20,7 +20,7 @@
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ url('download/pdf/brand') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="javascript:void(0);" onclick="location.href='{{ url('download/excel/brand') }}'" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/excel/brand') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label>Brand :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter brand">
                     </div>
                     <div class="form-group">
                         <label>AQL :<span class="text-danger">*</span></label>

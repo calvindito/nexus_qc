@@ -22,6 +22,7 @@ class ProductTypeSeeder extends Seeder
             ProductType::insert([
                 'id'               => $pt['id'],
                 'product_class_id' => $pt['product_class_id'],
+                'product_group_id' => $pt['product_group_id'],
                 'created_by'       => $pt['created_by'],
                 'updated_by'       => $pt['updated_by'],
                 'name'             => $pt['name'],

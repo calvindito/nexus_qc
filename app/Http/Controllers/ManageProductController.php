@@ -161,6 +161,7 @@ class ManageProductController extends Controller {
 
         return response()->json([
             'type_product'       => $type_product->name,
+            'group'              => $type_product->productGroup->name,
             'description'        => $type_product->description,
             'class_product'      => $type_product->productClass->name,
             'smv_global'         => $type_product->smv_global,

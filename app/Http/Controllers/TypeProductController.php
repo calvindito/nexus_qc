@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Excel;
 use App\Models\ProductType;
 use App\Models\ProductClass;
+use App\Models\ProductGroup;
 use Illuminate\Http\Request;
 use App\Imports\TypeProductImport;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,7 @@ class TypeProductController extends Controller {
         $data = [
             'title'         => 'Product - Type',
             'class_product' => ProductClass::where('status', 1)->get(),
+            'group'         => ProductGroup::where('status', 1)->get(),
             'content'       => 'product.type'
         ];
 
@@ -29,6 +31,7 @@ class TypeProductController extends Controller {
             'no',
             'id',
             'product_class_id',
+            'product_group_id',
             'name',
             'description',
             'smv_global',
@@ -54,6 +57,9 @@ class TypeProductController extends Controller {
                             ->orWhereHas('productClass', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
+                            ->orWhereHas('productGroup', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -72,6 +78,9 @@ class TypeProductController extends Controller {
                             ->orWhere('description', 'like', "%$search%")
                             ->orWhere('smv_global', 'like', "%$search%")
                             ->orWhereHas('productClass', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
+                            ->orWhereHas('productGroup', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
@@ -103,6 +112,7 @@ class TypeProductController extends Controller {
                     $nomor,
                     $val->id,
                     $val->productClass->name,
+                    $val->productGroup->name,
                     $val->name,
                     $val->description,
                     $val->smv_global,
@@ -182,11 +192,13 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
+            'product_group_id' => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
+            'product_group_id.required' => 'Please select a group.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
             'status.required'           => 'Please select a status.'
@@ -200,6 +212,7 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::create([
                 'product_class_id' => $request->product_class_id,
+                'product_group_id' => $request->product_group_id,
                 'created_by'       => session('id'),
                 'updated_by'       => session('id'),
                 'name'             => $request->name,
@@ -239,11 +252,13 @@ class TypeProductController extends Controller {
     {
         $validation = Validator::make($request->all(), [
             'product_class_id' => 'required',
+            'product_group_id' => 'required',
             'name'             => 'required',
             'smv_global'       => 'required',
             'status'           => 'required'
         ], [
             'product_class_id.required' => 'Please select a class product.',
+            'product_group_id.required' => 'Please select a group.',
             'name.required'             => 'Type product cannot be empty.',
             'smv_global.required'       => 'Smv global cannot be empty.',
             'status.required'           => 'Please select a status.'
@@ -257,6 +272,7 @@ class TypeProductController extends Controller {
         } else {
             $query = ProductType::find($id)->update([
                 'product_class_id' => $request->product_class_id,
+                'product_group_id' => $request->product_group_id,
                 'updated_by'       => session('id'),
                 'name'             => $request->name,
                 'smv_global'       => $request->smv_global,

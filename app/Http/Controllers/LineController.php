@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Size;
-use App\Models\SizeDetail;
+use App\Models\Line;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class GroupSizeController extends Controller {
+class LineController extends Controller {
 
     public function index()
     {
         $data = [
-            'title'   => 'Product - Group Size',
-            'content' => 'product.group_size'
+            'title'   => 'Global - Line',
+            'section' => Section::where('status', 1)->get(),
+            'content' => 'global.line'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -25,8 +26,10 @@ class GroupSizeController extends Controller {
         $column = [
             'no',
             'id',
-            'group',
-            'value',
+            'iddivisi',
+            'departement_id',
+            'section_id',
+            'name',
             'status',
             'updated_by',
             'created_at'
@@ -38,17 +41,23 @@ class GroupSizeController extends Controller {
         $dir    = $request->input('order.0.dir');
         $search = $request->input('search.value');
 
-        $total_data = Size::count();
+        $total_data = Line::count();
 
-        $query_data = Size::where(function($query) use ($search, $request) {
+        $query_data = Line::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('group', 'like', "%$search%")
-                            ->whereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
+                        $query->where('name', 'like', "%$search%")
+                            ->orWhereHas('section', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%")
+                                    ->orWhereHas('departement', function($query) use ($search) {
+                                        $query->where('department', 'like', "%$search%")
+                                            ->orWhereHas('division', function($query) use ($search) {
+                                                $query->where('divisi', 'like', "%$search%");
+                                            });
+                                    });
                             })
-                            ->orWhereHas('sizeDetail', function($query) use ($search) {
-                                $query->where('value', 'like', "%$search%");
+                            ->orWhereHas('updatedBy', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
                             });
                     });
                 }
@@ -58,15 +67,21 @@ class GroupSizeController extends Controller {
             ->orderBy($order, $dir)
             ->get();
 
-        $total_filtered = Size::where(function($query) use ($search, $request) {
+        $total_filtered = Line::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('group', 'like', "%$search%")
-                            ->whereHas('updatedBy', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
+                        $query->where('name', 'like', "%$search%")
+                            ->orWhereHas('section', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%")
+                                    ->orWhereHas('departement', function($query) use ($search) {
+                                        $query->where('department', 'like', "%$search%")
+                                            ->orWhereHas('division', function($query) use ($search) {
+                                                $query->where('divisi', 'like', "%$search%");
+                                            });
+                                    });
                             })
-                            ->orWhereHas('sizeDetail', function($query) use ($search) {
-                                $query->where('value', 'like', "%$search%");
+                            ->orWhereHas('updatedBy', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
                             });
                     });
                 }
@@ -78,15 +93,6 @@ class GroupSizeController extends Controller {
             $nomor = $start + 1;
 
             foreach($query_data as $val) {
-                $value = '';
-                if($val->sizeDetail) {
-                    foreach($val->sizeDetail as $sd) {
-                        $value .= '<span class="badge badge-flat border-secondary text-secondary mb-2 mr-2">' . $sd->value . '</span>';
-                    }
-                } else {
-                    $value .= 'Value not selected';
-                }
-
                 if($val->status == 1) {
                     $status = '<a href="javascript:void(0);" onclick="changeStatus(' . $val->id . ', 2)" class="dropdown-item"><i class="icon-cross"></i> Inactive</a>';
                 } else {
@@ -102,8 +108,10 @@ class GroupSizeController extends Controller {
                 $response['data'][] = [
                     $nomor,
                     $val->id,
-                    $val->group,
-                    $value,
+                    $val->section->departement->division->divisi,
+                    $val->section->departement->department,
+                    $val->section->name,
+                    $val->name,
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -143,13 +151,13 @@ class GroupSizeController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'group'  => 'required',
-            'value'  => 'required',
-            'status' => 'required'
+            'section_id' => 'required',
+            'name'       => 'required',
+            'status'     => 'required'
         ], [
-            'group.required'  => 'Group cannot be empty.',
-            'value.required'  => 'Size chart cannot be empty.',
-            'status.required' => 'Please select a status.'
+            'section_id.required' => 'Please select a section.',
+            'name.required'       => 'Section cannot be empty.',
+            'status.required'     => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -158,25 +166,17 @@ class GroupSizeController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Size::create([
+            $query = Line::create([
+                'section_id' => $request->section_id,
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'group'      => $request->group,
+                'name'       => $request->name,
                 'status'     => $request->status
             ]);
 
             if($query) {
-                if($request->value) {
-                    foreach($request->value as $v) {
-                        SizeDetail::create([
-                            'size_id' => $query->id,
-                            'value'   => $v
-                        ]);
-                    }
-                }
-
-                activity('group size')
-                    ->performedOn(new Size())
+                activity('line')
+                    ->performedOn(new Line())
                     ->causedBy(session('id'))
                     ->log('create data');
 
@@ -197,34 +197,20 @@ class GroupSizeController extends Controller {
 
     public function show(Request $request)
     {
-        $data        = Size::find($request->id);
-        $size_detail = [];
-
-        if($data->sizeDetail) {
-            foreach($data->sizeDetail as $sd) {
-                $size_detail[] = [
-                    'value' => $sd->value
-                ];
-            }
-        }
-
-        return response()->json([
-            'group'       => $data->group,
-            'status'      => $data->status,
-            'size_detail' => $size_detail
-        ]);
+        $data = Line::find($request->id);
+        return response()->json($data);
     }
 
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'group'  => 'required',
-            'value'  => 'required',
-            'status' => 'required'
+            'section_id' => 'required',
+            'name'       => 'required',
+            'status'     => 'required'
         ], [
-            'group.required'  => 'Group cannot be empty.',
-            'value.required'  => 'Size chart cannot be empty.',
-            'status.required' => 'Please select a status.'
+            'section_id.required' => 'Please select a section.',
+            'name.required'       => 'Section cannot be empty.',
+            'status.required'     => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -233,34 +219,16 @@ class GroupSizeController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Size::find($id)->update([
+            $query = Line::find($id)->update([
+                'section_id' => $request->section_id,
                 'updated_by' => session('id'),
-                'group'      => $request->group,
+                'name'       => $request->name,
                 'status'     => $request->status
             ]);
 
             if($query) {
-                $empty_detail = SizeDetail::where('size_id', $id)->get();
-                foreach($empty_detail as $ed) {
-                    if(!$ed->hasRelation()) {
-                        SizeDetail::destroy($ed->id);
-                    }
-                }
-
-                if($request->value) {
-                    foreach($request->value as $v) {
-                        $exists_data = SizeDetail::where('size_id', $id)->where('value', $v)->first();
-                        if(!$exists_data) {
-                            SizeDetail::create([
-                                'size_id' => $id,
-                                'value'   => $v
-                            ]);
-                        }
-                    }
-                }
-
-                activity('group size')
-                    ->performedOn(new Size())
+                activity('line')
+                    ->performedOn(new Line())
                     ->causedBy(session('id'))
                     ->log('edit data');
 
@@ -281,10 +249,10 @@ class GroupSizeController extends Controller {
 
     public function changeStatus(Request $request)
     {
-        $query = Size::find($request->id)->update(['status' => $request->status]);
+        $query = Line::find($request->id)->update(['status' => $request->status]);
         if($query) {
-            activity('group size')
-                ->performedOn(new Size())
+            activity('line')
+                ->performedOn(new Line())
                 ->causedBy(session('id'))
                 ->log('change status');
 
@@ -304,10 +272,10 @@ class GroupSizeController extends Controller {
 
     public function destroy(Request $request)
     {
-        $query = Size::destroy($request->id);
+        $query = Line::destroy($request->id);
         if($query) {
-            activity('group size')
-                ->performedOn(new Size())
+            activity('line')
+                ->performedOn(new Line())
                 ->causedBy(session('id'))
                 ->log('delete data');
 

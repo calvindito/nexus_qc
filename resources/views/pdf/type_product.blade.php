@@ -50,6 +50,7 @@
                 <tr>
                     <th>No</th>
                     <th>Class Product</th>
+                    <th>Group</th>
                     <th>Type Product</th>
                     <th>Description</th>
                     <th>Smv Global</th>
@@ -64,6 +65,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $d->productClass->name }}</td>
+                            <td>{{ $d->productGroup->name }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->description }}</td>
                             <td>{{ $d->smv_global }}</td>
@@ -74,7 +76,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="8">Data not available</td>
+                        <td colspan="9">Data not available</td>
                     </tr>
                 @endif
             </tbody>

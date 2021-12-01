@@ -20,7 +20,7 @@ class SizeDetail extends Model {
 
     public function hasRelation()
     {
-        if($this->salesOrderDetail()->count() > 0) {
+        if($this->productionDetail()->count() > 0) {
             return true;
         } else {
             return false;
@@ -32,9 +32,9 @@ class SizeDetail extends Model {
         return $this->belongsTo('App\Models\Size')->withTrashed();
     }
 
-    public function salesOrderDetail()
+    public function productionDetail()
     {
-        return $this->hasMany('App\Models\SalesOrderDetail');
+        return $this->hasMany('App\Models\ProductionDetail');
     }
 
 }

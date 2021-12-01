@@ -72,6 +72,10 @@
                                         <div class="form-control-plaintext" id="smv_global"></div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="font-weight-semibold">Group :</label>
+                                        <div class="form-control-plaintext" id="group"></div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="font-weight-semibold">Status :</label>
                                         <div class="form-control-plaintext" id="status"></div>
                                     </div>
@@ -92,6 +96,10 @@
                                     <div class="form-group">
                                         <label class="font-weight-semibold">Last Modified Date :</label>
                                         <div class="form-control-plaintext" id="last_modified_date"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-semibold">Description :</label>
+                                        <div class="form-control-plaintext" id="description"></div>
                                     </div>
                                 </div>
                             </div>
@@ -241,6 +249,7 @@
                 loadingClose('.content');
                 $('#type_product').html(response.type_product);
                 $('#class_product').html(response.class_product);
+                $('#group').html(response.group);
                 $('#description').html(response.description);
                 $('#smv_global').html(response.smv_global);
                 $('#created_by').html(response.created_by);

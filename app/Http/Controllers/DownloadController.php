@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use App\Models\Line;
 use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Buyer;
@@ -11,7 +12,9 @@ use App\Models\Style;
 use App\Models\Fabric;
 use App\Models\Gender;
 use App\Models\JobDesc;
+use App\Models\Section;
 use App\Models\Position;
+use App\Exports\LineExport;
 use App\Exports\SizeExport;
 use App\Models\GroupDefect;
 use App\Models\ProductType;
@@ -20,15 +23,18 @@ use App\Exports\BuyerExport;
 use App\Exports\ColorExport;
 use App\Exports\StyleExport;
 use App\Models\ProductClass;
+use App\Models\ProductGroup;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use App\Exports\FabricExport;
 use App\Exports\GenderExport;
 use App\Exports\JobDescExport;
+use App\Exports\SectionExport;
 use App\Exports\PositionExport;
 use App\Exports\GroupDefectExport;
 use App\Exports\TypeProductExport;
 use App\Exports\ProductClassExport;
+use App\Exports\ProductGroupExport;
 use App\Http\Controllers\Controller;
 
 class DownloadController extends Controller {
@@ -82,15 +88,15 @@ class DownloadController extends Controller {
                     ->log('view print');
 
                 break;
-            case 'group_size':
+            case 'size':
                 $response = [
-                    'view'     => 'group_size',
-                    'title'    => 'Nexus - Data Group Size',
+                    'view'     => 'size',
+                    'title'    => 'Nexus - Data Size',
                     'data'     => Size::all(),
-                    'filename' => 'Data Group Size'
+                    'filename' => 'Data Size'
                 ];
 
-                activity('group size')
+                activity('size')
                     ->performedOn(new Size())
                     ->causedBy(session('id'))
                     ->log('view print');
@@ -264,6 +270,48 @@ class DownloadController extends Controller {
                     ->log('view print');
 
                 break;
+            case 'group_product':
+                $response = [
+                    'view'     => 'group_product',
+                    'title'    => 'Nexus - Data Group Product',
+                    'data'     => ProductGroup::all(),
+                    'filename' => 'Data Group Product'
+                ];
+
+                activity('group product')
+                    ->performedOn(new ProductGroup())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
+            case 'section':
+                $response = [
+                    'view'     => 'section',
+                    'title'    => 'Nexus - Data Section',
+                    'data'     => Section::all(),
+                    'filename' => 'Data Section'
+                ];
+
+                activity('section')
+                    ->performedOn(new Section())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
+            case 'line':
+                $response = [
+                    'view'     => 'line',
+                    'title'    => 'Nexus - Data Line',
+                    'data'     => Line::all(),
+                    'filename' => 'Data Line'
+                ];
+
+                activity('line')
+                    ->performedOn(new Line())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
             default:
                 $response = [];
                 break;
@@ -295,13 +343,13 @@ class DownloadController extends Controller {
 
                 return (new ProductClassExport)->download('QC - Data Class Product - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
-            case 'group_size':
-                activity('group size')
+            case 'size':
+                activity('size')
                     ->performedOn(new Size())
                     ->causedBy(session('id'))
                     ->log('download excel');
 
-                return (new SizeExport)->download('QC - Data Group Size - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                return (new SizeExport)->download('QC - Data Size - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             case 'type_product':
                 activity('type product')
@@ -406,6 +454,30 @@ class DownloadController extends Controller {
                     ->log('download excel');
 
                 return (new PositionExport)->download('QC - Data Position - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'group_product':
+                activity('group product')
+                    ->performedOn(new ProductGroup())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new ProductGroupExport)->download('QC - Data Group Product - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'section':
+                activity('section')
+                    ->performedOn(new Section())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new SectionExport)->download('QC - Data Section - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'line':
+                activity('line')
+                    ->performedOn(new Line())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new LineExport)->download('QC - Data Line - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();

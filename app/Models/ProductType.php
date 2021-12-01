@@ -16,6 +16,7 @@ class ProductType extends Model {
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
         'product_class_id',
+        'product_group_id',
         'created_by',
         'updated_by',
         'name',
@@ -41,6 +42,11 @@ class ProductType extends Model {
     public function productClass()
     {
         return $this->belongsTo('App\Models\ProductClass')->withTrashed();
+    }
+
+    public function productGroup()
+    {
+        return $this->belongsTo('App\Models\ProductGroup')->withTrashed();
     }
 
     public function productTypePosition()

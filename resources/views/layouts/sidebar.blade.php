@@ -49,6 +49,12 @@
                                     <a href="{{ url('global/rank') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'rank' ? 'active' : '' }}">Rank</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ url('global/section') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'section' ? 'active' : '' }}">Section</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('global/line') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'line' ? 'active' : '' }}">Line</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ url('global/job_desc') }}" class="nav-link {{ Request::segment(1) == 'global' && Request::segment(2) == 'job_desc' ? 'active' : '' }}">Job Desc</a>
                                 </li>
                                 <li class="nav-item">
@@ -67,34 +73,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('material/color') }}" class="nav-link {{ Request::segment(1) == 'material' && Request::segment(2) == 'color' ? 'active' : '' }}">Color</a>
-                                </li>
-							</ul>
-						</li>
-                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'contact' ? 'nav-item-expanded nav-item-open' : '' }}">
-							<a href="#" class="nav-link">
-                                <i class="icon-address-book3"></i>
-                                <span>Contact</span>
-                            </a>
-							<ul class="nav nav-group-sub" data-submenu-title="Contact">
-								<li class="nav-item">
-                                    <a href="{{ url('contact/buyer') }}" class="nav-link {{ Request::segment(1) == 'contact' && Request::segment(2) == 'buyer' ? 'active' : '' }}">Buyer</a>
-                                </li>
-							</ul>
-						</li>
-                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'working_hours' ? 'nav-item-expanded nav-item-open' : '' }}">
-							<a href="#" class="nav-link">
-                                <i class="icon-briefcase"></i>
-                                <span>Working Hours</span>
-                            </a>
-							<ul class="nav nav-group-sub" data-submenu-title="Working Hours">
-								<li class="nav-item">
-                                    <a href="{{ url('working_hours/type') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'chart' ? 'active' : '' }}">Chart</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('working_hours/schedule') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'schedule' ? 'active' : '' }}">Schedule</a>
                                 </li>
 							</ul>
 						</li>
@@ -151,7 +129,10 @@
                                     <a href="{{ url('product/gender') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'gender' ? 'active' : '' }}">Gender</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('product/group_size') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'group_size' ? 'active' : '' }}">Group Size</a>
+                                    <a href="{{ url('product/size') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'size' ? 'active' : '' }}">Size</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('product/group') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'group' ? 'active' : '' }}">Group</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('product/brand') }}" class="nav-link {{ Request::segment(1) == 'product' && Request::segment(2) == 'brand' ? 'active' : '' }}">Brand</a>
@@ -170,14 +151,42 @@
                                 </li>
 							</ul>
 						</li>
-                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'production_order' ? 'nav-item-expanded nav-item-open' : '' }}">
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'contact' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-address-book3"></i>
+                                <span>Contact</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Contact">
+								<li class="nav-item">
+                                    <a href="{{ url('contact/buyer') }}" class="nav-link {{ Request::segment(1) == 'contact' && Request::segment(2) == 'buyer' ? 'active' : '' }}">Buyer</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'working_hours' ? 'nav-item-expanded nav-item-open' : '' }}">
+							<a href="#" class="nav-link">
+                                <i class="icon-briefcase"></i>
+                                <span>Working Hours</span>
+                            </a>
+							<ul class="nav nav-group-sub" data-submenu-title="Working Hours">
+								<li class="nav-item">
+                                    <a href="{{ url('working_hours/type') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'type' ? 'active' : '' }}">Type</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'chart' ? 'active' : '' }}">Chart</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('working_hours/schedule') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'schedule' ? 'active' : '' }}">Schedule</a>
+                                </li>
+							</ul>
+						</li>
+                        <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'order' ? 'nav-item-expanded nav-item-open' : '' }}">
 							<a href="#" class="nav-link">
                                 <i class="icon-cart5"></i>
-                                <span>Production Order</span>
+                                <span>Order</span>
                             </a>
 							<ul class="nav nav-group-sub" data-submenu-title="Production Order">
                                 <li class="nav-item">
-                                    <a href="{{ url('production_order/so_production') }}" class="nav-link {{ Request::segment(1) == 'production_order' && Request::segment(2) == 'so_production' ? 'active' : '' }}">SO Production</a>
+                                    <a href="{{ url('order/production') }}" class="nav-link {{ Request::segment(1) == 'order' && Request::segment(2) == 'production' ? 'active' : '' }}">Production</a>
                                 </li>
 							</ul>
 						</li>
