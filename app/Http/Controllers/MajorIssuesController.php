@@ -24,7 +24,6 @@ class MajorIssuesController extends Controller {
         $column = [
             'no',
             'id',
-            'code',
             'name',
             'status',
             'updated_by',
@@ -44,8 +43,7 @@ class MajorIssuesController extends Controller {
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -61,8 +59,7 @@ class MajorIssuesController extends Controller {
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -90,8 +87,7 @@ class MajorIssuesController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
-                    $val->code,
+                    sprintf('%04s', $val->id),
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -148,7 +144,6 @@ class MajorIssuesController extends Controller {
             $query = GroupDefect::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => GroupDefect::generateCode(4),
                 'name'       => $request->name,
                 'type'       => 4,
                 'status'     => $request->status

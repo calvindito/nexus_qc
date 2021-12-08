@@ -47,7 +47,6 @@
                             <th>ID</th>
                             <th>Brand</th>
                             <th>Fabric</th>
-                            <th>Code</th>
                             <th>Color</th>
                             <th>Status</th>
                             <th>Modified By</th>
@@ -91,10 +90,6 @@
                                 <option value="{{ $f->id }}">{{ $f->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code" autocomplete="on">
                     </div>
                     <div class="form-group">
                         <label>Color :<span class="text-danger">*</span></label>
@@ -193,11 +188,7 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
@@ -205,7 +196,6 @@
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'brand_id', className: 'text-center align-middle' },
                 { name: 'color_id', className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
@@ -281,7 +271,6 @@
                 loadingClose('.modal-content');
                 $('#brand_id').val(response.brand_id).change();
                 $('#fabric_id').val(response.fabric_id).change();
-                $('#code').val(response.code);
                 $('#name').val(response.name);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');

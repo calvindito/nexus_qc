@@ -26,8 +26,6 @@
 	<script src="{{ asset('template/global_assets/js/plugins/forms/selects/select2.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
-	<script src="{{ asset('template/global_assets/js/plugins/visualization/d3/d3.min.js') }}"></script>
-	<script src="{{ asset('template/global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/forms/inputs/duallistbox/duallistbox.min.js') }}"></script>
@@ -39,6 +37,7 @@
 	<script src="{{ asset('template/global_assets/js/plugins/trees/fancytree_childcounter.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/lightbox/dist/js/lightbox.min.js') }}"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="{{ asset('template/assets/js/app.js') }}"></script>
 	<script src="{{ asset('template/plugins/custom.js') }}"></script>
 </head>

@@ -12,8 +12,8 @@ class AllowanceSmvController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Global - Allowance SMV',
-            'content' => 'global.allowance_smv'
+            'title'   => 'General - Allowance SMV',
+            'content' => 'general.allowance_smv'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -80,7 +80,7 @@ class AllowanceSmvController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->name,
                     $val->description,
                     $val->updatedBy->name,
@@ -122,7 +122,7 @@ class AllowanceSmvController extends Controller {
         $validation = Validator::make($request->all(), [
             'name' => 'required'
         ], [
-            'name.required' => 'Allowance Smv cannot be empty.'
+            'name.required' => 'Allowance SMV cannot be empty.'
         ]);
 
         if($validation->fails()) {
@@ -170,7 +170,7 @@ class AllowanceSmvController extends Controller {
         $validation = Validator::make($request->all(), [
             'name' => 'required'
         ], [
-            'name.required' => 'Allowance Smv cannot be empty.'
+            'name.required' => 'Allowance SMV cannot be empty.'
         ]);
 
         if($validation->fails()) {

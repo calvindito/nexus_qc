@@ -850,14 +850,14 @@ $genders = array(
 
 /* `nexus_qc`.`group_defects` */
 $group_defects = array(
-  array('id' => '1','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Workmanship','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:04','updated_at' => '2021-11-21 21:01:04','deleted_at' => NULL),
-  array('id' => '2','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Fabric','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:30','updated_at' => '2021-11-21 21:01:30','deleted_at' => NULL),
-  array('id' => '3','created_by' => '1','updated_by' => '1','code' => '003','name' => 'Accessories','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:38','updated_at' => '2021-11-21 21:13:38','deleted_at' => NULL),
-  array('id' => '4','created_by' => '1','updated_by' => '1','code' => '004','name' => 'Printing & Embroidery','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:53','updated_at' => '2021-11-21 21:13:53','deleted_at' => NULL),
-  array('id' => '5','created_by' => '1','updated_by' => '1','code' => '005','name' => 'Measurement','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:07','updated_at' => '2021-11-21 21:14:07','deleted_at' => NULL),
-  array('id' => '6','created_by' => '1','updated_by' => '1','code' => '006','name' => 'Cleanliness','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:16','updated_at' => '2021-11-21 21:14:16','deleted_at' => NULL),
-  array('id' => '7','created_by' => '1','updated_by' => '1','code' => '001','name' => 'Kain Cacat,Garis/Slub,Benang Putus','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:34','updated_at' => '2021-11-21 21:14:34','deleted_at' => NULL),
-  array('id' => '8','created_by' => '1','updated_by' => '1','code' => '002','name' => 'Kain Belang/Shading','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:50','updated_at' => '2021-11-21 21:14:50','deleted_at' => NULL)
+  array('id' => '1','created_by' => '1','updated_by' => '1','name' => 'Workmanship','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:04','updated_at' => '2021-11-21 21:01:04','deleted_at' => NULL),
+  array('id' => '2','created_by' => '1','updated_by' => '1','name' => 'Fabric','type' => '1','status' => '1','created_at' => '2021-11-21 21:01:30','updated_at' => '2021-11-21 21:01:30','deleted_at' => NULL),
+  array('id' => '3','created_by' => '1','updated_by' => '1','name' => 'Accessories','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:38','updated_at' => '2021-11-21 21:13:38','deleted_at' => NULL),
+  array('id' => '4','created_by' => '1','updated_by' => '1','name' => 'Printing & Embroidery','type' => '1','status' => '1','created_at' => '2021-11-21 21:13:53','updated_at' => '2021-11-21 21:13:53','deleted_at' => NULL),
+  array('id' => '5','created_by' => '1','updated_by' => '1','name' => 'Measurement','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:07','updated_at' => '2021-11-21 21:14:07','deleted_at' => NULL),
+  array('id' => '6','created_by' => '1','updated_by' => '1','name' => 'Cleanliness','type' => '1','status' => '1','created_at' => '2021-11-21 21:14:16','updated_at' => '2021-11-21 21:14:16','deleted_at' => NULL),
+  array('id' => '7','created_by' => '1','updated_by' => '1','name' => 'Kain Cacat,Garis/Slub,Benang Putus','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:34','updated_at' => '2021-11-21 21:14:34','deleted_at' => NULL),
+  array('id' => '8','created_by' => '1','updated_by' => '1','name' => 'Kain Belang/Shading','type' => '2','status' => '1','created_at' => '2021-11-21 21:14:50','updated_at' => '2021-11-21 21:14:50','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`jobs` */
@@ -906,7 +906,9 @@ $migrations = array(
   array('id' => '30','migration' => '2021_11_20_192842_create_failed_jobs_table','batch' => '1'),
   array('id' => '31','migration' => '2021_11_30_140048_create_product_groups_table','batch' => '1'),
   array('id' => '32','migration' => '2021_11_30_205249_create_sections_table','batch' => '1'),
-  array('id' => '33','migration' => '2021_11_30_215528_create_lines_table','batch' => '1')
+  array('id' => '33','migration' => '2021_11_30_215528_create_lines_table','batch' => '1'),
+  array('id' => '34','migration' => '2021_12_07_111852_create_working_hours_charts_table','batch' => '1'),
+  array('id' => '35','migration' => '2021_12_08_140933_create_standart_minute_values_table','batch' => '1')
 );
 
 /* `nexus_qc`.`personal_access_tokens` */
@@ -938,7 +940,7 @@ $product_groups = array(
 
 /* `nexus_qc`.`product_types` */
 $product_types = array(
-  array('id' => '1','product_class_id' => '1','product_group_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27','deleted_at' => NULL)
+  array('id' => '1','product_group_id' => '1','created_by' => '1','updated_by' => '1','name' => 'CargoPant','smv_global' => '1','description' => NULL,'status' => '1','created_at' => '2021-11-21 21:19:27','updated_at' => '2021-11-21 21:19:27','deleted_at' => NULL)
 );
 
 /* `nexus_qc`.`product_type_defects` */
@@ -1014,6 +1016,10 @@ $size_details = array(
   array('id' => '14','size_id' => '1','value' => '40','created_at' => '2021-11-21 21:16:19','updated_at' => '2021-11-21 21:16:19')
 );
 
+/* `nexus_qc`.`standart_minute_values` */
+$standart_minute_values = array(
+);
+
 /* `nexus_qc`.`styles` */
 $styles = array(
 );
@@ -1026,6 +1032,10 @@ $tokens = array(
 $users = array(
   array('id' => '1','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'calvindito','name' => 'Calvin Dito Pratama','email' => 'calvindito7@gmail.com','gender' => '1','password' => '$2y$10$hYGFiT225WQtf0IxGUPOFOnzx6TIlTcJtILhQJ/jkt5oX1YlbOsYi','tfa' => '0','last_login' => '2021-11-27 16:46:47','status' => '1','created_at' => '2021-11-19 21:20:47','updated_at' => '2021-11-27 16:46:47','deleted_at' => NULL),
   array('id' => '2','created_by' => '1','updated_by' => '1','image' => NULL,'username' => 'ardy','name' => 'Ardiyanto Herlambang','email' => 'ardiyanto_herlambang@yahoo.com','gender' => '1','password' => '$2a$12$S.x2f6xUU2pCzz6DjVYM0.Q6K2e0Q/n1H7Ur7U5OkPh1ZuzF6RFNS','tfa' => '0','last_login' => '2021-11-29 15:27:34','status' => '1','created_at' => '2021-11-26 22:56:16','updated_at' => '2021-11-29 15:27:34','deleted_at' => NULL)
+);
+
+/* `nexus_qc`.`working_hours_charts` */
+$working_hours_charts = array(
 );
 
 /* `nexus_qc`.`working_hours_types` */

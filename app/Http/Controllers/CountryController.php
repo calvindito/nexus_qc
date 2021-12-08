@@ -73,7 +73,7 @@ class CountryController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->code,
                     $val->name,
                     '

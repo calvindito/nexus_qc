@@ -23,7 +23,6 @@ class ColorSeeder extends Seeder
                 'fabric_id'  => $c['fabric_id'],
                 'created_by' => $c['created_by'],
                 'updated_by' => $c['updated_by'],
-                'code'       => $c['code'],
                 'name'       => $c['name'],
                 'status'     => $c['status'],
                 'created_at' => $c['created_at'],

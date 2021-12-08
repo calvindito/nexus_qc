@@ -6,8 +6,8 @@ use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Style;
 use App\Models\ProductType;
+use App\Models\ProductClass;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,11 +16,12 @@ class StyleController extends Controller {
     public function index()
     {
         $data = [
-            'title'        => 'Product - Style',
-            'type_product' => ProductType::where('status', 1)->get(),
-            'brand'        => Brand::where('status', 1)->get(),
-            'size'         => Size::where('status', 1)->get(),
-            'content'      => 'product.style'
+            'title'         => 'Product - Style',
+            'type_product'  => ProductType::where('status', 1)->get(),
+            'class_product' => ProductClass::where('status', 1)->get(),
+            'brand'         => Brand::where('status', 1)->get(),
+            'size'          => Size::where('status', 1)->get(),
+            'content'       => 'product.style'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -32,10 +33,9 @@ class StyleController extends Controller {
             'no',
             'id',
             'brand_id',
-            'class_product_id',
+            'product_class_id',
             'product_type_id',
             'size_id',
-            'code',
             'name',
             'smv_global',
             'status',
@@ -54,16 +54,15 @@ class StyleController extends Controller {
         $query_data = Style::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('brand', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
+                            ->orWhereHas('productClass', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
                             ->orWhereHas('productType', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%")
-                                    ->orWhereHas('productClass', function($query) use ($search) {
-                                        $query->where('name', 'like', "%$search%");
-                                    });
+                                $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('size', function($query) use ($search) {
                                 $query->where('group', 'like', "%$search%");
@@ -82,16 +81,15 @@ class StyleController extends Controller {
         $total_filtered = Style::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('brand', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
+                            ->orWhereHas('productClass', function($query) use ($search) {
+                                $query->where('name', 'like', "%$search%");
+                            })
                             ->orWhereHas('productType', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%")
-                                    ->orWhereHas('productClass', function($query) use ($search) {
-                                        $query->where('name', 'like', "%$search%");
-                                    });
+                                $query->where('name', 'like', "%$search%");
                             })
                             ->orWhereHas('size', function($query) use ($search) {
                                 $query->where('group', 'like', "%$search%");
@@ -129,12 +127,11 @@ class StyleController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->brand->name,
-                    $val->productType->productClass->name,
+                    $val->productClass->name,
                     $val->productType->name,
                     '<a href="javascript:void(0);" class="text-dark" data-popup="tooltip" title="' . $size . '">' . $val->size->group . '</a>',
-                    $val->code,
                     $val->name,
                     $val->productType->smv_global,
                     $val->status(),
@@ -176,20 +173,19 @@ class StyleController extends Controller {
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'product_type_id' => 'required',
-            'brand_id'        => 'required',
-            'size_id'         => 'required',
-            'code'            => 'required|unique:mysql.styles,code',
-            'name'            => 'required',
-            'status'          => 'required'
+            'product_class_id' => 'required',
+            'product_type_id'  => 'required',
+            'brand_id'         => 'required',
+            'size_id'          => 'required',
+            'name'             => 'required',
+            'status'           => 'required'
         ], [
-            'product_type_id.required' => 'Please select a type product.',
-            'brand_id.required'        => 'Please select a brand.',
-            'size_id.required'         => 'Please select a size.',
-            'code.required'            => 'Code cannot be empty.',
-            'code.unique'              => 'Code exists.',
-            'name.required'            => 'Style cannot be empty.',
-            'status.required'          => 'Please select a status.'
+            'product_class_id.required' => 'Please select a class product.',
+            'product_type_id.required'  => 'Please select a type product.',
+            'brand_id.required'         => 'Please select a brand.',
+            'size_id.required'          => 'Please select a size.',
+            'name.required'             => 'Style cannot be empty.',
+            'status.required'           => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -199,14 +195,14 @@ class StyleController extends Controller {
             ];
         } else {
             $query = Style::create([
-                'product_type_id' => $request->product_type_id,
-                'brand_id'        => $request->brand_id,
-                'size_id'         => $request->size_id,
-                'created_by'      => session('id'),
-                'updated_by'      => session('id'),
-                'code'            => $request->code,
-                'name'            => $request->name,
-                'status'          => $request->status
+                'product_class_id' => $request->product_class_id,
+                'product_type_id'  => $request->product_type_id,
+                'brand_id'         => $request->brand_id,
+                'size_id'          => $request->size_id,
+                'created_by'       => session('id'),
+                'updated_by'       => session('id'),
+                'name'             => $request->name,
+                'status'           => $request->status
             ]);
 
             if($query) {
@@ -239,20 +235,19 @@ class StyleController extends Controller {
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'product_type_id' => 'required',
-            'brand_id'        => 'required',
-            'size_id'         => 'required',
-            'code'            => ['required', Rule::unique('mysql.styles', 'code')->ignore($id)],
-            'name'            => 'required',
-            'status'          => 'required'
+            'product_class_id' => 'required',
+            'product_type_id'  => 'required',
+            'brand_id'         => 'required',
+            'size_id'          => 'required',
+            'name'             => 'required',
+            'status'           => 'required'
         ], [
-            'product_type_id.required' => 'Please select a type product.',
-            'brand_id.required'        => 'Please select a brand.',
-            'size_id.required'         => 'Please select a size.',
-            'code.required'            => 'Code cannot be empty.',
-            'code.unique'              => 'Code exists.',
-            'name.required'            => 'Style cannot be empty.',
-            'status.required'          => 'Please select a status.'
+            'product_class_id.required' => 'Please select a class product.',
+            'product_type_id.required'  => 'Please select a type product.',
+            'brand_id.required'         => 'Please select a brand.',
+            'size_id.required'          => 'Please select a size.',
+            'name.required'             => 'Style cannot be empty.',
+            'status.required'           => 'Please select a status.'
         ]);
 
         if($validation->fails()) {
@@ -262,13 +257,13 @@ class StyleController extends Controller {
             ];
         } else {
             $query = Style::find($id)->update([
-                'product_type_id' => $request->product_type_id,
-                'brand_id'        => $request->brand_id,
-                'size_id'         => $request->size_id,
-                'updated_by'      => session('id'),
-                'code'            => $request->code,
-                'name'            => $request->name,
-                'status'          => $request->status
+                'product_class_id' => $request->product_class_id,
+                'product_type_id'  => $request->product_type_id,
+                'brand_id'         => $request->brand_id,
+                'size_id'          => $request->size_id,
+                'updated_by'       => session('id'),
+                'name'             => $request->name,
+                'status'           => $request->status
             ]);
 
             if($query) {

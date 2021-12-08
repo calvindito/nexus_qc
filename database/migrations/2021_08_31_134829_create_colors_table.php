@@ -19,7 +19,6 @@ class CreateColorsTable extends Migration
             $table->unsignedBigInteger('fabric_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
-            $table->string('code');
             $table->string('name');
             $table->char('status', 1);
             $table->timestamps();

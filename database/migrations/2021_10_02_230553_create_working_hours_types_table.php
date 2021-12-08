@@ -15,10 +15,11 @@ class CreateWorkingHoursTypesTable extends Migration
     {
         Schema::connection('mysql')->create('working_hours_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('departement_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
             $table->string('name');
+            $table->integer('total_working_day');
+            $table->integer('late_tolerance')->nullable();
             $table->char('status', 1);
             $table->timestamps();
             $table->softDeletes('deleted_at');

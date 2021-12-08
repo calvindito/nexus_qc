@@ -24,7 +24,12 @@ Route::middleware('auth.login')->group(function() {
         Route::get('excel_template/{param}', 'DownloadController@excelTemplate');
     });
 
-    Route::prefix('global')->group(function() {
+    Route::prefix('general')->group(function() {
+        Route::prefix('division')->group(function() {
+            Route::get('/', 'DivisionController@index');
+            Route::get('datatable', 'DivisionController@datatable');
+        });
+
         Route::prefix('departement')->group(function() {
             Route::get('/', 'DepartementController@index');
             Route::get('datatable', 'DepartementController@datatable');
@@ -285,6 +290,17 @@ Route::middleware('auth.login')->group(function() {
     });
 
     Route::prefix('working_hours')->group(function() {
+        Route::prefix('smv')->group(function() {
+            Route::get('/', 'StandartMinuteValueController@index');
+            Route::get('datatable', 'StandartMinuteValueController@datatable');
+            Route::get('get_data_style', 'StandartMinuteValueController@getDataStyle');
+            Route::post('create', 'StandartMinuteValueController@create');
+            Route::post('show', 'StandartMinuteValueController@show');
+            Route::post('update/{id}', 'StandartMinuteValueController@update');
+            Route::post('change_status', 'StandartMinuteValueController@changeStatus');
+            Route::post('destroy', 'StandartMinuteValueController@destroy');
+        });
+
         Route::prefix('type')->group(function() {
             Route::get('/', 'WorkingHoursTypeController@index');
             Route::get('datatable', 'WorkingHoursTypeController@datatable');
@@ -297,6 +313,13 @@ Route::middleware('auth.login')->group(function() {
 
         Route::prefix('chart')->group(function() {
             Route::get('/', 'WorkingHoursChartController@index');
+            Route::get('datatable', 'WorkingHoursChartController@datatable');
+            Route::get('get_data', 'WorkingHoursChartController@getData');
+            Route::get('get_wht_detail', 'WorkingHoursChartController@getWhtDetail');
+            Route::post('create', 'WorkingHoursChartController@create');
+            Route::post('show', 'WorkingHoursChartController@show');
+            Route::post('update/{id}', 'WorkingHoursChartController@update');
+            Route::post('destroy', 'WorkingHoursChartController@destroy');
         });
     });
 

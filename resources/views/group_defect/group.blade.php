@@ -45,7 +45,6 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Code</th>
                             <th>Group</th>
                             <th>Status</th>
                             <th>Modified By</th>
@@ -71,10 +70,6 @@
                 <form id="form_data" autocomplete="off">
                     <div class="alert alert-danger" id="validation_alert" style="display:none;">
                         <ul id="validation_content" class="mb-0"></ul>
-                    </div>
-                    <div class="form-group">
-                        <label>Code :</label>
-                        <input type="text" id="code" class="form-control" placeholder="Auto Generate" readonly>
                     </div>
                     <div class="form-group">
                         <label>Group :<span class="text-danger">*</span></label>
@@ -171,17 +166,12 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
@@ -255,7 +245,6 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#code').val(response.code);
                 $('#name').val(response.name);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');

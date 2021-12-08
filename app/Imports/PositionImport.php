@@ -31,7 +31,6 @@ class PositionImport implements ToCollection, WithHeadingRow, WithBatchInserts, 
             Position::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => Position::generateCode(),
                 'name'       => $r['position'],
                 'status'     => 1
             ]);

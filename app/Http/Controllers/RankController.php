@@ -11,8 +11,8 @@ class RankController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Global - Rank',
-            'content' => 'global.rank'
+            'title'   => 'General - Rank',
+            'content' => 'general.rank'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -66,7 +66,7 @@ class RankController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->rank,
                     $val->description,
                     $val->status

@@ -111,7 +111,7 @@ class ProductionController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->code_production,
                     $val->code_job_order,
                     $val->code_buyer,
@@ -292,7 +292,7 @@ class ProductionController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $query = Production::find($id)->update([
+            $query = $production->update([
                 'buyer_id'        => $request->buyer_id,
                 'style_id'        => $request->style_id,
                 'city_id'         => $request->city_id,

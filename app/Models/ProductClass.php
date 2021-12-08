@@ -23,16 +23,16 @@ class ProductClass extends Model {
 
     public function hasRelation()
     {
-        if($this->typeProduct()->count() > 0) {
+        if($this->style()->count() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function typeProduct()
+    public function style()
     {
-        return $this->hasMany('App\Models\ProductType');
+        return $this->hasMany('App\Models\Style');
     }
 
     public function createdBy()

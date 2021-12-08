@@ -21,7 +21,6 @@ class GroupDefectSeeder extends Seeder
                 'id'         => $gd['id'],
                 'created_by' => $gd['created_by'],
                 'updated_by' => $gd['updated_by'],
-                'code'       => $gd['code'],
                 'name'       => $gd['name'],
                 'type'       => $gd['type'],
                 'status'     => $gd['status'],

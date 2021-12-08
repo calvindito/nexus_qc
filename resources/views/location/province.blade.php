@@ -160,11 +160,7 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [

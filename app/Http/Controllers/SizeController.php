@@ -101,7 +101,7 @@ class SizeController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->group,
                     $value,
                     $val->status(),

@@ -6,7 +6,6 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use App\Imports\PositionImport;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,7 +26,6 @@ class PositionController extends Controller {
         $column = [
             'no',
             'id',
-            'code',
             'name',
             'status',
             'updated_by',
@@ -45,8 +43,7 @@ class PositionController extends Controller {
         $query_data = Position::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%");
+                        $query->where('name', 'like', "%$search%");
                     });
                 }
             })
@@ -58,8 +55,7 @@ class PositionController extends Controller {
         $total_filtered = Position::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%");
+                        $query->where('name', 'like', "%$search%");
                     });
                 }
             })
@@ -84,8 +80,7 @@ class PositionController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
-                    $val->code,
+                    sprintf('%04s', $val->id),
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -176,7 +171,6 @@ class PositionController extends Controller {
             $query = Position::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => Position::generateCode(),
                 'name'       => $request->name,
                 'status'     => $request->status
             ]);
@@ -224,7 +218,6 @@ class PositionController extends Controller {
         } else {
             $query = Position::find($id)->update([
                 'updated_by' => session('id'),
-                'code'       => $request->code,
                 'name'       => $request->name,
                 'status'     => $request->status
             ]);

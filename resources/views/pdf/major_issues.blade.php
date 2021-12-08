@@ -49,7 +49,6 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Code</th>
                     <th>Major Issues</th>
                     <th>Status</th>
                     <th>Modified By</th>
@@ -61,7 +60,6 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
@@ -70,7 +68,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6">Data not available</td>
+                        <td colspan="5">Data not available</td>
                     </tr>
                 @endif
             </tbody>

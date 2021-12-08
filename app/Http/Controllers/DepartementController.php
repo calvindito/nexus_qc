@@ -11,8 +11,8 @@ class DepartementController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Global - Departement',
-            'content' => 'global.departement'
+            'title'   => 'General - Departement',
+            'content' => 'general.departement'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -66,7 +66,7 @@ class DepartementController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->department,
                     $val->description,
                     $val->status

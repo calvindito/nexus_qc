@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Line</span>
+                    <span class="font-weight-semibold">Job Desc</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="d-inline">
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/line') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="{{ url('download/excel/line') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/job_desc') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/excel/job_desc') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,8 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Line</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Job Desc</span>
                 </div>
             </div>
         </div>
@@ -45,10 +45,8 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Division</th>
-                            <th>Departement</th>
-                            <th>Section</th>
-                            <th>Line</th>
+                            <th>Job Desc</th>
+                            <th>Description</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -75,17 +73,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Section :<span class="text-danger">*</span></label>
-                        <select name="section_id" id="section_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($section as $s)
-                                <option value="{{ $s->id }}">{{ $s->name }}</option>
-                            @endforeach
-                        </select>
+                        <label>Job Desc :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter job desc">
                     </div>
                     <div class="form-group">
-                        <label>Line :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter line">
+                        <label>Description :</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -146,7 +139,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#section_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -169,7 +161,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("global/line/datatable") }}',
+                url: '{{ url("general/job_desc/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -179,20 +171,14 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'iddivisi', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'departement_id', orderable: false, className: 'text-center align-middle' },
-                { name: 'section_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -203,7 +189,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("global/line/create") }}',
+            url: '{{ url("general/job_desc/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -251,7 +237,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("global/line/show") }}',
+            url: '{{ url("general/job_desc/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -265,8 +251,8 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#section_id').val(response.section_id).change();
                 $('#name').val(response.name);
+                $('#description').val(response.description);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -284,7 +270,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("global/line/update") }}' + '/' + id,
+            url: '{{ url("general/job_desc/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -331,7 +317,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("global/line/change_status") }}',
+            url: '{{ url("general/job_desc/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -379,7 +365,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("global/line/destroy") }}',
+                        url: '{{ url("general/job_desc/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

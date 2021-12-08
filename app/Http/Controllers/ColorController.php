@@ -6,7 +6,6 @@ use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Fabric;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,7 +30,6 @@ class ColorController extends Controller {
             'id',
             'brand_id',
             'fabric_id',
-            'code',
             'name',
             'status',
             'updated_by',
@@ -49,8 +47,7 @@ class ColorController extends Controller {
         $query_data = Color::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('brand', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
@@ -71,8 +68,7 @@ class ColorController extends Controller {
         $total_filtered = Color::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('brand', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             })
@@ -106,10 +102,9 @@ class ColorController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->brand->name,
                     $val->fabric->name,
-                    $val->code,
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -152,13 +147,11 @@ class ColorController extends Controller {
         $validation = Validator::make($request->all(), [
             'brand_id'  => 'required',
             'fabric_id' => 'required',
-            'code'      => 'required',
             'name'      => 'required',
             'status'    => 'required'
         ], [
             'brand_id.required'  => 'Please select a brand.',
             'fabric_id.required' => 'Please select a fabric.',
-            'code.required'      => 'Code cannot be empty.',
             'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
@@ -169,27 +162,14 @@ class ColorController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $check_exist_data = Color::where('fabric_id', $request->id)
-                ->where('code', $request->code)
-                ->count();
-
-            if($check_exist_data > 0) {
-                return response()->json([
-                    'status'  => 500,
-                    'message' => 'Data exists'
-                ]);
-            } else {
-                $query = Color::create([
-                    'brand_id'   => $request->brand_id,
-                    'fabric_id'  => $request->fabric_id,
-                    'created_by' => session('id'),
-                    'updated_by' => session('id'),
-                    'code'       => $request->code,
-                    'name'       => $request->name,
-                    'status'     => $request->status
-                ]);
-            }
-
+            $query = Color::create([
+                'brand_id'   => $request->brand_id,
+                'fabric_id'  => $request->fabric_id,
+                'created_by' => session('id'),
+                'updated_by' => session('id'),
+                'name'       => $request->name,
+                'status'     => $request->status
+            ]);
 
             if($query) {
                 activity('color')
@@ -223,13 +203,11 @@ class ColorController extends Controller {
         $validation = Validator::make($request->all(), [
             'brand_id'  => 'required',
             'fabric_id' => 'required',
-            'code'      => 'required',
             'name'      => 'required',
             'status'    => 'required'
         ], [
             'brand_id.required'  => 'Please select a brand.',
             'fabric_id.required' => 'Please select a fabric.',
-            'code.required'      => 'Code cannot be empty.',
             'name.required'      => 'Color cannot be empty.',
             'status.required'    => 'Please select a status.'
         ]);
@@ -240,26 +218,13 @@ class ColorController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $check_exist_data = Color::where('fabric_id', $request->id)
-                ->where('code', $request->code)
-                ->where('id', '!=', $id)
-                ->count();
-
-            if($check_exist_data > 0) {
-                return response()->json([
-                    'status'  => 500,
-                    'message' => 'Data exists'
-                ]);
-            } else {
-                $query = Color::find($id)->update([
-                    'brand_id'   => $request->brand_id,
-                    'fabric_id'  => $request->fabric_id,
-                    'updated_by' => session('id'),
-                    'code'       => $request->code,
-                    'name'       => $request->name,
-                    'status'     => $request->status
-                ]);
-            }
+            $query = Color::find($id)->update([
+                'brand_id'   => $request->brand_id,
+                'fabric_id'  => $request->fabric_id,
+                'updated_by' => session('id'),
+                'name'       => $request->name,
+                'status'     => $request->status
+            ]);
 
             if($query) {
                 activity('color')

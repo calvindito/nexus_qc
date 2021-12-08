@@ -18,18 +18,18 @@ class StyleSeeder extends Seeder
 
         foreach($styles as $s) {
             Style::insert([
-                'id'              => $s['id'],
-                'product_type_id' => $s['product_type_id'],
-                'brand_id'        => $s['brand_id'],
-                'size_id'         => $s['size_id'],
-                'created_by'      => $s['created_by'],
-                'updated_by'      => $s['updated_by'],
-                'code'            => $s['code'],
-                'name'            => $s['name'],
-                'status'          => $s['status'],
-                'created_at'      => $s['created_at'],
-                'updated_at'      => $s['updated_at'],
-                'deleted_at'      => $s['deleted_at']
+                'id'               => $s['id'],
+                'product_class_id' => $s['product_class_id'],
+                'product_type_id'  => $s['product_type_id'],
+                'brand_id'         => $s['brand_id'],
+                'size_id'          => $s['size_id'],
+                'created_by'       => $s['created_by'],
+                'updated_by'       => $s['updated_by'],
+                'name'             => $s['name'],
+                'status'           => $s['status'],
+                'created_at'       => $s['created_at'],
+                'updated_at'       => $s['updated_at'],
+                'deleted_at'       => $s['deleted_at']
             ]);
         }
     }

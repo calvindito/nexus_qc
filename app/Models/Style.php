@@ -15,19 +15,19 @@ class Style extends Model {
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
+        'product_class_id',
         'product_type_id',
         'brand_id',
         'size_id',
         'created_by',
         'updated_by',
-        'code',
         'name',
         'status'
     ];
 
     public function hasRelation()
     {
-        if($this->production()->count() > 0) {
+        if($this->production()->count() > 0 || $this->standartMinuteValue()->count() > 0) {
             return true;
         } else {
             return false;
@@ -37,6 +37,16 @@ class Style extends Model {
     public function production()
     {
         return $this->hasMany('App\Models\Production');
+    }
+
+    public function standartMinuteValue()
+    {
+        return $this->hasMany('App\Models\StandartMinuteValue');
+    }
+
+    public function productClass()
+    {
+        return $this->belongsTo('App\Models\ProductClass')->withTrashed();
     }
 
     public function productType()

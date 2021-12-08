@@ -4,8 +4,8 @@ use App\Models\SisterCompany;
 
 if(!function_exists('treeViewWorkingHoursChart')) {
     function treeViewWorkingHoursChart() {
-        $sister_company = SisterCompany::where('status', 'Active')->get();
         $tree_view      = [];
+        $sister_company = SisterCompany::where('status', 'Active')->get();
         $branch         = [];
         $division       = [];
         $departement    = [];
@@ -24,17 +24,20 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                                             if($s->line->count() > 0) {
                                                 foreach($s->line as $l) {
                                                     $line[] = [
+                                                        'id'   => $l->id,
                                                         'name' => $l->name,
                                                         'sub'  => []
                                                     ];
                                                 }
 
                                                 $section[] = [
+                                                    'id'   => $s->id,
                                                     'name' => $s->name,
                                                     'sub'  => $line
                                                 ];
                                             } else {
                                                 $section[] = [
+                                                    'id'   => $s->id,
                                                     'name' => $s->name,
                                                     'sub'  => []
                                                 ];
@@ -42,11 +45,13 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                                         }
 
                                         $departement[] = [
+                                            'id'   => $dtt->id,
                                             'name' => $dtt->department,
                                             'sub'  => $section
                                         ];
                                     } else {
                                         $departement[] = [
+                                            'id'   => $dtt->id,
                                             'name' => $dtt->department,
                                             'sub'  => []
                                         ];
@@ -54,11 +59,13 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                                 }
 
                                 $division[] = [
+                                    'id'   => $d->id,
                                     'name' => $d->divisi,
                                     'sub'  => $departement
                                 ];
                             } else {
                                 $division[] = [
+                                    'id'   => $d->id,
                                     'name' => $d->divisi,
                                     'sub'  => []
                                 ];
@@ -66,11 +73,13 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                         }
 
                         $branch[] = [
+                            'id'   => $sb->idsetupsisterbranch,
                             'name' => $sb->description,
                             'sub'  => $division
                         ];
                     } else {
                         $branch[] = [
+                            'id'   => $sb->idsetupsisterbranch,
                             'name' => $sb->description,
                             'sub'  => []
                         ];
@@ -78,18 +87,18 @@ if(!function_exists('treeViewWorkingHoursChart')) {
                 }
 
                 $tree_view[] = [
+                    'id'   => $sc->id,
                     'name' => $sc->name,
                     'sub'  => $branch
                 ];
             } else {
                 $tree_view[] = [
+                    'id'   => $sc->id,
                     'name' => $sc->name,
                     'sub'  => []
                 ];
             }
         }
-
-        // dd($tree_view);
 
         return $tree_view;
     }

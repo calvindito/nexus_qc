@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Departement</span>
+                    <span class="font-weight-semibold">Division</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -21,8 +21,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Departement</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Division</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Departement</th>
+                            <th>Division</th>
                             <th>Description</th>
                             <th>Status</th>
                         </tr>
@@ -61,7 +61,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("global/departement/datatable") }}',
+                url: '{{ url("general/division/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -71,17 +71,13 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'department', className: 'text-center align-middle' },
+                { name: 'divisi', className: 'text-center align-middle' },
                 { name: 'description', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' }
             ]

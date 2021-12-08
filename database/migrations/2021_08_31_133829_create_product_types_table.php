@@ -15,7 +15,6 @@ class CreateProductTypesTable extends Migration
     {
         Schema::connection('mysql')->create('product_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_class_id');
             $table->unsignedBigInteger('product_group_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');

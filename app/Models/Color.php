@@ -19,7 +19,6 @@ class Color extends Model {
         'fabric_id',
         'created_by',
         'updated_by',
-        'code',
         'name',
         'status'
     ];

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\Color;
 use App\Models\Country;
 use App\Models\Province;
 use Illuminate\Http\Request;

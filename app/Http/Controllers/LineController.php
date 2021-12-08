@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Line;
-use App\Models\Section;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -13,9 +13,9 @@ class LineController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Global - Line',
-            'section' => Section::where('status', 1)->get(),
-            'content' => 'global.line'
+            'title'    => 'General - Line',
+            'division' => Division::where('status', 'Active')->get(),
+            'content'  => 'general.line'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -107,7 +107,7 @@ class LineController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->section->departement->division->divisi,
                     $val->section->departement->department,
                     $val->section->name,

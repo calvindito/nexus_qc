@@ -84,7 +84,7 @@ class ProvinceController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->country->name,
                     $val->name,
                     $val->latitude,

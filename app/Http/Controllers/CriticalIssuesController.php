@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupDefect;
 use Illuminate\Http\Request;
-use App\Models\ProductClassDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +24,6 @@ class CriticalIssuesController extends Controller {
         $column = [
             'no',
             'id',
-            'code',
             'name',
             'status',
             'updated_by',
@@ -45,8 +43,7 @@ class CriticalIssuesController extends Controller {
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -62,8 +59,7 @@ class CriticalIssuesController extends Controller {
             ->where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('code', 'like', "%$search%")
-                            ->orWhere('name', 'like', "%$search%")
+                        $query->where('name', 'like', "%$search%")
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -91,8 +87,7 @@ class CriticalIssuesController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
-                    $val->code,
+                    sprintf('%04s', $val->id),
                     $val->name,
                     $val->status(),
                     $val->updatedBy->name,
@@ -149,7 +144,6 @@ class CriticalIssuesController extends Controller {
             $query = GroupDefect::create([
                 'created_by' => session('id'),
                 'updated_by' => session('id'),
-                'code'       => GroupDefect::generateCode(5),
                 'name'       => $request->name,
                 'type'       => 5,
                 'status'     => $request->status

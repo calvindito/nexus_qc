@@ -24,7 +24,6 @@ use App\Exports\ColorExport;
 use App\Exports\StyleExport;
 use App\Models\ProductClass;
 use App\Models\ProductGroup;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use App\Exports\FabricExport;
 use App\Exports\GenderExport;

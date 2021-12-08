@@ -12,8 +12,8 @@ class JobDescController extends Controller {
     public function index()
     {
         $data = [
-            'title'   => 'Global - Job Desc',
-            'content' => 'global.job_desc'
+            'title'   => 'General - Job Desc',
+            'content' => 'general.job_desc'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -87,7 +87,7 @@ class JobDescController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->name,
                     $val->description,
                     $val->status(),

@@ -24,7 +24,7 @@ class Section extends Model {
 
     public function hasRelation()
     {
-        if($this->line()->count() > 0) {
+        if($this->line()->count() > 0 || $this->workingHoursChart()->count() > 0) {
             return true;
         } else {
             return false;
@@ -34,6 +34,11 @@ class Section extends Model {
     public function line()
     {
         return $this->hasMany('App\Models\Line');
+    }
+
+    public function workingHoursChart()
+    {
+        return $this->hasMany('App\Models\WorkingHoursChart');
     }
 
     public function createdBy()

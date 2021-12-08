@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Section</span>
+                    <span class="font-weight-semibold">Allowance SMV</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -16,13 +16,6 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
-                        <div class="d-inline">
-                            <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/section') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="{{ url('download/excel/section') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -31,8 +24,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Section</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Allowance SMV</span>
                 </div>
             </div>
         </div>
@@ -45,10 +38,8 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Division</th>
-                            <th>Departement</th>
-                            <th>Section</th>
-                            <th>Status</th>
+                            <th>Allowance SMV</th>
+                            <th>Description</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
                             <th>Action</th>
@@ -74,31 +65,12 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Departement :<span class="text-danger">*</span></label>
-                        <select name="departement_id" id="departement_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($departement as $d)
-                                <option value="{{ $d->id }}">{{ $d->department }}</option>
-                            @endforeach
-                        </select>
+                        <label>Allowance SMV :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter allowance smv">
                     </div>
                     <div class="form-group">
-                        <label>Section :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter section">
-                    </div>
-                    <div class="form-group text-center mt-4">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="2">
-                                Inactive
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="status" value="1" checked>
-                                Active
-                            </label>
-                        </div>
+                        <label>Description :</label>
+                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
                     </div>
                 </form>
             </div>
@@ -145,8 +117,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#departement_id').val(null).change();
-        $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -168,7 +138,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("global/section/datatable") }}',
+                url: '{{ url("general/allowance_smv/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -178,20 +148,14 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'iddivisi', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'departement_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'status', searchable: false, className: 'text-center align-middle' },
+                { name: 'description', className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
@@ -201,7 +165,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("global/section/create") }}',
+            url: '{{ url("general/allowance_smv/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -249,7 +213,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("global/section/show") }}',
+            url: '{{ url("general/allowance_smv/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -263,9 +227,8 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#departement_id').val(response.departement_id).change();
                 $('#name').val(response.name);
-                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
+                $('#description').val(response.description);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
@@ -282,7 +245,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("global/section/update") }}' + '/' + id,
+            url: '{{ url("general/allowance_smv/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -327,41 +290,6 @@
         });
     }
 
-    function changeStatus(id, value) {
-        $.ajax({
-            url: '{{ url("global/section/change_status") }}',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {
-                id: id,
-                status: value
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            beforeSend: function() {
-                loadingOpen('.modal-content');
-            },
-            success: function(response) {
-                loadingClose('.modal-content');
-                if(response.status == 200) {
-                    success();
-                    notif('success', 'bg-success', response.message);
-                } else {
-                    notif('error', 'bg-danger', response.message);
-                }
-            },
-            error: function() {
-                loadingClose('.modal-content');
-                swalInit.fire({
-                    title: 'Server Error',
-                    text: 'Please contact developer',
-                    icon: 'error'
-                });
-            }
-        });
-    }
-
     function destroy(id) {
         var notify_confirmation = new Noty({
             text: '<h6 class="font-weight-bold mb-3">Confirmation Delete Data</h6><div class="font-italic text-danger mb-3">*) Deleted data can no longer be recovered.</div>',
@@ -377,7 +305,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("global/section/destroy") }}',
+                        url: '{{ url("general/allowance_smv/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

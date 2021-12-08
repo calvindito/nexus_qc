@@ -51,7 +51,6 @@
                     <th>No</th>
                     <th>Brand</th>
                     <th>Fabric</th>
-                    <th>Code</th>
                     <th>Color</th>
                     <th>Status</th>
                     <th>Modified By</th>
@@ -65,7 +64,6 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $d->brand->name }}</td>
                             <td>{{ $d->fabric->name }}</td>
-                            <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{!! $d->status() !!}</td>
                             <td>{{ $d->updatedBy->name }}</td>
@@ -74,7 +72,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="8">Data not available</td>
+                        <td colspan="7">Data not available</td>
                     </tr>
                 @endif
             </tbody>

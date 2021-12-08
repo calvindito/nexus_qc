@@ -95,7 +95,7 @@ class UserController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $image,
                     $val->name,
                     $val->email,
@@ -244,7 +244,7 @@ class UserController extends Controller {
                 $image = $user->image;
             }
 
-            $user->update([
+            $query = $user->update([
                 'updated_by' => session('id'),
                 'image'      => $image,
                 'username'   => $request->username,

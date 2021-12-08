@@ -16,10 +16,7 @@ class WorkingHoursTypeDetail extends Model {
         'working_hours_type_id',
         'start_time',
         'end_time',
-        'shift',
-        'duration',
-        'order_sequence',
-        'total_minutes'
+        'status'
     ];
 
     public function workingHoursType()
@@ -27,21 +24,21 @@ class WorkingHoursTypeDetail extends Model {
         return $this->belongsTo('App\Models\WorkingHoursType')->withTrashed();
     }
 
-    public function shift()
+    public function status()
     {
-        switch($this->shift) {
+        switch($this->status) {
             case '1':
-                $shift = 'Work';
+                $status = 'Work';
                 break;
             case '2':
-                $shift = 'Break';
+                $status = 'Break';
                 break;
             default:
-                $shift = 'Invalid';
+                $status = 'Invalid';
                 break;
         }
 
-        return $shift;
+        return $status;
     }
 
 }

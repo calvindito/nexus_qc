@@ -21,7 +21,6 @@ class PositionSeeder extends Seeder
                 'id'         => $p['id'],
                 'created_by' => $p['created_by'],
                 'updated_by' => $p['updated_by'],
-                'code'       => $p['code'],
                 'name'       => $p['name'],
                 'status'     => $p['status'],
                 'created_at' => $p['created_at'],

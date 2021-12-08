@@ -6,7 +6,6 @@ use Excel;
 use App\Models\Buyer;
 use App\Models\Country;
 use App\Models\JobDesc;
-use App\Models\Departement;
 use App\Imports\BuyerImport;
 use App\Models\BuyerContact;
 use Illuminate\Http\Request;
@@ -124,7 +123,7 @@ class BuyerController extends Controller {
                 $response['data'][] = [
                     '<span class="text-success" data-id="' . $val->id . '"><i class="icon-plus-circle2"></i></span>',
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->company,
                     $val->description,
                     $val->address,

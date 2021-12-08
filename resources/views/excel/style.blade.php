@@ -10,10 +10,10 @@
     <thead>
         <tr>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">TYPE PRODUCT</th>
+            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">CLASS PRODUCT</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">BRAND</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">CLASS PRODUCT</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">SIZE</th>
-            <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">CODE</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">STYLE</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">SMV GLOBAL</th>
             <th style="height:25px; font-size:9px; font-weight:bold; border:1px solid black; text-align:center; vertical-align:center;">STATUS</th>
@@ -26,6 +26,9 @@
             @foreach($data as $d)
                 <tr>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
+                        {{ $d->productClass->name }}
+                    </td>
+                    <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
                         {{ $d->productType->name }}
                     </td>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
@@ -36,9 +39,6 @@
                     </td>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
                         {{ $d->size->group }}
-                    </td>
-                    <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
-                        {{ $d->code }}
                     </td>
                     <td style="font-size:9px; border:1px solid black; text-align:center; vertical-align:center;">
                         {{ $d->name }}

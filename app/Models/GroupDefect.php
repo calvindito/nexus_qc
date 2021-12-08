@@ -17,28 +17,10 @@ class GroupDefect extends Model {
     protected $fillable   = [
         'created_by',
         'updated_by',
-        'code',
         'name',
         'type',
         'status'
     ];
-
-    public static function generateCode($param)
-    {
-        $query = GroupDefect::where('type', $param)
-            ->orderBy('code', 'desc')
-            ->limit(1)
-            ->withTrashed()
-            ->get();
-
-        if($query->count() > 0) {
-            $code = (int)$query[0]->code + 1;
-        } else {
-            $code = '001';
-        }
-
-        return sprintf('%03s', $code);
-    }
 
     public function hasRelation()
     {

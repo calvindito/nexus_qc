@@ -84,7 +84,7 @@ class CityController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->province->name,
                     $val->name,
                     $val->latitude,

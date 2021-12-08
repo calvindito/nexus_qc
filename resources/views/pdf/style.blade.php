@@ -49,13 +49,13 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Class Product</th>
                     <th>Type Product</th>
                     <th>Brand</th>
                     <th>Class Product</th>
                     <th>Size</th>
-                    <th>Code</th>
                     <th>Style</th>
-                    <th>Smv Global</th>
+                    <th>SMV Global</th>
                     <th>Status</th>
                     <th>Modified By</th>
                     <th>Date Created</th>
@@ -66,11 +66,11 @@
                     @foreach($data as $key => $d)
                         <tr>
                             <td>{{ $key + 1 }}</td>
+                            <td>{{ $d->productClass->name }}</td>
                             <td>{{ $d->productType->name }}</td>
                             <td>{{ $d->brand->name }}</td>
                             <td>{{ $d->productType->productClass->name }}</td>
                             <td>{{ $d->size->group }}</td>
-                            <td>{{ $d->code }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->productType->smv_global }}</td>
                             <td>{!! $d->status() !!}</td>

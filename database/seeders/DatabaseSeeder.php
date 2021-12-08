@@ -33,9 +33,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvinceSeeder::class);
         $this->call(SectionSeeder::class);
         $this->call(SizeSeeder::class);
+        $this->call(StandartMinuteValueSeeder::class);
         $this->call(StyleSeeder::class);
         $this->call(TokenSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(WorkingHoursChartSeeder::class);
         $this->call(WorkingHoursTypeSeeder::class);
     }
 }

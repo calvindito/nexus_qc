@@ -17,3 +17,4 @@
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     background-color: #E7E7E7 !important;
 }
+

@@ -17,7 +17,6 @@ class CreatePositionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
-            $table->string('code')->unique();
             $table->string('name');
             $table->char('status', 1);
             $table->timestamps();

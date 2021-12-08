@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Allowance SMV</span>
+                    <span class="font-weight-semibold">Line</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -16,6 +16,13 @@
                         <button type="button" class="btn btn-teal btn-labeled btn-labeled-left ml-1" onclick="openModal()" data-toggle="modal" data-target="#modal_form">
                             <b><i class="icon-plus-circle2"></i></b> Add
                         </button>
+                        <div class="d-inline">
+                            <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{ url('download/pdf/line') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/excel/line') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -24,8 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Allowance SMV</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Line</span>
                 </div>
             </div>
         </div>
@@ -38,8 +45,11 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Allowance SMV</th>
-                            <th>Description</th>
+                            <th>Division</th>
+                            <th>Departement</th>
+                            <th>Section</th>
+                            <th>Line</th>
+                            <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
                             <th>Action</th>
@@ -65,12 +75,39 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Allowance SMV :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter allowance smv">
+                        <label>Section :<span class="text-danger">*</span></label>
+                        <select name="section_id" id="section_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($division as $d)
+                                <optgroup label="{{ $d->divisi }}">
+                                    @foreach($d->departement as $dd)
+                                        <optgroup label="{{ $dd->department }}">
+                                            @foreach($dd->section as $s)
+                                                <option value="{{ $s->id }}">{{ $s->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>Description :</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
+                        <label>Line :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter line">
+                    </div>
+                    <div class="form-group text-center mt-4">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="status" value="2">
+                                Inactive
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="status" value="1" checked>
+                                Active
+                            </label>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -117,6 +154,8 @@
 
     function reset() {
         $('#form_data').trigger('reset');
+        $('#section_id').val(null).change();
+        $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -138,7 +177,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("global/allowance_smv/datatable") }}',
+                url: '{{ url("general/line/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -148,18 +187,17 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
+                { name: 'iddivisi', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'departement_id', orderable: false, className: 'text-center align-middle' },
+                { name: 'section_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'description', className: 'text-center align-middle' },
+                { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
@@ -169,7 +207,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("global/allowance_smv/create") }}',
+            url: '{{ url("general/line/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -217,7 +255,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("global/allowance_smv/show") }}',
+            url: '{{ url("general/line/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -231,8 +269,9 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
+                $('#section_id').val(response.section_id).change();
                 $('#name').val(response.name);
-                $('#description').val(response.description);
+                $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
             error: function() {
@@ -249,7 +288,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("global/allowance_smv/update") }}' + '/' + id,
+            url: '{{ url("general/line/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -294,6 +333,41 @@
         });
     }
 
+    function changeStatus(id, value) {
+        $.ajax({
+            url: '{{ url("general/line/change_status") }}',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                id: id,
+                status: value
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            beforeSend: function() {
+                loadingOpen('.modal-content');
+            },
+            success: function(response) {
+                loadingClose('.modal-content');
+                if(response.status == 200) {
+                    success();
+                    notif('success', 'bg-success', response.message);
+                } else {
+                    notif('error', 'bg-danger', response.message);
+                }
+            },
+            error: function() {
+                loadingClose('.modal-content');
+                swalInit.fire({
+                    title: 'Server Error',
+                    text: 'Please contact developer',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
     function destroy(id) {
         var notify_confirmation = new Noty({
             text: '<h6 class="font-weight-bold mb-3">Confirmation Delete Data</h6><div class="font-italic text-danger mb-3">*) Deleted data can no longer be recovered.</div>',
@@ -309,7 +383,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("global/allowance_smv/destroy") }}',
+                        url: '{{ url("general/line/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

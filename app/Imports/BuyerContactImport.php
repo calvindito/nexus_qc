@@ -63,7 +63,7 @@ class BuyerContactImport implements ToCollection, WithHeadingRow, WithBatchInser
 
                 BuyerContact::create([
                     'buyer_id' => $buyer->id,
-                    'rank_id'  => $r['rank_id'],
+                    'rank_id'  => str_replace('0', '', $r['rank_id']),
                     'name'     => $r['name'],
                     'value'    => $r['value'],
                     'type'     => $type

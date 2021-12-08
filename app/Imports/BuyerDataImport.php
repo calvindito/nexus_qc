@@ -44,9 +44,9 @@ class BuyerDataImport implements ToCollection, WithHeadingRow, WithBatchInserts,
 
         foreach($rows as $r) {
             Buyer::create([
-                'country_id'  => $r['country_id'],
-                'province_id' => $r['province_id'],
-                'city_id'     => $r['city_id'],
+                'country_id'  => str_replace('0', '', $r['country_id']),
+                'province_id' => str_replace('0', '', $r['province_id']),
+                'city_id'     => str_replace('0', '', $r['city_id']),
                 'created_by'  => session('id'),
                 'updated_by'  => session('id'),
                 'excelable'   => $r['marker'],

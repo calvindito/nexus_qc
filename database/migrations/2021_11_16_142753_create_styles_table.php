@@ -16,11 +16,11 @@ class CreateStylesTable extends Migration
         Schema::connection('mysql')->create('styles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_type_id');
+            $table->unsignedBigInteger('product_class_id');
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('size_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
-            $table->string('code')->unique();
             $table->string('name');
             $table->char('status', 1);
             $table->timestamps();

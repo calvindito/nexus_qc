@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Job Desc</span>
+                    <span class="font-weight-semibold">Section</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,8 +19,8 @@
                         <div class="d-inline">
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/job_desc') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="{{ url('download/excel/job_desc') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/section') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/excel/section') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -31,8 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Global</a>
-                    <span class="breadcrumb-item active">Job Desc</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">General</a>
+                    <span class="breadcrumb-item active">Section</span>
                 </div>
             </div>
         </div>
@@ -45,8 +45,9 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Job Desc</th>
-                            <th>Description</th>
+                            <th>Division</th>
+                            <th>Departement</th>
+                            <th>Section</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -73,12 +74,21 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Job Desc :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter job desc">
+                        <label>Departement :<span class="text-danger">*</span></label>
+                        <select name="departement_id" id="departement_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($division as $d)
+                                <optgroup label="{{ $d->divisi }}">
+                                    @foreach($d->departement as $dd)
+                                        <option value="{{ $dd->id }}">{{ $dd->department }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label>Description :</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
+                        <label>Section :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter section">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -139,6 +149,7 @@
 
     function reset() {
         $('#form_data').trigger('reset');
+        $('#departement_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -161,7 +172,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("global/job_desc/datatable") }}',
+                url: '{{ url("general/section/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -171,18 +182,15 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
+                { name: 'iddivisi', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'departement_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'description', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -193,7 +201,7 @@
 
     function create() {
         $.ajax({
-            url: '{{ url("global/job_desc/create") }}',
+            url: '{{ url("general/section/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -241,7 +249,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("global/job_desc/show") }}',
+            url: '{{ url("general/section/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -255,8 +263,8 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
+                $('#departement_id').val(response.departement_id).change();
                 $('#name').val(response.name);
-                $('#description').val(response.description);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -274,7 +282,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("global/job_desc/update") }}' + '/' + id,
+            url: '{{ url("general/section/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -321,7 +329,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("global/job_desc/change_status") }}',
+            url: '{{ url("general/section/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -369,7 +377,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("global/job_desc/destroy") }}',
+                        url: '{{ url("general/section/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

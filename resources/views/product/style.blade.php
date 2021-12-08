@@ -49,9 +49,8 @@
                             <th>Class Product</th>
                             <th>Type Product</th>
                             <th>Size</th>
-                            <th>Code</th>
                             <th>Style</th>
-                            <th>Smv Global</th>
+                            <th>SMV Global</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -87,6 +86,15 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Class Product :<span class="text-danger">*</span></label>
+                        <select name="product_class_id" id="product_class_id" class="select2">
+                            <option value="">-- Choose --</option>
+                            @foreach($class_product as $cp)
+                                <option value="{{ $cp->id }}">{{ $cp->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Type Product :<span class="text-danger">*</span></label>
                         <select name="product_type_id" id="product_type_id" class="select2">
                             <option value="">-- Choose --</option>
@@ -103,10 +111,6 @@
                                 <option value="{{ $s->id }}">{{ $s->group }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Code :<span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Enter code">
                     </div>
                     <div class="form-group">
                         <label>Style :<span class="text-danger">*</span></label>
@@ -172,6 +176,7 @@
     function reset() {
         $('#form_data').trigger('reset');
         $('#brand_id').val(null).change();
+        $('#product_class_id').val(null).change();
         $('#product_type_id').val(null).change();
         $('#size_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
@@ -206,21 +211,16 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'brand_id', className: 'text-center align-middle' },
-                { name: 'product_class_id', orderable: false, className: 'text-center align-middle' },
+                { name: 'product_class_id', className: 'text-center align-middle' },
                 { name: 'product_type_id', className: 'text-center align-middle' },
                 { name: 'size_id', className: 'text-center align-middle' },
-                { name: 'code', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'smv_global', searchable: false, orderable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
@@ -296,9 +296,9 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#brand_id').val(response.brand_id).change();
+                $('#product_class_id').val(response.product_class_id).change();
                 $('#product_type_id').val(response.product_type_id).change();
                 $('#size_id').val(response.size_id).change();
-                $('#code').val(response.code);
                 $('#name').val(response.name);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');

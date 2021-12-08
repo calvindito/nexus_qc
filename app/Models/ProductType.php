@@ -15,7 +15,6 @@ class ProductType extends Model {
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
-        'product_class_id',
         'product_group_id',
         'created_by',
         'updated_by',
@@ -37,11 +36,6 @@ class ProductType extends Model {
     public function style()
     {
         return $this->hasMany('App\Models\Style');
-    }
-
-    public function productClass()
-    {
-        return $this->belongsTo('App\Models\ProductClass')->withTrashed();
     }
 
     public function productGroup()

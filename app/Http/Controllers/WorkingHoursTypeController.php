@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Models\WorkingHoursType;
 use App\Http\Controllers\Controller;
@@ -27,8 +26,10 @@ class WorkingHoursTypeController extends Controller {
             'detail',
             'no',
             'id',
-            'departement_id',
             'name',
+            'total_working_day',
+            'total_work',
+            'total_break',
             'status',
             'updated_by',
             'created_at'
@@ -46,9 +47,6 @@ class WorkingHoursTypeController extends Controller {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('name', 'like', "%$search%")
-                            ->orWhereHas('departement', function($query) use ($search) {
-                                $query->where('department', 'like', "%$search%");
-                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -64,9 +62,6 @@ class WorkingHoursTypeController extends Controller {
                 if($search) {
                     $query->where(function($query) use ($search) {
                         $query->where('name', 'like', "%$search%")
-                            ->orWhereHas('departement', function($query) use ($search) {
-                                $query->where('department', 'like', "%$search%");
-                            })
                             ->orWhereHas('updatedBy', function($query) use ($search) {
                                 $query->where('name', 'like', "%$search%");
                             });
@@ -95,9 +90,11 @@ class WorkingHoursTypeController extends Controller {
                 $response['data'][] = [
                     '<a href="javascript:void(0);" onclick="detail(' . $val->id . ')" class="text-info"><i class="icon-info22"></i></a>',
                     $nomor,
-                    $val->id,
-                    $val->departement->department,
+                    sprintf('%04s', $val->id),
                     $val->name,
+                    $val->total_working_day,
+                    $val->workingHoursTypeDetail()->where('status', 1)->count(),
+                    $val->workingHoursTypeDetail()->where('status', 2)->count(),
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -108,7 +105,7 @@ class WorkingHoursTypeController extends Controller {
                                     <i class="icon-menu9"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="' . url('master_data/working_hours/type/update/' . $val->id) . '" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
+                                    <a href="' . url('working_hours/type/update/' . $val->id) . '" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
                                     ' . $destroy . '
                                     ' . $status . '
                                 </div>
@@ -139,27 +136,23 @@ class WorkingHoursTypeController extends Controller {
         $wht_detail = [];
         $data       = WorkingHoursType::find($request->id);
 
-        if($data->WorkingHoursTypeDetail) {
-            foreach($data->WorkingHoursTypeDetail as $whtd) {
-                $wht_detail[] = [
-                    'start_time'     => date('H:i', strtotime($whtd->start_time)),
-                    'end_time'       => date('H:i', strtotime($whtd->end_time)),
-                    'shift'          => $whtd->shift(),
-                    'duration'       => $whtd->duration,
-                    'order_sequence' => $whtd->order_sequence,
-                    'total_minutes'  => $whtd->total_minutes
-                ];
-            }
+        foreach($data->workingHoursTypeDetail as $key => $whtd) {
+            $wht_detail[] = [
+                'class'      => $whtd->status == 1 ? '' : 'text-white bg-danger',
+                'start_time' => $whtd->start_time ? date('H:i', strtotime($whtd->start_time)) : '-',
+                'end_time'   => $whtd->end_time ? date('H:i', strtotime($whtd->end_time)) : '-',
+                'status'     => $whtd->status()
+            ];
         }
 
         return response()->json([
-            'departement' => $data->departement->department,
-            'name'        => $data->name,
-            'created_by'  => $data->createdBy->name,
-            'updated_by'  => $data->updatedBy->name,
-            'created_at'  => $data->created_at->format('d F Y'),
-            'status'      => $data->status(),
-            'wht_detail'  => $wht_detail
+            'name'              => $data->name,
+            'total_working_day' => $data->total_working_day,
+            'late_tolerance'    => $data->late_tolerance ? $data->late_tolerance . ' Minutes' : 'Not Set',
+            'updated_by'        => $data->updatedBy->name,
+            'created_at'        => $data->created_at->format('d F Y'),
+            'status'            => $data->status(),
+            'wht_detail'        => $wht_detail
         ]);
     }
 
@@ -167,15 +160,15 @@ class WorkingHoursTypeController extends Controller {
     {
         if($request->ajax()) {
             $validation = Validator::make($request->all(), [
-                'wht_detail'     => 'required',
-                'departement_id' => 'required',
-                'name'           => 'required',
-                'status'         => 'required'
+                'wht_detail'        => 'required',
+                'name'              => 'required',
+                'total_working_day' => 'required',
+                'status'            => 'required'
             ], [
-                'wht_detail.required'     => 'Please fill in the working time list.',
-                'departement_id.required' => 'Please select a departement.',
-                'name.required'           => 'Type working hours cannot be empty.',
-                'status.required'         => 'Please select a status.'
+                'wht_detail.required'        => 'Please fill in the working time list.',
+                'name.required'              => 'Type working hours cannot be empty.',
+                'total_working_day.required' => 'Total day cannot be empty.',
+                'status.required'            => 'Please select a status.'
             ]);
 
             if($validation->fails()) {
@@ -185,29 +178,30 @@ class WorkingHoursTypeController extends Controller {
                 ];
             } else {
                 $query = WorkingHoursType::create([
-                    'departement_id' => $request->departement_id,
-                    'created_by'     => session('id'),
-                    'updated_by'     => session('id'),
-                    'name'           => $request->name,
-                    'status'         => $request->status
+                    'created_by'        => session('id'),
+                    'updated_by'        => session('id'),
+                    'name'              => $request->name,
+                    'total_working_day' => $request->total_working_day,
+                    'late_tolerance'    => $request->late_tolerance,
+                    'status'            => $request->status
                 ]);
 
                 if($query) {
                     if($request->wht_detail) {
                         foreach($request->wht_detail as $key => $wd) {
+                            $start_time = $request->wht_start_time[$key] ? $request->wht_start_time[$key] . ':00' : null;
+                            $end_time   = $request->wht_end_time[$key] ? $request->wht_end_time[$key] . ':00' : null;
+
                             WorkingHoursTypeDetail::create([
                                 'working_hours_type_id' => $query->id,
-                                'start_time'            => $request->wht_start_time[$key] . ':00',
-                                'end_time'              => $request->wht_end_time[$key] . ':00',
-                                'shift'                 => $request->wht_shift[$key],
-                                'duration'              => $request->wht_duration[$key],
-                                'order_sequence'        => $request->wht_order_sequence[$key],
-                                'total_minutes'         => $request->wht_total_minutes[$key]
+                                'start_time'            => $start_time,
+                                'end_time'              => $end_time,
+                                'status'                => $request->wht_status[$key]
                             ]);
                         }
                     }
 
-                    activity('working hours type')
+                    activity('type working hours')
                         ->performedOn(new WorkingHoursType())
                         ->causedBy(session('id'))
                         ->log('create data');
@@ -227,9 +221,8 @@ class WorkingHoursTypeController extends Controller {
             return response()->json($response);
         } else {
             $data = [
-                'title'       => 'Working Hours - Type - Create',
-                'departement' => Departement::where('status', 'Active')->get(),
-                'content'     => 'working_hours.type_create'
+                'title'   => 'Working Hours - Type - Create',
+                'content' => 'working_hours.type_create'
             ];
 
             return view('layouts.index', ['data' => $data]);
@@ -240,15 +233,11 @@ class WorkingHoursTypeController extends Controller {
     {
         if($request->ajax()) {
             $validation = Validator::make($request->all(), [
-                'wht_detail'     => 'required',
-                'departement_id' => 'required',
-                'name'           => 'required',
-                'status'         => 'required'
+                'name'   => 'required',
+                'status' => 'required'
             ], [
-                'wht_detail.required'     => 'Please fill in the working time list.',
-                'departement_id.required' => 'Please select a departement.',
-                'name.required'           => 'Type working hours cannot be empty.',
-                'status.required'         => 'Please select a status.'
+                'name.required'   => 'Type working hours cannot be empty.',
+                'status.required' => 'Please select a status.'
             ]);
 
             if($validation->fails()) {
@@ -258,29 +247,25 @@ class WorkingHoursTypeController extends Controller {
                 ];
             } else {
                 $query = WorkingHoursType::find($id)->update([
-                    'departement_id' => $request->departement_id,
                     'updated_by'     => session('id'),
                     'name'           => $request->name,
+                    'late_tolerance' => $request->late_tolerance,
                     'status'         => $request->status
                 ]);
 
                 if($query) {
-                    WorkingHoursTypeDetail::where('working_hours_type_id', $id)->delete();
-                    if($request->wht_detail) {
-                        foreach($request->wht_detail as $key => $wd) {
-                            WorkingHoursTypeDetail::create([
-                                'working_hours_type_id' => $id,
-                                'start_time'            => $request->wht_start_time[$key] . ':00',
-                                'end_time'              => $request->wht_end_time[$key] . ':00',
-                                'shift'                 => $request->wht_shift[$key],
-                                'duration'              => $request->wht_duration[$key],
-                                'order_sequence'        => $request->wht_order_sequence[$key],
-                                'total_minutes'         => $request->wht_total_minutes[$key]
-                            ]);
-                        }
+                    foreach($request->wht_detail as $key => $wd) {
+                        $start_time = $request->wht_start_time[$key] ? $request->wht_start_time[$key] . ':00' : null;
+                        $end_time   = $request->wht_end_time[$key] ? $request->wht_end_time[$key] . ':00' : null;
+
+                        WorkingHoursTypeDetail::find($request->wht_id[$key])->update([
+                            'start_time' => $start_time,
+                            'end_time'   => $end_time,
+                            'status'     => $request->wht_status[$key]
+                        ]);
                     }
 
-                    activity('working hours type')
+                    activity('type working hours')
                         ->performedOn(new WorkingHoursType())
                         ->causedBy(session('id'))
                         ->log('edit data');
@@ -300,10 +285,9 @@ class WorkingHoursTypeController extends Controller {
             return response()->json($response);
         } else {
             $data = [
-                'title'       => 'Working Hours - Type - Edit',
-                'departement' => Departement::where('status', 'Active')->get(),
-                'wht'         => WorkingHoursType::find($id),
-                'content'     => 'working_hours.type_update'
+                'title'   => 'Working Hours - Type - Edit',
+                'wht'     => WorkingHoursType::find($id),
+                'content' => 'working_hours.type_update'
             ];
 
             return view('layouts.index', ['data' => $data]);
@@ -314,7 +298,7 @@ class WorkingHoursTypeController extends Controller {
     {
         $query = WorkingHoursType::find($request->id)->update(['status' => $request->status]);
         if($query) {
-            activity('working hours type')
+            activity('type working hours')
                 ->performedOn(new WorkingHoursType())
                 ->causedBy(session('id'))
                 ->log('change status');
@@ -337,7 +321,7 @@ class WorkingHoursTypeController extends Controller {
     {
         $query = WorkingHoursType::destroy($request->id);
         if($query) {
-            activity('working hours type')
+            activity('type working hours')
                 ->performedOn(new WorkingHoursType())
                 ->causedBy(session('id'))
                 ->log('delete data');

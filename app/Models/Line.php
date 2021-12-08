@@ -24,7 +24,16 @@ class Line extends Model {
 
     public function hasRelation()
     {
-        return false;
+        if($this->workingHoursChart()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function workingHoursChart()
+    {
+        return $this->hasMany('App\Models\WorkingHoursChart');
     }
 
     public function createdBy()

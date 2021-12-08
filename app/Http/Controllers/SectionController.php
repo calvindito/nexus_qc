@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Section;
-use App\Models\Departement;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -13,9 +13,9 @@ class SectionController extends Controller {
     public function index()
     {
         $data = [
-            'title'       => 'Global - Section',
-            'departement' => Departement::where('status', 'Active')->get(),
-            'content'     => 'global.section'
+            'title'    => 'General - Section',
+            'division' => Division::where('status', 'Active')->get(),
+            'content'  => 'general.section'
         ];
 
         return view('layouts.index', ['data' => $data]);
@@ -100,7 +100,7 @@ class SectionController extends Controller {
 
                 $response['data'][] = [
                     $nomor,
-                    $val->id,
+                    sprintf('%04s', $val->id),
                     $val->departement->division->divisi,
                     $val->departement->department,
                     $val->name,

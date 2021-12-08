@@ -26,7 +26,6 @@ class ManageProductController extends Controller {
     {
         $column = [
             'id',
-            'product_class_id',
             'name'
         ];
 
@@ -41,10 +40,7 @@ class ManageProductController extends Controller {
         $query_data = ProductType::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('name', 'like', "%$search%")
-                            ->orWhereHas('productClass', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                        $query->where('name', 'like', "%$search%");
                     });
                 }
             })
@@ -56,10 +52,7 @@ class ManageProductController extends Controller {
         $total_filtered = ProductType::where(function($query) use ($search, $request) {
                 if($search) {
                     $query->where(function($query) use ($search) {
-                        $query->where('name', 'like', "%$search%")
-                            ->orWhereHas('productClass', function($query) use ($search) {
-                                $query->where('name', 'like', "%$search%");
-                            });
+                        $query->where('name', 'like', "%$search%");
                     });
                 }
             })
@@ -72,7 +65,6 @@ class ManageProductController extends Controller {
             foreach($query_data as $val) {
                 $response['data'][] = [
                     $nomor,
-                    $val->productClass->name,
                     $val->name,
                     '
                         <a href="javascript:void(0);" class="badge badge-success btn-sm" onclick="chooseProduct(' . $val->id . ')">Choose</a>
@@ -151,7 +143,6 @@ class ManageProductController extends Controller {
 
                 $data_defect[] = [
                     'no'       => $key + 1,
-                    'code'     => $ptcp->position->code,
                     'name'     => $ptcp->position->name,
                     'button'   => $button,
                     'selector' => '#group_defect_id' . $ptcp->id
@@ -162,8 +153,6 @@ class ManageProductController extends Controller {
         return response()->json([
             'type_product'       => $type_product->name,
             'group'              => $type_product->productGroup->name,
-            'description'        => $type_product->description,
-            'class_product'      => $type_product->productClass->name,
             'smv_global'         => $type_product->smv_global,
             'created_by'         => $type_product->createdBy->name,
             'modified_by'        => $type_product->updatedBy->name,

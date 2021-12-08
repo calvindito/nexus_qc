@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Working Hours Type</span>
+                    <span class="font-weight-semibold">Type Working Hours</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -39,8 +39,10 @@
                             <th><i class="icon-eye"></i></th>
                             <th>No</th>
                             <th>ID</th>
-                            <th>Departement</th>
                             <th>Type Working Hours</th>
+                            <th>Total Day</th>
+                            <th>Total Work</th>
+                            <th>Total Break</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -65,22 +67,22 @@
                 <table class="table table-border-dashed">
                     <tbody>
                         <tr>
-                            <th width="20%">Departement</th>
-                            <td>
-                                <span class="font-weight-bold">:</span>
-                                <span class="ml-2" id="departement"></span>
-                            </td>
                             <th width="20%">Type Working Hours</th>
                             <td>
                                 <span class="font-weight-bold">:</span>
                                 <span class="ml-2" id="name"></span>
                             </td>
-                        </tr>
-                        <tr>
-                            <th width="20%">Created By</th>
+                            <th width="20%">Total Day</th>
                             <td>
                                 <span class="font-weight-bold">:</span>
-                                <span class="ml-2" id="created_by"></span>
+                                <span class="ml-2" id="total_working_day"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="20%">Late Tolerance</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="late_tolerance"></span>
                             </td>
                             <th width="20%">Modified By</th>
                             <td>
@@ -103,17 +105,16 @@
                     </tbody>
                 </table>
                 <div class="form-group"><hr></div>
-                <table class="table table-bordered display nowrap w-100" id="datatable_wht_detail">
+                <table class="table w-100">
                     <thead class="bg-light">
-                        <tr class="text-center">
+                        <tr>
+                            <th>Sequence</th>
                             <th>Start Time</th>
                             <th>End Time</th>
-                            <th>Shift</th>
-                            <th>Duration</th>
-                            <th>Order Sequence</th>
-                            <th>Total Minutes</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
+                    <tbody id="wht_detail"></tbody>
                 </table>
             </div>
             <div class="modal-footer bg-light">
@@ -128,16 +129,6 @@
 <script>
     $(function() {
         loadDataTable();
-        $('#datatable_wht_detail').DataTable({
-            order: [[4, 'asc']],
-			scrollX: true,
-            columnDefs: [
-                {
-                    targets: '_all',
-                    className: 'text-center align-middle'
-                }
-            ]
-		});
     });
 
     function loadDataTable() {
@@ -161,19 +152,17 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'detail', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'departement_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
+                { name: 'total_working_day', searchable: false, className: 'text-center align-middle' },
+                { name: 'total_work', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_break', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -195,27 +184,28 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             beforeSend: function() {
-                $('#datatable_wht_detail').DataTable().clear().draw();
+                $('#wht_detail').html('');
                 loadingOpen('.modal-content');
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#departement').html(response.departement);
                 $('#name').html(response.name);
-                $('#created_by').html(response.created_by);
+                $('#total_working_day').html(response.total_working_day);
+                $('#late_tolerance').html(response.late_tolerance);
                 $('#updated_by').html(response.updated_by);
                 $('#created_at').html(response.created_at);
                 $('#status').html(response.status);
 
                 $.each(response.wht_detail, function(i, val) {
-                    $('#datatable_wht_detail').DataTable().row.add([
-                        val.start_time,
-                        val.end_time,
-                        val.shift,
-                        val.duration + ' Minutes',
-                        val.order_sequence,
-                        val.total_minutes,
-                    ]).draw().node();
+                    var current = i + 1;
+                    $('#wht_detail').append(`
+                        <tr class="` + val.class + `">
+                            <td class="align-middle">Day ` + current + `</td>
+                            <td class="align-middle">` + val.start_time + `</td>
+                            <td class="align-middle">` + val.end_time + `</td>
+                            <td class="align-middle">` + val.status + `</td>
+                        </tr>
+                    `);
                 });
             },
             error: function() {

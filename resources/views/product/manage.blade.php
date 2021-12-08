@@ -64,11 +64,7 @@
                                         <div class="form-control-plaintext" id="type_product"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-semibold">Class Product :</label>
-                                        <div class="form-control-plaintext" id="class_product"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-semibold">Smv Global :</label>
+                                        <label class="font-weight-semibold">SMV Global :</label>
                                         <div class="form-control-plaintext" id="smv_global"></div>
                                     </div>
                                     <div class="form-group">
@@ -97,10 +93,6 @@
                                         <label class="font-weight-semibold">Last Modified Date :</label>
                                         <div class="form-control-plaintext" id="last_modified_date"></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-weight-semibold">Description :</label>
-                                        <div class="form-control-plaintext" id="description"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +115,6 @@
                                     <thead class="bg-light">
                                         <tr class="text-center">
                                             <th>No</th>
-                                            <th>Code</th>
                                             <th>Position</th>
                                             <th>Defect</th>
                                         </tr>
@@ -157,7 +148,6 @@
                     <thead class="bg-light">
                         <tr class="text-center">
                             <th>No</th>
-                            <th>Class Product</th>
                             <th>Type Product</th>
                             <th><i class="icon-list2"></i></th>
                         </tr>
@@ -205,16 +195,11 @@
                 },
                 error: function() {
                     loadingClose('.dataTables_scroll');
-                    swalInit.fire({
-                        title: 'Server Error',
-                        text: 'Please contact developer',
-                        icon: 'error'
-                    });
+                    loadDataTable();
                 }
             },
             columns: [
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'product_class_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
             ]
@@ -248,9 +233,7 @@
             success: function(response) {
                 loadingClose('.content');
                 $('#type_product').html(response.type_product);
-                $('#class_product').html(response.class_product);
                 $('#group').html(response.group);
-                $('#description').html(response.description);
                 $('#smv_global').html(response.smv_global);
                 $('#created_by').html(response.created_by);
                 $('#modified_by').html(response.modified_by);
@@ -267,7 +250,6 @@
                 $.each(response.defect, function(i, val) {
                     $('#datatable_defect').DataTable().row.add([
                         val.no,
-                        val.code,
                         val.name,
                         val.button
                     ]).draw().node();

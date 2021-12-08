@@ -15,21 +15,26 @@ class WorkingHoursType extends Model {
     protected $primaryKey = 'id';
     protected $dates      = ['deleted_at'];
     protected $fillable   = [
-        'departement_id',
         'created_by',
         'updated_by',
         'name',
+        'total_working_day',
+        'late_tolerance',
         'status'
     ];
 
     public function hasRelation()
     {
-        return false;
+        if($this->workingHoursChart()->count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function departement()
+    public function workingHoursChart()
     {
-        return $this->belongsTo('App\Models\Departement');
+        return $this->hasMany('App\Models\WorkingHoursChart');
     }
 
     public function createdBy()

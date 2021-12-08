@@ -20,10 +20,10 @@ class WorkingHoursTypeSeeder extends Seeder
         foreach($working_hours_types as $wht) {
             WorkingHoursType::insert([
                 'id'             => $wht['id'],
-                'departement_id' => $wht['departement_id'],
                 'created_by'     => $wht['created_by'],
                 'updated_by'     => $wht['updated_by'],
-                'name'           => $wht['name'],
+                'name'           => $wht['total_working_day'],
+                'name'           => $wht['late_tolerance'],
                 'status'         => $wht['status'],
                 'created_at'     => $wht['created_at'],
                 'updated_at'     => $wht['updated_at'],
@@ -37,10 +37,7 @@ class WorkingHoursTypeSeeder extends Seeder
                 'working_hours_type_id' => $whtd['working_hours_type_id'],
                 'start_time'            => $whtd['start_time'],
                 'end_time'              => $whtd['end_time'],
-                'shift'                 => $whtd['shift'],
-                'duration'              => $whtd['duration'],
-                'order_sequence'        => $whtd['order_sequence'],
-                'total_minutes'         => $whtd['total_minutes'],
+                'shift'                 => $whtd['status'],
                 'created_at'            => $whtd['created_at'],
                 'updated_at'            => $whtd['updated_at']
             ]);
