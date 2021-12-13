@@ -189,7 +189,7 @@
                                             <i class="icon-check font-weight-bold text-success"></i>
                                         </span>
                                     </span>
-                                    <input type="text" class="form-control font-weight-bold" value="Day ` i + `" readonly>
+                                    <input type="text" class="form-control font-weight-bold" value="Day ` + i + `" readonly>
                                 </div>
                             </div>
                         </div>
