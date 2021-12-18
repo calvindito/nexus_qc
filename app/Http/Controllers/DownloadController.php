@@ -12,6 +12,7 @@ use App\Models\Style;
 use App\Models\Fabric;
 use App\Models\Gender;
 use App\Models\JobDesc;
+use App\Models\Process;
 use App\Models\Section;
 use App\Models\Position;
 use App\Exports\LineExport;
@@ -28,6 +29,7 @@ use Maatwebsite\Excel\Excel;
 use App\Exports\FabricExport;
 use App\Exports\GenderExport;
 use App\Exports\JobDescExport;
+use App\Exports\ProcessExport;
 use App\Exports\SectionExport;
 use App\Exports\PositionExport;
 use App\Exports\GroupDefectExport;
@@ -311,6 +313,20 @@ class DownloadController extends Controller {
                     ->log('view print');
 
                 break;
+            case 'process':
+                $response = [
+                    'view'     => 'process',
+                    'title'    => 'Nexus - Data Process',
+                    'data'     => Process::all(),
+                    'filename' => 'Data Process'
+                ];
+
+                activity('process')
+                    ->performedOn(new Process())
+                    ->causedBy(session('id'))
+                    ->log('view print');
+
+                break;
             default:
                 $response = [];
                 break;
@@ -477,6 +493,14 @@ class DownloadController extends Controller {
                     ->log('download excel');
 
                 return (new LineExport)->download('QC - Data Line - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
+                break;
+            case 'process':
+                activity('process')
+                    ->performedOn(new Process())
+                    ->causedBy(session('id'))
+                    ->log('download excel');
+
+                return (new ProcessExport)->download('QC - Data Process - ' . date('Y_m_d_H_i_s') . '.xlsx', Excel::XLSX);
                 break;
             default:
                 return redirect()->back();

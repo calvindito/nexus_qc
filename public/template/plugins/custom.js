@@ -87,27 +87,6 @@ var swalInit = swal.mixin({
     }
 });
 
-function preloader() {
-    $.blockUI({
-        message: '<i class="icon-spinner4 spinner"></i>',
-        fadeIn: 800,
-        timeout: 1000,
-        overlayCSS: {
-            backgroundColor: '#1b2024',
-            opacity: 0.8,
-            zIndex: 1200,
-            cursor: 'wait'
-        },
-        css: {
-            border: 0,
-            color: '#fff',
-            zIndex: 1201,
-            padding: 0,
-            backgroundColor: 'transparent'
-        }
-    });
-}
-
 function refreshListBox(selector, param = false) {
     $(selector).trigger('bootstrapDualListbox.refresh', param);
 }
@@ -190,4 +169,21 @@ function loadingOpen(selector) {
 
 function loadingClose(selector) {
     $(selector).waitMe('hide');
+}
+
+function random(length, type) {
+    if(type == 'alpha') {
+        var char = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    } else if(type == 'numeric') {
+        var char = '0123456789';
+    } else {
+        var char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+
+    var result = '';
+    for(var i = length; i > 0; --i) {
+        result += char[Math.round(Math.random() * (char.length - 1))];
+    }
+
+    return result;
 }

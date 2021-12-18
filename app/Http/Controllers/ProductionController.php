@@ -117,7 +117,6 @@ class ProductionController extends Controller {
                     $val->code_buyer,
                     $val->buyer->company,
                     $val->style->brand->name,
-                    $val->city->name,
                     $val->delivery_date,
                     '
                         <div class="list-icons">
@@ -296,7 +295,7 @@ class ProductionController extends Controller {
                 'buyer_id'        => $request->buyer_id,
                 'style_id'        => $request->style_id,
                 'city_id'         => $request->city_id,
-                'code_production' => Production::generateCodeProduction($request, $production->code),
+                'code_production' => Production::generateCodeProduction($request, $production->code_production),
                 'code_job_order'  => $request->code_job_order,
                 'code_buyer'      => $request->code_buyer,
                 'delivery_date'   => $request->delivery_date

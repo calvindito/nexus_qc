@@ -34,7 +34,7 @@ class Production extends Model {
     {
         $style = Style::find($param->style_id);
         $date  = explode('-', $param->delivery_date);
-        $query = Production::orderBy('code', 'desc')->limit(1)->withTrashed()->get();
+        $query = Production::orderBy('code_production', 'desc')->limit(1)->withTrashed()->get();
 
         if($code) {
             $breakdown = explode('-', $code);
@@ -47,12 +47,12 @@ class Production extends Model {
             }
         }
 
-        $brand_code = sprintf('%03s', $brand->buyer_id);
-        $class_code = sprintf('%03s', $style->productType->product_class_id);
+        $brand_code = sprintf('%04s', $style->brand_id);
+        $class_code = sprintf('%04s', $style->product_class_id);
         $year       = $date[0];
         $month      = $date[1];
 
-        return $brand_code . '-' . $class_code . '-' . $year . '-' . $month . '-' . $nomor;
+        return $brand_code . $class_code . $year . $month . $nomor;
     }
 
     public function buyer()

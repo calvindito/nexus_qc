@@ -238,7 +238,6 @@ class BuyerController extends Controller {
             'province_id' => 'required',
             'city_id'     => 'required',
             'company'     => 'required',
-            'description' => 'required',
             'remark'      => 'required',
             'address'     => 'required',
             'status'      => 'required'
@@ -247,7 +246,6 @@ class BuyerController extends Controller {
             'province_id.required' => 'Please select a province.',
             'city_id.required'     => 'Please select a city.',
             'company.required'     => 'Company cannot be empty.',
-            'description.required' => 'Description cannot be empty.',
             'remark.required'      => 'Remark cannot be empty.',
             'address.required'     => 'Address cannot be empty.',
             'status.required'      => 'Please select a status.'
@@ -343,7 +341,6 @@ class BuyerController extends Controller {
             'province_id' => 'required',
             'city_id'     => 'required',
             'company'     => 'required',
-            'description' => 'required',
             'remark'      => 'required',
             'address'     => 'required',
             'status'      => 'required'
@@ -352,7 +349,6 @@ class BuyerController extends Controller {
             'province_id.required' => 'Please select a province.',
             'city_id.required'     => 'Please select a city.',
             'company.required'     => 'Company cannot be empty.',
-            'description.required' => 'Description cannot be empty.',
             'remark.required'      => 'Remark cannot be empty.',
             'address.required'     => 'Address cannot be empty.',
             'status.required'      => 'Please select a status.'

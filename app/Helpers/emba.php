@@ -129,3 +129,14 @@ if(!function_exists('decodeString')) {
         return $result;
     }
 }
+
+if(!function_exists('randomAlpha')) {
+    function randomAlpha($length = 5) {
+        $str = '';
+        for($i = 1; $i <= 5; $i++) {
+            $str .= chr(rand(97, 122));
+        }
+
+        return $str;
+    }
+}

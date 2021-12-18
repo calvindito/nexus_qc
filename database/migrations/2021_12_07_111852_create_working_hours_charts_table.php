@@ -22,8 +22,8 @@ class CreateWorkingHoursChartsTable extends Migration
             $table->unsignedBigInteger('departement_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('line_id')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

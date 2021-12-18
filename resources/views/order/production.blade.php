@@ -109,7 +109,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Style :<span class="text-danger">*</span></label>
-                                        <select name="style_id" id="style_id" class="select2" onchange="getSize()">
+                                        <select name="style_id" id="style_id" class="select2" onchange="$('#detail_data').html('');">
                                             <option value="">-- Choose --</option>
                                             @foreach($style as $s)
                                                 <option value="{{ $s->id }}">{{ $s->name }}</option>
@@ -137,52 +137,19 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tab_detail">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Color :<span class="text-danger">*</span></label>
-                                                <select id="detail_color_id" class="select2">
-                                                    <option value="">-- Choose --</option>
-                                                    @foreach($color as $c)
-                                                        <option value="{{ $c->id }};{{ $c->name }}">{{ $c->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Size :<span class="text-danger">*</span></label>
-                                                <select id="detail_size_detail_id" class="select2">
-                                                    <option value="">-- Choose --</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Qty :<span class="text-danger">*</span></label>
-                                                <input type="number" id="detail_qty" class="form-control" placeholder="Enter qty">
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-danger col-12" onclick="$('#detail_data').html('')">Remove All</button>
                                     </div>
-                                    <div class="form-group mb-0 text-right">
-                                        <label class="text-white">.</label>
-                                        <button type="button" onclick="addDetail()" class="btn btn-success btn-sm"><i class="icon-plus2"></i> Add</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-success col-12" onclick="addNewDetail()">Add New Data</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group"><hr></div>
-                            <table class="table table-bordered w-100" id="datatable_detail">
-                                <thead class="bg-light">
-                                    <tr class="text-center">
-                                        <th>Color</th>
-                                        <th>Size</th>
-                                        <th>Qty</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <div id="detail_data" style="height:232px; overflow-y:auto; overflow-x:hidden;"></div>
                         </div>
                     </div>
                 </form>
@@ -201,26 +168,73 @@
 <script>
     $(function() {
         loadDataTable();
-        $('#datatable_detail').DataTable({
-			scrollX: true,
-            columnDefs: [
-                {
-                    targets: '_all',
-                    className: 'text-center align-middle'
-                }
-            ]
-		});
 
-        $('#datatable_detail tbody').on('click', '#delete_data_detail', function() {
-			$('#datatable_detail').DataTable().row($(this).parents('tr')).remove().draw();
-		});
-
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
-			$('#datatable_detail').DataTable().columns.adjust();
-		});
+        $('#detail_data').on('click', '.remove', function() {
+            $(this).parent().parent().parent().remove();
+        });
     });
 
-    function getSize() {
+    function addNewDetail() {
+        var random_selector = random(5, 'alpha');
+        var style_id        = $('#style_id').val();
+
+        if(style_id) {
+            $('#detail_data').append(`
+                <div class="row p-1">
+                    <input type="hidden" name="detail[]" value="` + true + `">
+                    <div class="col-md-4">
+                        <div class="form-group mb-0">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Color</span>
+                                </div>
+                                <select name="detail_color_id[]" class="form-control">
+                                    @foreach($color as $c)
+                                        <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-0">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Size</span>
+                                </div>
+                                <select name="detail_size_detail_id[]" id="` + random_selector + `" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group mb-0">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Qty</span>
+                                </div>
+                                <input type="number" name="detail_qty[]" class="form-control" min="1" value="1" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="form-group mb-0">
+                            <button type="button" class="btn bg-transparent text-danger border-danger col-12 remove"><i class="icon-cross"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `);
+        } else {
+            swalInit.fire({
+                title: 'Ooppss',
+                text: 'Please select a style first',
+                icon: 'info'
+            });
+        }
+
+        getSize('' + random_selector + '');
+    }
+
+    function getSize(param, id = '') {
         $.ajax({
             url: '{{ url("order/production/get_size") }}',
             type: 'POST',
@@ -233,14 +247,18 @@
             },
             beforeSend: function() {
                 loadingOpen('.modal-content');
-                $('#detail_size_detail_id').html('<option value="">-- Choose --</option>');
+                $('#' + param).html('');
             },
             success: function(response) {
                 loadingClose('.modal-content');
                 $.each(response, function(i, val) {
-                    $('#detail_size_detail_id').append(`
-                        <option value="` + val.id + `;` + val.value + `">` + val.value + `</option>
-                    `);
+                    if(id) {
+                        var selected = id == val.id ? 'selected' : '';
+                    } else {
+                        var selected = '';
+                    }
+
+                    $('#' + param).append(`<option value="` + val.id + `" ` + selected + `>` + val.value + `</option>`);
                 });
             },
             error: function() {
@@ -248,36 +266,6 @@
                 loadDataTable();
             }
         });
-    }
-
-    function addDetail() {
-        var detail_color_id       = $('#detail_color_id').val();
-        var detail_size_detail_id = $('#detail_size_detail_id').val();
-        var detail_qty            = $('#detail_qty').val();
-
-        if(detail_color_id && detail_size_detail_id && detail_qty) {
-            var colorable = detail_color_id.split(';');
-            var sizeable  = detail_size_detail_id.split(';');
-
-            $('#datatable_detail').DataTable().row.add([
-                colorable[1],
-                sizeable[1],
-                detail_qty,
-                `
-                    <button type="button" class="btn btn-danger btn-sm" id="delete_data_detail"><i class="icon-trash-alt"></i></button>
-                    <input type="hidden" name="detail[]" value="` + true + `">
-                    <input type="hidden" name="detail_color_id[]" value="` + colorable[0] + `">
-                    <input type="hidden" name="detail_size_detail_id[]" value="` + sizeable[0] + `">
-                    <input type="hidden" name="detail_qty[]" value="` + detail_qty + `">
-                `
-            ]).draw().node();
-
-            $('#detail_color_id').val(null).change();
-            $('#detail_size_detail_id').val(null).change();
-            $('#detail_qty').val(null);
-        } else {
-            swalInit.fire('Ooppss', 'Please fill in all input', 'warning');
-        }
     }
 
     function openModal() {
@@ -306,6 +294,7 @@
     }
 
     function reset() {
+        $('#detail_data').html('');
         $('.nav-tabs > li.nav-item > a.nav-link').removeClass('active');
         $('.nav-tabs > li.nav-item > a[href="#tab_general"]').addClass('active');
         $('.tab-pane').removeClass('show active');
@@ -314,7 +303,6 @@
         $('#buyer_id').val(null).change();
         $('#style_id').val(null).change();
         $('#city_id').val(null).change();
-        $('#datatable_detail').DataTable().clear().draw();
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -357,7 +345,6 @@
                 { name: 'code_buyer', className: 'text-center align-middle' },
                 { name: 'buyer_id', className: 'text-center align-middle' },
                 { name: 'brand_id', orderable: false, className: 'text-center align-middle' },
-                { name: 'city_id', className: 'text-center align-middle' },
                 { name: 'delivery_date', searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
             ]
@@ -438,18 +425,54 @@
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
 
                 $.each(response.detail, function(i, val) {
-                    $('#datatable_detail').DataTable().row.add([
-                        val.color_name,
-                        val.size_detail_value,
-                        val.qty,
-                        `
-                            <button type="button" class="btn btn-danger btn-sm" id="delete_data_detail"><i class="icon-trash-alt"></i></button>
+                    var random_selector = random(5, 'alpha');
+                    $('#detail_data').append(`
+                        <div class="row p-1">
                             <input type="hidden" name="detail[]" value="` + true + `">
-                            <input type="hidden" name="detail_color_id[]" value="` + val.color_id + `">
-                            <input type="hidden" name="detail_size_detail_id[]" value="` + val.size_detail_id + `">
-                            <input type="hidden" name="detail_qty[]" value="` + val.qty + `">
-                        `
-                    ]).draw().node();
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Color</span>
+                                        </div>
+                                        <select name="detail_color_id[]" id="` + random_selector + `_color" class="form-control">
+                                            @foreach($color as $c)
+                                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Size</span>
+                                        </div>
+                                        <select name="detail_size_detail_id[]" id="` + random_selector + `" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Qty</span>
+                                        </div>
+                                        <input type="number" name="detail_qty[]" class="form-control" min="1" value="` + val.qty + `" placeholder="0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group mb-0">
+                                    <button type="button" class="btn bg-transparent text-danger border-danger col-12 remove"><i class="icon-cross"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+
+                    getSize('' + random_selector + '', val.size_detail_id);
+                    $('#' + random_selector + '_color').val(val.color_id);
                 });
             },
             error: function() {

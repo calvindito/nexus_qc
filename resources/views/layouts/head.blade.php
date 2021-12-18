@@ -9,6 +9,7 @@
 	<link href="{{ asset('website/icon.png') }}" rel="shortcut icon">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet">
 	<link href="{{ asset('template/global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('template/global_assets/css/icons/fontawesome/styles.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('template/assets/css/all.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('template/plugins/waitMe/waitMe.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('template/plugins/lightbox/dist/css/lightbox.min.css') }}" rel="stylesheet">
@@ -35,6 +36,7 @@
 	<script src="{{ asset('template/global_assets/js/plugins/extensions/cookie.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/trees/fancytree_all.min.js') }}"></script>
 	<script src="{{ asset('template/global_assets/js/plugins/trees/fancytree_childcounter.js') }}"></script>
+	<script src="{{ asset('template/global_assets/js/plugins/ui/fullcalendar/main.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/waitMe/waitMe.min.js') }}"></script>
 	<script src="{{ asset('template/plugins/lightbox/dist/js/lightbox.min.js') }}"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>

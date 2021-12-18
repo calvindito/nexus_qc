@@ -16,8 +16,10 @@ class CreateWorkingHoursTypeDetailsTable extends Migration
         Schema::connection('mysql')->create('working_hours_type_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('working_hours_type_id');
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            $table->time('work_start_time')->nullable();
+            $table->time('work_end_time')->nullable();
+            $table->time('break_start_time')->nullable();
+            $table->time('break_end_time')->nullable();
             $table->char('status', 1);
             $table->timestamps();
         });

@@ -25,11 +25,10 @@ class WorkingHoursTypeController extends Controller {
         $column = [
             'detail',
             'no',
-            'id',
             'name',
             'total_working_day',
-            'total_work',
-            'total_break',
+            'total_holiday',
+            'total_working_hours',
             'status',
             'updated_by',
             'created_at'
@@ -90,11 +89,10 @@ class WorkingHoursTypeController extends Controller {
                 $response['data'][] = [
                     '<a href="javascript:void(0);" onclick="detail(' . $val->id . ')" class="text-info"><i class="icon-info22"></i></a>',
                     $nomor,
-                    sprintf('%04s', $val->id),
                     $val->name,
-                    $val->total_working_day,
-                    $val->workingHoursTypeDetail()->where('status', 1)->count(),
-                    $val->workingHoursTypeDetail()->where('status', 2)->count(),
+                    $val->workingHoursTypeDetail()->where('status', 1)->count() . ' Day',
+                    $val->workingHoursTypeDetail()->where('status', 2)->count() . ' Day',
+                    $val->totalHours()->working . ' Hours',
                     $val->status(),
                     $val->updatedBy->name,
                     $val->created_at->format('d F Y'),
@@ -137,22 +135,35 @@ class WorkingHoursTypeController extends Controller {
         $data       = WorkingHoursType::find($request->id);
 
         foreach($data->workingHoursTypeDetail as $key => $whtd) {
+            if($whtd->status == 1) {
+                $total_work_hours = $whtd->differenceTime()->working[0] . ' Hours ' . $whtd->differenceTime()->working[1] . ' Minutes';
+            } else {
+                $total_work_hours = '-';
+            }
+
             $wht_detail[] = [
-                'class'      => $whtd->status == 1 ? '' : 'text-white bg-danger',
-                'start_time' => $whtd->start_time ? date('H:i', strtotime($whtd->start_time)) : '-',
-                'end_time'   => $whtd->end_time ? date('H:i', strtotime($whtd->end_time)) : '-',
-                'status'     => $whtd->status()
+                'class'            => $whtd->status == 1 ? '' : 'text-white bg-danger',
+                'status'           => $whtd->status(),
+                'work_start_time'  => $whtd->work_start_time ? date('H:i', strtotime($whtd->work_start_time)) : '-',
+                'work_end_time'    => $whtd->work_end_time ? date('H:i', strtotime($whtd->work_end_time)) : '-',
+                'break_start_time' => $whtd->break_start_time ? date('H:i', strtotime($whtd->break_start_time)) : '-',
+                'break_end_time'   => $whtd->break_end_time ? date('H:i', strtotime($whtd->break_end_time)) : '-',
+                'total_work_hours' => $total_work_hours
             ];
         }
 
         return response()->json([
-            'name'              => $data->name,
-            'total_working_day' => $data->total_working_day,
-            'late_tolerance'    => $data->late_tolerance ? $data->late_tolerance . ' Minutes' : 'Not Set',
-            'updated_by'        => $data->updatedBy->name,
-            'created_at'        => $data->created_at->format('d F Y'),
-            'status'            => $data->status(),
-            'wht_detail'        => $wht_detail
+            'name'                => $data->name,
+            'total_day'           => $data->total_working_day . ' Day',
+            'total_working_day'   => $data->workingHoursTypeDetail()->where('status', 1)->count() . ' Day',
+            'total_holiday'       => $data->workingHoursTypeDetail()->where('status', 2)->count() . ' Day',
+            'total_working_hours' => $data->totalHours()->working . ' Hours',
+            'late_tolerance'      => $data->late_tolerance ? $data->late_tolerance . ' Minutes' : 'Not Set',
+            'created_at'          => $data->created_at->format('d F Y'),
+            'created_by'          => $data->createdBy->name,
+            'updated_by'          => $data->updatedBy->name,
+            'status'              => $data->status(),
+            'wht_detail'          => $wht_detail
         ]);
     }
 
@@ -189,13 +200,17 @@ class WorkingHoursTypeController extends Controller {
                 if($query) {
                     if($request->wht_detail) {
                         foreach($request->wht_detail as $key => $wd) {
-                            $start_time = $request->wht_start_time[$key] ? $request->wht_start_time[$key] . ':00' : null;
-                            $end_time   = $request->wht_end_time[$key] ? $request->wht_end_time[$key] . ':00' : null;
+                            $work_start_time  = $request->wht_work_start_time[$key] ? $request->wht_work_start_time[$key] . ':00' : null;
+                            $work_end_time    = $request->wht_work_end_time[$key] ? $request->wht_work_end_time[$key] . ':00' : null;
+                            $break_start_time = $request->wht_break_start_time[$key] ? $request->wht_break_start_time[$key] . ':00' : null;
+                            $break_end_time   = $request->wht_break_end_time[$key] ? $request->wht_break_end_time[$key] . ':00' : null;
 
                             WorkingHoursTypeDetail::create([
                                 'working_hours_type_id' => $query->id,
-                                'start_time'            => $start_time,
-                                'end_time'              => $end_time,
+                                'work_start_time'       => $work_start_time,
+                                'work_end_time'         => $work_end_time,
+                                'break_start_time'      => $break_start_time,
+                                'break_end_time'        => $break_end_time,
                                 'status'                => $request->wht_status[$key]
                             ]);
                         }
@@ -255,13 +270,17 @@ class WorkingHoursTypeController extends Controller {
 
                 if($query) {
                     foreach($request->wht_detail as $key => $wd) {
-                        $start_time = $request->wht_start_time[$key] ? $request->wht_start_time[$key] . ':00' : null;
-                        $end_time   = $request->wht_end_time[$key] ? $request->wht_end_time[$key] . ':00' : null;
+                        $work_start_time  = $request->wht_work_start_time[$key] ? $request->wht_work_start_time[$key] . ':00' : null;
+                        $work_end_time    = $request->wht_work_end_time[$key] ? $request->wht_work_end_time[$key] . ':00' : null;
+                        $break_start_time = $request->wht_break_start_time[$key] ? $request->wht_break_start_time[$key] . ':00' : null;
+                        $break_end_time   = $request->wht_break_end_time[$key] ? $request->wht_break_end_time[$key] . ':00' : null;
 
                         WorkingHoursTypeDetail::find($request->wht_id[$key])->update([
-                            'start_time' => $start_time,
-                            'end_time'   => $end_time,
-                            'status'     => $request->wht_status[$key]
+                            'work_start_time'  => $work_start_time,
+                            'work_end_time'    => $work_end_time,
+                            'break_start_time' => $break_start_time,
+                            'break_end_time'   => $break_end_time,
+                            'status'           => $request->wht_status[$key]
                         ]);
                     }
 

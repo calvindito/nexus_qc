@@ -321,6 +321,12 @@ Route::middleware('auth.login')->group(function() {
             Route::post('update/{id}', 'WorkingHoursChartController@update');
             Route::post('destroy', 'WorkingHoursChartController@destroy');
         });
+
+        Route::prefix('calendar')->group(function() {
+            Route::get('/', 'WorkingHoursCalendarController@index');
+            Route::get('load_data', 'WorkingHoursCalendarController@loadData');
+            Route::get('detail', 'WorkingHoursCalendarController@detail');
+        });
     });
 
     Route::prefix('order')->group(function() {
@@ -332,6 +338,16 @@ Route::middleware('auth.login')->group(function() {
             Route::post('show', 'ProductionController@show');
             Route::post('update/{id}', 'ProductionController@update');
             Route::post('destroy', 'ProductionController@destroy');
+        });
+
+        Route::prefix('process')->group(function() {
+            Route::get('/', 'ProcessController@index');
+            Route::get('datatable', 'ProcessController@datatable');
+            Route::post('create', 'ProcessController@create');
+            Route::post('show', 'ProcessController@show');
+            Route::post('update/{id}', 'ProcessController@update');
+            Route::post('change_status', 'ProcessController@changeStatus');
+            Route::post('destroy', 'ProcessController@destroy');
         });
     });
 

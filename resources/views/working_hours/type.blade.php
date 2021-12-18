@@ -38,11 +38,10 @@
                         <tr class="text-center">
                             <th><i class="icon-eye"></i></th>
                             <th>No</th>
-                            <th>ID</th>
                             <th>Type Working Hours</th>
-                            <th>Total Day</th>
-                            <th>Total Work</th>
-                            <th>Total Break</th>
+                            <th>Total Working Day</th>
+                            <th>Total Holiday</th>
+                            <th>Total Working Hours</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -72,17 +71,41 @@
                                 <span class="font-weight-bold">:</span>
                                 <span class="ml-2" id="name"></span>
                             </td>
-                            <th width="20%">Total Day</th>
-                            <td>
-                                <span class="font-weight-bold">:</span>
-                                <span class="ml-2" id="total_working_day"></span>
-                            </td>
-                        </tr>
-                        <tr>
                             <th width="20%">Late Tolerance</th>
                             <td>
                                 <span class="font-weight-bold">:</span>
                                 <span class="ml-2" id="late_tolerance"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="20%">Total Day</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="total_day"></span>
+                            </td>
+                            <th width="20%">Date Created</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="created_at"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="20%">Total Working Day</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="total_working_day"></span>
+                            </td>
+                            <th width="20%">Created By</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="created_by"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="20%">Total Holiday</th>
+                            <td>
+                                <span class="font-weight-bold">:</span>
+                                <span class="ml-2" id="total_holiday"></span>
                             </td>
                             <th width="20%">Modified By</th>
                             <td>
@@ -91,10 +114,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <th width="20%">Date Created</th>
+                            <th width="20%">Total Working Hours</th>
                             <td>
                                 <span class="font-weight-bold">:</span>
-                                <span class="ml-2" id="created_at"></span>
+                                <span class="ml-2" id="total_working_hours"></span>
                             </td>
                             <th width="20%">Status</th>
                             <td>
@@ -105,13 +128,20 @@
                     </tbody>
                 </table>
                 <div class="form-group"><hr></div>
-                <table class="table w-100">
+                <table class="table table-bordered w-100">
                     <thead class="bg-light">
-                        <tr>
-                            <th>Sequence</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                            <th>Status</th>
+                        <tr class="text-center">
+                            <th class="align-middle" rowspan="2">Day Of The Work</th>
+                            <th class="align-middle" rowspan="2">Set As</th>
+                            <th class="align-middle" colspan="2">Working Time</th>
+                            <th class="align-middle" colspan="2">Break Time</th>
+                            <th class="align-middle" rowspan="2">Total Work Hours</th>
+                        </tr>
+                        <tr class="text-center">
+                            <th class="align-middle">Start Time</th>
+                            <th class="align-middle">End Time</th>
+                            <th class="align-middle">Start Time</th>
+                            <th class="align-middle">End Time</th>
                         </tr>
                     </thead>
                     <tbody id="wht_detail"></tbody>
@@ -158,11 +188,10 @@
             columns: [
                 { name: 'detail', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'total_working_day', searchable: false, className: 'text-center align-middle' },
-                { name: 'total_work', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'total_break', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_working_day', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_holiday', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_working_hours', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
@@ -190,20 +219,27 @@
             success: function(response) {
                 loadingClose('.modal-content');
                 $('#name').html(response.name);
+                $('#total_day').html(response.total_day);
                 $('#total_working_day').html(response.total_working_day);
+                $('#total_holiday').html(response.total_holiday);
+                $('#total_working_hours').html(response.total_working_hours);
                 $('#late_tolerance').html(response.late_tolerance);
-                $('#updated_by').html(response.updated_by);
                 $('#created_at').html(response.created_at);
+                $('#created_by').html(response.created_by);
+                $('#updated_by').html(response.updated_by);
                 $('#status').html(response.status);
 
                 $.each(response.wht_detail, function(i, val) {
                     var current = i + 1;
                     $('#wht_detail').append(`
                         <tr class="` + val.class + `">
-                            <td class="align-middle">Day ` + current + `</td>
-                            <td class="align-middle">` + val.start_time + `</td>
-                            <td class="align-middle">` + val.end_time + `</td>
-                            <td class="align-middle">` + val.status + `</td>
+                            <td class="align-middle text-left">Day ` + current + `</td>
+                            <td class="align-middle text-center">` + val.status + `</td>
+                            <td class="align-middle text-center">` + val.work_start_time + `</td>
+                            <td class="align-middle text-center">` + val.work_end_time + `</td>
+                            <td class="align-middle text-center">` + val.break_start_time + `</td>
+                            <td class="align-middle text-center">` + val.break_end_time + `</td>
+                            <td class="align-middle text-center">` + val.total_work_hours + `</td>
                         </tr>
                     `);
                 });

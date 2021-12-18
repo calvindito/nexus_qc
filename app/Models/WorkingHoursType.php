@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,35 @@ class WorkingHoursType extends Model {
         'late_tolerance',
         'status'
     ];
+
+    public function totalHours()
+    {
+        $total_work_hour  = 0;
+        $total_break_hour = 0;
+        $total_all_hour   = 0;
+
+        foreach($this->workingHoursTypeDetail as $whtd) {
+            $work_start_time  = Carbon::parse($whtd->work_start_time);
+            $work_end_time    = Carbon::parse($whtd->work_end_time);
+            $break_start_time = Carbon::parse($whtd->break_start_time);
+            $break_end_time   = Carbon::parse($whtd->break_end_time);
+
+            $work_hour    = $work_start_time->diffInHours($work_end_time, false);
+            $work_minute  = $work_start_time->diffInMinutes($work_end_time);
+            $break_hour   = $break_start_time->diffInHours($break_end_time, false);
+            $break_minute = $break_start_time->diffInMinutes($break_end_time);
+
+            $total_work_hour  += $work_hour - $break_hour;
+            $total_break_hour += $break_hour;
+            $total_all_hour   += $work_hour;
+        }
+
+        return (object)[
+            'working' => $total_work_hour,
+            'break'   => $total_break_hour,
+            'all'     => $total_all_hour
+        ];
+    }
 
     public function hasRelation()
     {

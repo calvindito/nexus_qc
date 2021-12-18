@@ -35,10 +35,9 @@ class WorkingHoursChartController extends Controller {
             'working_hours_type_id',
             'start_date',
             'end_date',
-            'total_work',
-            'total_hours_worked',
-            'total_all',
-            'total_break'
+            'total_working_day',
+            'total_holiday',
+            'total_working_hours'
         ];
 
         $start  = $request->start;
@@ -99,20 +98,14 @@ class WorkingHoursChartController extends Controller {
                     $destroy = '<a href="javascript:void(0);" onclick="destroy(' . $val->id . ')" class="dropdown-item"><i class="icon-trash"></i> Delete</a>';
                 }
 
-                $total_all          = $val->workingHoursType->total_working_day;
-                $total_work         = $val->workingHoursType->workingHoursTypeDetail()->where('status', 1)->count();
-                $total_break        = $val->workingHoursType->workingHoursTypeDetail()->where('status', 2)->count();
-                $total_hours_worked = 24 * $total_work;
-
                 $response['data'][] = [
                     $nomor,
                     $val->workingHoursType->name,
-                    $val->start_date,
-                    $val->end_date,
-                    $total_work . ' Day',
-                    $total_hours_worked . ' Hours',
-                    $total_all . ' Day',
-                    $total_break . ' Day',
+                    $val->start_date ? $val->start_date : '-',
+                    $val->end_date ? $val->end_date : '-',
+                    $val->workingHoursType->workingHoursTypeDetail()->where('status', 1)->count() . ' Day',
+                    $val->workingHoursType->workingHoursTypeDetail()->where('status', 2)->count() . ' Day',
+                    $val->workingHoursType->totalHours()->working . ' Hours',
                     '
                         <div class="list-icons">
                             <div class="dropdown">
@@ -176,33 +169,57 @@ class WorkingHoursChartController extends Controller {
 
         if($data) {
             foreach($data->workingHoursTypeDetail as $key => $whtd) {
+                if($whtd->status == 1) {
+                    $total_work_hours = $whtd->differenceTime()->working[0] . ' Hours ' . $whtd->differenceTime()->working[1] . ' Minutes';
+                } else {
+                    $total_work_hours = '-';
+                }
+
+                if($start_date) {
+                    $day = '(' . date('l', strtotime("+$key day")) . ')';
+                } else {
+                    $day = '';
+                }
+
                 $wht_detail[] = [
-                    'class'      => $whtd->status == 1 ? '' : 'text-white bg-danger',
-                    'start_time' => $whtd->start_time ? date('H:i', strtotime($whtd->start_time)) : '-',
-                    'end_time'   => $whtd->end_time ? date('H:i', strtotime($whtd->end_time)) : '-',
-                    'status'     => $whtd->status()
+                    'class'            => $whtd->status == 1 ? '' : 'text-white bg-danger',
+                    'day'              => $day,
+                    'status'           => $whtd->status(),
+                    'work_start_time'  => $whtd->work_start_time ? date('H:i', strtotime($whtd->work_start_time)) : '-',
+                    'work_end_time'    => $whtd->work_end_time ? date('H:i', strtotime($whtd->work_end_time)) : '-',
+                    'break_start_time' => $whtd->break_start_time ? date('H:i', strtotime($whtd->break_start_time)) : '-',
+                    'break_end_time'   => $whtd->break_end_time ? date('H:i', strtotime($whtd->break_end_time)) : '-',
+                    'total_work_hours' => $total_work_hours
                 ];
             }
         }
 
+        if($data) {
+            if($start_date) {
+                $end_date = date('d/m/Y', strtotime('+' . $data->total_working_day . ' Day', strtotime($start_date)));
+            } else {
+                $end_date = '-';
+            }
+        } else {
+            $end_date = '-';
+        }
+
         return response()->json([
-            'end_date'           => $data ? date('d/m/Y', strtotime('+' . $data->total_working_day . ' day', strtotime($start_date))) : '',
-            'total_work'         => $data ? $total_work . ' Day' : '',
-            'total_hours_worked' => $data ? $total_hours_worked . ' Hours' : '',
-            'total_all'          => $data ? $total_all . ' Day' : '',
-            'total_break'        => $data ? $total_break . ' Day' : '',
-            'wht_detail'         => $wht_detail
+            'end_date'            => $end_date,
+            'total_day'           => $data->total_working_day . ' Day',
+            'total_working_day'   => $data->workingHoursTypeDetail()->where('status', 1)->count() . ' Day',
+            'total_holiday'       => $data->workingHoursTypeDetail()->where('status', 2)->count() . ' Day',
+            'total_working_hours' => $data->totalHours()->working . ' Hours',
+            'wht_detail'          => $wht_detail
         ]);
     }
 
     public function create(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'working_hours_type_id' => 'required',
-            'start_date'            => 'required'
+            'working_hours_type_id' => 'required'
         ], [
-            'working_hours_type_id.required' => 'Please select a type working hours.',
-            'start_date.required'            => 'Start date cannot be empty.'
+            'working_hours_type_id.required' => 'Please select a type working hours.'
         ]);
 
         if($validation->fails()) {
@@ -211,7 +228,6 @@ class WorkingHoursChartController extends Controller {
                 'error'  => $validation->errors()
             ];
         } else {
-            $wht   = WorkingHoursType::find($request->working_hours_type_id);
             $query = WorkingHoursChart::create([
                 'working_hours_type_id' => $request->working_hours_type_id,
                 'company_id'            => $request->company_id,
@@ -219,9 +235,7 @@ class WorkingHoursChartController extends Controller {
                 'division_id'           => $request->division_id,
                 'departement_id'        => $request->departement_id,
                 'section_id'            => $request->section_id,
-                'line_id'               => $request->line_id,
-                'start_date'            => $request->start_date,
-                'end_date'              => date('Y-m-d', strtotime('+' . $wht->total_working_day . ' day', strtotime($request->start_date)))
+                'line_id'               => $request->line_id
             ]);
 
             if($query) {

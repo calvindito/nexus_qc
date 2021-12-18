@@ -1,11 +1,11 @@
-<body onload="preloader()">
+<body>
 	<div class="page-content">
 		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
 			<div class="navbar navbar-dark bg-dark-100 navbar-static border-0" style="height:55px;">
 				<div class="navbar-brand flex-fill wmin-0 text-center">
 					<a href="{{ url('dashboard') }}" class="d-inline-block">
-						<h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">Nexus Quality Control</h5>
-						<h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:18.5px;">QC</h5>
+						<h5 class="sidebar-resize-hide mb-0 text-white text-uppercase font-weight-bold" style="font-size:17.5px;">Nexus Quality Control</h5>
+						<h5 class="sidebar-resize-show mb-0 text-white text-uppercase font-weight-bold" style="font-size:17.5px;">QC</h5>
 					</a>
 				</div>
 				<ul class="navbar-nav align-self-center ml-auto sidebar-resize-hide">
@@ -180,6 +180,9 @@
                                 <li class="nav-item">
                                     <a href="{{ url('working_hours/chart') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'chart' ? 'active' : '' }}">Chart</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('working_hours/calendar') }}" class="nav-link {{ Request::segment(1) == 'working_hours' && Request::segment(2) == 'calendar' ? 'active' : '' }}">Calendar</a>
+                                </li>
 							</ul>
 						</li>
                         <li class="nav-item nav-item-submenu {{ Request::segment(1) == 'order' ? 'nav-item-expanded nav-item-open' : '' }}">
@@ -190,6 +193,9 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Production Order">
                                 <li class="nav-item">
                                     <a href="{{ url('order/production') }}" class="nav-link {{ Request::segment(1) == 'order' && Request::segment(2) == 'production' ? 'active' : '' }}">Production</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('order/process') }}" class="nav-link {{ Request::segment(1) == 'order' && Request::segment(2) == 'process' ? 'active' : '' }}">Process</a>
                                 </li>
 							</ul>
 						</li>

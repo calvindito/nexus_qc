@@ -35,9 +35,11 @@ class WorkingHoursTypeSeeder extends Seeder
             WorkingHoursTypeDetail::insert([
                 'id'                    => $whtd['id'],
                 'working_hours_type_id' => $whtd['working_hours_type_id'],
-                'start_time'            => $whtd['start_time'],
-                'end_time'              => $whtd['end_time'],
-                'shift'                 => $whtd['status'],
+                'work_start_time'       => $whtd['work_start_time'],
+                'work_end_time'         => $whtd['work_end_time'],
+                'break_start_time'      => $whtd['break_start_time'],
+                'break_end_time'        => $whtd['break_end_time'],
+                'status'                => $whtd['status'],
                 'created_at'            => $whtd['created_at'],
                 'updated_at'            => $whtd['updated_at']
             ]);

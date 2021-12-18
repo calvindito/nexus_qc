@@ -105,7 +105,7 @@
                 </div>
                 <div class="card" style="display:none;" id="content_detail">
                     <div class="card-header bg-transparent header-elements-sm-inline py-sm-0">
-                        <h6 class="card-title py-sm-3">Detail Data</h6>
+                        <h6 class="card-title py-sm-3">Work Schedule</h6>
                         <div class="header-elements">
                             <ul class="pagination pagination-pager justify-content-between">
                                 <li class="page-item">
@@ -163,10 +163,9 @@
                                     <th>Type Working Hours</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
-                                    <th>Total Work</th>
-                                    <th>Total Hours Worked</th>
-                                    <th>Total All</th>
-                                    <th>Total Break</th>
+                                    <th>Total Working Day</th>
+                                    <th>Total Holiday</th>
+                                    <th>Total Working Hours</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -178,7 +177,7 @@
     </div>
 
 <div class="modal fade" id="modal_form" data-backdrop="static" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-light">
                 <h5 class="modal-title" id="exampleModalLabel">Form</h5>
@@ -210,7 +209,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Start Date :<span class="text-danger">*</span></label>
+                                <label>Start Date :</label>
                                 <input type="date" name="start_date" id="start_date" class="form-control" min="{{ date('Y-m-d') }}" oninput="getWhtDetail()">
                             </div>
                         </div>
@@ -222,37 +221,44 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Total Work :</label>
-                                <input type="text" id="total_work" class="form-control" disabled>
+                                <label>Total Day :</label>
+                                <input type="text" id="total_day" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Total Hours Worked :</label>
-                                <input type="text" id="total_hours_worked" class="form-control" disabled>
+                                <label>Total Working Day :</label>
+                                <input type="text" id="total_working_day" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Total All :</label>
-                                <input type="text" id="total_all" class="form-control" disabled>
+                                <label>Total Holiday :</label>
+                                <input type="text" id="total_holiday" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Total Break :</label>
-                                <input type="text" id="total_break" class="form-control" disabled>
+                                <label>Total Working Hours :</label>
+                                <input type="text" id="total_working_hours" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
                     <div class="form-group"><hr></div>
-                    <table class="table w-100">
+                    <table class="table table-bordered w-100">
                         <thead class="bg-light">
-                            <tr>
-                                <th>Sequence</th>
-                                <th>In</th>
-                                <th>Out</th>
-                                <th>Status</th>
+                            <tr class="text-center">
+                                <th class="align-middle" rowspan="2">Day Of The Work</th>
+                                <th class="align-middle" rowspan="2">Set As</th>
+                                <th class="align-middle" colspan="2">Working Time</th>
+                                <th class="align-middle" colspan="2">Break Time</th>
+                                <th class="align-middle" rowspan="2">Total Work Hours</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th class="align-middle">Start Time</th>
+                                <th class="align-middle">End Time</th>
+                                <th class="align-middle">Start Time</th>
+                                <th class="align-middle">End Time</th>
                             </tr>
                         </thead>
                         <tbody id="wht_detail_data"></tbody>
@@ -363,19 +369,22 @@
                 success: function(response) {
                     loadingClose('.modal-content');
                     $('#end_date').val(response.end_date);
-                    $('#total_work').val(response.total_work);
-                    $('#total_hours_worked').val(response.total_hours_worked);
-                    $('#total_all').val(response.total_all);
-                    $('#total_break').val(response.total_break);
+                    $('#total_day').val(response.total_day);
+                    $('#total_working_day').val(response.total_working_day);
+                    $('#total_holiday').val(response.total_holiday);
+                    $('#total_working_hours').val(response.total_working_hours);
 
                     $.each(response.wht_detail, function(i, val) {
                         var current = i + 1;
                         $('#wht_detail_data').append(`
                             <tr class="` + val.class + `">
-                                <td class="align-middle">Day ` + current + `</td>
-                                <td class="align-middle">` + val.start_time + `</td>
-                                <td class="align-middle">` + val.end_time + `</td>
-                                <td class="align-middle">` + val.status + `</td>
+                                <td class="align-middle text-left">Day ` + current + ` ` + val.day + `</td>
+                                <td class="align-middle text-center">` + val.status + `</td>
+                                <td class="align-middle text-center">` + val.work_start_time + `</td>
+                                <td class="align-middle text-center">` + val.work_end_time + `</td>
+                                <td class="align-middle text-center">` + val.break_start_time + `</td>
+                                <td class="align-middle text-center">` + val.break_end_time + `</td>
+                                <td class="align-middle text-center">` + val.total_work_hours + `</td>
                             </tr>
                         `);
                     });
@@ -388,10 +397,10 @@
         } else {
             $('#wht_detail_data').html('');
             $('#end_date').val(null);
-            $('#total_work').val(null);
-            $('#total_hours_worked').val(null);
-            $('#total_all').val(null);
-            $('#total_break').val(null);
+            $('#total_day').val(null);
+            $('#total_working_day').val(null);
+            $('#total_holiday').val(null);
+            $('#total_working_hours').val(null);
         }
     }
 
@@ -412,6 +421,7 @@
 
     function toShow() {
         reset();
+        $('#start_date').attr('disabled', false);
         $('#modal_form').modal('show');
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -422,13 +432,14 @@
 
     function reset() {
         $('#working_hours_type_id').val(null).change();
-        $('#start_date').val('{{ date("Y-m-d") }}');
+        $('#start_date').val(null);
+        $('#start_date').attr('disabled', true);
         $('#wht_detail_data').html('');
         $('#end_date').val(null);
-        $('#total_work').val(null);
-        $('#total_hours_worked').val(null);
-        $('#total_all').val(null);
-        $('#total_break').val(null);
+        $('#total_day').val(null);
+        $('#total_working_day').val(null);
+        $('#total_holiday').val(null);
+        $('#total_working_hours').val(null);
         $('#validation_alert').hide();
         $('#validation_content').html('');
     }
@@ -476,11 +487,10 @@
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
                 { name: 'working_hours_type_id', className: 'text-center align-middle' },
                 { name: 'start_date', searchable: false, className: 'text-center align-middle' },
-                { name: 'end_date', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'total_work', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'total_hours_worked', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'total_all', orderable: false, searchable: false, className: 'text-center align-middle' },
-                { name: 'total_break', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'end_date', searchable: false, className: 'text-center align-middle' },
+                { name: 'total_working_day', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_holiday', orderable: false, searchable: false, className: 'text-center align-middle' },
+                { name: 'total_working_hours', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
             ]
         });

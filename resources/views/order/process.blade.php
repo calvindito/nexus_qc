@@ -4,7 +4,7 @@
             <div class="page-title d-flex">
                 <h4>
                     <a href="{{ url()->previous() }}" class="text-dark"><i class="icon-arrow-left52 mr-2"></i></a>
-                    <span class="font-weight-semibold">Type Product</span>
+                    <span class="font-weight-semibold">Process</span>
                 </h4>
             </div>
             <div class="header-elements">
@@ -19,9 +19,8 @@
                         <div class="d-inline">
                             <button type="button" class="btn btn-teal ml-1" data-toggle="dropdown"><i class="icon-menu"></i></button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ url('download/pdf/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                <a href="{{ url('product/type/bulk') }}" class="dropdown-item"><i class="icon-archive"></i> Bulk Upload</a>
-                                <a href="{{ url('download/excel/type_product') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
+                                <a href="{{ url('download/pdf/process') }}" target="_blank" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                <a href="{{ url('download/excel/process') }}" target="_blank" class="dropdown-item"><i class="icon-file-excel"></i> Export Excel</a>
                             </div>
                         </div>
                     </div>
@@ -32,8 +31,8 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{ url('dashboard') }}" class="breadcrumb-item">Dashboard</a>
-                    <a href="javascript:void(0);" class="breadcrumb-item">Product</a>
-                    <span class="breadcrumb-item active">Type</span>
+                    <a href="javascript:void(0);" class="breadcrumb-item">Order</a>
+                    <span class="breadcrumb-item active">Process</span>
                 </div>
             </div>
         </div>
@@ -46,10 +45,7 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>ID</th>
-                            <th>Group</th>
-                            <th>Type Product</th>
-                            <th>Description</th>
-                            <th>SMV Global</th>
+                            <th>Process</th>
                             <th>Status</th>
                             <th>Modified By</th>
                             <th>Date Created</th>
@@ -76,25 +72,8 @@
                         <ul id="validation_content" class="mb-0"></ul>
                     </div>
                     <div class="form-group">
-                        <label>Group :<span class="text-danger">*</span></label>
-                        <select name="product_group_id" id="product_group_id" class="select2">
-                            <option value="">-- Choose --</option>
-                            @foreach($group as $g)
-                                <option value="{{ $g->id }}">{{ $g->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Type Product :<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter type product">
-                    </div>
-                    <div class="form-group">
-                        <label>SMV Global :<span class="text-danger">*</span></label>
-                        <input type="number" name="smv_global" id="smv_global" class="form-control" min="1" placeholder="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Description :</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Enter description" style="resize:none;"></textarea>
+                        <label>Process :<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter process">
                     </div>
                     <div class="form-group text-center mt-4">
                         <div class="form-check form-check-inline">
@@ -155,7 +134,6 @@
 
     function reset() {
         $('#form_data').trigger('reset');
-        $('#product_group_id').val(null).change();
         $('input[name="status"][value="1"]').prop('checked', true);
         $('#validation_alert').hide();
         $('#validation_content').html('');
@@ -178,7 +156,7 @@
             iDisplayInLength: 10,
             order: [[1, 'asc']],
             ajax: {
-                url: '{{ url("product/type/datatable") }}',
+                url: '{{ url("order/process/datatable") }}',
                 type: 'GET',
                 beforeSend: function() {
                     loadingOpen('.dataTables_scroll');
@@ -194,21 +172,18 @@
             columns: [
                 { name: 'no', orderable: false, searchable: false, className: 'text-center align-middle' },
                 { name: 'id', searchable: false, className: 'text-center align-middle' },
-                { name: 'product_group_id', className: 'text-center align-middle' },
                 { name: 'name', className: 'text-center align-middle' },
-                { name: 'description', className: 'text-center align-middle' },
-                { name: 'smv_global', className: 'text-center align-middle' },
                 { name: 'status', searchable: false, className: 'text-center align-middle' },
                 { name: 'updated_by', className: 'text-center align-middle' },
                 { name: 'created_at', searchable: false, className: 'text-center align-middle' },
-                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle tbody-action' }
+                { name: 'action', orderable: false, searchable: false, className: 'text-center align-middle' }
             ]
         });
     }
 
     function create() {
         $.ajax({
-            url: '{{ url("product/type/create") }}',
+            url: '{{ url("order/process/create") }}',
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -256,7 +231,7 @@
     function show(id) {
         toShow();
         $.ajax({
-            url: '{{ url("product/type/show") }}',
+            url: '{{ url("order/process/show") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -270,10 +245,7 @@
             },
             success: function(response) {
                 loadingClose('.modal-content');
-                $('#product_group_id').val(response.product_group_id).change();
                 $('#name').val(response.name);
-                $('#smv_global').val(response.smv_global);
-                $('#description').val(response.description);
                 $('input[name="status"][value="' + response.status + '"]').prop('checked', true);
                 $('#btn_update').attr('onclick', 'update(' + id + ')');
             },
@@ -291,7 +263,7 @@
 
     function update(id) {
         $.ajax({
-            url: '{{ url("product/type/update") }}' + '/' + id,
+            url: '{{ url("order/process/update") }}' + '/' + id,
             type: 'POST',
             dataType: 'JSON',
             data: $('#form_data').serialize(),
@@ -338,7 +310,7 @@
 
     function changeStatus(id, value) {
         $.ajax({
-            url: '{{ url("product/type/change_status") }}',
+            url: '{{ url("order/process/change_status") }}',
             type: 'POST',
             dataType: 'JSON',
             data: {
@@ -386,7 +358,7 @@
                 }),
                 Noty.button('Delete', 'btn btn-danger btn-sm ml-1', function() {
                     $.ajax({
-                        url: '{{ url("product/type/destroy") }}',
+                        url: '{{ url("order/process/destroy") }}',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

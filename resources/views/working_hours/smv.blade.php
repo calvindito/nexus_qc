@@ -73,28 +73,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Style :<span class="text-danger">*</span></label>
-                                <select name="style_id" id="style_id" class="select2" onchange="getDataStyle()">
-                                    <option value="">-- Choose --</option>
-                                    @foreach($style as $s)
-                                        <option value="{{ $s->id }}">{{ $s->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>SMV Target :<span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number" name="target" id="target" class="form-control" placeholder="0">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Minutes</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <label>Brand :</label>
                                 <input type="text" id="brand" class="form-control" disabled>
                             </div>
@@ -113,8 +91,30 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label>Style :<span class="text-danger">*</span></label>
+                                <select name="style_id" id="style_id" class="select2" onchange="getDataStyle()">
+                                    <option value="">-- Choose --</option>
+                                    @foreach($style as $s)
+                                        <option value="{{ $s->id }}">{{ $s->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label>SMV Global :</label>
                                 <input type="text" id="smv_global" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>SMV Target :<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="number" name="target" id="target" class="form-control" min="1" placeholder="0">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Minutes</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
